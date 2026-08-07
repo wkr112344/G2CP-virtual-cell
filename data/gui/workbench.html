@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>虚拟细胞工作台 · 实时计算版</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--line:#e5e9f2;--line2:#d7dde8;--txt:#1c2433;--sub:#5b6675;--mut:#8a94a6;--acc:#2563eb;--acc2:#1e40af;--acc-soft:#eaf1ff;--teal:#0d9488;--teal-soft:#e6f7f5;--up:#e11d48;--dn:#16a34a;--amber:#b45309;--r-sm:8px;--r-md:12px;--r-lg:16px;--sh:0 1px 2px rgba(16,24,40,.05),0 1px 3px rgba(16,24,40,.08);--sh-lg:0 4px 16px rgba(16,24,40,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Inter","SF Pro Text",-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--txt);overflow:hidden;display:flex;flex-direction:column;font-size:13px}
+/* 顶部栏 */
+.topbar{display:flex;align-items:center;gap:14px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0;position:relative;z-index:5}
+.brand{font-size:15.5px;font-weight:700;color:var(--txt);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.brand .logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#0d9488);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;box-shadow:0 2px 6px rgba(37,99,235,.3)}
+.brand small{font-size:10.5px;color:var(--mut);font-weight:400}
+.tabs{display:flex;gap:4px;flex:1;justify-content:center;background:var(--bg);padding:4px;border-radius:12px;max-width:660px;margin:0 auto}
+.tab{padding:7px 14px;border-radius:9px;font-size:12.5px;color:var(--sub);cursor:pointer;user-select:none;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--acc2);background:#fff}
+.tab.active{background:#fff;color:var(--acc2);font-weight:600;box-shadow:0 1px 3px rgba(16,24,40,.10)}
+.cellbox{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.cellbox label{font-size:11.5px;color:var(--mut)}
+.cellbox select{padding:6px 10px;border:1px solid var(--line);border-radius:9px;font-size:12.5px;background:var(--card);color:var(--txt);outline:none;cursor:pointer}
+.cellbox select:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.live{display:inline-block;font-size:10.5px;background:var(--teal-soft);color:#0f766e;border-radius:999px;padding:3px 11px;font-weight:500}
+.live::before{content:"●";margin-right:5px;font-size:9px}
+/* 主体三栏 */
+.body{flex:1;display:flex;gap:14px;padding:14px;min-height:0}
+.pane{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh);overflow-y:auto;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.pane::-webkit-scrollbar{width:8px}
+.pane::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+.left{width:300px;flex-shrink:0;padding:18px;display:flex;flex-direction:column}
+.center{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0}
+.right{width:392px;flex-shrink:0;padding:18px}
+/* 左栏输入 */
+.left label{display:block;font-size:11.5px;color:var(--sub);margin:12px 0 5px;font-weight:500}
+.left select,.left textarea{width:100%;padding:8px 11px;border:1px solid var(--line);border-radius:9px;font-size:12.5px;background:#fbfcfe;color:var(--txt);outline:none;transition:border-color .15s,box-shadow .15s}
+.left select:focus,.left textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.left textarea{font-family:Consolas,monospace;font-size:11.5px;resize:vertical;line-height:1.6}
+.left button{width:100%;margin-top:16px;padding:11px;border:none;border-radius:10px;background:var(--acc);color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 1px 2px rgba(37,99,235,.35)}
+.left button:hover{background:var(--acc2);transform:translateY(-1px);box-shadow:0 3px 8px rgba(37,99,235,.35)}
+.left button:active{transform:translateY(0)}
+.left button:disabled{background:#9aa3af;box-shadow:none;cursor:wait}
+.left button.amber{background:var(--amber)}
+.left button.amber:hover{background:#92400e}
+.left .grp{border-top:1px dashed var(--line);margin-top:16px;padding-top:14px}
+.left .grp h4{font-size:12px;color:var(--sub);margin-bottom:4px;letter-spacing:.3px}
+.left .pin{padding-bottom:4px}
+/* 结果条 */
+.stats{margin-top:14px;font-size:12.5px;color:var(--sub);background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:11px 14px;line-height:1.8;flex-shrink:0;border-left:3px solid var(--acc)}
+.stats b{color:var(--acc2)}
+/* 画布 */
+.net{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);flex:1;overflow:hidden;position:relative;min-height:0}
+.net svg{width:100%;height:100%}
+.vtool{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 12px;flex-shrink:0;box-shadow:var(--sh)}
+.vtitle{font-size:12px;color:var(--sub);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+.vbtns{display:flex;gap:6px}
+.vbtn{padding:4px 11px;border:1px solid var(--line);border-radius:8px;background:#fbfcfe;color:var(--txt);font-size:11.5px;cursor:pointer;transition:all .15s}
+.vbtn:hover{border-color:var(--acc);color:var(--acc2);background:var(--acc-soft)}
+.node .nb{transition:all .15s}
+.node:hover .nb{filter:drop-shadow(0 3px 6px rgba(16,24,40,.16));stroke-width:2}
+/* 右栏详情 */
+.right h2{font-size:15px;color:var(--txt);margin-bottom:12px;padding-left:10px;border-left:4px solid var(--acc);font-weight:600}
+.right h3{font-size:12.5px;color:var(--sub);margin:16px 0 7px;letter-spacing:.4px;font-weight:600}
+.right .kv{font-size:12.5px;margin:7px 0;color:var(--txt);line-height:1.8}
+.right .kv b{color:var(--acc2)}
+.right ul{margin:4px 0 4px 16px;font-size:12.5px;line-height:1.85}
+.right li b{color:var(--up)}
+/* 通路图/条形图 */
+.bar{height:14px;border-radius:4px;margin:2px 0;position:relative;min-width:2px}
+.bar span{position:absolute;right:6px;top:0;font-size:10.5px;color:#fff;line-height:14px}
+.bar.up{background:linear-gradient(90deg,#fda4af,#e11d48)}
+.bar.dn{background:linear-gradient(90deg,#86efac,#16a34a)}
+.placeh{color:var(--mut);font-size:13px;padding:24px;text-align:center;line-height:2}
+.legend{position:absolute;bottom:10px;left:14px;font-size:11px;color:var(--sub);background:#ffffffd9;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.node{cursor:pointer}
+.node:hover .nb{filter:drop-shadow(0 0 4px rgba(12,68,124,.5))}
+.node.sel .nb{filter:drop-shadow(0 0 6px #e67e22);stroke:#e67e22;stroke-width:2.5}
+.edge{stroke:#8a94a6;stroke-width:1.8;fill:none}
+.edge-label{font-size:10.5px;fill:#5b6472;text-anchor:middle}
+.node-text{font-size:11.5px;fill:#fff;text-anchor:middle;font-weight:600}
+.node-sub{font-size:9px;fill:#fff;text-anchor:middle;opacity:.88}
+.badge{font-size:9px;fill:#fff;text-anchor:middle;font-weight:700}
+.mic{font-size:15px;text-anchor:middle;font-weight:700}
+.mini{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px}
+.mini svg{width:100%}
+.mol3d{height:260px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:#fbfcfe}
+.parambox{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
+.parambox table{width:100%;border-collapse:collapse}
+.parambox td{padding:4px 6px;border-bottom:1px solid #e3e6ea;font-size:12px}
+.parambox td:first-child{color:var(--sub)}
+.cas-struct{background:var(--acc-soft);border:1px solid #b5d4f4;border-radius:10px;padding:11px;font-size:12px;color:#0c447c;line-height:1.8}
+</style></head><body>
+<div class="topbar">
+  <div class="brand"><span class="logo">🧬</span>虚拟细胞工作台<small>UniPert-G2CP · 实时推理</small></div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-tab="drug">💊 药物预测</div>
+    <div class="tab" data-tab="gene">🧬 基因扰动</div>
+    <div class="tab" data-tab="custom">⚡ 未知分子</div>
+    <div class="tab" data-tab="interact">🔗 互作分析</div>
+    <div class="tab" data-tab="cascade">⛓ 扰动传播</div>
+  </div>
+  <div class="cellbox">
+    <label>细胞系</label>
+    <select id="cell"></select>
+  </div>
+  <span class="live" id="liveTag">● 实时计算</span>
+</div>
+<div class="body">
+  <aside class="pane left">
+    <input type="hidden" id="ptype" value="drug">
+    <div class="pin" id="pane-drug">
+      <label id="drugLab">药物（输入或选择，32,039 个）</label>
+      <input id="drug" list="drugList" placeholder="输入药名...">
+      <datalist id="drugList"></datalist>
+    </div>
+    <div class="pin" id="pane-gene" style="display:none">
+      <label id="geneLab">基因（输入或选择，4,994 个）</label>
+      <input id="gene" list="geneList" placeholder="输入基因符号...">
+      <datalist id="geneList"></datalist>
+    </div>
+    <div class="pin" id="pane-custom" style="display:none">
+      <div class="grp">
+        <h4>自定义输入 · 未知分子实时计算</h4>
+        <label>输入类型</label>
+        <select id="cmode">
+          <option value="drug">未知药物（SMILES）</option>
+          <option value="protein">未知蛋白（氨基酸序列）</option>
+          <option value="interact_dp">互作：药物 ↔ 蛋白</option>
+          <option value="interact_pp">互作：蛋白 ↔ 蛋白</option>
+        </select>
+        <label id="labA">SMILES（任意分子结构式）</label>
+        <textarea id="cA" rows="3" placeholder="如 CC1CCC2CC3CC(C(=CC=CC=CC4=CC(=O)C5(CC(C(=C5C(=O)C4=O)OC)OC)C(=O)O3)OC)C(=O)C2C1"></textarea>
+        <label id="labB" style="display:none">第二输入（蛋白序列）</label>
+        <textarea id="cB" rows="3" style="display:none" placeholder="粘贴蛋白氨基酸序列（≥20 aa）"></textarea>
+        <button id="runC" class="amber">⚡ 实时计算</button>
+      </div>
+    </div>
+    <div class="pin" id="pane-cascade" style="display:none">
+      <div class="grp">
+        <h4>扰动传播 · 摄像头链</h4>
+        <label>输入类型</label>
+        <select id="casType">
+          <option value="drug">药物（32,039 个）</option>
+          <option value="smiles">未知药物（SMILES 实时计算）</option>
+          <option value="gene">基因（敲除）</option>
+          <option value="protein">蛋白/肽（氨基酸序列）</option>
+        </select>
+        <label id="casLab">药物（32,039 个）</label>
+        <select id="casDrug"></select>
+        <textarea id="casValue" rows="3" style="display:none" placeholder="基因符号（如 CDKN1A）或蛋白/肽序列（≥20 aa）；SMILES 如 CC1CCC2CC3CC(C(=CC=CC=CC4=CC(=O)C5(CC(C(=C5C(=O)C4=O)OC)OC)C(=O)O3)OC)C(=O)C2C1"></textarea>
+        <button id="runCas" class="amber">⛓ 生成扰动传播链</button>
+      </div>
+    </div>
+    <button id="run">▶ 运行预测</button>
+    <div class="stats" id="stats">选择细胞系与扰动后点击运行。<br>模型会<b>当场计算</b>该扰动在该细胞系中的表达变化与靶点检索。</div>
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);margin-top:8px;cursor:pointer"><input type="checkbox" id="filtNoise" onchange="filtNoiseChanged()"> 过滤泛应激基因（HLA / 核糖体）</label>
+  </aside>
+  <main class="pane center">
+    <div class="vtool">
+      <span class="vtitle" id="vtitle">通路视图</span>
+      <span class="vbtns">
+        <button class="vbtn" onclick="viewZoom(1.25)" title="放大">＋ 放大</button>
+        <button class="vbtn" onclick="viewZoom(0.8)" title="缩小">－ 缩小</button>
+        <button class="vbtn" onclick="viewReset()" title="重置视图">⟳ 重置</button>
+      </span>
+    </div>
+    <div class="net">
+      <svg id="net" viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker></defs>
+      </svg>
+      <div class="legend" id="legend">实线=激活 ｜ 虚线=抑制 ｜ <span style="color:#c0392b">P</span>=磷酸化 ｜ ⚡=催化/结合</div>
+    </div>
+  </main>
+  <aside class="pane right" id="detail">
+    <div class="placeh">◉ 选择扰动后点击「运行」<br><br>通路图 / 预测网络中的每个节点都可以点开：<br>· 蛋白功能 / 结构域 / 修饰位点<br>· 与上下游的互作机制<br>· 实时计算的预测靶点与表达变化</div>
+  </aside>
+</div>
+
+<script src="vendor/3Dmol-min.js"></script>
+<script src="pathways_data.js"></script>
+<script src="predictions.js"></script>
+<script>
+let CELLS=["MCF7","A549","HEPG2"];
+const API = location.origin;
+// 泛应激/管家基因黑名单（LINCS 数据中普遍上调，遮挡扰动特异性信号）
+const NOISE_GENES = new Set([...Array.from({length:30},(_,i)=>'HLA-'+String.fromCharCode(65+i)).filter(g=>g.length===5),
+  'B2M','TAP1','TAP2','PSMB8','PSMB9','RPL3','RPL4','RPL5','RPL6','RPL7','RPL8','RPL9',
+  'RPL10','RPL11','RPL12','RPL13','RPL14','RPL15','RPL18','RPL19','RPL21','RPL22','RPL23',
+  'RPL24','RPL26','RPL27','RPL28','RPL29','RPL30','RPL31','RPL32','RPLP0','RPLP1','RPLP2',
+  'RPS2','RPS3','RPS4','RPS5','RPS6','RPS8','RPS9','RPS10','RPS11','RPS12','RPS14','RPS15',
+  'RPS16','RPS17','RPS18','RPS19','RPS20','RPS21','RPS24','RPS25','RPS27','RPS28','RPS29',
+  'GAPDH','ACTB','ACTG1','TUBA1A','TUBA1B','EEF1A1','EEF1A2','HSP90AA1','HSPA8','FTL']);
+function filtNoiseChanged(){ if(curDrug&&curPath) renderLive(lastLiveData,curDrug,curPath,lastLiveCell); }
+function filterNoise(genes){ const on=document.getElementById('filtNoise')?.checked; return on?genes.filter(x=>!NOISE_GENES.has(x.g)):genes; }
+const PRED = (typeof PREDICTIONS!=="undefined")?PREDICTIONS:{};
+const DRUGS = Object.keys(PRED).length?Object.keys(PRED):[];
+const DRUG_META=(typeof DRUG_LIST!=="undefined")?DRUG_LIST:{};
+
+fetch(API+"/cells").then(r=>r.json()).then(j=>{
+  CELLS=(j.cells||[]).sort();
+  fillCells();
+  fillDrugs();
+}).catch(()=>{ fillCells(); fillDrugs(); fillGenes(); });
+
+function fillCells(){
+  const sel=document.getElementById("cell");
+  sel.innerHTML=CELLS.map((c,i)=>`<option value="${i}">${c}</option>`).join("");
+}
+
+function drugPathway(name){
+  if(DRUG_PATHWAY_HINT[name]) return DRUG_PATHWAY_HINT[name];
+  const anno=(PRED[name]&&Object.values(PRED[name])[0])||{};
+  const t=(anno.target_anno||"").toLowerCase();
+  if(/hdac|histone deacetylase/.test(t))return "hdac";
+  if(/egfr|erbb|her2|raf|mek|mapk|ras/.test(t))return "mapk";
+  if(/jak|stat/.test(t))return "jakstat";
+  if(/pi3k|akt|mtor|pten/.test(t))return "pi3k";
+  if(/pka|camp|adcy|pde/.test(t))return "pka";
+  return null;
+}
+
+let curPath=null, curDrug=null, net=null;
+function getNet(){ if(!net) net=document.getElementById("net"); return net; }
+const NS="http://www.w3.org/2000/svg";
+/* 本地 31 个真实 PDB 结构（蛋白符号 → PDB ID），用于节点"3D"角标 */
+const PDB_MAP={ADRB2:"2RH1",GNAS:"1AZT",ADCY:"1CJK",PRKAR2A:"1CX4",PRKACA:"1ATP",CREB1:"1DH3",EGFR:"1M17",GRB2:"1GRI",SOS1:"1XDW",KRAS:"1CRR",BRAF:"4MNF",MAP2K1:"3SLS",MAPK1:"1TVO",ELK1:"1DUX",IGF1R:"1K3A",PIK3CA:"4JPS",AKT1:"3CQW",MTOR:"4JSN",IFNAR:"IFNAR1",JAK1:"4L00",JAK2:"2B7A",STAT1:"1BF5",STAT3:"1BG1",HDAC1:"4BKX",HDAC2:"4LXZ",EP300:"4PZR",COMPLEX_PKA:"2QCS",COMPLEX_RASRAF:"4G0N",COMPLEX_EGFREXTRA:"1IVO",COMPLEX_CREBCBP:"1KDX",COMPLEX_JAK2:"4FVP"};
+/* 画布视图控制（ChimeraX 风格：放大/缩小/重置） */
+function viewZoom(f){
+  if(!net)return;
+  const vb=net.viewBox.baseVal;
+  const nw=Math.min(2600,Math.max(300,vb.width*f)), nh=Math.min(1800,Math.max(220,vb.height*f));
+  const cx=vb.x+vb.width/2, cy=vb.y+vb.height/2;
+  getNet()?.setAttribute("viewBox",`${Math.max(0,cx-nw/2)} ${Math.max(0,cy-nh/2)} ${nw} ${nh}`);
+}
+function viewReset(){ if(net) getNet()?.setAttribute("viewBox","0 0 900 640"); }
+function clearSvg(){getNet().innerHTML=`<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker></defs>`;}
+const col={GPCR:"#8e44ad","G 蛋白":"#8e44ad",受体酪氨酸激酶:"#8e44ad",细胞因子受体:"#8e44ad",酶:"#16a085","丝/苏氨酸激酶":"#16a085","酪氨酸激酶":"#16a085","双特异性激酶":"#16a085",激酶:"#16a085",激酶调节亚基:"#16a085",激酶复合物:"#16a085",接头蛋白:"#2980b9","小 G 蛋白":"#2980b9","GEF":"#2980b9",接头:"#2980b9",第二信使:"#e67e22",膜脂质第二信使:"#e67e22",脂质激酶:"#16a085",转录因子:"#c0392b","组蛋白修饰酶":"#7f8c8d",染色质:"#7f8c8d",表观酶:"#7f8c8d",基因表达:"#27ae60"};
+function esc(s){return String(s??"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+/* 提取修饰位点徽章：Ser133 → S133 */
+function siteBadges(node){
+  const out=[];
+  (node.sites||[]).forEach(s=>{
+    const m=s.match(/\b(Ser|Thr|Tyr|Arg|Gly|Gln|Cys|Lys|Val|Leu|Asp|Glu)(\d+)/);
+    if(m){ const aa={Ser:"S",Thr:"T",Tyr:"Y",Arg:"R",Gly:"G",Gln:"Q",Cys:"C",Lys:"K",Val:"V",Leu:"L",Asp:"D",Glu:"E"}[m[1]]||m[1]; out.push(aa+m[2]+(/磷酸化|自磷酸化/.test(s)?"-P":"")); }
+  });
+  return out.slice(0,3);
+}
+
+/* 模型预测的蛋白影响网络（不查模板：中心=敲除基因，一圈=模型预测受影响的蛋白） */
+function renderPredicted(gene, up, down){
+  clearSvg(); curPath=null; curDrug=gene+"（敲除）";
+  const W=900,H=640,cx=W/2,cy=H/2,R=215;
+  const gc=document.createElementNS(NS,"g");
+  gc.setAttribute("transform",`translate(${cx},${cy})`);
+  const gr=document.createElementNS(NS,"rect");
+  gr.setAttribute("class","nb");gr.setAttribute("x",-95);gr.setAttribute("y",-30);
+  gr.setAttribute("width",190);gr.setAttribute("height",60);gr.setAttribute("rx",16);
+  gr.setAttribute("fill","#7d3c98");gr.setAttribute("stroke","#5b2c6f");
+  const gt=document.createElementNS(NS,"text");
+  gt.setAttribute("x",0);gt.setAttribute("y",-2);gt.setAttribute("text-anchor","middle");
+  gt.setAttribute("fill","#fff");gt.setAttribute("font-size","14.5");gt.setAttribute("font-weight","500");
+  gt.textContent=gene;
+  const gs=document.createElementNS(NS,"text");
+  gs.setAttribute("x",0);gs.setAttribute("y",16);gs.setAttribute("text-anchor","middle");
+  gs.setAttribute("fill","#e8d5f5");gs.setAttribute("font-size","11");
+  gs.textContent="CRISPR 敲除（功能丧失）";
+  gc.appendChild(gr);gc.appendChild(gt);gc.appendChild(gs);
+  getNet()?.appendChild(gc);
+  const ups=(up||[]).slice(0,11), dns=(down||[]).slice(0,11);
+  const maxA=Math.max(1,...ups.map(x=>Math.abs(x.v||0)),...dns.map(x=>Math.abs(x.v||0)));
+  function place(arr,startAng,endAng,color,lab){
+    if(!arr.length)return;
+    arr.forEach((x,i)=>{
+      const ang=startAng+(endAng-startAng)*(i+1)/(arr.length+1);
+      const rad=ang*Math.PI/180;
+      const px=cx+R*Math.cos(rad),py=cy+R*Math.sin(rad);
+      const ln=document.createElementNS(NS,"line");
+      ln.setAttribute("x1",cx);ln.setAttribute("y1",cy);ln.setAttribute("x2",px);ln.setAttribute("y2",py);
+      ln.setAttribute("class","edge");ln.setAttribute("stroke","#bdc3c7");ln.setAttribute("stroke-width","1.2");
+      getNet()?.appendChild(ln);
+      const size=18+30*Math.abs(x.v||0)/maxA;
+      const n=document.createElementNS(NS,"g");
+      n.setAttribute("transform",`translate(${px},${py})`);n.setAttribute("class","node");
+      n.setAttribute("cursor","pointer");
+      const c=document.createElementNS(NS,"circle");
+      c.setAttribute("r",size/2);c.setAttribute("fill",color);c.setAttribute("stroke","#fff");c.setAttribute("stroke-width","1.5");
+      const tt=document.createElementNS(NS,"text");
+      tt.setAttribute("x",0);tt.setAttribute("y",3);tt.setAttribute("text-anchor","middle");
+      tt.setAttribute("fill","#fff");tt.setAttribute("font-size","10.5");
+      tt.textContent=x.g.length>11?x.g.slice(0,10)+"…":x.g;
+      const tip=document.createElementNS(NS,"title");
+      tip.textContent=`${x.g}：${lab} ${x.v>0?"+":""}${x.v.toFixed(2)}`;
+      n.appendChild(c);n.appendChild(tt);n.appendChild(tip);
+      getNet()?.appendChild(n);
+    });
+  }
+  place(ups,-150,-30,"#e74c3c","预测上调");
+  place(dns,30,150,"#27ae60","预测下调");
+  const lg=document.createElementNS(NS,"text");
+  lg.setAttribute("x",40);lg.setAttribute("y",H-22);lg.setAttribute("class","st");
+  lg.setAttribute("fill","#5b6472");lg.setAttribute("font-size","11.5");
+  lg.textContent="中心=敲除基因　● 红=模型预测上调　● 绿=模型预测下调（节点大小=预测变化幅度）　悬停节点看数值";
+  getNet()?.appendChild(lg);
+}
+function fillPathwayPanel(title, innerHTML){
+  const vt=document.getElementById("vtitle"); if(vt) vt.textContent=title;
+  const lg=document.getElementById("legend"); if(lg) lg.style.display="none";
+  const n=getNet(); if(!n) return;
+  n.innerHTML=`<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker></defs>
+    <foreignObject x="80" y="60" width="740" height="520">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+        <div style="background:#f8f9fb;border:1px solid #e0e4ea;border-radius:16px;padding:32px 40px;max-width:620px;text-align:center;font-size:14px;color:#3a4250;line-height:2;box-shadow:0 2px 12px rgba(0,0,0,.06)">${innerHTML}</div>
+      </div>
+    </foreignObject>`;
+  n.setAttribute("viewBox","0 0 900 640");
+}
+function showPathwayLegend(){ const lg=document.getElementById("legend"); if(lg) lg.style.display="block"; }
+
+function renderPathway(pw, drugName, live){
+  clearSvg(); curPath=pw; curDrug=drugName;
+  showPathwayLegend();
+  const vt=document.getElementById("vtitle"); if(vt) vt.textContent=(pw.name||"通路视图")+(drugName?" · 药物介入点： "+drugName:"");
+  const W=900,H=640,layers=pw.layers;
+  const pos={};
+  const nPer=Math.ceil(pw.nodes.length/layers.length);
+  pw.nodes.forEach((n,i)=>{
+    const layer=Math.min(layers.length-1,Math.floor(i/nPer));
+    const cnt=Math.min(nPer, pw.nodes.length-layer*nPer);
+    const inLayer=i-layer*nPer;
+    const x=90+(W-180)*(inLayer+1)/(cnt+1);
+    const y=50+layer*(H-100)/(layers.length-1||1);
+    pos[n.id]={x,y};
+  });
+  if(drugName) pos["__drug"]={x:W/2,y:26};
+  /* 边 */
+  pw.edges.forEach(e=>{
+    const a=pos[e.from],b=pos[e.to]; if(!a||!b)return;
+    const inhib=(e.type==="抑制"||e.type==="抑制解除"||e.type==="去乙酰化"||e.type==="负调控");
+    const ln=document.createElementNS(NS,"line");
+    ln.setAttribute("x1",a.x);ln.setAttribute("y1",a.y);ln.setAttribute("x2",b.x);ln.setAttribute("y2",b.y);
+    ln.setAttribute("class","edge");
+    if(inhib){ln.setAttribute("stroke-dasharray","6,4");ln.setAttribute("stroke","#c0392b");}
+    else ln.setAttribute("marker-end","url(#ar)");
+    getNet()?.appendChild(ln);
+    const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+    /* 边中点图标：磷酸化=P，催化=⚡ */
+    let icon="";
+    if(e.type==="磷酸化") icon="P";
+    else if(/催化|结合/.test(e.type)) icon="⚡";
+    if(icon){
+      const c=document.createElementNS(NS,"circle");
+      c.setAttribute("cx",mx);c.setAttribute("cy",my);c.setAttribute("r",11);
+      c.setAttribute("fill","#fff");c.setAttribute("stroke",icon==="P"?"#c0392b":"#b9770e");c.setAttribute("stroke-width",1.6);
+      const t=document.createElementNS(NS,"text");
+      t.setAttribute("x",mx);t.setAttribute("y",my+4);t.setAttribute("text-anchor","middle");
+      t.setAttribute("font-size",icon==="P"?12:11);t.setAttribute("font-weight",700);
+      t.setAttribute("fill",icon==="P"?"#c0392b":"#b9770e");t.textContent=icon;
+      getNet()?.appendChild(c);getNet()?.appendChild(t);
+    }else{
+      const lbl=document.createElementNS(NS,"text");
+      lbl.setAttribute("x",mx);lbl.setAttribute("y",my-6);lbl.setAttribute("class","edge-label");
+      lbl.textContent=e.label;
+      getNet()?.appendChild(lbl);
+    }
+  });
+  /* 节点（蛋白卡片：白底 + 类型色顶条 + 深色文字，ChimeraX/STRING 风格） */
+  pw.nodes.forEach(n=>{
+    const p=pos[n.id]; if(!p)return;
+    const c=col[n.type]||"#7f8c8d";
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","node");g.setAttribute("data-id",n.id);g.setAttribute("data-type","protein");
+    g.setAttribute("transform",`translate(${p.x},${p.y})`);
+    const r=document.createElementNS(NS,"rect");
+    r.setAttribute("class","nb");r.setAttribute("x",-74);r.setAttribute("y",-27);
+    r.setAttribute("width",148);r.setAttribute("height",54);r.setAttribute("rx",13);
+    r.setAttribute("fill","#fff");r.setAttribute("stroke",c);r.setAttribute("stroke-width",1.5);
+    const strip=document.createElementNS(NS,"rect");
+    strip.setAttribute("x",-74);strip.setAttribute("y",-27);strip.setAttribute("width",148);strip.setAttribute("height",6);strip.setAttribute("rx",3);
+    strip.setAttribute("fill",c);
+    const t1=document.createElementNS(NS,"text");t1.setAttribute("y",-6);
+    t1.setAttribute("text-anchor","middle");t1.setAttribute("fill","#1c2433");t1.setAttribute("font-size",12.5);t1.setAttribute("font-weight",600);
+    t1.textContent=n.symbol.length>11?n.symbol.slice(0,10)+"…":n.symbol;
+    const t2=document.createElementNS(NS,"text");t2.setAttribute("y",12);
+    t2.setAttribute("text-anchor","middle");t2.setAttribute("fill","#5b6675");t2.setAttribute("font-size",10.5);
+    t2.textContent=(n.name||"").length>14?(n.name.slice(0,13)+"…"):(n.name||n.type);
+    const chip=document.createElementNS(NS,"rect");
+    chip.setAttribute("x",57);chip.setAttribute("y",-27);chip.setAttribute("width",17);chip.setAttribute("height",17);chip.setAttribute("rx",9);
+    chip.setAttribute("fill",c);
+    g.appendChild(r);g.appendChild(strip);g.appendChild(t1);g.appendChild(t2);g.appendChild(chip);
+    /* 有真实 PDB 结构的蛋白 → 角标"3D"（点击右侧看真实结构） */
+    const sym=n.symbol.split(" ")[0];
+    if(PDB_MAP[sym]){
+      const tag=document.createElementNS(NS,"text");
+      tag.setAttribute("x",65);tag.setAttribute("y",-15);tag.setAttribute("text-anchor","middle");
+      tag.setAttribute("font-size",8.5);tag.setAttribute("fill","#fff");tag.setAttribute("font-weight",700);
+      tag.textContent="3D";
+      g.appendChild(tag);
+    }
+    /* 修饰位点徽章 */
+    const bd=siteBadges(n);
+    bd.forEach((b,bi)=>{
+      const bg=document.createElementNS(NS,"rect");
+      bg.setAttribute("x",-40+bi*30);bg.setAttribute("y",-46);bg.setAttribute("width",28);bg.setAttribute("height",13);bg.setAttribute("rx",6);
+      bg.setAttribute("fill","#e67e22");
+      const bt=document.createElementNS(NS,"text");
+      bt.setAttribute("x",-26+bi*30);bt.setAttribute("y",-36);bt.setAttribute("class","badge");bt.textContent=b;
+      g.appendChild(bg);g.appendChild(bt);
+    });
+    g.addEventListener("click",()=>selectNode("protein",n,pw));
+    getNet()?.appendChild(g);
+  });
+  if(drugName){
+    const p=pos["__drug"];
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","node");g.setAttribute("data-id","__drug");g.setAttribute("data-type","drug");
+    g.setAttribute("transform",`translate(${p.x},${p.y})`);
+    const r=document.createElementNS(NS,"rect");
+    r.setAttribute("class","nb");r.setAttribute("x",-84);r.setAttribute("y",-20);
+    r.setAttribute("width",168);r.setAttribute("height",40);r.setAttribute("rx",20);
+    r.setAttribute("fill","#eaf1ff");r.setAttribute("stroke","#2563eb");r.setAttribute("stroke-width",1.5);
+    const t=document.createElementNS(NS,"text");t.setAttribute("y",2);
+    t.setAttribute("text-anchor","middle");t.setAttribute("fill","#1e40af");t.setAttribute("font-size",12.5);t.setAttribute("font-weight",600);
+    t.textContent="💊 "+drugName.slice(0,24);
+    g.appendChild(r);g.appendChild(t);
+    g.addEventListener("click",()=>selectNode("drug",null,pw));
+    getNet()?.appendChild(g);
+  }
+}
+
+/* 迷你互作图（当前蛋白 + 直接上下游） */
+function miniGraph(pw,node){
+  const up=pw.edges.filter(e=>e.to===node.id);
+  const dn=pw.edges.filter(e=>e.from===node.id);
+  if(!up.length&&!dn.length)return "";
+  const rows=Math.max(up.length,dn.length,1), H=34*rows+20;
+  let s=`<div class="mini"><svg viewBox="0 0 340 ${H}" height="${H}">`;
+  const cy=H/2;
+  s+=`<rect x="150" y="${cy-16}" width="44" height="32" rx="8" fill="#c0392b"/><text x="172" y="${cy+3}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">${esc(node.symbol.slice(0,6))}</text>`;
+  up.forEach((e,i)=>{
+    const yy=18+i*(H-30)/Math.max(up.length,1);
+    const src=pw.nodes.find(n=>n.id===e.from);
+    s+=`<line x1="70" y1="${yy}" x2="150" y2="${cy}" stroke="${e.type==="激活"?"#16a085":"#c0392b"}" stroke-width="1.5" ${e.type!=="激活"?'stroke-dasharray="4,3"':""}/>`;
+    s+=`<rect x="8" y="${yy-12}" width="58" height="24" rx="6" fill="#2980b9"/><text x="37" y="${yy+4}" text-anchor="middle" font-size="8.5" fill="#fff">${esc((src?src.symbol:"?").slice(0,9))}</text>`;
+    s+=`<text x="112" y="${yy+4}" text-anchor="middle" font-size="8" fill="#5b6472">${esc(e.label.slice(0,8))}</text>`;
+  });
+  dn.forEach((e,i)=>{
+    const yy=18+i*(H-30)/Math.max(dn.length,1);
+    const dst=pw.nodes.find(n=>n.id===e.to);
+    s+=`<line x1="194" y1="${cy}" x2="280" y2="${yy}" stroke="${e.type==="激活"?"#16a085":"#c0392b"}" stroke-width="1.5" ${e.type!=="激活"?'stroke-dasharray="4,3"':""}/>`;
+    s+=`<rect x="284" y="${yy-12}" width="52" height="24" rx="6" fill="#27ae60"/><text x="310" y="${yy+4}" text-anchor="middle" font-size="8.5" fill="#fff">${esc((dst?dst.symbol:"?").slice(0,8))}</text>`;
+  });
+  s+=`</svg></div>`;
+  return s;
+}
+
+let lastLiveData=null, lastLiveCell=0;
+function bars(arr,color){
+  const filtered=filterNoise(arr||[]);
+  return filtered.slice(0,10).map(x=>{
+    const w=Math.max(4,Math.min(100,Math.abs(x.v)*600));
+    return `<div class="bar ${color}" style="width:${w}%"><span>${esc(x.g)}</span></div>`;
+  }).join("");
+}
+
+function selectNode(type,node,pw){
+  document.querySelectorAll(".node.sel").forEach(n=>n.classList.remove("sel"));
+  const el=document.querySelector(`.node[data-id="${type==="drug"?"__drug":node.id}"]`);
+  if(el)el.classList.add("sel");
+  const D=document.getElementById("detail");
+  if(type==="protein"){
+    D.innerHTML=`<h2>${esc(node.symbol)}</h2>
+      <div class="kv"><b>${esc(node.name)}</b> · ${esc(node.type)}</div>
+      ${miniGraph(pw,node)}
+      ${paramTable({target:node.symbol.split(" ")[0]})}
+      <h3>3D 结构（真实 PDB）</h3><div class="mol3d" id="mol3d"></div>
+      <h3>功能</h3><div class="kv">${esc(node.function)}</div>
+      <h3>结构域</h3><ul>${node.domains.map(d=>`<li>${esc(d)}</li>`).join("")}</ul>
+      <h3>关键修饰 / 功能位点</h3><ul>${node.sites.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+      <h3>互作机制</h3><ul>${node.interactions.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+      <h3>通路内的上下游</h3><ul>
+        ${pw.edges.filter(e=>e.to===node.id).map(e=>`<li>上游 ${esc(findSym(pw,e.from))} ${esc(e.type)} →（${esc(e.mech)}）</li>`).join("")}
+        ${pw.edges.filter(e=>e.from===node.id).map(e=>`<li>→ ${esc(e.type)} 下游 ${esc(findSym(pw,e.to))}（${esc(e.mech)}）</li>`).join("")}
+      </ul>`;
+    showComplex3D("mol3d",node.symbol.split(" ")[0]);
+  }else{
+    D.innerHTML=`<h2>💊 ${esc(curDrug)}</h2>
+      <div class="kv"><b>SMILES</b> <code style="font-size:11px">${esc((DRUG_META[curDrug]||{}).smiles||"")}</code></div>
+      <div class="kv"><b>通路归属</b> ${esc(pw.name)}</div>
+      ${paramTable({drug:curDrug})}
+      <h3>通路机制（药物如何介入）</h3><ul>${pw.drugs.map(d=>`<li><b>${esc(d.cls)}</b>（${esc(d.ex)}）：${esc(d.mech)}</li>`).join("")}</ul>
+      <h3>表型结局</h3><div class="kv">${esc(pw.phenotype)}</div>`;
+  }
+}
+function findSym(pw,id){const n=pw.nodes.find(x=>x.id===id);return n?n.symbol:id;}
+
+/* ---------- 实时计算 ---------- */
+const stats=document.getElementById("stats");
+async function callAPI(url,body){
+  try{
+    const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    return await r.json();
+  }catch(e){ return null; }
+}
+async function runDrug(){
+  const d=document.getElementById("drug").value.trim();
+  if(!d){ stats.innerHTML="⚠️ 药物列表加载中，请稍后再试"; return; }
+  const cell=+document.getElementById("cell").value;
+  const btn=document.getElementById("run");btn.disabled=true;
+  stats.innerHTML=`⏳ 模型实时推理中：${esc(d)} × ${CELLS[cell]} ...`;
+  const pwId=drugPathway(d); const pw=pwId&&PATHWAYS[pwId]?PATHWAYS[pwId]:PATHWAYS.mapk;
+  renderPathway(pw,d);
+  const data=await callAPI(API+"/predict",{drug:d,cell});
+  btn.disabled=false;
+  if(!data||data.error){ stats.innerHTML=`⚠️ 实时服务不可用（${esc((data&&data.error)||"连接失败")}），回退预计算数据。`; }
+  renderLive(data,d,pw,cell);
+}
+async function runGene(){
+  const gn=document.getElementById("gene").value, cell=+document.getElementById("cell").value;
+  const btn=document.getElementById("run");btn.disabled=true;
+  stats.innerHTML=`⏳ 基因扰动实时推理中：${esc(gn)} × ${CELLS[cell]} ...`;
+  const data=await callAPI(API+"/gene",{gene:gn,cell});
+  btn.disabled=false;
+  if(data&&!data.error){
+    renderPredicted(gn, filterNoise(data.up||[]), filterNoise(data.down||[]));
+    stats.innerHTML=`<b>基因扰动（敲除）</b>：${gn} 在 ${CELLS[cell]}<br>通路归属：${esc(data.pathway_name||"多通路/未归类")}<br>预测上调 TOP：${(data.up||[]).slice(0,4).map(x=>x.g).join("、")||"—"}<br>预测下调 TOP：${(data.down||[]).slice(0,4).map(x=>x.g).join("、")||"—"}`;
+    const D=document.getElementById("detail");
+    D.innerHTML=`<h2>${esc(gn)} 基因扰动 · 分型预测</h2>
+      <h3>① 敲除（CRISPR KO，功能丧失）— 模型真实预测</h3>
+      <div class="kv"><b>影响机制：</b>${esc(data.mech||data.perturbation_note||"CRISPR 敲除效应")}</div>
+      <h3>预测表达变化 · 上调</h3>${bars(data.up,"up")}
+      <h3>预测表达变化 · 下调</h3>${bars(data.down,"dn")}
+      <h3>② 过表达（OE，功能获得）— 暂不支持</h3>
+      <div class="kv" style="background:#faf3e0">当前模型仅用 CRISPR 敲除数据训练（Norman 111,445 细胞全为 KO），从未见过过表达样本，无法给出真实过表达预测。<br>待补充过表达数据集后（网络恢复后获取 Norman 原始 OE 部分）即可扩展此模块。<br>提示：信号通路中"敲除正向调控因子≈通路抑制，过表达≈通路激活"，可参考敲除结果反向粗略推断，但非模型预测。</div>
+      ${data.pathway&&PATHWAYS[data.pathway]?`<h3>通路归属</h3><div class="kv">${esc(PATHWAYS[data.pathway].name)}</div>`:""}`;
+  }else{
+    stats.innerHTML=`⚠️ ${data&&data.error||"实时服务不可用"}；请确认该基因在扰动列表中（当前支持 ${"4,994"} 个基因）。`;
+  }
+}
+function renderLive(data,d,pw,cell){
+  if(!data||data.error)return;
+  lastLiveData=data; lastLiveCell=cell;
+  const upF=filterNoise(data.up||[]), dnF=filterNoise(data.down||[]);
+  stats.innerHTML=`<b>${esc(d)}</b> × <b>${CELLS[cell]}</b>（实时推理）<br>
+    通路：${esc(pw.name)}<br>
+    模型预测靶点（嵌入空间检索）：${(data.targets||[]).map(t=>esc(t.g)).join("、")||"—"}<br>
+    预测上调 TOP：${upF.slice(0,3).map(x=>x.g).join("、")||"—"}<br>
+    预测下调 TOP：${dnF.slice(0,3).map(x=>x.g).join("、")||"—"}`;
+  const D=document.getElementById("detail");
+  D.innerHTML=`<h2>💊 ${esc(d)} · 实时预测</h2>
+    <div class="kv"><b>细胞系</b> ${esc(data.cell||CELLS[cell])}</div>
+    <h3>模型预测靶点（统一嵌入空间检索 top6）</h3><ul>${(data.targets||[]).map(t=>`<li>${esc(t.g)}（余弦相似度 ${t.s.toFixed(2)}）</li>`).join("")||"<li>—</li>"}</ul>
+    <h3>预测表达变化 · 上调 TOP</h3>${bars(data.up,"up")}
+    <h3>预测表达变化 · 下调 TOP</h3>${bars(data.down,"dn")}
+    <h3>通路机制（药物如何介入）</h3><ul>${pw.drugs.map(dd=>`<li><b>${esc(dd.cls)}</b>（${esc(dd.ex)}）：${esc(dd.mech)}</li>`).join("")}</ul>
+    <h3>表型结局</h3><div class="kv">${esc(pw.phenotype)}</div>`;
+}
+
+/* ---------- 顶部导航（Tab 切换） ---------- */
+/* ---------- 扰动传播（摄像头链） ---------- */
+function casInputs(){
+  const t=document.getElementById("casType").value;
+  const lab=t==="drug"?"药物（32,039 个）":t==="smiles"?"SMILES（任意分子结构式，实时算靶点与链）":t==="gene"?"基因符号（4,994 个基因）":"蛋白/肽序列（≥20 aa）";
+  document.getElementById("casLab").textContent=lab;
+  const useSel=(t==="drug");
+  document.getElementById("casDrug").style.display=useSel?"block":"none";
+  document.getElementById("casValue").style.display=useSel?"none":"block";
+}
+function fillCasDrugs(){
+  const sel=document.getElementById("casDrug");
+  fetch(API+"/drugs").then(r=>r.json()).then(j=>{
+    const all=(j.drugs||[]).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+    sel.innerHTML=all.map(d=>`<option value="${esc(d.name||d)}">${esc(d.name||d)}</option>`).join("");
+  }).catch(()=>{ sel.innerHTML=(DRUGS||[]).sort().map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join(""); });
+}
+async function runCascade(){
+  const t=document.getElementById("casType").value;
+  const useSel=(t==="drug");
+  const apiType=(t==="smiles")?"drug":t;
+  const v=useSel?document.getElementById("casDrug").value:document.getElementById("casValue").value.trim();
+  const cell=+document.getElementById("cell").value;
+  const stats=document.getElementById("stats"), D=document.getElementById("detail");
+  if(!v){stats.innerHTML="⚠️ 请先选择或输入内容";return;}
+  stats.innerHTML=`⏳ 正在生成 ${apiType==="drug"?(useSel?"药物":"未知药物"):apiType==="gene"?"基因敲除":"蛋白"}的扰动跟踪轨迹（逐级传递）…`;
+  const data=await callAPI(API+"/cascade",{type:apiType,value:v,cell});
+  if(!data||data.error){stats.innerHTML=`⚠️ ${(data&&data.error)||"服务不可用"}`;return;}
+  renderCascade(data,apiType,v);
+}
+let casChain=null;
+function renderCascade(data,t,v){
+  casChain=data.chain||[];
+  const vt=document.getElementById("vtitle"); if(vt) vt.textContent="扰动跟踪链 · 终点："+(data.pathway_name||"");
+  const lg=document.getElementById("legend"); if(lg) lg.style.display="none";
+  const stats=document.getElementById("stats"), D=document.getElementById("detail");
+  stats.innerHTML=`<b>扰动跟踪轨迹</b>：${esc(v)} × ${CELLS[data.cell]||""} → 终点通路：<b>${esc(data.pathway_name||"—")}</b><br>点击链上任一节点放大查看该级细节；右侧显示结构状态与机制`;
+  casDrawMacro();
+  D.innerHTML=`<h2>扰动跟踪轨迹</h2><div class="kv">从起点分子开始，逐级跟踪扰动如何传递，每一级显示：结合/变构机制、结构状态、以及它传递给谁。</div>`;
+  if(casChain.length) casDetail(0);
+}
+function casKindLab(k){return {start:"起点",target:"靶蛋白",signal:"信号级联",transcript:"转录变化",phenotype:"表型终点"}[k]||k;}
+function casDrawMacro(){
+  clearSvg();
+  const ch=casChain||[], W=900, H=640, y=290;
+  const n=ch.length, x0=70, x1=830;
+  const dx=n>1?(x1-x0)/(n-1):0;
+  let s=`<g font-family="system-ui">`;
+  ch.forEach((nd,i)=>{
+    const x=x0+i*dx, cy=y;
+    const cls=nd.kind==="start"?"#e24b4a":nd.kind==="target"?"#378add":nd.kind==="signal"?"#16a085":nd.kind==="transcript"?"#8e44ad":"#639922";
+    const nm=(nd.name||"").length>13?(nd.name.slice(0,12)+"…"):(nd.name||"");
+    const cw=Math.max(152,Math.min(216,nm.length*12.5+30));
+    /* 蛋白卡片：白底 + 类型色顶条 + 深色文字（与通路图统一风格，字不溢出） */
+    s+=`<rect x="${x-cw/2}" y="${cy-32}" width="${cw}" height="64" rx="13" fill="#fff" stroke="${cls}" stroke-width="1.5"/>`;
+    s+=`<rect x="${x-cw/2}" y="${cy-32}" width="${cw}" height="6" rx="3" fill="${cls}"/>`;
+    s+=`<text x="${x}" y="${cy-6}" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1c2433">${esc(nm)}</text>`;
+    s+=`<text x="${x}" y="${cy+12}" text-anchor="middle" font-size="10.5" fill="#5b6675">${casKindLab(nd.kind)} · 第 ${i} 站</text>`;
+    const sym=(nd.name||"").match(/[A-Z][A-Z0-9]{2,}/);
+    if(nd.kind==="target"&&sym&&PDB_MAP[sym[0]]){
+      s+=`<circle cx="${x+cw/2-10}" cy="${cy-32}" r="8" fill="${cls}"/><text x="${x+cw/2-10}" y="${cy-28.5}" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">3D</text>`;
+    }
+    s+=`<rect x="${x-cw/2-12}" y="${cy-72}" width="${cw+24}" height="150" fill="transparent" onclick="casZoom(${i})" style="cursor:pointer"/>`;
+    if(i<n-1){
+      const ac=nd.dir==="up"?"#e11d48":nd.dir==="dn"?"#16a34a":nd.dir==="sim"?"#0d9488":"#8a94a6";
+      const al=nd.dir==="up"?"↑ 上调":nd.dir==="dn"?"↓ 下调":nd.dir==="sim"?"→ 传递":"";
+      // Arrow from right of current card toward next card, always left-to-right
+      const ax1=x+cw/2+10, ax2=Math.max(ax1+24, x+dx-cw/2-10);
+      s+=`<line x1="${ax1}" y1="${cy}" x2="${ax2}" y2="${cy}" stroke="${ac}" stroke-width="1.5" marker-end="url(#ar)"/>`;
+      if(al) s+=`<text x="${(ax1+ax2)/2}" y="${cy-14}" text-anchor="middle" font-size="11" font-weight="700" fill="${ac}">${al}</text>`;
+    }
+  });
+  s+=`<text x="450" y="560" text-anchor="middle" font-size="11" fill="#999">🔴 起点 → 🟣 转录变化(↑上调/↓下调) → 🟢 表型终点 · 点击节点放大</text>`;
+  s+=`</g>`;
+  getNet().innerHTML=`<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker></defs>`+s;
+}
+function casZoom(i){
+  if(!casChain||i<0||i>=casChain.length)return;
+  const ch=casChain, n=ch.length, x0=70, x1=830, y=290;
+  const dx=n>1?(x1-x0)/(n-1):0, x=x0+i*dx;
+  const zx0=Math.max(0,x-160), zy0=Math.max(0,y-180), zw=Math.min(320,900), zh=Math.min(420,640);
+  getNet()?.setAttribute("viewBox",`${zx0} ${zy0} ${zw} ${zh}`);
+  casDetail(i);
+}
+function casBackMacro(){ if(net) getNet()?.setAttribute("viewBox","0 0 900 640"); }
+function casDetail(i){
+  const nd=casChain[i]; if(!nd)return;
+  const D=document.getElementById("detail");
+  let st="";
+  if(nd.has_struct&&nd.pdb_id){
+    st=`<div class="mol3d" id="cas3d" style="height:250px"></div><div class="kv">该蛋白有实验结构（PDB ${esc(nd.pdb_id)}），正在加载 3D…</div>`;
+  }else{
+    st=`<div class="cas-struct">${esc(nd.struct||"结构示意（暂无可加载的实验结构）")}</div>`;
+  }
+  D.innerHTML=`<h2>第 ${i} 站 · ${casKindLab(nd.kind)}</h2>
+    <div class="kv"><b>${esc(nd.name)}</b></div>
+    ${nd.dir?`<div class="kv" style="color:${nd.dir==="up"?"#e11d48":nd.dir==="dn"?"#16a34a":"#0d9488"};font-weight:600">${nd.dir==="up"?"↑ 模型预测上调":nd.dir==="dn"?"↓ 模型预测下调":"→ 模型预测传递"}${(nd.v!==null&&nd.v!==undefined)?` · 值 ${nd.v>0?"+":""}${Number(nd.v).toFixed(3)}`:""}</div>`:""}
+    <h3>这一站发生了什么（结合 / 变构 / 传递机制）</h3>
+    <div class="kv" style="white-space:pre-line">${esc(nd.mech||"—")}</div>
+    <h3>结构状态</h3>${st}
+    ${nd.next?`<h3>传递给</h3><div class="kv">▶ ${esc(nd.next)}</div>`:"<h3>终点</h3><div class=\"kv\">✓ 扰动已传递到表型终点</div>"}
+    <div style="margin-top:10px"><button onclick="casBackMacro()">🔍 回到宏观全链</button></div>`;
+  if(nd.has_struct&&nd.pdb_id) show3D("cas3d", nd.pdb_id);
+}
+
+function setupTabs(){
+  const tabs=[...document.querySelectorAll(".tab")];
+  const run=document.getElementById("run");
+  const cmode=document.getElementById("cmode");
+  tabs.forEach(t=>t.addEventListener("click",()=>{
+    tabs.forEach(x=>x.classList.remove("active"));t.classList.add("active");
+    const v=t.dataset.tab;
+    document.getElementById("ptype").value=(v==="gene")?"gene":"drug";
+    const showC=(v==="custom"||v==="interact");
+    ["pane-drug","pane-gene","pane-custom","pane-cascade"].forEach(p=>{
+      if(p==="pane-custom"){document.getElementById(p).style.display=showC?"block":"none";}
+      else if(p==="pane-cascade"){document.getElementById(p).style.display=(v==="cascade")?"block":"none";}
+      else{document.getElementById(p).style.display=(p==="pane-"+v)?"block":"none";}
+    });
+    run.style.display=(showC||v==="cascade")?"none":"block";
+    if(v==="custom"){cmode.value="drug";cmode.dispatchEvent(new Event("change"));}
+    if(v==="interact"){cmode.value="interact_pp";cmode.dispatchEvent(new Event("change"));}
+  }));
+}
+
+/* ---------- 控制 ---------- */
+function fillDrugs(){
+  const dl=document.getElementById("drugList");
+  fetch(API+"/drugs").then(r=>r.json()).then(j=>{
+    const all=(j.drugs||[]).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+    dl.innerHTML=all.map(d=>`<option value="${esc(d.name||d)}">`).join("");
+  }).catch(()=>{});
+}
+function fillGenes(){
+  const dl=document.getElementById("geneList");
+  fetch(API+"/genes").then(r=>r.json()).then(j=>{
+    dl.innerHTML=(j.genes||[]).sort().map(g=>`<option value="${esc(g)}">`).join("");
+  }).catch(()=>{});
+}
+document.getElementById("ptype").addEventListener("change",e=>{
+  const g=e.target.value==="gene";
+  ["drugLab","drug","geneLab","gene"].forEach(id=>document.getElementById(id).style.display="block");
+  document.getElementById("drugLab").style.display=g?"none":"block";
+  document.getElementById("drug").style.display=g?"none":"block";
+  document.getElementById("geneLab").style.display=g?"block":"none";
+  document.getElementById("gene").style.display=g?"block":"none";
+});
+document.getElementById("run").addEventListener("click",()=>{
+  document.getElementById("ptype").value==="gene"?runGene():runDrug();
+});
+fillGenes();setupTabs();fillCasDrugs();casInputs();
+document.getElementById("casType").addEventListener("change",casInputs);
+document.getElementById("runCas").addEventListener("click",runCascade);
+/* ---------- 3D 分子视图 + 论文级参数 ---------- */
+let PARAMS={drugs:[],ppi:[],proteins:{}};
+fetch(API+"/params").then(r=>r.json()).then(j=>{ if(j&&j.drugs) PARAMS=j; }).catch(()=>{});
+function show3D(containerId, name){
+  const el=document.getElementById(containerId); if(!el) return;
+  el.innerHTML='<div class="placeh" style="padding:90px 10px">⏳ 加载 3D 结构…</div>';
+  fetch(API+"/structure/"+encodeURIComponent(name)).then(r=>r.text()).then(txt=>{
+    if(txt.startsWith("{")){ el.innerHTML='<div class="placeh" style="padding:90px 10px">暂无该蛋白实验结构</div>'; return; }
+    el.innerHTML="";
+    try{
+      const v=$3Dmol.createViewer(el,{backgroundColor:"#fbfcfe"});
+      v.addModel(txt,"pdb");
+      v.setStyle({},{cartoon:{color:"spectrum"}});
+      v.setStyle({hetatm:true},{stick:{colorscheme:"orangeCarbon",radius:0.25}});
+      v.setStyle({resn:"HOH"},{});
+      v.zoomTo(); v.render();
+    }catch(e){ el.innerHTML='<div class="placeh">3D 渲染失败（浏览器需支持 WebGL）</div>'; }
+  }).catch(()=>{ el.innerHTML='<div class="placeh">结构服务不可用</div>'; });
+}
+/* 双蛋白复合物 3D：两色卡通 + 界面互作位点球 */
+function showComplex3D(containerId, name){
+  const el=document.getElementById(containerId); if(!el) return;
+  fetch(API+"/interface/"+encodeURIComponent(name)).then(r=>r.json()).then(info=>{
+    if(!info||info.error){ show3D(containerId,name); return; }
+    el.innerHTML='<div class="placeh" style="padding:60px 10px">⏳ 加载复合物 3D…</div>';
+    fetch(API+"/structure/"+info.pdb).then(r=>r.text()).then(txt=>{
+      el.innerHTML="";
+      try{
+        const v=$3Dmol.createViewer(el,{backgroundColor:"#fbfcfe"});
+        v.addModel(txt,"pdb");
+        const cA=info.chainA.join(","), cB=info.chainB.join(",");
+        v.setStyle({chain:cA},{cartoon:{color:"#2E86C1"}});
+        v.setStyle({chain:cB},{cartoon:{color:"#27AE60"}});
+        v.setStyle({chain:cA,resi:info.ifaceA},{sphere:{color:"#E74C3C",radius:0.35}});
+        v.setStyle({chain:cB,resi:info.ifaceB},{sphere:{color:"#F39C12",radius:0.35}});
+        v.setStyle({hetatm:true},{stick:{colorscheme:"grayCarbon",radius:0.2}});
+        v.zoomTo(); v.render();
+        const lg=document.createElement("div");
+        lg.style.cssText="position:absolute;bottom:6px;left:8px;font-size:10.5px;background:#ffffffcc;border-radius:8px;padding:5px 8px;line-height:1.6";
+        lg.innerHTML=`<b>${esc(info.proteinA)}</b>（蓝）↔ <b>${esc(info.proteinB)}</b>（绿）<br>
+          <span style="color:#E74C3C">●</span> 互作位点 ${info.ifaceA.length} 残基 ｜ <span style="color:#F39C12">●</span> 互作位点 ${info.ifaceB.length} 残基<br>
+          <span style="color:#5b6472">${esc(info.mech)}</span>`;
+        el.style.position="relative"; el.appendChild(lg);
+      }catch(e){ el.innerHTML='<div class="placeh">3D 渲染失败（需 WebGL）</div>'; }
+    }).catch(()=>{ show3D(containerId,name); });
+  }).catch(()=>{ show3D(containerId,name); });
+}
+function paramTable(filter){
+  const rows=[];
+  PARAMS.drugs.forEach(d=>{
+    if(d.drug===filter.drug||d.target===filter.target){
+      rows.push(`<tr><td>结合自由能 ΔG</td><td><b>${d.dG} kcal/mol</b>（Kd/IC50=${d.affinity} nM）</td></tr>
+        <tr><td>亲和力来源</td><td>${d.source}</td></tr>
+        <tr><td>统计显著性</td><td>${d.p_value}</td></tr>`);
+    }
+  });
+  PARAMS.ppi.forEach(p=>{
+    if(p.proteinA===filter.target||p.proteinB===filter.target){
+      rows.push(`<tr><td>界面面积（复合物 ${p.complex_pdb}）</td><td>${p.interface_area} Å²</td></tr>
+        <tr><td>界面极性接触</td><td>${p.hbonds} 个（&lt;3.5Å）</td></tr>
+        <tr><td>互作 P 值</td><td>${p.p_value}</td></tr>`);
+    }
+  });
+  return rows.length?`<div class="parambox"><table>${rows.join("")}</table></div>`:"";
+}
+/* 自定义输入 */
+const labA=document.getElementById("labA"),labB=document.getElementById("labB"),
+      cA=document.getElementById("cA"),cB=document.getElementById("cB");
+document.getElementById("cmode").addEventListener("change",e=>{
+  const m=e.target.value;
+  labA.textContent=m==="drug"?"SMILES（任意分子结构式）":(m==="protein"?"氨基酸序列（≥20 aa）":(m==="interact_dp"?"药物 SMILES":"蛋白 A 序列"));
+  labB.style.display=(m==="interact_dp"||m==="interact_pp")?"block":"none";
+  cB.style.display=(m==="interact_dp"||m==="interact_pp")?"block":"none";
+});
+document.getElementById("runC").addEventListener("click",async()=>{
+  const m=document.getElementById("cmode").value, cell=+document.getElementById("cell").value;
+  const A=cA.value.trim(), B=cB.value.trim();
+  const btn=document.getElementById("runC"); btn.disabled=true; btn.textContent="⏳ 模型实时推理中…";
+  // Upfront validation for interact modes
+  if(m==="interact_dp"&&(!A||!B)){stats.innerHTML=`⚠️ 互作：药物 ↔ 蛋白 — 两个框都要填（药物 SMILES + 蛋白名/序列）`; btn.disabled=false; btn.textContent="⚡ 实时计算"; return;}
+  if(m==="interact_pp"&&(!A||!B)){stats.innerHTML=`⚠️ 互作：蛋白 ↔ 蛋白 — 两个蛋白都要填（基因名或≥20 aa 序列）`; btn.disabled=false; btn.textContent="⚡ 实时计算"; return;}
+  stats.innerHTML=`⏳ 未知${m.includes("interact")?"互作":"分子"}实时推理中…`;
+  let data=null;
+  try{
+    if(m==="drug") data=await callAPI(API+"/custom_drug",{smiles:A,cell_name:CELLS[cell]});
+    else if(m==="protein") data=await callAPI(API+"/custom_protein",{sequence:A,cell_name:CELLS[cell]});
+    else if(m==="interact_dp") data=await callAPI(API+"/interact",{mode:"drug_protein",smiles:A,sequence:B,cell_name:CELLS[cell]});
+    else data=await callAPI(API+"/interact",{mode:"protein_protein",seqA:A,seqB:B,cell_name:CELLS[cell]});
+  }catch(e){ data=null; }
+  btn.disabled=false; btn.textContent="⚡ 实时计算";
+  if(!data||data.error){ 
+    const err=data&&data.error||"服务不可用";
+    if(err.includes("编码失败")) stats.innerHTML=`⚠️ ${err}<br><span style="font-size:11px">提示：蛋白名输入基因符号（如 TP53、INS、EGFR），或氨基酸序列（≥20 个字母）</span>`;
+    else stats.innerHTML=`⚠️ ${err}`; 
+    return; 
+  }
+  if(m.includes("interact")){
+    stats.innerHTML=`<b>互作结果（${m==="interact_dp"?"药物-蛋白":"蛋白-蛋白"}）</b><br>统一空间余弦相似度：<b>${data.similarity.toFixed(3)}</b><br><span style="font-size:11px;color:#888">${data.verdict}</span>`;
+    const dI=document.getElementById("detail");
+    dI.innerHTML=`<h2>⚡ 互作分析</h2>
+      <div class="kv"><b>模式</b> ${m==="interact_dp"?"药物 ↔ 蛋白":"蛋白 ↔ 蛋白"}</div>
+      <div class="kv"><b>余弦相似度</b> ${data.similarity.toFixed(3)}（统一嵌入空间）</div>
+      <div class="kv"><b>说明</b> ${data.verdict}</div>`;
+    fillPathwayPanel("互作分析结果", `<b>余弦相似度</b><br><span style="font-size:36px;color:#3a4250">${data.similarity.toFixed(3)}</span><br><span style="font-size:13px;color:#888">统一嵌入空间表征距离<br>高值=嵌入邻近，低值=嵌入远离<br>不直接等价于物理结合亲和力</span>`);
+    return;
+  }
+  const D=document.getElementById("detail");
+  if(m==="drug"){
+    const pw=data.pathway&&PATHWAYS[data.pathway]?PATHWAYS[data.pathway]:null;
+    if(pw) renderPathway(pw,"未知药物"); else fillPathwayPanel("未知药物预测",`<b>SMILES 分子</b><br><br>预测靶点<br>${data.targets.slice(0,6).map(t=>t.g).join("、")||"—"}<br><br>上调 TOP<br>${data.up.slice(0,5).map(x=>x.g).join("、")||"—"}<br><br>下调 TOP<br>${data.down.slice(0,5).map(x=>x.g).join("、")||"—"}`);
+    stats.innerHTML=`<b>未知药物</b> × ${CELLS[cell]}<br>SMILES：<code style="font-size:10px">${esc(data.smiles.slice(0,60))}${data.smiles.length>60?"…":""}</code><br>通路归属：${data.pathway_name}<br>预测靶点：${data.targets.slice(0,4).map(t=>t.g).join("、")}<br>预测上调：${data.up.slice(0,3).map(x=>x.g).join("、")}`;
+    D.innerHTML=`<h2>⚡ 未知药物 · 实时预测</h2>
+      <h3>模型检索靶点（统一空间 top8）</h3><ul>${data.targets.map(t=>`<li>${esc(t.g)}（相似度 ${t.s.toFixed(2)}）</li>`).join("")}</ul>
+      <h3>预测表达变化 · 上调</h3>${bars(data.up,"up")}
+      <h3>预测表达变化 · 下调</h3>${bars(data.down,"dn")}
+      ${data.targets[0]?`<h3>3D 结构（最可能靶点 ${esc(data.targets[0].g)}）</h3><div class="mol3d" id="mol3d"></div>`:""}`;
+    if(data.targets[0]){ show3D("mol3d",data.targets[0].g); }
+  }else{
+    const pw=data.pathway&&PATHWAYS[data.pathway]?PATHWAYS[data.pathway]:null;
+    if(pw) renderPathway(pw,"未知蛋白"); else fillPathwayPanel("未知蛋白预测",`<b>蛋白序列</b>（${data.seq_len} aa）<br><br>最相似已知蛋白<br>${data.similar.slice(0,5).map(t=>t.g).join("、")||"—"}<br><br>上调 TOP<br>${data.up.slice(0,5).map(x=>x.g).join("、")||"—"}<br><br>下调 TOP<br>${data.down.slice(0,5).map(x=>x.g).join("、")||"—"}`);
+    stats.innerHTML=`<b>未知蛋白</b>（${data.seq_len} aa）× ${CELLS[cell]}<br>通路归属：${data.pathway_name}<br>最相似已知蛋白：${data.similar.slice(0,4).map(t=>t.g).join("、")}<br>预测上调：${data.up.slice(0,3).map(x=>x.g).join("、")}`;
+    D.innerHTML=`<h2>⚡ 未知蛋白 · 实时预测</h2>
+      <h3>统一空间最相似蛋白（top8）</h3><ul>${data.similar.map(t=>`<li>${esc(t.g)}（相似度 ${t.s.toFixed(2)}）</li>`).join("")}</ul>
+      <h3>预测表达变化 · 上调</h3>${bars(data.up,"up")}
+      <h3>预测表达变化 · 下调</h3>${bars(data.down,"dn")}
+      ${data.similar[0]?`<h3>3D 结构（最相似 ${esc(data.similar[0].g)}）</h3><div class="mol3d" id="mol3d"></div>`:""}`;
+    if(data.similar[0]){ show3D("mol3d",data.similar[0].g); }
+  }
+});
+/* 服务健康检查 */
+fetch(API+"/health").then(r=>r.json()).then(j=>{
+  const lt=document.getElementById("liveTag");
+  const n=j&&j.models&&j.models.fusion?j.models.fusion.drugs:0;
+  if(lt) lt.textContent="● 实时计算已连接（"+n+" 药）";
+}).catch(()=>{});
+</script>
+</body></html>

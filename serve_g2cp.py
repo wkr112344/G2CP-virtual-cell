@@ -74,6 +74,15 @@ v_cl_idx = {c: i for i, c in enumerate(v_cl)}
 
 print(f"[OK] 双模型就绪：V10(5系) + FUSION(289系)", flush=True)
 
+
+def find_similar_proteins(emb):
+    """在词表蛋白中找最相似的"""
+    embs = fusion_net.gene_emb.weight.cpu()
+    sim = F.cosine_similarity(emb.cpu(), embs, dim=1)
+    topk = sim.topk(5)
+    return [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
+
+
 # 药物显示名（pool obs cmap_name）
 DRUG_NAMES = {}
 try:
@@ -84,6 +93,43 @@ try:
     a.file.close()
 except Exception as e:
     print("药物名加载失败:", e)
+
+
+def get_esm_embedding(seq):
+    """用预加载的 ESM2-8M 编码蛋白序列 → 512-dim（已投影至药物嵌入空间）"""
+    global _esm_model, _esm_batch_converter, _esm_proj
+    if _esm_batch_converter is None:
+        return None
+    _, _, batch_tokens = _esm_batch_converter([("", seq)])
+    with torch.no_grad():
+        results = _esm_model(batch_tokens, repr_layers=[6])  # CPU inference
+        raw = torch.mean(results["representations"][6][0, 1:-1], dim=0, keepdim=True)  # [1,320]
+        return _esm_proj(raw).to(DEVICE)  # project and move to GPU for downstream
+
+# 预加载 ESM
+_esm_model = None
+_esm_batch_converter = None
+_esm_proj = None
+try:
+    import esm
+    from esm.pretrained import ESM2
+
+    ckpt_path = os.path.expanduser(r"~\.cache\torch\hub\checkpoints\esm2_t6_8M_UR50D.pt")
+    if not os.path.exists(ckpt_path):
+        raise FileNotFoundError(f"ESM checkpoint not found at {ckpt_path}")
+
+    print("[ESM] 加载 ESM2-8M (6层 320维, ~8M参数)...", flush=True)
+    _alphabet = esm.data.Alphabet.from_architecture("ESM-1b")
+    _esm_model = ESM2(num_layers=6, embed_dim=320, attention_heads=20, alphabet=_alphabet, token_dropout=False)
+    sd = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    _esm_model.load_state_dict(sd, strict=False)
+    _esm_model.eval()  # stay on CPU, avoids competing with main model for 4GB VRAM
+    _esm_batch_converter = _alphabet.get_batch_converter()
+    _esm_proj = torch.nn.Linear(320, 512, bias=False)  # CPU, will .to(DEVICE) in get_esm_embedding
+    print("[OK] ESM2-8M 蛋白编码器已就绪 (CPU)", flush=True)
+except Exception as e:
+    print("[WARN] ESM2-8M 加载失败:", e, flush=True)
+
 
 app = Flask(__name__)
 NAME2ID = {}
@@ -138,6 +184,11 @@ def health():
         },
         "route": "5系→V10 / 其余→FUSION"
     })
+
+
+@app.route('/params')
+def params():
+    return jsonify({'drugs': len(f_dv), 'genes': len(f_gv)})
 
 
 @app.route("/cells")
@@ -269,6 +320,12 @@ def predict():
     hvg = f_hvg if model_tag == "fusion" else v_hvg
     up = [{"g": hvg[i], "v": float(out[i])} for i in order[:10] if not hvg[i].startswith("Gene_")]
     dn = [{"g": hvg[i], "v": float(out[i])} for i in order[-10:] if not hvg[i].startswith("Gene_")]
+    # 统一空间检索靶点：药物嵌入与基因嵌入的余弦相似度
+    z_cpu = z.cpu()
+    gene_embs = net.gene_emb.weight.cpu()  # 4994 x 512
+    sim = torch.nn.functional.cosine_similarity(z_cpu, gene_embs, dim=1)
+    topk = sim.topk(6)
+    targets = [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
     ref = None
     if drug_id not in f_dv_set and drug_id not in f_gv_set:
         mol = Chem.MolFromSmiles(value)
@@ -276,7 +333,47 @@ def predict():
             ref = frag_ref(mol)
     return jsonify({"drug": drug_id, "name": DRUG_NAMES.get(drug_id, drug_id),
                     "cell": cell_name, "model": model_tag, "up": up, "down": dn, "ref": ref,
-                    "fat_panel": fat_panel(out, hvg)})
+                    "targets": targets, "fat_panel": fat_panel(out, hvg)})
+
+
+@app.route("/custom_drug", methods=["POST"])
+def custom_drug():
+    """SMILES 新药：实时算 ECFP4 指纹 → 嵌入 → 预测表达变化。"""
+    d = request.get_json(force=True)
+    smiles = (d.get("smiles") or "").strip()
+    cell_name = (d.get("cell_name") or "").strip()
+    if not smiles:
+        return jsonify({"error": "请提供 SMILES"})
+    if not cell_name:
+        return jsonify({"error": "请提供 cell_name"})
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return jsonify({"error": "SMILES 无法解析"})
+    fp = smiles_to_ecfp4(smiles)
+    if fp is None or not fp.any():
+        return jsonify({"error": "SMILES 无法解析"})
+    if cell_name not in f_cl_idx:
+        return jsonify({"error": f"细胞系 {cell_name} 不在模型词表"})
+    key_t = -1
+    ci = f_cl_idx[cell_name]
+    with torch.no_grad():
+        z = embed(fusion_net, 1, key_t, np.asarray(fp, dtype=np.float32))
+        out = fusion_net.head(torch.cat([z, fusion_net.cell_emb(torch.tensor([ci], device=DEVICE).long())], dim=1)).cpu().numpy()[0]
+    order = np.argsort(-out)
+    hvg = f_hvg
+    up = [{"g": hvg[i], "v": float(out[i])} for i in order[:10] if not hvg[i].startswith("Gene_")]
+    dn = [{"g": hvg[i], "v": float(out[i])} for i in order[-10:] if not hvg[i].startswith("Gene_")]
+    z_cpu = z.cpu()
+    gene_embs = fusion_net.gene_emb.weight.cpu()
+    sim = torch.nn.functional.cosine_similarity(z_cpu, gene_embs, dim=1)
+    topk = sim.topk(6)
+    targets = [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
+    return jsonify({
+        "smiles": smiles, "name": "Custom Molecule",
+        "cell": cell_name, "model": "fusion", "up": up, "down": dn,
+        "targets": targets, "fat_panel": fat_panel(out, hvg),
+        "ref": frag_ref(mol)
+    })
 
 
 @app.route("/gene", methods=["POST"])
@@ -345,7 +442,7 @@ def similar():
 def cascade():
     """扰动跟踪链：药物 → 预测基因(↑/↓) → 表型"""
     d = request.get_json(force=True)
-    value = (d.get("drug") or "").strip()
+    value = (d.get("drug") or d.get("value") or "").strip()
     cell_name = (d.get("cell_name") or "").strip()
     cell = int(d.get("cell", 0))
     if not cell_name:
@@ -378,9 +475,98 @@ def cascade():
     for i in range(len(chain) - 1):
         chain[i]["next"] = chain[i + 1]["name"]
     chain[-1]["next"] = "表型终点"
-    chain.append({"stage": 99, "kind": "phenotype", "name": "转录组重编程",
-                  "mech": "由模型预测的上调/下调基因推断：细胞转录状态向扰动方向偏移", "dir": None, "next": None})
+    chain.append({"stage": 99, "kind": "phenotype",
+                  "name": f"细胞表型改变（{', '.join(ups[:3]) if ups else ''}↑ / {', '.join(dns[:2]) if dns else ''}↓）",
+                  "mech": f"由模型预测的 {len(ups)} 个显著上调基因（如 {', '.join(ups[:3])}）和 {len(dns)} 个显著下调基因（如 {', '.join(dns[:2])}）推断：细胞转录状态向扰动方向偏移。点击链上任一节点可查看该级微观细节。",
+                  "dir": None, "next": None})
     return jsonify({"chain": chain, "pathway_name": "转录组重编程（论文级模型）"})
+
+
+@app.route("/custom_protein", methods=["POST"])
+def custom_protein():
+    """未知蛋白：基因名或序列 → 预测表达变化"""
+    d = request.get_json(force=True)
+    seq = (d.get("sequence") or "").strip().upper()
+    cell_name = (d.get("cell_name") or "").strip()
+    if cell_name not in f_cl_idx:
+        return jsonify({"error": "细胞系不在词表"})
+    ci = f_cl_idx[cell_name]
+
+    # 尝试 ESM 编码，失败则用基因名查找
+    emb = None
+    if _esm_batch_converter and len(seq) >= 20:
+        try:
+            emb = get_esm_embedding(seq)
+        except Exception:
+            pass
+    if emb is None and seq in f_gv_set:
+        with torch.no_grad():
+            emb = fusion_net.gene_emb(torch.tensor([f_gv.index(seq)], device=DEVICE).long())
+    if emb is None:
+        return jsonify({"error": "需要 ESM 编码（当前未安装 fair-esm），或输入有效基因名（如 TP53）"})
+
+    with torch.no_grad():
+        z = F.normalize(emb, dim=1)
+        out = fusion_net.head(torch.cat([z, fusion_net.cell_emb(torch.tensor([ci], device=DEVICE).long())], dim=1)).cpu().numpy()[0]
+    order = np.argsort(-out)
+    up = [{"g": f_hvg[i], "v": float(out[i])} for i in order[:10] if not f_hvg[i].startswith("Gene_")]
+    dn = [{"g": f_hvg[i], "v": float(out[i])} for i in order[-10:] if not f_hvg[i].startswith("Gene_")]
+    sim = find_similar_proteins(emb.cpu()) if emb is not None else []
+    return jsonify({"seq_len": len(seq), "cell": cell_name, "up": up, "down": dn, "pathway_name": "蛋白扰动", "similar": sim})
+
+
+@app.route("/interact", methods=["POST"])
+def interact():
+    """药物-蛋白或蛋白-蛋白互作：余弦相似度"""
+    d = request.get_json(force=True)
+    mode = d.get("mode", "drug_protein")
+    cell_name = (d.get("cell_name") or "").strip()
+
+    def encode_protein(seq):
+        emb = None
+        if _esm_batch_converter and seq and len(seq) >= 20:
+            try:
+                emb = get_esm_embedding(seq)
+            except Exception:
+                pass
+        if emb is None and seq in f_gv_set:
+            with torch.no_grad():
+                emb = fusion_net.gene_emb(torch.tensor([f_gv.index(seq)], device=DEVICE).long())
+        return emb
+
+    with torch.no_grad():
+        smiles = (d.get("smiles") or "").strip()
+        seq_a = (d.get("sequence") or d.get("seqA") or "").strip().upper()
+        seq_b = (d.get("seqB") or "").strip().upper()
+
+        if mode == "drug_protein":
+            if not smiles or not seq_a:
+                return jsonify({"error": "请提供 SMILES 和蛋白名/序列"})
+            fp = smiles_to_ecfp4(smiles)
+            if fp is None:
+                return jsonify({"error": "SMILES 无法解析"})
+            za = F.normalize(fusion_net.cp_lin(torch.from_numpy(np.asarray(fp, dtype=np.float32)).unsqueeze(0).to(DEVICE)), dim=1)
+            zb = encode_protein(seq_a)
+            if zb is None:
+                hint = ""
+                if seq_a and seq_a not in f_gv_set:
+                    sim = sorted([g for g in f_gv_set if len(seq_a)>=3 and seq_a[:3].upper() in g], key=lambda x: abs(len(x)-len(seq_a)))[:3]
+                    hint = f"（{seq_a} 不在 4,994 基因词表中；试试 {', '.join(sim)}）" if sim else f"（{seq_a} 不在 4,994 基因词表中，请用 ≥20 aa 序列）"
+                return jsonify({"error": "蛋白编码失败："+hint if hint else "请输入基因符号或 ≥20 aa 氨基酸序列"})
+            zb = F.normalize(zb, dim=1)
+        else:
+            if not seq_a or not seq_b:
+                return jsonify({"error": "请提供两条蛋白名/序列"})
+            za = encode_protein(seq_a)
+            zb = encode_protein(seq_b)
+            if za is None or zb is None:
+                return jsonify({"error": "蛋白编码失败（需要 ESM 或有效基因名）"})
+            za = F.normalize(za, dim=1)
+            zb = F.normalize(zb, dim=1)
+        sim = float(F.cosine_similarity(za, zb).item())
+
+    return jsonify({"mode": mode, "similarity": round(sim, 4),
+                    "verdict": "嵌入空间邻近（仅反映统一表征余弦相似度，不直接等价于物理结合强度）"})
 
 
 if __name__ == "__main__":
