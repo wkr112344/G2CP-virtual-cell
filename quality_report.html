@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虚拟细胞扰动知识库 · 数据质量报告</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --ink:#1f2733; --sub:#5b6675; --line:#e3e8ef;
+    --accent:#2c6fbb; --good:#2e9b6b; --warn:#d98a1f; --bad:#c0492f;
+    --bar1:#2c6fbb; --bar2:#2e9b6b; --bar3:#d98a1f; --bar4:#8a5cc0; --bar5:#c0492f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",Helvetica,Arial,sans-serif;
+    line-height:1.6;font-size:14px}
+  .wrap{max-width:980px;margin:0 auto;padding:32px 24px 80px}
+  header.report{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:8px}
+  header.report h1{font-size:24px;margin:0 0 4px}
+  header.report .meta{color:var(--sub);font-size:12.5px}
+  h2{font-size:18px;margin:34px 0 12px;padding-left:10px;border-left:4px solid var(--accent)}
+  h3{font-size:15px;margin:18px 0 8px;color:var(--sub)}
+  .cards{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 18px;min-width:150px;flex:1}
+  .stat .n{font-size:26px;font-weight:700;color:var(--accent);line-height:1.1}
+  .stat .l{font-size:12.5px;color:var(--sub);margin-top:4px}
+  .stat.good .n{color:var(--good)} .stat.warn .n{color:var(--warn)} .stat.bad .n{color:var(--bad)}
+  table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;font-size:13px;margin:10px 0}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#eef2f7;color:var(--sub);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .bar{height:14px;border-radius:4px;background:linear-gradient(90deg,#2c6fbb,#3f8fd8)}
+  .barwrap{background:#eef2f7;border-radius:4px;overflow:hidden;height:14px;width:100%}
+  .pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600}
+  .pill.g{background:#e3f4ec;color:var(--good)} .pill.w{background:#fbf0dc;color:var(--warn)}
+  .pill.b{background:#fae3dc;color:var(--bad)}
+  .note{background:#f0f5fb;border:1px solid #d6e4f5;border-radius:8px;padding:12px 16px;color:#324a63;font-size:13px}
+  .lim{background:#fdf3ee;border:1px solid #f3d9c6;border-radius:8px;padding:12px 16px;color:#7a3b22;font-size:13px}
+  .dimtab td .mini{display:inline-block;height:8px;border-radius:2px;background:var(--accent);vertical-align:middle;margin-right:6px}
+  .foot{margin-top:40px;color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:12px}
+  .legend{font-size:12px;color:var(--sub);margin:4px 0 10px}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}
+    .stat,.note,.lim,table{break-inside:avoid}}
+  code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="report">
+    <h1>虚拟细胞扰动知识库 · 数据质量报告</h1>
+    <div class="meta" id="meta">生成于加载时 · 数据源 <code>pheno_data.js</code> · 所有数值由本页实时计算</div>
+  </header>
+
+  <div class="note">
+    本报告描述「扰动 → 12 维细胞表型签名」<b>知识库</b>的构成与质量。它是下游虚拟细胞模型的<b>输入/标注</b>层，
+    与模型预测输出相互独立。报告涵盖：五类扰动规模、12 维签名完整性、真实数据库证据覆盖率，以及已知局限。
+  </div>
+
+  <h2>1 · 总览</h2>
+  <div class="cards" id="overview"></div>
+
+  <h2>2 · 五类扰动分布</h2>
+  <div class="legend">扰动分为五大类；遗传扰动进一步由每个基因衍生 KO / 突变 / 过表达三种状态。</div>
+  <div id="catChart"></div>
+  <table id="catTable">
+    <thead><tr><th>扰动类别</th><th class="num">数量</th><th class="num">占比</th><th>说明</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>3 · 真实数据库证据覆盖率</h2>
+  <div class="legend">签名每个条目尽量挂接公开真实数据，作为论文可信度的证据链。</div>
+  <div id="evChart"></div>
+  <table id="evTable">
+    <thead><tr><th>数据源</th><th>提供证据</th><th class="num">覆盖</th><th class="num">总数</th><th class="num">比例</th><th>状态</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>4 · 遗传扰动深度</h2>
+  <div class="legend">每个基因生成 KO / 突变 / 过表达三张卡；ClinVar 提供真实致病变异计数证据。</div>
+  <div id="genChart"></div>
+  <table id="genTable">
+    <thead><tr><th>指标</th><th class="num">数值</th><th>说明</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>5 · 物理扰动分类（回应光/声波/紫外关切）</h2>
+  <div class="legend">物理扰动按作用机制归类；下方给出每类的条目数与代表项。</div>
+  <table id="physTable">
+    <thead><tr><th>物理子类</th><th class="num">条目数</th><th>代表扰动</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>6 · 12 维表型签名完整性</h2>
+  <div class="legend">检验每个表型维度在全部扰动上是否有合理取值（无 NaN、无越界、有区分度）。</div>
+  <table id="dimTable">
+    <thead><tr><th>维度</th><th class="num">非零条目</th><th class="num">占比</th><th class="num">最小值</th><th class="num">最大值</th><th class="num">异常</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>7 · 方法学说明（签名如何生成）</h2>
+  <div class="note" id="method"></div>
+
+  <h2>8 · 已知局限与诚实声明</h2>
+  <div class="lim" id="limits"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script src="pheno_data.js"></script>
+<script>
+(function(){
+  const P = window.PHENO;
+  const D = P.phenoDims;            // 12 维名称
+  const N = D.length;
+  const fmt = n => n.toLocaleString('en-US');
+  const pct = (a,b)=> b? (100*a/b).toFixed(1)+'%' : '—';
+  function el(id){return document.getElementById(id);}
+
+  // ---------- 1. 总览 ----------
+  const total = P.genetic.length + P.drugList.length + P.metabolites.length + P.hormones.length + P.physical.length;
+  // 维度异常：任何值 NaN 或越界 (-1,1)
+  let anomalies=0;
+  const allPheno=[...P.genetic,...P.drugList,...P.metabolites,...P.hormones,...P.physical];
+  for(const it of allPheno){ if(!it.pheno) {anomalies++;continue;}
+    for(const v of it.pheno){ if(!isFinite(v)|| v<-1.0001||v>1.0001){anomalies++;break;} } }
+  const ov=[
+    {n:fmt(total),l:'扰动条目总数',c:''},
+    {n:'5',l:'扰动类别（遗传/药物/代谢物/激素/物理）',c:''},
+    {n:N,l:'细胞表型维度',c:''},
+    {n:anomalies,l:'维度取值异常（NaN/越界）',c:anomalies?'bad':'good'}
+  ];
+  el('overview').innerHTML = ov.map(o=>`<div class="stat ${o.c}"><div class="n">${o.n}</div><div class="l">${o.l}</div></div>`).join('');
+
+  // ---------- 2. 五类分布 ----------
+  const cats=[
+    {k:'遗传',v:P.genetic.length,c:'#2c6fbb',d:'基因 KO / 突变 / 过表达（来自 42 条通路、1362 基因知识库）'},
+    {k:'药物',v:P.drugList.length,c:'#2e9b6b',d:'小分子药物，签名≈其靶点被抑制/激活的等效细胞效应'},
+    {k:'代谢物',v:P.metabolites.length,c:'#d98a1f',d:'内源/外源小分子代谢物，带 PubChem 结构'},
+    {k:'激素',v:P.hormones.length,c:'#8a5cc0',d:'甾体/小分子/肽类激素，含真实受体与序列'},
+    {k:'物理',v:P.physical.length,c:'#c0492f',d:'光/电离辐射/力学/温度/电磁/气体等环境扰动'}
+  ];
+  const maxC=Math.max(...cats.map(c=>c.v));
+  el('catChart').innerHTML='<div style="margin:6px 0">'+
+    cats.map(c=>`<div style="display:flex;align-items:center;gap:10px;margin:6px 0">
+      <div style="width:54px;color:var(--sub);font-size:12.5px">${c.k}</div>
+      <div class="barwrap" style="flex:1"><div class="bar" style="width:${100*c.v/maxC}%;background:${c.c}"></div></div>
+      <div style="width:64px;text-align:right;font-variant-numeric:tabular-nums">${fmt(c.v)}</div></div>`).join('')+'</div>';
+  el('catTable').querySelector('tbody').innerHTML = cats.map(c=>
+    `<tr><td>${c.k}</td><td class="num">${fmt(c.v)}</td><td class="num">${pct(c.v,total)}</td><td style="color:var(--sub)">${c.d}</td></tr>`).join('')+
+    `<tr style="font-weight:700"><td>合计</td><td class="num">${fmt(total)}</td><td class="num">100%</td><td></td></tr>`;
+
+  // ---------- 3. 证据覆盖 ----------
+  const nGenes=P.genes.length;
+  const uni= P.genes.filter(g=>g.seq).length;
+  const okb = P.genes.filter(g=>g.okType).length;
+  const cvGenes = P.genes.filter(g=>g.clinvar && g.clinvar.total>0).length;
+  const cvCards = P.genetic.filter(x=>x.clinvar && x.clinvar.total>0).length;
+  // 结构覆盖：小分子类(药+代谢+激素小分子)有 smiles；肽激素有 seq
+  const drugS = P.drugList.filter(d=>d.smiles).length;
+  const metS  = P.metabolites.filter(m=>m.smiles).length;
+  const horSmall = P.hormones.filter(h=>h.type==='小分子'||h.type==='甾体'||(h.smiles&&!h.seq));
+  const horSmallS = horSmall.filter(h=>h.smiles).length;
+  const horPep = P.hormones.filter(h=>h.seq);
+  const horPepAll = P.hormones.filter(h=>h.type==='肽/蛋白');
+  const horPepKd = horPepAll.filter(h=>h.evidence&&h.evidence.kd_nM).length;
+  const structChem = drugS+metS+horSmallS;
+  const structChemTot = P.drugList.length+P.metabolites.length+horSmall.length;
+  const drugEv = P.drugList.filter(d=>d.evidence&&d.evidence.nM).length;
+  const horSEv = P.hormones.filter(h=>h.type==='小分子'&&h.evidence&&h.evidence.nM).length;
+  const ev=[
+    {src:'UniProt',what:'蛋白氨基酸序列（遗传扰动）',cov:uni,tot:nGenes,c:'#2c6fbb'},
+    {src:'OncoKB',what:'癌基因 / 抑癌基因角色',cov:okb,tot:nGenes,c:'#2e9b6b'},
+    {src:'ClinVar',what:'致病变异计数（基因级证据）',cov:cvGenes,tot:nGenes,c:'#8a5cc0'},
+    {src:'ClinVar',what:'致病变异计数（扰动卡级证据）',cov:cvCards,tot:P.genetic.length,c:'#8a5cc0'},
+    {src:'ChEMBL',what:'药物真实 EC50/IC50（剂量参数校准）',cov:drugEv,tot:P.drugList.length,c:'#1f9bd9'},
+    {src:'ChEMBL',what:'小分子激素真实 Kd/Ki（剂量参数校准）',cov:horSEv,tot:horSmall.length,c:'#1f9bd9'},
+    {src:'PubChem',what:'小分子结构 SMILES（药+代谢+小分子激素）',cov:structChem,tot:structChemTot,c:'#d98a1f'},
+    {src:'UniProt',what:'肽/蛋白激素真实序列',cov:horPep.length,tot:P.hormones.length,c:'#c0492f'},
+    {src:'Literature',what:'肽/蛋白激素受体 Kd（文献查证校准）',cov:horPepKd,tot:horPepAll.length,c:'#c0492f'}
+  ];
+  const maxE=Math.max(...ev.map(e=>e.cov));
+  el('evChart').innerHTML='<div style="margin:6px 0">'+
+    ev.map(e=>`<div style="display:flex;align-items:center;gap:10px;margin:6px 0">
+      <div style="width:230px;color:var(--sub);font-size:12px">${e.src} · ${e.what}</div>
+      <div class="barwrap" style="flex:1"><div class="bar" style="width:${100*e.cov/maxE}%;background:${e.c}"></div></div>
+      <div style="width:96px;text-align:right;font-variant-numeric:tabular-nums">${fmt(e.cov)} / ${fmt(e.tot)}</div></div>`).join('')+'</div>';
+  el('evTable').querySelector('tbody').innerHTML = ev.map(e=>{
+    const r=e.cov/e.tot; const pill= r>=0.95?'g':r>=0.7?'w':'b';
+    return `<tr><td>${e.src}</td><td style="color:var(--sub)">${e.what}</td><td class="num">${fmt(e.cov)}</td><td class="num">${fmt(e.tot)}</td><td class="num">${pct(e.cov,e.tot)}</td><td><span class="pill ${pill}">${r>=0.95?'高':r>=0.7?'中':'待补'}</span></td></tr>`;
+  }).join('');
+
+  // ---------- 4. 遗传深度 ----------
+  const kinds={ko:0,mut:0,oe:0};
+  P.genetic.forEach(g=>{ if(kinds[g.kind]!==undefined) kinds[g.kind]++; });
+  // ClinVar 计数分布
+  const buckets={'0':0,'1–99':0,'100–999':0,'1000–9999':0,'≥10000':0};
+  P.genetic.forEach(g=>{ const t=g.clinvar?g.clinvar.total:0;
+    if(t<=0)buckets['0']++; else if(t<100)buckets['1–99']++; else if(t<1000)buckets['100–999']++;
+    else if(t<10000)buckets['1000–9999']++; else buckets['≥10000']++; });
+  const gk=[
+    {m:'基因总数（知识库）',v:fmt(nGenes),d:'覆盖 42 条信号/生理通路'},
+    {m:'遗传扰动卡总数',v:fmt(P.genetic.length),d:'= 基因数 × 3（KO/突变/过表达）'},
+    {m:'KO 卡',v:fmt(kinds.ko),d:'基因功能缺失'},
+    {m:'突变卡',v:fmt(kinds.mut),d:'功能获得/失活（按 OncoKB 角色判定）'},
+    {m:'过表达卡',v:fmt(kinds.oe),d:'基因功能增益'},
+    {m:'带 ClinVar 证据的卡',v:fmt(cvCards),d:pct(cvCards,P.genetic.length)+' 覆盖'},
+    {m:'ClinVar 计数 ≥10000 的卡',v:fmt(buckets['≥10000']),d:'强临床证据基因（如 TTN/BRCA2）'}
+  ];
+  el('genTable').querySelector('tbody').innerHTML=gk.map(r=>`<tr><td>${r.m}</td><td class="num">${r.v}</td><td style="color:var(--sub)">${r.d}</td></tr>`).join('');
+  const bk=Object.keys(buckets);
+  el('genChart').innerHTML='<div style="margin:6px 0"><div style="color:var(--sub);font-size:12px;margin-bottom:4px">ClinVar 致病变异计数分布（遗传卡）</div>'+
+    bk.map(b=>`<div style="display:flex;align-items:center;gap:10px;margin:5px 0">
+      <div style="width:80px;font-size:12px;color:var(--sub)">${b}</div>
+      <div class="barwrap" style="flex:1"><div class="bar" style="width:${100*buckets[b]/P.genetic.length}%;background:#8a5cc0"></div></div>
+      <div style="width:56px;text-align:right;font-variant-numeric:tabular-nums">${fmt(buckets[b])}</div></div>`).join('')+'</div>';
+
+  // ---------- 5. 物理分类 ----------
+  const physMap={};
+  P.physical.forEach(p=>{ const c=p.cls||'其他'; (physMap[c]=physMap[c]||[]).push(p.name); });
+  el('physTable').querySelector('tbody').innerHTML=Object.keys(physMap).sort((a,b)=>physMap[b].length-physMap[a].length).map(c=>
+    `<tr><td>${c}</td><td class="num">${physMap[c].length}</td><td style="color:var(--sub);font-size:12.5px">${physMap[c].slice(0,4).join('、')}${physMap[c].length>4?' …':''}</td></tr>`).join('');
+
+  // ---------- 6. 维度完整性 ----------
+  const dimStats=D.map((nm,i)=>{
+    let nz=0,min=Infinity,max=-Infinity,bad=0;
+    allPheno.forEach(it=>{ if(!it.pheno)return; const v=it.pheno[i];
+      if(v!==0&&v!==undefined)nz++; if(v<min)min=v; if(v>max)max=v;
+      if(!isFinite(v)||v<-1.0001||v>1.0001)bad++; });
+    return {nm,nz,min,max,bad};
+  });
+  el('dimTable').querySelector('tbody').innerHTML=dimStats.map(d=>
+    `<tr><td>${d.nm}</td><td class="num">${fmt(d.nz)}</td><td class="num">${pct(d.nz,total)}</td>
+     <td class="num">${isFinite(d.min)?d.min.toFixed(2):'—'}</td>
+     <td class="num">${isFinite(d.max)?d.max.toFixed(2):'—'}</td>
+     <td class="num">${d.bad?`<span class="pill b">${d.bad}</span>`:'<span class="pill g">0</span>'}</td></tr>`).join('');
+
+  // ---------- 7. 方法学 ----------
+  el('method').innerHTML=`
+    <p style="margin:6px 0"><b>统一框架：机制 + 剂量参数化。</b>每个扰动签名 = 机制通路效应（参考剂量下） × 剂量响应占据率(0–1)，12 维取值 clamp 到 [-1,1]。每项携带 <code>mech</code>(机制说明)、<code>model</code>(剂量响应形式)、<code>dose</code>(参考剂量/参数)、<code>refs</code>(文献)。</p>
+    <p style="margin:6px 0"><b>① 遗传扰动。</b>基因-通路模板：KO＝失功能、OE＝增益、突变按 OncoKB 角色判定；兼职通路 0.35 权重叠加。模型为离散基因状态（discrete）。</p>
+    <p style="margin:6px 0"><b>② 药物。</b>靶点基因→通路角色，效果随浓度按 <b>Hill–Langmuir/Emax</b> 上升：E=Emax·Cⁿ/(EC50ⁿ+Cⁿ)（受体占据率理论）。</p>
+    <p style="margin:6px 0"><b>③ 激素（小分子 + 肽/蛋白）。</b>结合靶受体，效果随浓度按 <b>Langmuir 占据率</b> f=C/(Kd+C) 上升；ERα 对 17β-雌二醇 Kd≈0.1–0.2 nM。肽/蛋白激素（89 项）的受体 Kd 来自 <b>Guide to PHARMACOLOGY / 经典受体药理学文献</b>：其中 8 项已逐条查证并标注 PMID（胰岛素、EGF、IGF-1、胰高血糖素、生长抑素、瘦素、血管紧张素 II、内皮素-1），其余为文献共识典型 Kd（量级正确，用于占据率模型）。</p>
+    <p style="margin:6px 0"><b>④ 代谢物。</b>经转运体/酶的通量随浓度按 <b>Michaelis–Menten/Hill</b> 上升（如葡萄糖→mTOR/AMPK、脂肪酸→β-氧化/PPARα）。</p>
+    <p style="margin:6px 0"><b>⑤ 物理（真实定量公式）。</b>
+       · <b>光/紫外</b>：DNA 在 ~260 nm 吸收峰，CPD 产率 Φ_CPD≈10⁻³(@254nm)，损伤 ∝ 辐照剂量 × 吸收权重（Beer–Lambert × Φ）；
+       · <b>电离辐射</b>：存活 SF=exp(−αD−βD²)（LQ 模型，α/β≈10 Gy 肿瘤）；
+       · <b>温度</b>：Arrhenius 动力学，热等效剂量 CEM43 = t·2^(T−43)(T≥43°C) 或 t·4^(43−T)(T<43°C)；
+       · <b>超声/力学</b>：机械指数 MI=p_r/√f（FDA 上限 1.9）、体内空化阈值≈3.6 MPa，空化→自由基+剪切；
+       · <b>电磁场</b>：机制弱且存争议（IARC 2B/3），标为低置信占位。</p>
+    <p style="margin:6px 0"><b>⑥ 真实证据链与逐条剂量校准。</b>基因级挂接 UniProt 序列、OncoKB 角色、ClinVar 致病变异计数；小分子挂接 PubChem；肽激素挂接 UniProt 序列。更进一步：<b>药物、小分子激素的剂量参数已逐条从 ChEMBL 拉取真实活性</b>——药物取各 assay 的 IC50/EC50 中位值（pchembl 中位数换算 nM），激素取 Kd/Ki（无则取受体结合 IC50，量级等价），写入每条扰动的 <code>dose</code>（nM）与 <code>evidence</code>（ChEMBL id、测定类型、中位 nM、样本数）；<b>肽/蛋白激素的受体 Kd 已通过 Guide to PHARMACOLOGY / 经典受体药理学文献查证补齐</b>（89/89，其中 8 项带 PMID 的已 Verified，其余为文献共识）。下游可经 <code>dose_engine.mjs</code> 的 <code>doseAt(id, dose)</code> 按真实模型对任意剂量重算签名。</p>`;
+
+  // ---------- 8. 局限 ----------
+  const noCvGene = nGenes-cvGenes;
+  const noUni = nGenes-uni;
+  el('limits').innerHTML=`
+    <ul style="margin:6px 0;padding-left:20px">
+      <li><b>电磁场（10 项）为低置信占位。</b>静态/射频电磁场在细胞层面的机制弱且存争议（IARC 2B/3 类），模型中仅给低幅度占位效应，论文中不应作为强定量结论，建议标注为「机制未明」。</li>
+      <li><b>剂量参数已逐条从 ChEMBL 校准，但仍有缺口。</b>药物 <b>174/218（80%）</b>、小分子激素 <b>19/40</b> 已写入真实 EC50/Kd 中位值（源自各 assay pchembl 中位数，附 ChEMBL id 与样本数）；<b>肽激素（89 项）受体 Kd 已补齐</b>：来自 Guide to PHARMACOLOGY / 经典受体药理学文献——<b>8 项已逐条查证并附 PMID</b>（胰岛素、EGF、IGF-1、胰高血糖素、生长抑素、瘦素、血管紧张素 II、内皮素-1），72 项为文献共识典型 Kd，9 项为非经典/受体未明项的保守量级估计（如 irisin、sclerostin、follistatin、Klotho 辅助因子等）；论文应明确标注后两类项的 Kd 为文献共识/保守估计，而非精确实验测定值；<b>盐/酯形式药物（如 TAMOXIFENE CITRATE）ChEMBL 无独立活性</b>，回退为母体药的实测值或类别常数。</li>
+      <li><b>物理公式的常数为典型值。</b>如 LQ 取 α/β≈10 Gy（肿瘤样）、热疗 R≈2/4–6，未针对具体细胞系；可按实验体系在 <code>mechanism_models.mjs</code> 中替换。</li>
+      <li><b>${noCvGene} 个基因无 ClinVar 命中</b>（多为 HLA-*、CDKN2A_ARF 等非标准符号），不影响主通路签名。</li>
+      <li><b>${noUni} 个基因暂无 UniProt 序列</b>（多为非编码/剪接变体符号），其签名仍由通路模板提供。</li>
+      <li><b>签名量级需真实数据校准。</b>机制推导的维度方向/相对量级属「领域知识标注」，绝对数值应后续用真实转录组/表型数据（如 LINCS、sciPlex3）回归校准，方可作为模型监督信号。</li>
+    </ul>`;
+
+  el('foot').textContent='虚拟细胞扰动知识库 · 数据质量报告 · 由 pheno_data.js 实时生成 · 仅供研究用途';
+  el('meta').textContent='生成于 '+new Date().toLocaleString('zh-CN')+' · 数据源 pheno_data.js · 所有数值由本页实时计算';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>药物 → 靶点 → 通路 → 表型 机制链路图</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --drug:#4f46e5; --target:#7c3aed; --act:#16a34a; --inh:#dc2626; --edge:#cbd5e1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0b1020; --card:#121a2e; --ink:#e6edf3; --muted:#8b949e; --line:#233047;
+           --edge:#33415a; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+       background:var(--bg);color:var(--ink);line-height:1.55}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 18px 60px}
+  h1{font-size:21px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+  .note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12.5px;
+        padding:9px 12px;border-radius:10px;margin:0 0 16px}
+  @media (prefers-color-scheme: dark){ .note{background:#2a1d0e;border-color:#5a3a12;color:#fbbf24} }
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+  select{font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);
+         background:var(--card);color:var(--ink);min-width:240px}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .toggle button{border:0;background:var(--card);color:var(--muted);padding:8px 14px;font-size:13px;cursor:pointer}
+  .toggle button.on{background:var(--drug);color:#fff;font-weight:600}
+  .pills{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;
+        background:var(--card);color:var(--muted);cursor:pointer}
+  .pill:hover{border-color:var(--drug);color:var(--drug)}
+  .grid{display:grid;grid-template-columns:1.55fr 1fr;gap:16px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .diagram{overflow-x:auto}
+  .diagram svg{display:block;min-width:980px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);margin-top:8px}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  pre.narr{white-space:pre-wrap;font-size:13.5px;line-height:1.7;margin:0;font-family:inherit}
+  .detail{margin-top:12px;font-size:12.5px;color:var(--muted)}
+  .detail b{color:var(--ink)}
+  h3{font-size:14px;margin:2px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>药物 → 靶点 → 通路 → 表型 机制链路图</h1>
+  <p class="sub">输入一种药，看清它结合哪些蛋白靶点 → 哪些信号通路被激活 / 抑制 → 最终导致什么细胞表型变化。</p>
+  <div class="note">说明：本工具用本地「基因-通路-表型」机制库（pathways.mjs）连线。默认按<b>靶向抑制</b>计算（激酶抑制剂 / SERD / 抗雄激素 / CDKi / HDACi 等主流机制）；若某药实为<b>激动剂</b>（如雌激素类），点「激活」开关，整条链路与表型箭头立即反向重算。表型维度来自文献共识的机制签名，供教学理解，不替代临床决策。</div>
+
+  <div class="controls">
+    <select id="drug"></select>
+    <div class="toggle" id="actToggle">
+      <button data-act="inhibit" class="on">靶向抑制</button>
+      <button data-act="activate">靶向激活</button>
+    </div>
+    <div class="pills" id="pills"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="diagram" id="diagram"></div>
+      <div class="legend">
+        <span><i style="background:var(--drug)"></i>药物</span>
+        <span><i style="background:var(--target)"></i>靶点(蛋白)</span>
+        <span><i style="background:var(--act)"></i>通路·激活</span>
+        <span><i style="background:var(--inh)"></i>通路·抑制</span>
+        <span><i style="background:#22c55e"></i>表型↑增强</span>
+        <span><i style="background:#ef4444"></i>表型↓减弱</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>大白话解说</h3>
+      <pre class="narr" id="narr"></pre>
+      <div class="detail" id="detail"></div>
+    </div>
+  </div>
+</div>
+
+<script src="chain_data.js"></script>
+<script>
+const CHAIN = window.CHAIN, DIM = CHAIN.dims, SIGNS = CHAIN.signs;
+const $ = s => document.querySelector(s);
+
+function effectOf(dir, action){ return action==='inhibit' ? (dir>0?-1:+1) : (dir>0?+1:-1); }
+
+function computeDrug(drug, action){
+  const tlist = drug.targets.map(t=>({
+    gene:t.gene, acc:t.acc, func:t.func, cancer:t.cancer,
+    paths:t.pathways.map(pw=>({key:pw.key, cn:pw.cn, dir:pw.dir, eff:effectOf(pw.dir,action)}))
+  }));
+  const pmap={};
+  tlist.forEach(t=>t.paths.forEach(p=>{ if(!pmap[p.key]) pmap[p.key]={key:p.key,cn:p.cn,eff:0}; pmap[p.key].eff+=p.eff; }));
+  const plist = Object.values(pmap).map(p=>({...p, sign:p.eff>0?1:(p.eff<0?-1:0)}));
+  const acc=new Array(12).fill(0); let n=0;
+  tlist.forEach(t=>t.paths.forEach(p=>{ const sig=p.eff>0?SIGNS[p.key].on:SIGNS[p.key].off;
+    for(let i=0;i<12;i++) acc[i]+=sig[i]; n++; }));
+  const pheno = acc.map(v=> n?Math.max(-1,Math.min(1,v/n)):0);
+  const changes = DIM.map((name,i)=>({name,i,val:pheno[i]})).filter(x=>Math.abs(x.val)>=0.18)
+    .sort((a,b)=>Math.abs(b.val)-Math.abs(a.val));
+  return {tlist, plist, pheno, changes};
+}
+
+function narrative(drug, action, c){
+  const genes = c.tlist.map(t=>t.gene);
+  let s = '【'+drug.name+'】结合靶点：'+ (genes.length?genes.join('、'):'（机制库未收录）') + '。\n';
+  s += action==='inhibit' ? '按「靶向抑制」计算。\n' : '按「靶向激活」计算。\n';
+  c.tlist.forEach(t=>{
+    if(!t.paths.length){ s+='· '+t.gene+'：机制未收录于通路库。\n'; return; }
+    const inh=t.paths.filter(p=>p.eff<0).map(p=>p.cn);
+    const act=t.paths.filter(p=>p.eff>0).map(p=>p.cn);
+    let part='· 抑制 '+t.gene;
+    if(inh.length&&act.length) part+='：'+inh.join('、')+' 通路受抑，同时 '+act.join('、')+' 通路激活';
+    else if(inh.length) part+=' → '+inh.join('、')+' 通路受抑（生长/增殖信号减弱）';
+    else if(act.length) part+=' → 解除其对 '+act.join('、')+' 的刹车，通路激活';
+    s+=part+'。\n';
+  });
+  if(c.changes.length){
+    const downs=c.changes.filter(x=>x.val<0).map(x=>x.name+'↓');
+    const ups=c.changes.filter(x=>x.val>0).map(x=>x.name+'↑');
+    s+='综合表型倾向：'+(downs.length?downs.join('、'):'')+(ups.length?((downs.length?'，':'')+ups.join('、')):'表型变化不显著')+'。';
+  } else s+='综合表型变化不显著。';
+  const cancers=[...new Set(c.tlist.map(t=>t.cancer).filter(Boolean))];
+  if(cancers.length) s+='\n临床常用于：'+cancers.join('；')+'。';
+  return s;
+}
+
+const C={drug:'#4f46e5',target:'#7c3aed',act:'#16a34a',inh:'#dc2626',edge:'#cbd5e1',
+         up:'#22c55e',down:'#ef4444',tcol:'#ffffff',ink:'#0f172a'};
+const colX={drug:60,target:280,pathway:545,pheno:810};
+const NW={drug:152,target:182,pathway:222,pheno:172};
+const NH={drug:56,target:48,pathway:48,pheno:42};
+const rowH=74, top=28;
+
+function render(drug, action){
+  const c = computeDrug(drug, action);
+  if(!c.tlist.length){ $('#diagram').innerHTML='<p style="color:var(--muted);padding:20px">该药的靶点未在机制库中收录，暂无法绘制链路。</p>';
+    $('#narr').textContent='该药（'+drug.name+'）的靶点尚未接入通路机制库。'; $('#detail').innerHTML=''; return; }
+  const nRows=Math.max(1,c.tlist.length,c.plist.length,Math.min(c.changes.length,9));
+  const H=top+nRows*rowH+24, W=1000;
+  const yc=count=>{ const off=(nRows-count)/2; const a=[]; for(let i=0;i<count;i++) a.push(top+rowH/2+(off+i)*rowH); return a; };
+  const tY=yc(c.tlist.length), pY=yc(c.plist.length), chY=yc(Math.min(c.changes.length,9));
+  const drugY=H/2;
+  let edges='', nodes='';
+  // drug -> targets
+  c.tlist.forEach((t,i)=>{
+    const x=colX.target,y=tY[i];
+    edges+=bez(colX.drug+NW.drug,drugY,x,y,C.edge);
+  });
+  // target -> pathways
+  c.tlist.forEach((t,i)=>{
+    const ty=tY[i];
+    t.paths.forEach(p=>{
+      const pi=c.plist.findIndex(q=>q.key===p.key);
+      const py=pY[pi]; const col=p.eff>0?C.act:C.inh;
+      edges+=bez(colX.target+NW.target,ty,colX.pathway,py,col);
+    });
+  });
+  // pathways -> pheno column
+  c.plist.forEach((p,i)=>{ edges+=bez(colX.pathway+NW.pathway,pY[i],colX.pheno,pY[i],C.edge); });
+
+  // drug node
+  nodes+=rrect(colX.drug,drugY-NH.drug/2,NW.drug,NH.drug,C.drug,
+    drug.name.length>14?drug.name.slice(0,13)+'…':drug.name','',C.tcol);
+  nodes+=txt(colX.drug+NW.drug/2,drugY+NH.drug/2+14,'12',action==='inhibit'?'靶向抑制':'靶向激活',C.tcol,'middle',0.85);
+  // target nodes
+  c.tlist.forEach((t,i)=>{
+    const x=colX.target,y=tY[i];
+    nodes+=rrect(x,y-NH.target/2,NW.target,NH.target,C.target,t.gene,t.acc?('UniProt '+t.acc):'',C.tcol);
+  });
+  // pathway nodes
+  c.plist.forEach((p,i)=>{
+    const x=colX.pathway,y=pY[i]; const col=p.sign>0?C.act:C.inh;
+    const tag=p.sign>0?'↑ 激活':'↓ 抑制';
+    nodes+=rrect(x,y-NH.pathway/2,NW.pathway,NH.pathway,col,p.cn,tag,C.tcol);
+  });
+  // pheno chips
+  c.changes.slice(0,9).forEach((ch,i)=>{
+    const x=colX.pheno,y=chY[i]; const col=ch.val>0?C.up:C.down;
+    const mag=Math.min(1,Math.abs(ch.val));
+    nodes+=rrect(x,y-NH.pheno/2,NW.pheno,NH.pheno,'#f8fafc',ch.name,(ch.val>0?'↑ ':'↓ ')+'×'+mag.toFixed(2),C.ink,true,col,mag);
+  });
+  if(!c.changes.length) nodes+=txt(colX.pheno+10,H/2,'13','无显著表型变化',C.muted,'start');
+
+  $('#diagram').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'">'+edges+nodes+'</svg>';
+  $('#narr').textContent=narrative(drug,action,c);
+  $('#detail').innerHTML=c.tlist.map(t=>'<div style="margin:6px 0"><b>'+t.gene+'</b>：'+(t.func||'')+
+    (t.cancer?' <span style="color:var(--muted)">· 临床：'+t.cancer+'</span>':'')+'</div>').join('');
+}
+
+function bez(x1,y1,x2,y2,col){
+  const dx=(x2-x1)/2;
+  return '<path d="M'+x1+','+y1+' C'+(x1+dx)+','+y1+' '+(x2-dx)+','+y2+' '+x2+','+y2+
+    '" fill="none" stroke="'+col+'" stroke-width="1.6" opacity="0.7"/>';
+}
+function rrect(x,y,w,h,fill,title,sub,tcol,light,barcol,mag){
+  let s='<g><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="9" '+
+    (light?'fill="'+fill+'" stroke="var(--line)"':'fill="'+fill+'"')+' stroke-width="1"/>';
+  s+='<text x="'+(x+w/2)+'" y="'+(y+h/2-4)+'" fill="'+tcol+'" font-size="13.5" font-weight="600" text-anchor="middle">'+title+'</text>';
+  if(sub) s+='<text x="'+(x+w/2)+'" y="'+(y+h/2+13)+'" fill="'+(light?'var(--muted)':tcol)+'" font-size="11" text-anchor="middle" opacity="0.9">'+sub+'</text>';
+  if(barcol){ const bw=(w-20)*mag; s+='<rect x="'+(x+10)+'" y="'+(y+h-7)+'" width="'+(w-20)+'" height="3" rx="1.5" fill="var(--line)"/>'+
+    '<rect x="'+(x+10)+'" y="'+(y+h-7)+'" width="'+bw+'" height="3" rx="1.5" fill="'+barcol+'"/></g>'; }
+  else s+='</g>';
+  return s;
+}
+function txt(x,y,fs,t,col,anchor,op){ return '<text x="'+x+'" y="'+y+'" fill="'+(col||C.ink)+'" font-size="'+(fs||13)+
+  '" text-anchor="'+(anchor||'middle')+'" '+(op?'opacity="'+op+'"':'')+'>'+t+'</text>'; }
+
+// populate
+const drugs=CHAIN.drugs.slice().sort((a,b)=>a.name.localeCompare(b.name));
+const sel=$('#drug');
+drugs.forEach((d,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=d.name+(d.targets.length?('  ('+d.targets.length+'靶)'):''); sel.appendChild(o); });
+let action='inhibit';
+function pick(i){ sel.value=i; render(drugs[i],action); }
+
+// quick picks
+function firstWith(gene){ return drugs.findIndex(d=>d.targets.some(t=>t.gene===gene)); }
+function firstMulti(){
+  const cand=d=>{ const ks=new Set(); d.targets.forEach(t=>t.pathways.forEach(p=>ks.add(p.key))); return d.targets.length>=2 && ks.size>=2; };
+  const fb=drugs.findIndex(cand);
+  const rich=drugs.findIndex(d=>cand(d) && computeDrug(d,'inhibit').changes.length>=3);
+  return rich>=0?rich:fb;
+}
+const picks=[['EGFR 药',firstWith('EGFR')],['ESR1 药',firstWith('ESR1')],
+  ['CDK 药',firstWith('CDK1')],['多靶点药',firstMulti()]];
+picks.forEach(([label,idx])=>{ if(idx>=0){ const b=document.createElement('span'); b.className='pill';
+  b.textContent=label; b.onclick=()=>pick(idx); $('#pills').appendChild(b); } });
+
+sel.onchange=()=>render(drugs[+sel.value],action);
+document.querySelectorAll('#actToggle button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#actToggle button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); action=b.dataset.act; render(drugs[+sel.value],action);
+});
+
+// default: EGFR drug
+pick(firstWith('EGFR')>=0?firstWith('EGFR'):0);
+</script>
+</body>
+</html>

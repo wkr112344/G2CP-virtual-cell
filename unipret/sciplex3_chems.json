@@ -1,0 +1,842 @@
+{
+ "TAK-901": {
+  "chembl_id": "CHEMBL3544932",
+  "smiles": "CCS(=O)(=O)c1cccc(-c2cc(C(=O)NC3CCN(C)CC3)c(C)c3[nH]c4ncc(C)cc4c23)c1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "AG-490 (Tyrphostin B42)": {
+  "chembl_id": "CHEMBL1257042",
+  "smiles": "N#C/C(=C/c1ccc(O)c(O)c1)C(=O)NCc1ccccc1",
+  "target": "EGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Abexinostat (PCI-24781)": {
+  "chembl_id": "CHEMBL2103863",
+  "smiles": "CN(C)Cc1c(C(=O)NCCOc2ccc(C(=O)NO)cc2)oc2ccccc12",
+  "target": "HDAC",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Alisertib (MLN8237)": {
+  "chembl_id": "CHEMBL483158",
+  "smiles": "COc1cc(Nc2ncc3c(n2)-c2ccc(Cl)cc2C(c2c(F)cccc2OC)=NC3)ccc1C(=O)O",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Busulfan": {
+  "chembl_id": "CHEMBL820",
+  "smiles": "CS(=O)(=O)OCCCCOS(C)(=O)=O",
+  "target": "DNA alkylator",
+  "pathway": "DNA Damage"
+ },
+ "Obatoclax Mesylate (GX15-070)": {
+  "chembl_id": "CHEMBL408194",
+  "smiles": "COC1=CC(c2cc3ccccc3[nH]2)=N/C1=C\\c1[nH]c(C)cc1C",
+  "target": "Bcl-2",
+  "pathway": "Apoptosis"
+ },
+ "Enzastaurin (LY317615)": {
+  "chembl_id": "CHEMBL300138",
+  "smiles": "Cn1cc(C2=C(c3cn(C4CCN(Cc5ccccn5)CC4)c4ccccc34)C(=O)NC2=O)c2ccccc21",
+  "target": "PKC",
+  "pathway": "TGF-beta/Smad"
+ },
+ "Raltitrexed": {
+  "chembl_id": "CHEMBL225071",
+  "smiles": "Cc1nc(=O)c2cc(CN(C)c3ccc(C(=O)N[C@@H](CCC(=O)O)C(=O)O)s3)ccc2[nH]1",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "BMS-536924": {
+  "chembl_id": "CHEMBL401930",
+  "smiles": "Cc1cc(N2CCOCC2)cc2[nH]c(-c3c(NC[C@@H](O)c4cccc(Cl)c4)cc[nH]c3=O)nc12",
+  "target": "IGF-1R",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "AG-14361": {
+  "chembl_id": "CHEMBL65892",
+  "smiles": "CN(C)Cc1ccc(-c2nc3cccc4c3n2CCNC4=O)cc1",
+  "target": "PARP",
+  "pathway": "DNA Damage"
+ },
+ "Iniparib (BSI-201)": {
+  "chembl_id": "CHEMBL1170047",
+  "smiles": "NC(=O)c1ccc(I)c([N+](=O)[O-])c1",
+  "target": "PARP",
+  "pathway": "DNA Damage"
+ },
+ "Lenalidomide (CC-5013)": {
+  "chembl_id": "CHEMBL848",
+  "smiles": "Nc1cccc2c1CN(C1CCC(=O)NC1=O)C2=O",
+  "target": "TNF-alpha",
+  "pathway": "Apoptosis"
+ },
+ "Divalproex Sodium": {
+  "chembl_id": "CHEMBL2105613",
+  "smiles": "CCCC(CCC)C(=O)O.CCCC(CCC)C(=O)[O-].[Na+]",
+  "target": "HDAC",
+  "pathway": "Ubiquitin"
+ },
+ "BMS-911543": {
+  "chembl_id": "CHEMBL3545215",
+  "smiles": "CCn1c(C(=O)N(C2CC2)C2CC2)cc2c3c(ncn3C)c(Nc3cc(C)n(C)n3)nc21",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Carmofur": {
+  "chembl_id": "CHEMBL460499",
+  "smiles": "CCCCCCNC(=O)n1cc(F)c(=O)[nH]c1=O",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "Pirarubicin": {
+  "chembl_id": "CHEMBL2354444",
+  "smiles": "COc1cccc2c1C(=O)c1c(O)c3c(c(O)c1C2=O)C[C@@](O)(C(=O)CO)C[C@@H]3O[C@H]1C[C@H](N)[C@H](O[C@@H]2CCCCO2)[C@H](C)O1",
+  "target": "Topoisomerase",
+  "pathway": "DNA Damage"
+ },
+ "MLN8054": {
+  "chembl_id": "CHEMBL259084",
+  "smiles": "O=C(O)c1ccc(Nc2ncc3c(n2)-c2ccc(Cl)cc2C(c2c(F)cccc2F)=NC3)cc1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Maraviroc": {
+  "chembl_id": "CHEMBL1201187",
+  "smiles": "Cc1nnc(C(C)C)n1[C@@H]1C[C@H]2CC[C@@H](C1)N2CC[C@H](NC(=O)C1CCC(F)(F)CC1)c1ccccc1",
+  "target": "CCR",
+  "pathway": "Microbiology"
+ },
+ "Tanespimycin (17-AAG)": {
+  "chembl_id": "CHEMBL109480",
+  "smiles": "C=CCNC1=C2C[C@@H](C)C[C@H](OC)[C@H](O)[C@@H](C)/C=C(\\C)[C@H](OC(N)=O)[C@@H](OC)/C=C\\C=C(/C)C(=O)NC(=CC1=O)C2=O",
+  "target": "HSP (e.g. HSP90)",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Roxadustat (FG-4592)": {
+  "chembl_id": "CHEMBL2338329",
+  "smiles": "Cc1nc(C(=O)NCC(=O)O)c(O)c2ccc(Oc3ccccc3)cc12",
+  "target": "HIF",
+  "pathway": "Angiogenesis"
+ },
+ "Patupilone (EPO906, Epothilone B)": {
+  "chembl_id": "CHEMBL94657",
+  "smiles": "C/C(=C\\c1csc(C)n1)[C@@H]1C[C@@H]2O[C@]2(C)CCC[C@H](C)[C@H](O)[C@@H](C)C(=O)C(C)(C)[C@@H](O)CC(=O)O1",
+  "target": "Microtubule Associated",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Sodium Phenylbutyrate": {
+  "chembl_id": "CHEMBL1746",
+  "smiles": "O=C([O-])CCCc1ccccc1.[Na+]",
+  "target": "HDAC",
+  "pathway": "DNA Damage"
+ },
+ "Dacinostat (LAQ824)": {
+  "chembl_id": "CHEMBL356066",
+  "smiles": "O=C(/C=C/c1ccc(CN(CCO)CCc2c[nH]c3ccccc23)cc1)NO",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "PD98059": {
+  "chembl_id": "CHEMBL35482",
+  "smiles": "COc1cccc(-c2cc(=O)c3ccccc3o2)c1N",
+  "target": "MEK",
+  "pathway": "MAPK"
+ },
+ "Disulfiram": {
+  "chembl_id": "CHEMBL964",
+  "smiles": "CCN(CC)C(=S)SSC(=S)N(CC)CC",
+  "target": "Dehydrogenase",
+  "pathway": "Metabolism"
+ },
+ "Celecoxib": {
+  "chembl_id": "CHEMBL118",
+  "smiles": "Cc1ccc(-c2cc(C(F)(F)F)nn2-c2ccc(S(N)(=O)=O)cc2)cc1",
+  "target": "COX",
+  "pathway": "Neuronal Signaling"
+ },
+ "Linifanib (ABT-869)": {
+  "chembl_id": "CHEMBL223360",
+  "smiles": "Cc1ccc(F)c(NC(=O)Nc2ccc(-c3cccc4[nH]nc(N)c34)cc2)c1",
+  "target": "CSF-1R,PDGFR,VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Thalidomide": {
+  "chembl_id": "CHEMBL468",
+  "smiles": "O=C1CCC(N2C(=O)c3ccccc3C2=O)C(=O)N1",
+  "target": "E3 Ligase ,TNF-alpha",
+  "pathway": "Ubiquitin"
+ },
+ "SNS-314": {
+  "chembl_id": "CHEMBL482767",
+  "smiles": "O=C(Nc1cccc(Cl)c1)Nc1ncc(CCNc2ncnc3ccsc23)s1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Glesatinib?(MGCD265)": {
+  "chembl_id": "CHEMBL3989914",
+  "smiles": "COCCNCc1ccc(-c2cc3nccc(Oc4ccc(NC(=S)NC(=O)Cc5ccc(F)cc5)cc4F)c3s2)nc1",
+  "target": "c-Met,Tie-2,VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "JNJ-26854165 (Serdemetan)": {
+  "chembl_id": "CHEMBL2137530",
+  "smiles": "c1ccc2c(CCNc3ccc(Nc4ccncc4)cc3)c[nH]c2c1",
+  "target": "E3 Ligase ,p53",
+  "pathway": "Apoptosis"
+ },
+ "AZD1480": {
+  "chembl_id": "CHEMBL1231124",
+  "smiles": "Cc1cc(Nc2nc(N[C@@H](C)c3ncc(F)cn3)ncc2Cl)[nH]n1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Momelotinib (CYT387)": {
+  "chembl_id": "CHEMBL1078178",
+  "smiles": "N#CCNC(=O)c1ccc(-c2ccnc(Nc3ccc(N4CCOCC4)cc3)n2)cc1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Hesperadin": {
+  "chembl_id": "CHEMBL514409",
+  "smiles": "CCS(=O)(=O)Nc1ccc2c(c1)/C(=C(/Nc1ccc(CN3CCCCC3)cc1)c1ccccc1)C(=O)N2",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Roscovitine (Seliciclib,CYC202)": {
+  "chembl_id": "CHEMBL14762",
+  "smiles": "CC[C@H](CO)Nc1nc(NCc2ccccc2)c2ncn(C(C)C)c2n1",
+  "target": "CDK",
+  "pathway": "Cell Cycle"
+ },
+ "Tucidinostat (Chidamide)": {
+  "chembl_id": "CHEMBL3621988",
+  "smiles": "Nc1cc(F)ccc1NC(=O)c1ccc(CNC(=O)/C=C/c2cccnc2)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Ellagic acid": {
+  "chembl_id": "CHEMBL6246",
+  "smiles": "O=c1oc2c(O)c(O)cc3c(=O)oc4c(O)c(O)cc1c4c23",
+  "target": "Topoisomerase",
+  "pathway": "DNA Damage"
+ },
+ "CEP-33779": {
+  "chembl_id": "CHEMBL2062804",
+  "smiles": "CN1CCN(c2cccc(Nc3nc4c(-c5ccc(S(C)(=O)=O)cc5)cccn4n3)c2)CC1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Resminostat": {
+  "chembl_id": "CHEMBL4296717",
+  "smiles": "CN(C)Cc1ccc(S(=O)(=O)n2ccc(/C=C/C(=O)NO)c2)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Nintedanib (BIBF 1120)": {
+  "chembl_id": "CHEMBL502835",
+  "smiles": "COC(=O)c1ccc2c(c1)NC(=O)/C2=C(\\Nc1ccc(N(C)C(=O)CN2CCN(C)CC2)cc1)c1ccccc1",
+  "target": "FGFR,PDGFR,VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Trametinib (GSK1120212)": {
+  "chembl_id": "CHEMBL2103875",
+  "smiles": "CC(=O)Nc1cccc(-n2c(=O)n(C3CC3)c(=O)c3c(Nc4ccc(I)cc4F)n(C)c(=O)c(C)c32)c1",
+  "target": "MEK",
+  "pathway": "MAPK"
+ },
+ "Panobinostat (LBH589)": {
+  "chembl_id": "CHEMBL483254",
+  "smiles": "Cc1[nH]c2ccccc2c1CCNCc1ccc(/C=C/C(=O)NO)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Meprednisone": {
+  "chembl_id": "CHEMBL1201148",
+  "smiles": "C[C@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@H]3C(=O)C[C@]2(C)[C@@]1(O)C(=O)CO",
+  "target": "Glucocorticoid Receptor",
+  "pathway": "Endocrinology & Hormones"
+ },
+ "Avagacestat (BMS-708163)": {
+  "chembl_id": "CHEMBL1090771",
+  "smiles": "NC(=O)[C@@H](CCC(F)(F)F)N(Cc1ccc(-c2ncon2)cc1F)S(=O)(=O)c1ccc(Cl)cc1",
+  "target": "Beta Amyloid,Gamma-secretase",
+  "pathway": "Proteases"
+ },
+ "AMG-900": {
+  "chembl_id": "CHEMBL2140408",
+  "smiles": "Cc1csc(-c2nnc(Nc3ccc(Oc4ncccc4-c4ccnc(N)n4)cc3)c3ccccc23)c1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Fasudil (HA-1077) HCl": {
+  "chembl_id": "CHEMBL38380",
+  "smiles": "O=S(=O)(c1cccc2cnccc12)N1CCCNCC1",
+  "target": "Autophagy,ROCK",
+  "pathway": "Cell Cycle"
+ },
+ "Trichostatin A (TSA)": {
+  "chembl_id": "CHEMBL99",
+  "smiles": "CC(/C=C/C(=O)NO)=C\\[C@@H](C)C(=O)c1ccc(N(C)C)cc1",
+  "target": "HDAC",
+  "pathway": "Others"
+ },
+ "Prednisone": {
+  "chembl_id": "CHEMBL635",
+  "smiles": "C[C@]12C=CC(=O)C=C1CC[C@@H]1[C@@H]2C(=O)C[C@@]2(C)[C@H]1CC[C@]2(O)C(=O)CO",
+  "target": "Glucocorticoid Receptor,Immunology & Inflammation related",
+  "pathway": "Endocrinology & Hormones"
+ },
+ "Crizotinib (PF-02341066)": {
+  "chembl_id": "CHEMBL601719",
+  "smiles": "C[C@@H](Oc1cc(-c2cnn(C3CCNCC3)c2)cnc1N)c1c(Cl)ccc(F)c1Cl",
+  "target": "ALK,c-Met",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Navitoclax (ABT-263)": {
+  "chembl_id": "CHEMBL443684",
+  "smiles": "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(N[C@H](CCN5CCOCC5)CSc5ccccc5)c(S(=O)(=O)C(F)(F)F)c4)cc3)CC2)C1",
+  "target": "Bcl-2",
+  "pathway": "Apoptosis"
+ },
+ "Barasertib (AZD1152-HQPA)": {
+  "chembl_id": "CHEMBL215152",
+  "smiles": "CCN(CCO)CCCOc1ccc2c(Nc3cc(CC(=O)Nc4cccc(F)c4)[nH]n3)ncnc2c1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "PHA-680632": {
+  "chembl_id": "CHEMBL363160",
+  "smiles": "CCc1cccc(CC)c1NC(=O)N1Cc2[nH]nc(NC(=O)c3ccc(N4CCN(C)CC4)cc3)c2C1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Dasatinib": {
+  "chembl_id": "CHEMBL1421",
+  "smiles": "Cc1nc(Nc2ncc(C(=O)Nc3c(C)cccc3Cl)s2)cc(N2CCN(CCO)CC2)n1",
+  "target": "Bcr-Abl,c-Kit,Src",
+  "pathway": "Angiogenesis"
+ },
+ "Fluorouracil (5-Fluoracil, 5-FU)": {
+  "chembl_id": "CHEMBL185",
+  "smiles": "O=c1[nH]cc(F)c(=O)[nH]1",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "Quisinostat (JNJ-26481585) 2HCl": {
+  "chembl_id": "CHEMBL2105763",
+  "smiles": "Cn1cc(CNCC2CCN(c3ncc(C(=O)NO)cn3)CC2)c2ccccc21",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Tozasertib (VX-680, MK-0457)": {
+  "chembl_id": "CHEMBL572878",
+  "smiles": "Cc1cc(Nc2cc(N3CCN(C)CC3)nc(Sc3ccc(NC(=O)C4CC4)cc3)n2)n[nH]1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Gandotinib (LY2784544)": {
+  "chembl_id": "CHEMBL2107823",
+  "smiles": "Cc1cc(Nc2cc(CN3CCOCC3)c3nc(C)c(Cc4ccc(Cl)cc4F)n3n2)n[nH]1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Temsirolimus (CCI-779, NSC 683864)": {
+  "chembl_id": "CHEMBL1201182",
+  "smiles": "CO[C@H]1C[C@@H]2CC[C@@H](C)[C@@](O)(O2)C(=O)C(=O)N2CCCC[C@H]2C(=O)O[C@H]([C@H](C)C[C@@H]2CC[C@@H](OC(=O)C(C)(CO)CO)[C@H](OC)C2)CC(=O)[C@H](C)/C=C(\\C)[C@@H](O)[C@@H](OC)C(=O)[C@H](C)C[C@H](C)/C=C/C=C/C=C/1C",
+  "target": "mTOR",
+  "pathway": "PI3K/Akt/mTOR"
+ },
+ "Clevudine": {
+  "chembl_id": "CHEMBL458875",
+  "smiles": "Cc1cn([C@H]2O[C@@H](CO)[C@H](O)[C@H]2F)c(=O)[nH]c1=O",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "ABT-737": {
+  "chembl_id": "CHEMBL376408",
+  "smiles": "CN(C)CC[C@H](CSc1ccccc1)Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2)cc1[N+](=O)[O-]",
+  "target": "Bcl-2",
+  "pathway": "Apoptosis"
+ },
+ "SRT2104 (GSK2245840)": {
+  "chembl_id": "CHEMBL4297436",
+  "smiles": "Cc1nc(-c2cccnc2)sc1C(=O)Nc1ccccc1-c1cn2c(CN3CCOCC3)csc2n1",
+  "target": "Sirtuin",
+  "pathway": "DNA Damage"
+ },
+ "ZM 447439": {
+  "chembl_id": "CHEMBL202721",
+  "smiles": "COc1cc2c(Nc3ccc(NC(=O)c4ccccc4)cc3)ncnc2cc1OCCCN1CCOCC1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "Belinostat (PXD101)": {
+  "chembl_id": "CHEMBL408513",
+  "smiles": "O=C(/C=C/c1cccc(S(=O)(=O)Nc2ccccc2)c1)NO",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Toremifene Citrate": {
+  "chembl_id": "CHEMBL1200675",
+  "smiles": "CN(C)CCOc1ccc(/C(=C(/CCCl)c2ccccc2)c2ccccc2)cc1.O=C(O)CC(O)(CC(=O)O)C(=O)O",
+  "target": "Estrogen/progestogen Receptor",
+  "pathway": "Endocrinology & Hormones"
+ },
+ "Ruxolitinib (INCB018424)": {
+  "chembl_id": "CHEMBL1789941",
+  "smiles": "N#CC[C@H](C1CCCC1)n1cc(-c2ncnc3[nH]ccc23)cn1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Ofloxacin": {
+  "chembl_id": "CHEMBL4",
+  "smiles": "CC1COc2c(N3CCN(C)CC3)c(F)cc3c(=O)c(C(=O)O)cn1c23",
+  "target": "Topoisomerase",
+  "pathway": "DNA Damage"
+ },
+ "Bosutinib (SKI-606)": {
+  "chembl_id": "CHEMBL288441",
+  "smiles": "COc1cc(Nc2c(C#N)cnc3cc(OCCCN4CCN(C)CC4)c(OC)cc23)c(Cl)cc1Cl",
+  "target": "Src",
+  "pathway": "Angiogenesis"
+ },
+ "Regorafenib (BAY 73-4506)": {
+  "chembl_id": "CHEMBL1946170",
+  "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(C(F)(F)F)c3)c(F)c2)ccn1",
+  "target": "c-RET,VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Alendronate sodium trihydrate": {
+  "chembl_id": "CHEMBL675",
+  "smiles": "NCCCC(O)(P(=O)([O-])O)P(=O)(O)O.[Na+]",
+  "target": "Others",
+  "pathway": "Others"
+ },
+ "PF-3845": {
+  "chembl_id": "CHEMBL1651524",
+  "smiles": "O=C(Nc1cccnc1)N1CCC(Cc2cccc(Oc3ccc(C(F)(F)F)cn3)c2)CC1",
+  "target": "FAAH",
+  "pathway": "Metabolism"
+ },
+ "A-366": {
+  "chembl_id": "CHEMBL84617",
+  "smiles": "CCC(=O)N(c1ccccc1F)C1(c2ccccc2)CCN(CCn2nnn(CC)c2=O)CC1",
+  "target": "Histone Methyltransferase",
+  "pathway": "Epigenetics"
+ },
+ "Ivosidenib (AG-120)": {
+  "chembl_id": "CHEMBL3989958",
+  "smiles": "N#Cc1ccnc(N2C(=O)CC[C@H]2C(=O)N(c2cncc(F)c2)[C@H](C(=O)NC2CC(F)(F)C2)c2ccccc2Cl)c1",
+  "target": "IDH1",
+  "pathway": "Metabolism"
+ },
+ "WHI-P154": {
+  "chembl_id": "CHEMBL473773",
+  "smiles": "COc1cc2ncnc(Nc3ccc(O)c(Br)c3)c2cc1OC",
+  "target": "EGFR,JAK",
+  "pathway": "JAK/STAT"
+ },
+ "PD173074": {
+  "chembl_id": "CHEMBL189584",
+  "smiles": "CCN(CC)CCCCNc1ncc2cc(-c3cc(OC)cc(OC)c3)c(NC(=O)NC(C)(C)C)nc2n1",
+  "target": "FGFR,VEGFR",
+  "pathway": "Angiogenesis"
+ },
+ "BMS-754807": {
+  "chembl_id": "CHEMBL575448",
+  "smiles": "C[C@@]1(C(=O)Nc2ccc(F)nc2)CCCN1c1nc(Nc2cc(C3CC3)n[nH]2)c2cccn2n1",
+  "target": "c-Met,IGF-1R,Trk receptor",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Quercetin": {
+  "chembl_id": "CHEMBL50",
+  "smiles": "O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12",
+  "target": "Src,Sirtuin,PKC,PI3K",
+  "pathway": "Epigenetics"
+ },
+ "Lapatinib (GW-572016) Ditosylate": {
+  "chembl_id": "CHEMBL554",
+  "smiles": "CS(=O)(=O)CCNCc1ccc(-c2ccc3ncnc(Nc4ccc(OCc5cccc(F)c5)c(Cl)c4)c3c2)o1",
+  "target": "EGFR,HER2",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "KW-2449": {
+  "chembl_id": "CHEMBL1908397",
+  "smiles": "O=C(c1ccc(/C=C/c2n[nH]c3ccccc23)cc1)N1CCNCC1",
+  "target": "Aurora Kinase,Bcr-Abl,FLT3",
+  "pathway": "Angiogenesis"
+ },
+ "Azacitidine": {
+  "chembl_id": "CHEMBL1489",
+  "smiles": "Nc1ncn([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)c(=O)n1",
+  "target": "DNA Methyltransferase",
+  "pathway": "DNA Damage"
+ },
+ "Lomustine": {
+  "chembl_id": "CHEMBL514",
+  "smiles": "O=NN(CCCl)C(=O)NC1CCCCC1",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "Motesanib Diphosphate (AMG-706)": {
+  "chembl_id": "CHEMBL572881",
+  "smiles": "CC1(C)CNc2cc(NC(=O)c3cccnc3NCc3ccncc3)ccc21",
+  "target": "VEGFR,PDGFR,c-Kit",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Resveratrol": {
+  "chembl_id": "CHEMBL165",
+  "smiles": "Oc1ccc(/C=C/c2cc(O)cc(O)c2)cc1",
+  "target": "Autophagy,Sirtuin",
+  "pathway": "Epigenetics"
+ },
+ "CYC116": {
+  "chembl_id": "CHEMBL482967",
+  "smiles": "Cc1nc(N)sc1-c1ccnc(Nc2ccc(N3CCOCC3)cc2)n1",
+  "target": "Aurora Kinase,VEGFR",
+  "pathway": "Cell Cycle"
+ },
+ "Aminoglutethimide": {
+  "chembl_id": "CHEMBL488",
+  "smiles": "CCC1(c2ccc(N)cc2)CCC(=O)NC1=O",
+  "target": "Aromatase",
+  "pathway": "Endocrinology & Hormones"
+ },
+ "Daphnetin": {
+  "chembl_id": "CHEMBL244948",
+  "smiles": "O=c1ccc2ccc(O)c(O)c2o1",
+  "target": "PKA,EGFR,PKC",
+  "pathway": "DNA Damage"
+ },
+ "CUDC-101": {
+  "chembl_id": "CHEMBL598797",
+  "smiles": "C#Cc1cccc(Nc2ncnc3cc(OC)c(OCCCCCCC(=O)NO)cc23)c1",
+  "target": "EGFR,HDAC,HER2",
+  "pathway": "Epigenetics"
+ },
+ "Filgotinib (GLPG0634)": {
+  "chembl_id": "CHEMBL3301607",
+  "smiles": "O=C(Nc1nc2cccc(-c3ccc(CN4CCS(=O)(=O)CC4)cc3)n2n1)C1CC1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Veliparib (ABT-888)": {
+  "chembl_id": "CHEMBL506871",
+  "smiles": "C[C@]1(c2nc3c(C(N)=O)cccc3[nH]2)CCCN1",
+  "target": "PARP",
+  "pathway": "DNA Damage"
+ },
+ "Danusertib (PHA-739358)": {
+  "chembl_id": "CHEMBL402548",
+  "smiles": "CO[C@@H](C(=O)N1Cc2[nH]nc(NC(=O)c3ccc(N4CCN(C)CC4)cc3)c2C1)c1ccccc1",
+  "target": "Aurora Kinase,Bcr-Abl,c-RET,FGFR",
+  "pathway": "Cell Cycle"
+ },
+ "Alvespimycin (17-DMAG) HCl": {
+  "chembl_id": "CHEMBL383824",
+  "smiles": "CO[C@H]1/C=C\\C=C(/C)C(=O)NC2=CC(=O)C(NCCN(C)C)=C(C[C@@H](C)C[C@H](OC)[C@H](O)[C@@H](C)/C=C(\\C)[C@@H]1OC(N)=O)C2=O",
+  "target": "HSP (e.g. HSP90)",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Sorafenib Tosylate": {
+  "chembl_id": "CHEMBL1200485",
+  "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(C(F)(F)F)c3)cc2)ccn1.Cc1ccc(S(=O)(=O)O)cc1",
+  "target": "PDGFR,Raf,VEGFR",
+  "pathway": "MAPK"
+ },
+ "2-Methoxyestradiol (2-MeOE2)": {
+  "chembl_id": "CHEMBL299613",
+  "smiles": "COc1cc2c(cc1O)CC[C@@H]1[C@@H]2CC[C@]2(C)[C@@H](O)CC[C@@H]12",
+  "target": "HIF",
+  "pathway": "Angiogenesis"
+ },
+ "Baricitinib (LY3009104, INCB028050)": {
+  "chembl_id": "CHEMBL2105759",
+  "smiles": "CCS(=O)(=O)N1CC(CC#N)(n2cc(-c3ncnc4[nH]ccc34)cn2)C1",
+  "target": "JAK",
+  "pathway": "Epigenetics"
+ },
+ "Fedratinib (SAR302503, TG101348)": {
+  "chembl_id": "CHEMBL1287853",
+  "smiles": "Cc1cnc(Nc2ccc(OCCN3CCCC3)cc2)nc1Nc1cccc(S(=O)(=O)NC(C)(C)C)c1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "S-Ruxolitinib (INCB018424)": {
+  "chembl_id": "CHEMBL1789941",
+  "smiles": "N#CC[C@H](C1CCCC1)n1cc(-c2ncnc3[nH]ccc23)cn1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "MK-0752": {
+  "chembl_id": "CHEMBL4205422",
+  "smiles": "O=C(O)CC[C@H]1CC[C@@](c2cc(F)ccc2F)(S(=O)(=O)c2ccc(Cl)cc2)CC1",
+  "target": "Beta Amyloid,Gamma-secretase",
+  "pathway": "Proteases"
+ },
+ "Tofacitinib (CP-690550) Citrate": {
+  "chembl_id": "CHEMBL221959",
+  "smiles": "C[C@@H]1CCN(C(=O)CC#N)C[C@@H]1N(C)c1ncnc2[nH]ccc12",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Capecitabine": {
+  "chembl_id": "CHEMBL1773",
+  "smiles": "CCCCCOC(=O)Nc1nc(=O)n([C@@H]2O[C@H](C)[C@@H](O)[C@H]2O)cc1F",
+  "target": "DNA/RNA Synthesis",
+  "pathway": "DNA Damage"
+ },
+ "SGI-1776 free base": {
+  "chembl_id": "CHEMBL1952329",
+  "smiles": "CN1CCC(CNc2ccc3ncc(-c4cccc(OC(F)(F)F)c4)n3n2)CC1",
+  "target": "Pim",
+  "pathway": "JAK/STAT"
+ },
+ "Nilotinib (AMN-107)": {
+  "chembl_id": "CHEMBL255863",
+  "smiles": "Cc1cn(-c2cc(NC(=O)c3ccc(C)c(Nc4nccc(-c5cccnc5)n4)c3)cc(C(F)(F)F)c2)cn1",
+  "target": "Bcr-Abl",
+  "pathway": "Angiogenesis"
+ },
+ "Sirtinol": {
+  "chembl_id": "CHEMBL380797",
+  "smiles": "CC(NC(=O)c1ccccc1/N=C/c1c(O)ccc2ccccc12)c1ccccc1",
+  "target": "Sirtuin",
+  "pathway": "Epigenetics"
+ },
+ "Decitabine": {
+  "chembl_id": "CHEMBL1201129",
+  "smiles": "Nc1ncn([C@H]2C[C@H](O)[C@@H](CO)O2)c(=O)n1",
+  "target": "DNA Methyltransferase",
+  "pathway": "Epigenetics"
+ },
+ "AT9283": {
+  "chembl_id": "CHEMBL495727",
+  "smiles": "O=C(Nc1c[nH]nc1-c1nc2ccc(CN3CCOCC3)cc2[nH]1)NC1CC1",
+  "target": "Aurora Kinase,Bcr-Abl,JAK",
+  "pathway": "JAK/STAT"
+ },
+ "JNJ-7706621": {
+  "chembl_id": "CHEMBL191003",
+  "smiles": "Nc1nc(Nc2ccc(S(N)(=O)=O)cc2)nn1C(=O)c1c(F)cccc1F",
+  "target": "Aurora Kinase,CDK",
+  "pathway": "Cell Cycle"
+ },
+ "Costunolide": {
+  "chembl_id": "CHEMBL86416",
+  "smiles": "C=C1C(=O)O[C@@H]2/C=C(\\C)CC/C=C(\\C)CC[C@@H]12",
+  "target": "Telomerase",
+  "pathway": "DNA Damage"
+ },
+ "AICAR (Acadesine)": {
+  "chembl_id": "CHEMBL1551724",
+  "smiles": "NC(=O)c1ncn([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)c1N",
+  "target": "AMPK",
+  "pathway": "PI3K/Akt/mTOR"
+ },
+ "Mocetinostat (MGCD0103)": {
+  "chembl_id": "CHEMBL272980",
+  "smiles": "Nc1ccccc1NC(=O)c1ccc(CNc2nccc(-c3cccnc3)n2)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Bisindolylmaleimide IX (Ro 31-8220 Mesylate)": {
+  "chembl_id": "CHEMBL6291",
+  "smiles": "Cn1cc(C2=C(c3cn(CCCSC(=N)N)c4ccccc34)C(=O)NC2=O)c2ccccc21",
+  "target": "PKC",
+  "pathway": "TGF-beta/Smad"
+ },
+ "Cimetidine": {
+  "chembl_id": "CHEMBL30",
+  "smiles": "CN/C(=N\\CCSCc1nc[nH]c1C)NC#N",
+  "target": "Histamine Receptor",
+  "pathway": "Neuronal Signaling"
+ },
+ "Triamcinolone Acetonide": {
+  "chembl_id": "CHEMBL1504",
+  "smiles": "CC1(C)O[C@@H]2C[C@H]3[C@@H]4CCC5=CC(=O)C=C[C@]5(C)[C@@]4(F)[C@@H](O)C[C@]3(C)[C@]2(C(=O)CO)O1",
+  "target": "Glucocorticoid Receptor",
+  "pathway": "Metabolism"
+ },
+ "Flavopiridol HCl": {
+  "chembl_id": "CHEMBL428690",
+  "smiles": "CN1CC[C@H](c2c(O)cc(O)c3c(=O)cc(-c4ccccc4Cl)oc23)[C@H](O)C1",
+  "target": "CDK",
+  "pathway": "Cell Cycle"
+ },
+ "Entacapone": {
+  "chembl_id": "CHEMBL953",
+  "smiles": "CCN(CC)C(=O)/C(C#N)=C/c1cc(O)c(O)c([N+](=O)[O-])c1",
+  "target": "Histone Methyltransferase",
+  "pathway": "Epigenetics"
+ },
+ "Rigosertib (ON-01910)": {
+  "chembl_id": "CHEMBL1241855",
+  "smiles": "COc1cc(OC)c(/C=C/S(=O)(=O)Cc2ccc(OC)c(NCC(=O)O)c2)c(OC)c1",
+  "target": "PLK",
+  "pathway": "Cell Cycle"
+ },
+ "GSK J1": {
+  "chembl_id": "CHEMBL4303060",
+  "smiles": "CCOC(=O)[C@H](Cc1ccc(F)cc1)NC(=O)[C@@H](N)Cc1ccc(N(CCCl)CCCl)cc1",
+  "target": "Histone Demethylase",
+  "pathway": "Epigenetics"
+ },
+ "Fulvestrant": {
+  "chembl_id": "CHEMBL1358",
+  "smiles": "C[C@]12CC[C@@H]3c4ccc(O)cc4C[C@@H](CCCCCCCCC[S+]([O-])CCCC(F)(F)C(F)(F)F)[C@H]3[C@@H]1CC[C@@H]2O",
+  "target": "Estrogen/progestogen Receptor",
+  "pathway": "Endocrinology & Hormones"
+ },
+ "Givinostat (ITF2357)": {
+  "chembl_id": "CHEMBL1213492",
+  "smiles": "CCN(CC)Cc1ccc2cc(COC(=O)Nc3ccc(C(=O)NO)cc3)ccc2c1",
+  "target": "HDAC",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "CUDC-907": {
+  "chembl_id": "CHEMBL3622533",
+  "smiles": "COc1ccc(-c2nc(N3CCOCC3)c3sc(CN(C)c4ncc(C(=O)NO)cn4)cc3n2)cn1",
+  "target": "HDAC,PI3K",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Vandetanib (ZD6474)": {
+  "chembl_id": "CHEMBL24828",
+  "smiles": "COc1cc2/c(=N/c3ccc(Br)cc3F)nc[nH]c2cc1OCC1CCN(C)CC1",
+  "target": "VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Amisulpride": {
+  "chembl_id": "CHEMBL243712",
+  "smiles": "CCN1CCCC1CNC(=O)c1cc(S(=O)(=O)CC)c(N)cc1OC",
+  "target": "Dopamine Receptor",
+  "pathway": "Neuronal Signaling"
+ },
+ "Pelitinib (EKB-569)": {
+  "chembl_id": "CHEMBL607707",
+  "smiles": "CCOc1cc2ncc(C#N)c(Nc3ccc(F)c(Cl)c3)c2cc1NC(=O)/C=C/CN(C)C",
+  "target": "EGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Rucaparib (AG-014699,PF-01367338) phosphate": {
+  "chembl_id": "CHEMBL1173055",
+  "smiles": "CNCc1ccc(-c2[nH]c3cc(F)cc4c3c2CCNC4=O)cc1",
+  "target": "PARP",
+  "pathway": "DNA Damage"
+ },
+ "Luminespib (AUY-922, NVP-AUY922)": {
+  "chembl_id": "CHEMBL252164",
+  "smiles": "CCNC(=O)c1noc(-c2cc(C(C)C)c(O)cc2O)c1-c1ccc(CN2CCOCC2)cc1",
+  "target": "HSP (e.g. HSP90)",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Ramelteon": {
+  "chembl_id": "CHEMBL1218",
+  "smiles": "CCC(=O)NCC[C@@H]1CCc2ccc3c(c21)CCO3",
+  "target": "MT Receptor",
+  "pathway": "GPCR & G Protein"
+ },
+ "Tazemetostat (EPZ-6438)": {
+  "chembl_id": "CHEMBL3414621",
+  "smiles": "CCN(c1cc(-c2ccc(CN3CCOCC3)cc2)cc(C(=O)NCc2c(C)cc(C)[nH]c2=O)c1C)C1CCOCC1",
+  "target": "Histone Methyltransferase",
+  "pathway": "Epigenetics"
+ },
+ "Streptozotocin (STZ)": {
+  "chembl_id": "CHEMBL1651906",
+  "smiles": "CN(N=O)C(=O)N[C@H]1C(O)O[C@H](CO)[C@@H](O)[C@@H]1O",
+  "target": "DNA alkylator",
+  "pathway": "DNA Damage"
+ },
+ "WP1066": {
+  "chembl_id": "CHEMBL1923234",
+  "smiles": "C[C@H](NC(=O)/C(C#N)=C/c1cccc(Br)n1)c1ccccc1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Entinostat (MS-275)": {
+  "chembl_id": "CHEMBL27759",
+  "smiles": "Nc1ccccc1NC(=O)c1ccc(CNC(=O)OCc2cccnc2)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "SB431542": {
+  "chembl_id": "CHEMBL440084",
+  "smiles": "NC(=O)c1ccc(-c2nc(-c3ccccn3)c(-c3ccc4c(c3)OCO4)[nH]2)cc1",
+  "target": "TGF-beta/Smad",
+  "pathway": "TGF-beta/Smad"
+ },
+ "GSK1070916": {
+  "chembl_id": "CHEMBL1090479",
+  "smiles": "CCn1cc(-c2ccnc3[nH]c(-c4cccc(CN(C)C)c4)cc23)c(-c2ccc(NC(=O)N(C)C)cc2)n1",
+  "target": "Aurora Kinase",
+  "pathway": "Cell Cycle"
+ },
+ "SL-327": {
+  "chembl_id": "CHEMBL261237",
+  "smiles": "N#C/C(=C(/N)Sc1ccc(N)cc1)c1ccccc1C(F)(F)F",
+  "target": "MEK",
+  "pathway": "MAPK"
+ },
+ "Epothilone A": {
+  "chembl_id": "CHEMBL329993",
+  "smiles": "C/C(=C\\c1csc(C)n1)[C@@H]1C[C@@H]2O[C@@H]2CCC[C@H](C)[C@H](O)[C@@H](C)C(=O)C(C)(C)[C@@H](O)CC(=O)O1",
+  "target": "Microtubule Associated",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "Altretamine": {
+  "chembl_id": "CHEMBL1455",
+  "smiles": "CN(C)c1nc(N(C)C)nc(N(C)C)n1",
+  "target": "DNA alkylator",
+  "pathway": "DNA Damage"
+ },
+ "Tacedinaline (CI994)": {
+  "chembl_id": "CHEMBL235191",
+  "smiles": "CC(=O)Nc1ccc(C(=O)Nc2ccccc2N)cc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "AR-42": {
+  "chembl_id": "CHEMBL191482",
+  "smiles": "CC(C)[C@H](C(=O)Nc1ccc(C(=O)NO)cc1)c1ccccc1",
+  "target": "HDAC",
+  "pathway": "Epigenetics"
+ },
+ "Pracinostat (SB939)": {
+  "chembl_id": "CHEMBL1851943",
+  "smiles": "CCCCc1nc2cc(/C=C/C(=O)NO)ccc2n1CCN(CC)CC",
+  "target": "HDAC",
+  "pathway": "Cytoskeletal Signaling"
+ },
+ "AC480 (BMS-599626)": {
+  "chembl_id": "CHEMBL1645462",
+  "smiles": "Cc1c(NC(=O)OC[C@@H]2COCCN2)cn2ncnc(Nc3ccc4c(cnn4Cc4cccc(F)c4)c3)c12",
+  "target": "EGFR,HER2",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Cediranib (AZD2171)": {
+  "chembl_id": "CHEMBL491473",
+  "smiles": "COc1cc2c(Oc3ccc4[nH]c(C)cc4c3F)ncnc2cc1OCCCN1CCCC1",
+  "target": "VEGFR",
+  "pathway": "Protein Tyrosine Kinase"
+ },
+ "Thiotepa": {
+  "chembl_id": "CHEMBL671",
+  "smiles": "S=P(N1CC1)(N1CC1)N1CC1",
+  "target": "Others",
+  "pathway": "Others"
+ },
+ "Cerdulatinib (PRT062070, PRT2070)": {
+  "chembl_id": "CHEMBL4116008",
+  "smiles": "CCS(=O)(=O)N1CCN(c2ccc(Nc3ncc(C(N)=O)c(NC4CC4)n3)cc2)CC1",
+  "target": "JAK",
+  "pathway": "JAK/STAT"
+ },
+ "Zileuton": {
+  "chembl_id": "CHEMBL93",
+  "smiles": "CC(c1cc2ccccc2s1)N(O)C(N)=O",
+  "target": "Lipoxygenase",
+  "pathway": "Metabolism"
+ }
+}

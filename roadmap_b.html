@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>虚拟细胞 B 方案路线图 · 真做 UniPert-G2CP 可靠工具</title>
+<style>
+  :root{--bg:#fff;--card:#f6f8fa;--ink:#1f2328;--mut:#57606a;--line:#d0d7de;--acc:#0969da;--grn:#1a7f37;--red:#cf222e;--amber:#9a6700}
+  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:32px;line-height:1.7}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:25px;margin:0 0 4px}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:20px}
+  .banner{background:#eaf6ee;border:1px solid #a3d9b1;border-radius:10px;padding:16px 20px;margin:18px 0}
+  .banner b{color:var(--grn)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:16px 0}
+  h2{font-size:19px;margin:0 0 12px;color:var(--acc);border-left:4px solid var(--acc);padding-left:10px}
+  h3{font-size:15px;margin:16px 0 6px;color:var(--ink)}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#eaeef2;color:var(--ink)}
+  code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px;color:#0c447c}
+  .free{color:var(--grn);font-weight:600}.paid{color:var(--red);font-weight:600}
+  .timeline{display:flex;gap:0;margin:14px 0;flex-wrap:wrap}
+  .ph{flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px;background:#fff}
+  .ph b{color:var(--acc)}
+  .ph .ok{color:var(--grn);font-size:12px}
+  .arch{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+  .box{display:inline-block;border:1px solid var(--acc);background:#eaf2fb;border-radius:8px;padding:8px 12px;margin:4px;font-size:13px}
+  .box.r{border-color:var(--grn);background:#eaf6ee}
+  .box.m{border-color:var(--amber);background:#fdf6e3}
+  .arrow{text-align:center;color:var(--mut);font-size:18px;margin:2px 0}
+  ul{margin:8px 0;padding-left:22px}li{margin:4px 0}
+  .note{background:#fff8e6;border:1px solid #f0d58a;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:13px}
+</style></head>
+<body><div class="wrap">
+<h1>虚拟细胞 B 方案落地路线</h1>
+<div class="sub">真做 UniPert-G2CP（Li et al., Cell 2026）· 当可靠工具用 · 不急发文章 · 2026-08-02</div>
+
+<div class="banner">
+<b>定位已定：选 B。</b> 不复刻"对标思路"的轻量基线，而是按论文标准真实实现 <b>统一分子表征层（UniPert）+ 遗传→化学迁移层（G2CP）</b>，标签用真实转录组，工程按可靠工具做（断点续训、验证基准、错误监控）。<b>全程不花钱</b>——数据全公开，算力用本机 3050Ti。
+</div>
+
+<div class="card">
+<h2>一、真实数据清单（全免费，本地化到 real_data/）</h2>
+<table>
+<tr><th>数据集</th><th>干什么用</th><th>规模 / 大小</th><th>来源</th><th>费用</th></tr>
+<tr><td><b>DepMap</b><br>(CRISPR 基因必需性)</td><td>基因扰动预训练标签（G2CP 阶段A 的大数据）</td><td>≈1,800 万 (基因×细胞系)；矩阵 1–2 GB</td><td>depmap.org / figshare</td><td class="free">免费 CC</td></tr>
+<tr><td><b>LINCS L1000</b><br>(GSE92742)</td><td>药物真实转录组标签（978 landmark 基因）</td><td>≈130 万样本；Level2 ≈2.3GB / Level3 ≈99MB</td><td>NCBI GEO</td><td class="free">免费</td></tr>
+<tr><td><b>sciPlex3</b><br>(Norman 2021)</td><td>单细胞真实转录组，基因+药物扰动，3 细胞系</td><td>≈75 万细胞；h5ad 按系 94–285MB</td><td>Zenodo</td><td class="free">免费</td></tr>
+<tr><td><b>ChEMBL</b><br>(已有)</td><td>218 药 SMILES / EC50-Kd（已校准 174 条）</td><td>本地已有</td><td>—</td><td class="free">已有</td></tr>
+</table>
+<div class="note">下载前会跟你确认磁盘占用（预计 real_data/ 峰值 ≈ 5–6 GB，训练时按需流式读取，不一次性载入）。全部公开学术数据，<b>无任何付费/订阅</b>。</div>
+</div>
+
+<div class="card">
+<h2>二、架构改造（对照你之前那张图）</h2>
+<div class="arch">
+<div style="text-align:center">
+<span class="box">基因序列 → 轻量编码器</span>
+<span class="box">化合物图 → GNN/CNN 编码器</span>
+<div class="arrow">↓ 各投影到同一维度</div>
+<span class="box r">对比学习损失<br>同通路基因∕药物 → 潜空间靠近</span>
+<div class="arrow">↓</div>
+<span class="box r"><b>UniPert 统一表征空间</b>（同一字典）</span>
+<div class="arrow">↓ 加细胞系条件向量</div>
+<span class="box m">G2CP 阶段A：DepMap 基因大数据预训练</span>
+<div class="arrow">↓ 迁移</div>
+<span class="box m">G2CP 阶段B：LINCS/sciPlex3 药物微调表型头</span>
+<div class="arrow">↓</div>
+<span class="box"><b>真实转录组表型</b>（978 基因 / 全基因）</span>
+</div>
+</div>
+<p style="font-size:13px;color:var(--mut)">和我之前的"四编码器各算各的、合成标签"相比，B 方案补上了三样东西：<b>①统一对比空间</b>（基因和药能直接比）、<b>②基因→药物两阶段迁移</b>、<b>③真实转录组标签 + 细胞系背景</b>。这三点正是 UniPert-G2CP 的精髓。</p>
+</div>
+
+<div class="card">
+<h2>三、阶段里程碑与验收标准</h2>
+<div class="timeline">
+<div class="ph"><b>阶段 0 · 基础设施</b><br>torch 装好 + 真实数据下载本地化<br><span class="ok">验收：CUDA 可见；数据可读取</span></div>
+<div class="ph"><b>阶段 1 · 对齐桥</b><br>药物↔LINCS↔sciPlex3、基因↔DepMap、剂量统一 nM<br><span class="ok">验收：每类有配对真实标签</span></div>
+<div class="ph"><b>阶段 2 · UniPert</b><br>统一表征层 + 对比损失 + 细胞系条件<br><span class="ok">验收：同通路基因/药聚拢</span></div>
+<div class="ph"><b>阶段 3 · G2CP</b><br>基因预训练 → 药物微调<br><span class="ok">验收：预测 vs 实测相关性显著高于基线</span></div>
+<div class="ph"><b>阶段 4 · 工具化</b><br>推理接口 + 验证基准 + 断点续训<br><span class="ok">验收：给定扰动+剂量+细胞系→可信表型</span></div>
+</div>
+<h3>可靠工具的硬指标（预测必须过这条线）</h3>
+<ul>
+<li>在<b>留出真实扰动</b>上，模型预测转录组向量与实测的 <b>Pearson/Spearman 相关性显著高于基线</b>（基线 = 简单平均、Tanimoto、或我之前的合成标签）。</li>
+<li>统一空间里<b>同通路的基因扰动与药物确实聚拢</b>（可量化、可可视化）。</li>
+<li>对<b>没见过的分子/序列能合理预测</b>（泛化，不是背答案）。</li>
+<li>训练可<b>断点续训</b>、有错误监控、有消融实验记录。</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>四、4GB 显存怎么扛（3050Ti 适配）</h2>
+<ul>
+<li><b>小模型</b>：embedding 256（非 512）；基因用轻量 CNN/小 Transformer，化合物用 3–4 层 GNN；<b>不碰 ESM-2</b> 大模型。</li>
+<li><b>梯度累积</b>：真实 batch 8–16，累积 16–32 步 → 等效大 batch 256–512（对比学习需要大 batch）。</li>
+<li><b>混合精度 (AMP)</b>：省显存、提速。</li>
+<li><b>流式/采样训练</b>：LINCS 130 万、DepMap 1800 万样本不全载入内存，分块/采样喂。</li>
+<li><b>细胞系条件</b>用低维 one-hot/embedding 拼接，几乎不增显存。</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>五、下一步立即做（阶段 0）</h2>
+<ul>
+<li>✓ 长期记忆已改为 B 定位；PyTorch 后台安装中（清华镜像）。</li>
+<li>▶ 装好后验证 CUDA，然后写<b>真实数据下载脚本</b>（先下最小的 LINCS Level3 跑通管线，再下大的）。</li>
+<li>▶ 下载前跟你确认磁盘占用与下载顺序。</li>
+</ul>
+<p style="font-size:13px;color:var(--mut)">这是一个按"可靠工具"标准推进的长期工程，不赶进度。每一步我会先给你看结果/数据，再继续。你随时可以叫停或调整方向。</p>
+</div>
+
+</div></body></html>

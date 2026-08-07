@@ -1,0 +1,64 @@
+# WorkBuddy metadata
+.workbuddy/
+workbuddy/
+
+# Interim reports
+*_REPORT.md
+*_PROOF.md
+
+# Temp scripts
+_diag_*.py
+_dl_*.py
+_check.*
+_cmp_*.py
+_diff_*.py
+_ctrl_*.py
+_classify_*.py
+_cvtest*
+_audit_*.py
+_c.*
+_resume_*.py
+_merge_*.py
+
+# Build scripts (not needed downstream)
+build_*.js
+fix_*.js
+_gen_*.py
+
+# Large data files (store on Zenodo/Figshare)
+data/g2cp_cache/
+data/g2cp_cache_*/
+data/depmap/CRISPRGeneEffect.csv
+data/lincs/level5_full.gctx
+data/lincs/level5*.gctx
+data/lincs/unipert_results/
+data/lincs/unipert_zenodo/
+data/sciplex3_bench/
+data/lincs_meta/chembl_tables/
+
+# Model weights (release on Zenodo)
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Distribution builds
+dist/
+dist_vc*/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+train_*_err.log
+/tmp/

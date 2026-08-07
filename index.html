@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全扰动虚拟细胞 · Virtual Cell Perturbation Workbench</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --ink:#1d2733; --sub:#5b6b7c; --line:#e3e9f0;
+    --pos:#e8513a; --neg:#2f7fd6; --acc:#6a4cff; --ok:#1f9d55; --warn:#e8930c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+  header{padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  header h1{font-size:18px;margin:0}
+  header .tag{font-size:12px;color:var(--sub)}
+  .legend{margin-left:auto;font-size:12px;color:var(--sub);display:flex;gap:14px;align-items:center}
+  .legend b{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:4px}
+  .app{display:grid;grid-template-columns:300px 1fr 340px;gap:14px;padding:14px;align-items:start}
+  @media(max-width:1100px){.app{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .card h2{font-size:14px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .tab{padding:5px 10px;border:1px solid var(--line);border-radius:20px;cursor:pointer;font-size:12px;color:var(--sub);background:#fff;user-select:none}
+  .tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .list{max-height:420px;overflow:auto;border-top:1px solid var(--line);padding-top:8px}
+  .filters{display:flex;gap:6px;margin-bottom:8px}
+  .filters input,.filters select{flex:1;min-width:0;padding:5px 8px;border:1px solid var(--line);border-radius:8px;font-size:12px;background:#fff;color:var(--ink)}
+  .filters input:focus,.filters select:focus{outline:none;border-color:var(--acc)}
+  .cnt{font-size:11px;color:var(--sub);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+  .cnt a{color:var(--acc);cursor:pointer;text-decoration:none}
+  .tab .n{opacity:.65;font-size:10px;margin-left:3px}
+  .more{text-align:center;padding:8px;font-size:12px;color:var(--acc);cursor:pointer}
+  .chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+  .chip{font-size:11px;background:#eef0ff;color:var(--acc);border:1px solid #dfe2ff;border-radius:10px;padding:1px 6px;cursor:pointer}
+  .chip:hover{background:#ffecec;color:var(--pos);border-color:#ffd5d5}
+  .item{display:flex;gap:8px;align-items:flex-start;padding:6px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
+  .item:hover{background:#f0f3f9}
+  .item input{margin-top:3px}
+  .item .nm{font-size:13px}
+  .item .nt{font-size:11px;color:var(--sub);line-height:1.3}
+  .kind{font-size:10px;color:#fff;background:var(--sub);border-radius:4px;padding:1px 5px;margin-left:4px}
+  .kind.ko{background:#8a8f99}.kind.mut{background:var(--pos)}.kind.oe{background:var(--ok)}
+  .center{display:flex;flex-direction:column;gap:14px}
+  canvas{display:block;width:100%;background:#0e1622;border-radius:12px}
+  .bars{display:flex;flex-direction:column;gap:6px}
+  .bar{display:grid;grid-template-columns:120px 1fr 44px;gap:8px;align-items:center;font-size:12px}
+  .bar .track{position:relative;height:16px;background:#eef2f7;border-radius:8px;overflow:hidden}
+  .bar .mid{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#c4ccd6}
+  .bar .fill{position:absolute;top:0;bottom:0}
+  .bar .val{text-align:right;color:var(--sub)}
+  .hint{font-size:12px;color:var(--sub);line-height:1.5}
+  .sel{font-size:12px;color:var(--sub);margin-bottom:8px}
+  .sel b{color:var(--ink)}
+  .bridge .bc{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;font-size:12px;line-height:1.5}
+  .bc h3{font-size:13px;margin:0 0 6px;display:flex;align-items:center;gap:6px}
+  .bc .pill{font-size:10px;padding:1px 7px;border-radius:10px;color:#fff;background:var(--acc)}
+  .bc .k{color:var(--sub)}
+  .bc .syn{color:var(--ok);font-weight:600}
+  .bc .sens{color:var(--pos);font-weight:600}
+  .note{font-size:11px;color:var(--sub);border-top:1px solid var(--line);margin-top:10px;padding-top:8px;line-height:1.5}
+  .empty{color:var(--sub);font-size:12px;padding:20px;text-align:center}
+  .src{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;margin-left:4px}
+  .src.real{background:#e7f6ec;color:#1f7a3d}
+  .src.know{background:#fff3e0;color:#9a6400}
+</style>
+</head>
+<body>
+<header>
+  <h1>🩺 全扰动虚拟细胞</h1>
+  <span class="tag">遗传 · 药物 · 代谢物(FFA) · 激素 · 物理 — 统一扰动→表型工作平台</span>
+  <div class="legend">
+    <span><b style="background:var(--pos)"></b>激活/上调</span>
+    <span><b style="background:var(--neg)"></b>抑制/下调</span>
+    <span><b style="background:#4a5562"></b>无信号</span>
+  </div>
+</header>
+
+<div class="app">
+  <!-- 左：扰动选择 -->
+  <div class="card">
+    <h2>① 选择扰动 <span class="tag" id="totalCnt" style="font-size:11px;color:var(--sub);font-weight:400"></span></h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="filters">
+      <input id="q" placeholder="搜索名称 / 基因 / 说明…">
+      <select id="clsSel"><option value="">全部类别</option></select>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="cnt" id="cnt"></div>
+    <div class="list" id="list"></div>
+    <div class="note">
+      基因序列(UniProt)、癌基因角色(OncoKB)、变异计数(ClinVar)、化合物结构(PubChem/ChEMBL) 均为公开数据库真实值 <span class="src real">真实</span>；
+      12 维表型签名由 28 条 canonical 通路模板 + 文献先验推导 <span class="src know">知识</span>，非独立大规模筛选。
+    </div>
+  </div>
+
+  <!-- 中：虚拟细胞 + 表型 -->
+  <div class="center">
+    <div class="card">
+      <h2>② 虚拟细胞响应 <span class="sel" id="selCount"></span></h2>
+      <canvas id="cell" height="360"></canvas>
+    </div>
+    <div class="card">
+      <h2>③ 表型谱（12 通路维度）</h2>
+      <div class="bars" id="bars"></div>
+      <div class="hint" id="comboHint">未选择任何扰动。</div>
+    </div>
+  </div>
+
+  <!-- 右：临床桥接 -->
+  <div class="card bridge">
+    <h2>④ 临床桥接</h2>
+    <div id="bridge"><div class="empty">选择扰动后，这里显示肿瘤药敏 / 突变致病性 / 代谢与内分泌关联。</div></div>
+    <div class="note" id="synNote"></div>
+  </div>
+</div>
+
+<script src="pheno_data.js"></script>
+<script>
+const D = window.PHENO;
+const DIMS = D.phenoDims;            // 12 维
+const MODALITIES = [
+  {id:'genetic', label:'基因', kind:true},
+  {id:'drugList', label:'药物'},
+  {id:'metabolites', label:'代谢物/FFA'},
+  {id:'hormones', label:'激素'},
+  {id:'physical', label:'物理'}
+];
+let curMod = 'genetic';
+const selected = new Set();   // key = modality + '::' + id
+
+// ---- 构建每个扰动项的稳定 key 与展示 ----
+function itemKey(mod, obj){
+  if(mod==='genetic') return 'genetic::'+obj.gene+'_'+obj.kind;
+  if(mod==='drugList') return 'drugList::'+obj.name;
+  if(mod==='metabolites') return 'metabolites::'+obj.id;
+  if(mod==='hormones') return 'hormones::'+obj.id;
+  if(mod==='physical') return 'physical::'+obj.id;
+}
+function phenoOf(mod, obj){ return obj.pheno || null; }
+function labelOf(mod, obj){
+  if(mod==='genetic') return obj.gene;
+  return obj.name;
+}
+function noteOf(mod, obj){ return obj.note||''; }
+function kindTag(obj){ return obj.kind? `<span class="kind ${obj.kind.toLowerCase()}">${obj.kind.toUpperCase()}</span>`:''; }
+
+// tabs（带计数）
+const tabsEl = document.getElementById('tabs');
+MODALITIES.forEach(m=>{
+  const t=document.createElement('div');
+  t.className='tab'+(m.id===curMod?' on':'');
+  t.innerHTML=`${m.label}<span class="n">${(D[m.id]||[]).length}</span>`;
+  t.onclick=()=>{curMod=m.id; qEl.value=''; buildClsOptions(); shown=PAGE; renderTabs(); renderList();};
+  t.dataset.id=m.id; tabsEl.appendChild(t);
+});
+function renderTabs(){
+  [...tabsEl.children].forEach(t=>t.classList.toggle('on', t.dataset.id===curMod));
+}
+document.getElementById('totalCnt').textContent =
+  '共 '+MODALITIES.reduce((s,m)=>s+(D[m.id]||[]).length,0)+' 个扰动 · '+Object.keys(D.pathways||{}).length+' 条通路';
+
+// 搜索 / 类别 / 分页
+const qEl=document.getElementById('q'), clsEl=document.getElementById('clsSel');
+const PAGE=250; let shown=PAGE;
+function buildClsOptions(){
+  const set=[...new Set((D[curMod]||[]).map(o=>o.cls).filter(Boolean))].sort();
+  clsEl.innerHTML='<option value="">全部类别 ('+set.length+')</option>'+
+    set.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+function searchText(obj){
+  return [obj.name,obj.gene,obj.id,obj.cls,obj.note,(obj.targets||[]).join(' ')].filter(Boolean).join(' ').toLowerCase();
+}
+function filtered(){
+  const q=qEl.value.trim().toLowerCase(), c=clsEl.value;
+  return (D[curMod]||[]).filter(o=>(!c||o.cls===c)&&(!q||searchText(o).includes(q)));
+}
+qEl.oninput=()=>{shown=PAGE;renderList();};
+clsEl.onchange=()=>{shown=PAGE;renderList();};
+
+function renderChips(){
+  const box=document.getElementById('chips');
+  if(!selected.size){box.innerHTML='';return;}
+  const names=[];
+  MODALITIES.forEach(m=>(D[m.id]||[]).forEach(o=>{
+    if(selected.has(itemKey(m.id,o))) names.push({k:itemKey(m.id,o),t:labelOf(m.id,o)+(o.kind?' '+o.kind.toUpperCase():'')});
+  }));
+  box.innerHTML=names.map(n=>`<span class="chip" data-k="${n.k}">${n.t} ×</span>`).join('')+
+    (names.length>1?`<span class="chip" data-k="__all">清空全部 ×</span>`:'');
+  box.querySelectorAll('.chip').forEach(el=>el.onclick=()=>{
+    if(el.dataset.k==='__all') selected.clear(); else selected.delete(el.dataset.k);
+    renderList(); update();
+  });
+}
+function renderList(){
+  const list=document.getElementById('list'); list.innerHTML='';
+  const arr=filtered();
+  document.getElementById('cnt').innerHTML=
+    `匹配 <b>${arr.length}</b> / ${(D[curMod]||[]).length}　<a id="selAll">全选当前</a>`;
+  arr.slice(0,shown).forEach(obj=>{
+    const key=itemKey(curMod,obj);
+    const row=document.createElement('label'); row.className='item';
+    const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=selected.has(key);
+    cb.onchange=()=>{ if(cb.checked) selected.add(key); else selected.delete(key); renderChips(); update(); };
+    const main=document.createElement('div');
+    const badge=obj.onco?'<span class="src know">癌基因</span>':(obj.tsg?'<span class="src real">抑癌</span>':'');
+    main.innerHTML=`<div class="nm">${labelOf(curMod,obj)}${kindTag(obj)}${badge}</div><div class="nt">${noteOf(curMod,obj)||'&nbsp;'}</div>`;
+    row.appendChild(cb); row.appendChild(main);
+    list.appendChild(row);
+  });
+  if(arr.length>shown){
+    const m=document.createElement('div'); m.className='more';
+    m.textContent=`▼ 还有 ${arr.length-shown} 条，点击加载更多`;
+    m.onclick=()=>{shown+=PAGE;renderList();};
+    list.appendChild(m);
+  }
+  const sa=document.getElementById('selAll');
+  if(sa) sa.onclick=()=>{arr.slice(0,shown).forEach(o=>selected.add(itemKey(curMod,o)));renderList();renderChips();update();};
+  renderChips();
+}
+buildClsOptions(); renderTabs(); renderList();
+
+// ---- 收集选中的扰动对象 ----
+function selectedItems(){
+  const out=[];
+  MODALITIES.forEach(m=>{
+    D[m.id].forEach(obj=>{
+      if(selected.has(itemKey(m.id,obj))) out.push({mod:m.id, obj});
+    });
+  });
+  return out;
+}
+
+// ---- 组合表型：等权叠加，clamp(-1,1) ----
+function comboPheno(items){
+  const v=new Array(DIMS.length).fill(0);
+  let n=0;
+  items.forEach(({obj})=>{ const p=obj.pheno; if(p){ for(let i=0;i<v.length;i++) v[i]+=p[i]; n++; } });
+  if(n===0) return null;
+  return v.map(x=>Math.max(-1,Math.min(1,x)));
+}
+
+// ---- 渲染细胞 ----
+const cv=document.getElementById('cell'); const ctx=cv.getContext('2d');
+function draw(items){
+  const W=cv.width, H=cv.height; ctx.clearRect(0,0,W,H);
+  const cx=W/2, cy=H/2, R=Math.min(W,H)*0.32;
+  const v=comboPheno(items);
+  // 细胞膜
+  ctx.strokeStyle='#3a4a5e'; ctx.lineWidth=3;
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,7); ctx.stroke();
+  ctx.fillStyle='rgba(40,60,90,0.25)'; ctx.fill();
+  // 核
+  ctx.fillStyle='#1a2740'; ctx.beginPath(); ctx.arc(cx,cy,R*0.34,0,7); ctx.fill();
+  ctx.strokeStyle='#46618a'; ctx.beginPath(); ctx.arc(cx,cy,R*0.34,0,7); ctx.stroke();
+  ctx.fillStyle='#9fb3cc'; ctx.font='12px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('核 / 基因组', cx, cy+4);
+  if(!v){ ctx.fillStyle='#7a8aa0'; ctx.font='13px sans-serif'; ctx.fillText('选择扰动以激活细胞', cx, cy+R*0.6); return; }
+  // 12 通路节点
+  const N=DIMS.length;
+  for(let i=0;i<N;i++){
+    const ang=-Math.PI/2 + i/N*Math.PI*2;
+    const px=cx+Math.cos(ang)*(R*0.74), py=cy+Math.sin(ang)*(R*0.74);
+    const val=v[i], mag=Math.abs(val);
+    // 连线
+    ctx.strokeStyle = mag<0.02? 'rgba(120,140,160,0.25)' : (val>0?'rgba(232,81,58,'+(0.25+0.6*mag)+')':'rgba(47,127,214,'+(0.25+0.6*mag)+')');
+    ctx.lineWidth=1+mag*4;
+    ctx.beginPath(); ctx.moveTo(cx+Math.cos(ang)*R*0.34, cy+Math.sin(ang)*R*0.34); ctx.lineTo(px,py); ctx.stroke();
+    // 节点
+    const col = mag<0.02? '#4a5562' : (val>0?'#e8513a':'#2f7fd6');
+    ctx.fillStyle=col; ctx.beginPath(); ctx.arc(px,py,6+mag*12,0,7); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.5)'; ctx.lineWidth=1; ctx.stroke();
+    // 标签
+    ctx.fillStyle='#cdd8e6'; ctx.font='10px sans-serif';
+    const lx=cx+Math.cos(ang)*(R*0.97), ly=cy+Math.sin(ang)*(R*0.97);
+    ctx.textAlign = Math.cos(ang)>0.1?'left':(Math.cos(ang)<-0.1?'right':'center');
+    ctx.fillText(DIMS[i], lx, ly+3);
+  }
+}
+
+// ---- 渲染表型条形 ----
+function renderBars(v){
+  const box=document.getElementById('bars'); box.innerHTML='';
+  const hint=document.getElementById('comboHint');
+  if(!v){ box.innerHTML=''; hint.textContent='未选择任何扰动。'; return; }
+  let maxAbs=0.0001; v.forEach(x=>maxAbs=Math.max(maxAbs,Math.abs(x)));
+  DIMS.forEach((d,i)=>{
+    const val=v[i];
+    const row=document.createElement('div'); row.className='bar';
+    const name=document.createElement('div'); name.textContent=d;
+    const track=document.createElement('div'); track.className='track';
+    track.innerHTML='<div class="mid"></div>';
+    const fill=document.createElement('div'); fill.className='fill';
+    if(Math.abs(val)<0.02){ fill.style.background='#4a5562'; fill.style.left='50%'; fill.style.width='2px'; }
+    else if(val>0){ fill.style.background='var(--pos)'; fill.style.left='50%'; fill.style.width=(val*50)+'%'; }
+    else { fill.style.background='var(--neg)'; fill.style.left=(50+val*50)+'%'; fill.style.width=(-val*50)+'%'; }
+    track.appendChild(fill);
+    const valEl=document.createElement('div'); valEl.className='val'; valEl.textContent=val.toFixed(2);
+    row.appendChild(name); row.appendChild(track); row.appendChild(valEl);
+    box.appendChild(row);
+  });
+  hint.innerHTML='表型 = 选中扰动签名等权叠加（clamp ±1）。<span class="src know">知识驱动</span>';
+}
+
+// ---- 临床桥接 ----
+function renderBridge(items){
+  const box=document.getElementById('bridge'); box.innerHTML='';
+  const synNote=document.getElementById('synNote'); synNote.innerHTML='';
+  if(items.length===0){ box.innerHTML='<div class="empty">选择扰动后，这里显示肿瘤药敏 / 突变致病性 / 代谢与内分泌关联。</div>'; return; }
+  const cards=[];
+  const chosenGenes=new Map(); // gene -> [kind...]
+  items.forEach(({mod,obj})=>{
+    if(mod==='genetic'){
+      const g=D.genes.find(x=>x.sym===obj.gene)||{};
+      const cv=g.clinvar, dep=g.dep, canc=g.cancers;
+      let clinTxt = cv&&cv.total? `${cv.total} 个 ClinVar 记录，其中致病/可能致病 <b>${cv.pathogenic}</b> 个 <span class="src real">真实</span>` : '无 ClinVar 记录';
+      let seqTxt = g.acc? `<div class="k">UniProt <b>${g.acc}</b>，${g.len} aa <span class="src real">真实</span></div>`:'';
+      let pwTxt = g.pathCn? `<div class="k">通路：<b>${g.pathCn}</b>（${g.dir>0?'正向驱动':'负向刹车'}）${g.okType?' · OncoKB '+g.okType:''}</div>`:'';
+      let depTxt = dep?`<div class="syn">⚙ ${dep}</div>`:'';
+      let cancTxt = (canc&&canc.length)?`<div class="k">相关癌种：${canc.join('、')}</div>`:'';
+      cards.push(`<div class="bc"><h3>🧬 ${obj.gene} <span class="pill">遗传·${obj.kind.toUpperCase()}</span></h3>
+        ${pwTxt}<div>${clinTxt}</div>${seqTxt}${depTxt}${cancTxt}</div>`);
+      if(!chosenGenes.has(obj.gene)) chosenGenes.set(obj.gene,[]);
+      chosenGenes.get(obj.gene).push(obj.kind);
+    }
+    if(mod==='drugList'){
+      const tgs=obj.targets||[]; const canc=obj.cancers||[];
+      let tgtTxt = tgs.length?`靶点：<b>${tgs.join('、')}</b>`:'靶点未知';
+      let cancTxt = canc.length?`<div class="sens">↓ 敏感/相关瘤种：${canc.join('、')}</div>`:'';
+      cards.push(`<div class="bc"><h3>💊 ${obj.name} <span class="pill">药物</span></h3>
+        <div>${tgtTxt} <span class="src real">真实</span></div>${cancTxt}</div>`);
+    }
+    if(mod==='metabolites'){
+      const sm=obj.smiles?`<div class="k">SMILES：<code style="font-size:10px">${obj.smiles.slice(0,60)}${obj.smiles.length>60?'…':''}</code> <span class="src real">PubChem</span></div>`:'';
+      cards.push(`<div class="bc"><h3>🧪 ${obj.name} <span class="pill">${obj.cls||'代谢物'}</span></h3>${sm}<div class="k">${obj.note}</div></div>`);
+    }
+    if(mod==='hormones'){
+      const tg=obj.targetGene?`作用于 <b>${obj.targetGene}</b>`:'（多受体/旁分泌）';
+      const ev=obj.smiles?`<div class="k">SMILES：<code style="font-size:10px">${obj.smiles.slice(0,60)}${obj.smiles.length>60?'…':''}</code> <span class="src real">PubChem</span></div>`
+        :(obj.acc?`<div class="k">UniProt <b>${obj.acc}</b>，${obj.len} aa <span class="src real">真实</span></div>`:'');
+      cards.push(`<div class="bc"><h3>🔥 ${obj.name} <span class="pill">${obj.cls||'激素'}</span></h3><div>${tg}</div>${ev}<div class="k">${obj.note}</div></div>`);
+    }
+    if(mod==='physical'){
+      const p=obj.params||{}; const ps=Object.entries(p).map(([k,vv])=>`${k}=${vv}`).join(', ');
+      cards.push(`<div class="bc"><h3>⚡ ${obj.name} <span class="pill">物理</span></h3><div class="k">参数：${ps}</div><div class="k">${obj.note}</div></div>`);
+    }
+  });
+  box.innerHTML=cards.join('');
+
+  // 联合：基因缺失/突变 + 靶向该基因的药物 → 合成致死/敏感
+  let syn=[];
+  items.forEach(({mod,obj})=>{
+    if(mod!=='drugList') return;
+    (obj.targets||[]).forEach(g=>{
+      const kinds=chosenGenes.get(g);
+      if(!kinds) return;
+      if(kinds.includes('ko')) syn.push(`<b>${g}</b> 缺失(KO) + 靶向药 ${obj.name} → 合成致死方向（如 PARP 抑制剂对 BRCA 缺失）`);
+      if(kinds.includes('mut')) syn.push(`<b>${g}</b> 突变(MUT) + 靶向药 ${obj.name} → 敏感性↑（如 EGFR 突变对 EGFR-TKI）`);
+      if(kinds.includes('oe')) syn.push(`<b>${g}</b> 过表达(OE) + 靶向药 ${obj.name} → 靶点依赖↑，药物效应放大`);
+    });
+  });
+  if(syn.length) synNote.innerHTML='🧩 <b>联合扰动提示：</b><br>'+syn.map(s=>'· '+s).join('<br>');
+}
+
+// ---- 主更新 ----
+function update(){
+  const items=selectedItems();
+  document.getElementById('selCount').innerHTML = items.length? `（已选 <b>${items.length}</b> 个扰动）`:'';
+  const v=comboPheno(items);
+  draw(items); renderBars(v); renderBridge(items);
+}
+update();
+</script>
+</body>
+</html>

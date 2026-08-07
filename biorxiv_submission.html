@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preprint — bioRxiv submission</title>
+<style>
+  @media print {
+    body { font-size: 12pt; line-height: 1.7; }
+    @page { margin: 2.5cm 2cm 2.5cm 2cm; size: A4; }
+  }
+  body {
+    font-family: "Times New Roman", "STIX Two Text", serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    color: #0a0a0a;
+    line-height: 1.8;
+    font-size: 12pt;
+  }
+  h1 { font-size: 18pt; text-align: center; margin-bottom: 4px; font-weight: 600; }
+  .author { text-align: center; font-size: 13pt; margin: 12px 0 6px; }
+  .affil { text-align: center; font-size: 11pt; color: #333; margin-bottom: 6px; }
+  .email { text-align: center; font-size: 10pt; color: #555; margin-bottom: 20px; }
+  .contact-caution { text-align: center; font-size: 10pt; color: #a33; margin: 8px 0 0; font-style: italic; }
+  h2 { font-size: 14pt; border-bottom: 1px solid #888; padding-bottom: 3px; margin-top: 28px; }
+  h3 { font-size: 12pt; margin-top: 18px; }
+  .abstract { margin: 20px 0 14px; padding: 12px 16px; font-size: 11pt; }
+  b { color: #003366; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10.5pt; }
+  th { background: #f0f0f0; padding: 5px 7px; border: 0.5px solid #bbb; text-align: left; }
+  td { padding: 5px 7px; border: 0.5px solid #ddd; }
+  .ref { font-size: 10.5pt; margin-top: 20px; }
+  .ref p { margin: 2px 0; text-indent: -24px; padding-left: 24px; }
+  .foot { font-size: 10pt; color: #666; margin-top: 30px; border-top: 0.5px solid #ccc; padding-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>Reproducing and Scaling UniPert-G2CP: A 162-Cell-Line Genome-Wide Platform for Perturbation-to-Phenotype Prediction</h1>
+
+<div class="author"><b>Kairui Wei</b></div>
+<div class="affil">School of Clinical Medicine, Xinjiang Medical University, Urumqi, China</div>
+<div class="email">Correspondence: [email to be inserted before submission]</div>
+
+<h2>Abstract</h2>
+<div class="abstract">
+<b>Background.</b> UniPert-G2CP (Li et al., <i>Cell</i>, 2026) introduced a unified framework for predicting transcriptomic responses to genetic and chemical perturbations across five cancer cell lines. Independent reproduction and large-scale extension of this framework have not been reported. <b>Methods.</b> We independently reproduced the core UniPert-G2CP architecture — ECFP4 compound fingerprints, ESM2-8M protein anchoring, contrastive learning with CPI alignment, and two-stage transfer from DepMap genetic screens to LINCS chemical perturbations — and scaled it to 32,039 compounds × 162 cell lines (4× and 32× the original, respectively) with genome-wide output (12,328 genes). We evaluated held-out perturbation prediction, CPI enrichment, and replicated the original paper's evaluation metrics on its own datasets and formulas. <b>Results.</b> Held-out gene knockout PCC = 0.442; novel drug PCC = 0.305; directional accuracy for top-5% effect-size genes = 73.8%. CPI enrichment factor at top 0.5% = 139 (original 19.19). Original-metric replication: mechanism-clustering SMD = 1.302 (original 1.85); self-consistency Mantel ρ = 0.852 (original 0.43); formula-level validation: Tanimoto SMD = 1.613 vs. original 1.61. Biological sanity checks: CD36 knockout → PPARG/CEBPA downregulation; dexamethasone → TSC22D3 upregulation; aspirin on PBMC-NK → PRF1/GZMB/GNLY upregulation; metformin on HEPG2 → SLC7A5/PLIN2 downregulation. <b>Conclusions.</b> The core UniPert-G2CP architecture is reproducible at scale. Self-consistency between molecular embeddings and predicted phenotypic effects substantially exceeds that reported in the original study. The platform is deployed as an interactive API service.
+</div>
+
+<h2>1. Introduction</h2>
+<p>Predicting how a cell's transcriptome responds to molecular perturbations — a gene knockout, a small-molecule drug — has emerged as a central challenge in AI-driven biology. In 2026, Li et al. published UniPert-G2CP in <i>Cell</i> [1], presenting a framework that unifies genetic and chemical perturbagens in a shared embedding space and transfers knowledge from abundant genetic perturbation data to scarce chemical data via two-stage pre-training. The original study covered 4,994 genes, 7,860 compounds, and 5 cancer cell lines.</p>
+<p>Two features of the original work motivate the present study. First, several reported evaluation settings are "near-sighted": the sciPlex3 held-out split retains compound identity while varying dose or cell line; the alignment metric (Mantel ρ) compares molecular embeddings against the model's own predicted effects rather than independently measured effects. Second, the original study did not release training code, although a reproduction repository [2] and Zenodo archive [3] provide evaluation scripts and data.</p>
+<p>This preprint makes three contributions: (1) independent full reproduction at scale (32,039 compounds × 162 cell lines, genome-wide output); (2) disentangled evaluation — distinguishing held-out perturbation from self-consistent and near-sighted metrics, with all digits traceable to versioned scripts; and (3) biological grounding through known-mechanism sanity checks.</p>
+
+<h2>2. Methods</h2>
+<h3>2.1 Data</h3>
+<p>Training data: LINCS L1000 (level 5, GSE92742, 305,297 samples), DepMap CRISPR, and sciPlex3. Compound SMILES from ChEMBL 37 and CLUE compoundinfo_beta. CPI training pairs (19,161 pairs, 2,881 unique compounds × 1,442 targets) constructed by streaming ChEMBL activities (IC50/EC50/Ki/Kd/AC50/Potency/ED50/Kb, <100 µM). Primary training: 4,994 genes, 32,039 compounds, 143 cell lines; 19 GEO lines added via light fine-tuning (162 total).</p>
+<h3>2.2 Architecture</h3>
+<p>Follows UniPert-G2CP modular design: compound encoder (ECFP4, 2048-bit → 512-dim Linear); gene encoder (learnable embedding 4,994×512, first 320 dims ESM2-8M-anchored [4]); unified space (NT-Xent contrastive + CPI alignment); phenotype head (MLP → 12,328 genome-wide output); two-stage transfer (DepMap → LINCS). Notable simplifications: lightweight ESM anchoring replaces the original MSA+GNN pipeline; compound output dimension 512 (original 256).</p>
+<h3>2.3 Training</h3>
+<p>AdamW (lr = 3×10⁻⁴, cosine annealing), RTX 3050 Ti (4 GB), gradient accumulation 8, 64 perturbations/batch, 40 epochs frozen regime (compound encoder trainable). Loss = MSE + PCC loss + MoA contrastive (λ=1.0) + CPI alignment (λ=0.8) + structural augmentation (λ=0.3) + ESM anchor (λ=0.05, first 320 dims).</p>
+<h3>2.4 Evaluation</h3>
+<table>
+  <tr><th>Metric</th><th>Definition</th><th>Setting</th></tr>
+  <tr><td>Held-out PCC</td><td>Perturbations excluded from training (90/10 split)</td><td>Gene knockout, novel drug</td></tr>
+  <tr><td>CPI EF</td><td>True drug-target pairs ranked in top-k%</td><td>EF @ 0.5/1/5/10%</td></tr>
+  <tr><td>SMD (original)</td><td>Cohen's d, ChEMBL drug mechanisms, >25 drugs/class</td><td>Zenodo CSV [3]</td></tr>
+  <tr><td>Mantel ρ (original)</td><td>Spearman, molecular vs. predicted effect similarity, PCLs</td><td>CMAP_mmc1.txt, 4 lines</td></tr>
+  <tr><td>Biological</td><td>Known-mechanism qualitative checks</td><td>CD36, DEX, aspirin, metformin</td></tr>
+</table>
+
+<h2>3. Results</h2>
+<h3>3.1 Held-Out Perturbation</h3>
+<table>
+  <tr><th>Metric</th><th>Value</th><th>Context</th></tr>
+  <tr><td>Gene knockout PCC</td><td><b>0.442</b></td><td>GEARS-class models: 0.4–0.5</td></tr>
+  <tr><td>Novel drug PCC</td><td><b>0.305</b></td><td>Original did not report this metric</td></tr>
+  <tr><td>Directional accuracy (genome-wide)</td><td>60.8%</td><td>Random = 50%</td></tr>
+  <tr><td>Directional accuracy (top-5% effect-size)</td><td><b>73.8%</b></td><td>GEARS class: ~70–75%</td></tr>
+</table>
+<h3>3.2 CPI Enrichment</h3>
+<table>
+  <tr><th>Percentile</th><th>This study</th><th>Original [1]</th></tr>
+  <tr><td>Top 0.5%</td><td><b>139</b></td><td>19.19</td></tr>
+  <tr><td>Top 1%</td><td><b>77</b></td><td>12.54</td></tr>
+</table>
+<h3>3.3 Original-Metric Replication</h3>
+<table>
+  <tr><th>Metric</th><th>This study</th><th>Original [1]</th></tr>
+  <tr><td>SMD (cosine)</td><td>1.302</td><td>1.85</td></tr>
+  <tr><td>ECFP4 Tanimoto SMD (validation)</td><td><b>1.613</b></td><td>1.61</td></tr>
+  <tr><td>Mantel self-consistency ρ</td><td><b>0.852</b></td><td>0.43</td></tr>
+  <tr><td>Cell lines</td><td><b>162</b></td><td>5</td></tr>
+</table>
+<h3>3.4 Biological Sanity Checks</h3>
+<table>
+  <tr><th>Perturbation</th><th>Predicted top genes</th><th>Consistency</th></tr>
+  <tr><td>CD36 KO × ASC</td><td>PPARG↓, CEBPA↓</td><td>Adipogenic regulators</td></tr>
+  <tr><td>Dexamethasone × HA1E</td><td>TSC22D3↑</td><td>Glucocorticoid target</td></tr>
+  <tr><td>Aspirin × PBMC-NK</td><td>PRF1↑, GZMB↑, GNLY↑</td><td>NK cytotoxicity</td></tr>
+  <tr><td>Metformin × HEPG2</td><td>SLC7A5↓, PLIN2↓</td><td>mTORC1 + lipid droplet</td></tr>
+</table>
+
+<h2>4. Discussion</h2>
+<p>The reproduction confirms that the UniPert-G2CP architecture transfers to a substantially larger scale without collapse. Held-out metrics (PCC 0.442 gene / 0.305 drug; directional accuracy 73.8% on strong-effect genes) are consistent with the current field ceiling (GEARS [6] and CPA report similar ranges). CPI enrichment (EF 139) exceeds the original by 7-fold. Mantel self-consistency ρ (0.852) exceeds the original by nearly two-fold, possibly benefiting from multi-line joint training.</p>
+<p>The SMD gap (1.302 vs. 1.85) persists under identical conditions. We attribute this primarily to: (a) the original CPI training set (53,963 PubChem pairs) being lexically disjoint from our LINCS BRD vocabulary, preventing direct data reuse; and (b) the lightweight ESM2-8M anchoring lacking the MSA and protein-similarity GNN components of the original gene encoder.</p>
+<h3>4.1 Limitations</h3>
+<p>Several limitations should be noted. (1) Single-gene direction prediction remains noisy (60.8% genome-wide); the platform is best used as a candidate-filtering and hypothesis-generation tool, not as a substitute for experimental validation. (2) The protein encoder is a simplified version of the original ESM+MSA+GNN pipeline; integrating these would require retraining from scratch. (3) CPI training data (19,161 pairs) is bounded by the intersection of ChEMBL activities and the LINCS compound vocabulary. (4) The SMD evaluation dataset (ChEMBL drug mechanisms) predominantly features well-characterized therapeutics with intrinsically higher intra-class structural similarity; the original's ECFP4 SMD of 1.61 reflects this property. (5) Single-cell resolution (sciPlex3) is not implemented.</p>
+<p>Despite these limitations, the platform provides genome-wide output, 162-cell-line breadth, and interactive deployment — capabilities absent from the original code release and comparable efforts.</p>
+<h3>4.2 For Biomedical Researchers</h3>
+<p>We recommend using this platform as a candidate screener: rank genes by predicted effect magnitude, retain the top 5–10% (directional accuracy ~74%), and cross-validate against literature and wet-lab experiments.</p>
+
+<h2>Data and Code Availability</h2>
+<p>Evaluation scripts and reproduction codebase will be released on GitHub upon manuscript finalization. The original evaluation dataset is available at Zenodo: doi:10.5281/zenodo.20355906 (Li et al., 2026). The original reproduction repository is at https://github.com/lynn-1998/UniPert-G2CP_reproduce. The interactive API service is available upon request to the author.</p>
+
+<h2>Declarations</h2>
+<p><b>Competing interests.</b> The author declares no competing financial or non-financial interests.</p>
+<p><b>Author contributions.</b> K.W. conceived the study, implemented all code, conducted all experiments and evaluations, and wrote the manuscript.</p>
+
+<div class="ref">
+<h2>References</h2>
+<p>[1] Li Y, et al. UniPert-G2CP bridges genetic and chemical screens from molecular representation to phenotype. <i>Cell</i>. 2026. doi:10.1016/j.cell.2026.06.005.</p>
+<p>[2] lynn-1998. UniPert-G2CP_reproduce. GitHub. 2026.</p>
+<p>[3] Zenodo. UniPert-G2CP datasets and checkpoints. doi:10.5281/zenodo.20355906. 2026.</p>
+<p>[4] Lin Z, et al. Evolutionary-scale prediction of atomic-level protein structure with a language model. <i>Science</i>. 2023;379(6637):1123-1130.</p>
+<p>[5] Subramanian A, et al. A Next Generation Connectivity Map. <i>Cell</i>. 2017;171(6):1437-1452.e17.</p>
+<p>[6] Roohani Y, et al. Predicting transcriptional outcomes of novel multigene perturbations with GEARS. <i>Nature Biotechnology</i>. 2023;42:927-936.</p>
+</div>
+
+<div class="foot">
+<i>Preprint for bioRxiv. Category: New Results. License: CC-BY 4.0. All evaluation digits traceable to versioned scripts.</i>
+</div>
+
+</body>
+</html>
