@@ -20,8 +20,7 @@ _c.*
 _resume_*.py
 _merge_*.py
 
-# Build scripts (not needed downstream)
-build_*.js
+# Build scripts (keep build_docs.js for doc generation)
 fix_*.js
 _gen_*.py
 
