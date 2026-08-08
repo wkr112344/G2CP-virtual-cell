@@ -346,7 +346,7 @@ def prep_extra():
 
     kind = np.zeros(len(idx), dtype=np.int8)
     key = np.zeros(len(idx), dtype=np.int32)
-    cell = np.zeros(len(idx), dtype=np.int32)  # 289+ 细胞系，必须 int32
+    cell = np.zeros(len(idx), dtype=np.int32)  # 162+ 细胞系，必须 int32
     rows = obs.iloc[idx]
     for j, (_, r) in enumerate(rows.iterrows()):
         if str(r["pert_type"]) == "trt_xpr":

@@ -1,6 +1,6 @@
 # G2CP — A 162-Cell-Line Genome-Wide Virtual Cell Platform
 
-Independent reproduction and large-scale extension of **UniPert-G2CP** (Li et al., *Cell*, 2026), a unified framework for predicting transcriptomic responses to genetic and chemical perturbations.
+Independent reimplementation and large-scale extension of **UniPert-G2CP** (Li et al., *Cell*, 2026), a unified framework for predicting transcriptomic responses to genetic and chemical perturbations.
 
 [![Preprint](https://img.shields.io/badge/bioRxiv-preprint-blue)](https://www.biorxiv.org/)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
@@ -14,17 +14,17 @@ This repository provides:
 - **12,328 genome-wide gene output** vs. original landmark genes
 - **Deployed interactive API** for real-time perturbation prediction
 - **Full evaluation suite** with held-out, self-consistency, and benchmark-consistent metrics
-- **Biological validation**: CD36→PPARG, dexamethasone→TSC22D3, aspirin→NK cytotoxicity, metformin→SLC7A5/mTORC1
+- **Qualitative case demonstrations** on literature-supported pairs: dexamethasone→TSC22D3/NFKBIA/FKBP5 (recapitulated), bortezomib→BAG3/DNAJB1/HSPA1A (recapitulated), CD36→PPARG/CEBPA (absent), metformin→SLC7A5 (partially recapitulated)
 
 ### Key Metrics
 
 | Metric | Value |
 |---|---|
-| Gene knockout PCC (held-out) | 0.442 |
+| Genetic perturbation PCC (held-out) | 0.442 |
 | Novel drug PCC (held-out) | 0.3047 |
 | Directional accuracy (top-5% genes) | 73.8% |
-| CPI enrichment factor (top 0.5%) | 139 |
-| Mechanism-clustering SMD | 1.288 |
+| CPI enrichment factor (top 0.5%) | 139 (training-set ranking consistency; 109 strict hold-out) |
+| Mechanism-clustering SMD | 1.636 (reference comparison; ECFP4 Tanimoto baseline 1.613) |
 | Cell lines | 162 |
 | Compounds | 32,039 |
 

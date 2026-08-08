@@ -55,7 +55,13 @@ cl_idx = {c: i for i, c in enumerate(cl)}
 emb = ck["net"]["head.0.weight"].shape[0] - 32
 headw = ck["net"]["head.1.weight"].shape[0]
 net = G2CPNet(len(gv), ECFP4_BITS, emb, len(cl), len(hvg), headw).to(DEVICE)
-net.load_state_dict(ck["net"], strict=False)
+# ---- 兼容旧版 Linear cp_lin 权重 ----
+_sd = dict(ck["net"])
+if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+    _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+    _sd["cp_lin.main.weight"] = _w
+    _sd["cp_lin.main.bias"] = _b
+net.load_state_dict(_sd, strict=False)
 net.eval()
 print(f"模型 {CKPT}: 基因 {len(gv)}, 药 {len(dv)}, 系 {len(cl)}, 输出 {len(hvg)}", flush=True)
 

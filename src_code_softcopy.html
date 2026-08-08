@@ -4,7 +4,7 @@ body{font-family:Consolas,monospace;font-size:12px;line-height:1.4;padding:20px}
 .pg{color:#999;font-size:10px;text-align:right}
 @media print{@page{size:A4;margin:1.5cm 1cm}}
 </style></head><body>
-<div class="page"><div class="pg">第 1 页 / 共 42 页</div><pre>
+<div class="page"><div class="pg">第 1 页 / 共 51 页</div><pre>
 # ===== serve_g2cp.py =====
 
 # -*- coding: utf-8 -*-
@@ -12,7 +12,7 @@ body{font-family:Consolas,monospace;font-size:12px;line-height:1.4;padding:20px}
 
 路由策略（"既要又要"）：
 - 5 系（HT29/A375/A549/MCF7/PC3）→ 用 V10（PCC 0.463 高精度表型头，5系专属）
-- 其余 284 系 / 新药 → 用融合模型 g2cp_fusion_v3.pt（289系全覆盖，SMD 1.94 超论文 1.85）
+- 其余系 / 新药 → 用主模型 g2cp_full_cpi_v7.pt（162系全覆盖）
 - /health 返回两个模型信息；/predict /gene /similar /cascade 自动按 cell 路由
 
 提供 /gui/<fn> 前端静态服务、/cells /drugs /genes 词表接口。
@@ -21,7 +21,7 @@ import os, sys, json, argparse, time
 import numpy as np
 import torch
 import torch.nn.functional as F
-from flask import Flask, request, jsonify, send_from_directory, make_response
+from flask import Flask, request, jsonify, send_from_directory, make_response, redirect
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -50,18 +50,30 @@ CKPT_V10 = os.path.join(BASE, "g2cp_v10.pt")
 
 def load_model(ckpt_path, cache_dir):
     print(f">>> 加载模型 {os.path.basename(ckpt_path)} (缓存 {os.path.basename(cache_dir)})...", flush=True)
+</pre></div>
+<div class="page"><div class="pg">第 2 页 / 共 51 页</div><pre>
     ck = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     gene_vocab = [str(x) for x in ck["gene_vocab"]]
     drug_vocab = [str(x) for x in ck["drug_vocab"]]
     hvg = list(ck["hvg"])
     cl_names = [str(x) for x in ck["cl_names"]]
-</pre></div>
-<div class="page"><div class="pg">第 2 页 / 共 42 页</div><pre>
     emb = ck["net"]["head.0.weight"].shape[0] - 32
     headw = ck["net"]["head.1.weight"].shape[0]
     net_cls = CorrectG2CPNet if ck.get("enc_semantics") == "correct" else G2CPNet
     net = net_cls(len(gene_vocab), ECFP4_BITS, emb, len(cl_names), len(hvg), headw)
-    net.load_state_dict(ck["net"], strict=False)
+    # ---- 兼容旧版 Linear cp_lin 权重: cp_lin.weight -> cp_lin.main.* (res 保持 0) ----
+    sd = dict(ck["net"])
+    if "cp_lin.weight" in sd and "cp_lin.main.weight" not in sd:
+        w, b = sd.pop("cp_lin.weight"), sd.pop("cp_lin.bias")
+        sd["cp_lin.main.weight"] = w
+        sd["cp_lin.main.bias"] = b
+        # res 分支保持 0 初始化(等价于旧 Linear), 显式写入当前初始化值
+        net.cp_lin.res[0].weight.data.normal_()
+        net.cp_lin.res[0].bias.data.zero_()
+        net.cp_lin.res[2].weight.data.zero_()
+        net.cp_lin.res[2].bias.data.zero_()
+        print(f"    [兼容] 旧 Linear cp_lin -> CPEncoder.main (res=0)", flush=True)
+    net.load_state_dict(sd, strict=False)
     net.cls_out = 256
     net.to(DEVICE).eval()
     fps = np.load(os.path.join(cache_dir, "drug_fps.npy"))
@@ -83,7 +95,18 @@ v_gv_set = set(v_gv)
 v_dv_idx = {d: i for i, d in enumerate(v_dv)}
 v_cl_idx = {c: i for i, c in enumerate(v_cl)}
 
-print(f"[OK] 双模型就绪：V10(5系) + FUSION(289系)", flush=True)
+print(f"[OK] 双模型就绪：V10(5系) + FUSION(162系)", flush=True)
+
+</pre></div>
+<div class="page"><div class="pg">第 3 页 / 共 51 页</div><pre>
+
+def find_similar_proteins(emb):
+    """在词表蛋白中找最相似的"""
+    embs = fusion_net.gene_emb.weight.cpu()
+    sim = F.cosine_similarity(emb.cpu(), embs, dim=1)
+    topk = sim.topk(5)
+    return [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
+
 
 # 药物显示名（pool obs cmap_name）
 DRUG_NAMES = {}
@@ -96,6 +119,45 @@ try:
 except Exception as e:
     print("药物名加载失败:", e)
 
+
+def get_esm_embedding(seq):
+    """用预加载的 ESM2-8M 编码蛋白序列 → 512-dim（已投影至药物嵌入空间）"""
+    global _esm_model, _esm_batch_converter, _esm_proj
+    if _esm_batch_converter is None:
+        return None
+    _, _, batch_tokens = _esm_batch_converter([("", seq)])
+    with torch.no_grad():
+        results = _esm_model(batch_tokens, repr_layers=[6])  # CPU inference
+        raw = torch.mean(results["representations"][6][0, 1:-1], dim=0, keepdim=True)  # [1,320]
+        return _esm_proj(raw).to(DEVICE)  # project and move to GPU for downstream
+
+# 预加载 ESM
+_esm_model = None
+_esm_batch_converter = None
+_esm_proj = None
+try:
+    import esm
+    from esm.pretrained import ESM2
+
+    ckpt_path = os.path.expanduser(r"~\.cache\torch\hub\checkpoints\esm2_t6_8M_UR50D.pt")
+    if not os.path.exists(ckpt_path):
+        raise FileNotFoundError(f"ESM checkpoint not found at {ckpt_path}")
+
+    print("[ESM] 加载 ESM2-8M (6层 320维, ~8M参数)...", flush=True)
+</pre></div>
+<div class="page"><div class="pg">第 4 页 / 共 51 页</div><pre>
+    _alphabet = esm.data.Alphabet.from_architecture("ESM-1b")
+    _esm_model = ESM2(num_layers=6, embed_dim=320, attention_heads=20, alphabet=_alphabet, token_dropout=False)
+    sd = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    _esm_model.load_state_dict(sd, strict=False)
+    _esm_model.eval()  # stay on CPU, avoids competing with main model for 4GB VRAM
+    _esm_batch_converter = _alphabet.get_batch_converter()
+    _esm_proj = torch.nn.Linear(320, 512, bias=False)  # CPU, will .to(DEVICE) in get_esm_embedding
+    print("[OK] ESM2-8M 蛋白编码器已就绪 (CPU)", flush=True)
+except Exception as e:
+    print("[WARN] ESM2-8M 加载失败:", e, flush=True)
+
+
 app = Flask(__name__)
 NAME2ID = {}
 for _pid, _nm in DRUG_NAMES.items():
@@ -107,8 +169,6 @@ FRAG_RULES = [
     (Chem.MolFromSmarts("[cX3][NX3][SX4](=O)(=O)[cX3]"), "二芳基磺酰胺类（Ar-SO2-NH-Ar'）",
      "磺酰胺 N 连接第二个芳环——COX-2 选择性抑制剂常用骨架（如尼美舒利）",
      ["nimesulide", "sulfaphenazole"]),
-</pre></div>
-<div class="page"><div class="pg">第 3 页 / 共 42 页</div><pre>
     (Chem.MolFromSmarts("[NX3]C(=O)[NX3][SX4](=O)(=O)[cX3]"), "磺酰脲类",
      "磺酰脲结构（对甲苯磺酰脲，降糖药）",
      ["tolbutamide"]),
@@ -131,6 +191,13 @@ def frag_ref(mol):
     return None
 
 
+</pre></div>
+<div class="page"><div class="pg">第 5 页 / 共 51 页</div><pre>
+@app.route("/")
+def root():
+    return redirect("/gui/workbench.html")
+
+
 @app.route("/gui/<path:fn>")
 def gui(fn):
     resp = make_response(send_from_directory(GUI_DIR, fn))
@@ -145,12 +212,17 @@ def health():
         "ok": True,
         "models": {
             "fusion": {"ckpt": os.path.basename(CKPT_FUSION), "drugs": len(f_dv), "genes": len(f_gv),
-                       "cells": len(f_cl), "hvg": len(f_hvg), "note": "162系 ESM蛋白语义版 | 基因扰动PCC 0.40 | 新药PCC 0.27"},
+                       "cells": len(f_cl), "hvg": len(f_hvg), "note": "162系 ESM蛋白语义版 | 基因扰动PCC 0.442 | 新药PCC 0.305"},
             "v10": {"ckpt": os.path.basename(CKPT_V10), "drugs": len(v_dv), "genes": len(v_gv),
                     "cells": len(v_cl), "hvg": len(v_hvg), "note": "5系专属，PCC 0.463 高精度"}
         },
         "route": "5系→V10 / 其余→FUSION"
     })
+
+
+@app.route('/params')
+def params():
+    return jsonify({'drugs': len(f_dv), 'genes': len(f_gv)})
 
 
 @app.route("/cells")
@@ -159,8 +231,6 @@ def cells():
 
 
 @app.route("/drugs")
-</pre></div>
-<div class="page"><div class="pg">第 4 页 / 共 42 页</div><pre>
 def drugs():
     seen, out = set(), []
     for d in f_dv:
@@ -168,6 +238,8 @@ def drugs():
             continue
         seen.add(d)
         out.append({"id": d, "name": DRUG_NAMES.get(d, d)})
+</pre></div>
+<div class="page"><div class="pg">第 6 页 / 共 51 页</div><pre>
         if len(out) >= 2000:
             break
     return jsonify({"drugs": out})
@@ -211,10 +283,10 @@ def fat_panel(out, hvg):
     for g in FAT_PANEL_GENES:
         if g in hvg_set:
             idx = hvg.index(g)
-</pre></div>
-<div class="page"><div class="pg">第 5 页 / 共 42 页</div><pre>
             if idx >= len(out):
                 continue
+</pre></div>
+<div class="page"><div class="pg">第 7 页 / 共 51 页</div><pre>
             rank = int(np.where(order == idx)[0][0])
             panel.append({"g": g, "v": round(float(out[idx]), 3),
                           "rank": rank + 1, "dir": "up" if out[idx] > 0 else "down"})
@@ -260,11 +332,11 @@ def predict():
     drug_id, fp = resolved
 
     # 路由：5系 → V10；否则 → FUSION
+</pre></div>
+<div class="page"><div class="pg">第 8 页 / 共 51 页</div><pre>
     if cell_name in v_cl_idx and drug_id in v_dv_set:
         net, cl_names, cl_idx, dv, dv_set = v10_net, v_cl, v_cl_idx, v_dv, v_dv_set
         model_tag = "v10"
-</pre></div>
-<div class="page"><div class="pg">第 6 页 / 共 42 页</div><pre>
     else:
         net, cl_names, cl_idx, dv, dv_set = fusion_net, f_cl, f_cl_idx, f_dv, f_dv_set
         model_tag = "fusion"
@@ -288,6 +360,12 @@ def predict():
     hvg = f_hvg if model_tag == "fusion" else v_hvg
     up = [{"g": hvg[i], "v": float(out[i])} for i in order[:10] if not hvg[i].startswith("Gene_")]
     dn = [{"g": hvg[i], "v": float(out[i])} for i in order[-10:] if not hvg[i].startswith("Gene_")]
+    # 统一空间检索靶点：药物嵌入与基因嵌入的余弦相似度
+    z_cpu = z.cpu()
+    gene_embs = net.gene_emb.weight.cpu()  # 4994 x 512
+    sim = torch.nn.functional.cosine_similarity(z_cpu, gene_embs, dim=1)
+    topk = sim.topk(6)
+    targets = [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
     ref = None
     if drug_id not in f_dv_set and drug_id not in f_gv_set:
         mol = Chem.MolFromSmiles(value)
@@ -295,7 +373,49 @@ def predict():
             ref = frag_ref(mol)
     return jsonify({"drug": drug_id, "name": DRUG_NAMES.get(drug_id, drug_id),
                     "cell": cell_name, "model": model_tag, "up": up, "down": dn, "ref": ref,
-                    "fat_panel": fat_panel(out, hvg)})
+                    "targets": targets, "fat_panel": fat_panel(out, hvg)})
+
+
+@app.route("/custom_drug", methods=["POST"])
+def custom_drug():
+    """SMILES 新药：实时算 ECFP4 指纹 → 嵌入 → 预测表达变化。"""
+</pre></div>
+<div class="page"><div class="pg">第 9 页 / 共 51 页</div><pre>
+    d = request.get_json(force=True)
+    smiles = (d.get("smiles") or "").strip()
+    cell_name = (d.get("cell_name") or "").strip()
+    if not smiles:
+        return jsonify({"error": "请提供 SMILES"})
+    if not cell_name:
+        return jsonify({"error": "请提供 cell_name"})
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return jsonify({"error": "SMILES 无法解析"})
+    fp = smiles_to_ecfp4(smiles)
+    if fp is None or not fp.any():
+        return jsonify({"error": "SMILES 无法解析"})
+    if cell_name not in f_cl_idx:
+        return jsonify({"error": f"细胞系 {cell_name} 不在模型词表"})
+    key_t = -1
+    ci = f_cl_idx[cell_name]
+    with torch.no_grad():
+        z = embed(fusion_net, 1, key_t, np.asarray(fp, dtype=np.float32))
+        out = fusion_net.head(torch.cat([z, fusion_net.cell_emb(torch.tensor([ci], device=DEVICE).long())], dim=1)).cpu().numpy()[0]
+    order = np.argsort(-out)
+    hvg = f_hvg
+    up = [{"g": hvg[i], "v": float(out[i])} for i in order[:10] if not hvg[i].startswith("Gene_")]
+    dn = [{"g": hvg[i], "v": float(out[i])} for i in order[-10:] if not hvg[i].startswith("Gene_")]
+    z_cpu = z.cpu()
+    gene_embs = fusion_net.gene_emb.weight.cpu()
+    sim = torch.nn.functional.cosine_similarity(z_cpu, gene_embs, dim=1)
+    topk = sim.topk(6)
+    targets = [{"g": f_gv[i], "s": float(topk.values[j])} for j, i in enumerate(topk.indices)]
+    return jsonify({
+        "smiles": smiles, "name": "Custom Molecule",
+        "cell": cell_name, "model": "fusion", "up": up, "down": dn,
+        "targets": targets, "fat_panel": fat_panel(out, hvg),
+        "ref": frag_ref(mol)
+    })
 
 
 @app.route("/gene", methods=["POST"])
@@ -306,6 +426,8 @@ def gene():
     cell_name = (d.get("cell_name") or "").strip()
     cell = int(d.get("cell", 0))
     if not cell_name:
+</pre></div>
+<div class="page"><div class="pg">第 10 页 / 共 51 页</div><pre>
         cell_name = f_cl[cell] if cell < len(f_cl) else ""
     if gname not in f_gv_set:
         return jsonify({"error": f"基因 {gname} 不在可扰动列表（{sum(1 for g in f_gv if not g.startswith('IMM_'))} 基因）"})
@@ -315,8 +437,6 @@ def gene():
     if cell_name in v_cl_idx and gname in v_gv_set:
         net, cl_names, cl_idx = v10_net, v_cl, v_cl_idx
         model_tag = "v10"
-</pre></div>
-<div class="page"><div class="pg">第 7 页 / 共 42 页</div><pre>
     else:
         net, cl_names, cl_idx = fusion_net, f_cl, f_cl_idx
         model_tag = "fusion"
@@ -338,7 +458,7 @@ def gene():
 
 @app.route("/similar", methods=["POST"])
 def similar():
-    """相似药检索：模型嵌入 + ECFP4 Tanimoto 混合（融合模型 289系 词表）"""
+    """相似药检索：模型嵌入 + ECFP4 Tanimoto 混合（主模型 162系 词表）"""
     d = request.get_json(force=True)
     value = (d.get("drug") or "").strip()
     beta = float(d.get("beta", 0.5))
@@ -353,6 +473,8 @@ def similar():
     Zn = Z / (np.linalg.norm(Z, axis=1, keepdims=True) + 1e-8)
     cos = Zn @ zi
     cnt = fps.sum(1)
+</pre></div>
+<div class="page"><div class="pg">第 11 页 / 共 51 页</div><pre>
     inter = fps @ fpi
     den = cnt + fpi.sum() - inter
     tani = np.divide(inter, den, out=np.zeros_like(inter), where=den != 0)
@@ -366,9 +488,7 @@ def similar():
 def cascade():
     """扰动跟踪链：药物 → 预测基因(↑/↓) → 表型"""
     d = request.get_json(force=True)
-    value = (d.get("drug") or "").strip()
-</pre></div>
-<div class="page"><div class="pg">第 8 页 / 共 42 页</div><pre>
+    value = (d.get("drug") or d.get("value") or "").strip()
     cell_name = (d.get("cell_name") or "").strip()
     cell = int(d.get("cell", 0))
     if not cell_name:
@@ -400,10 +520,105 @@ def cascade():
                       "mech": "模型预测表达下调", "dir": "dn", "v": float(out[order[-(i+1)]]), "next": ""})
     for i in range(len(chain) - 1):
         chain[i]["next"] = chain[i + 1]["name"]
+</pre></div>
+<div class="page"><div class="pg">第 12 页 / 共 51 页</div><pre>
     chain[-1]["next"] = "表型终点"
-    chain.append({"stage": 99, "kind": "phenotype", "name": "转录组重编程",
-                  "mech": "由模型预测的上调/下调基因推断：细胞转录状态向扰动方向偏移", "dir": None, "next": None})
+    chain.append({"stage": 99, "kind": "phenotype",
+                  "name": f"细胞表型改变（{', '.join(ups[:3]) if ups else ''}↑ / {', '.join(dns[:2]) if dns else ''}↓）",
+                  "mech": f"由模型预测的 {len(ups)} 个显著上调基因（如 {', '.join(ups[:3])}）和 {len(dns)} 个显著下调基因（如 {', '.join(dns[:2])}）推断：细胞转录状态向扰动方向偏移。点击链上任一节点可查看该级微观细节。",
+                  "dir": None, "next": None})
     return jsonify({"chain": chain, "pathway_name": "转录组重编程（论文级模型）"})
+
+
+@app.route("/custom_protein", methods=["POST"])
+def custom_protein():
+    """未知蛋白：基因名或序列 → 预测表达变化"""
+    d = request.get_json(force=True)
+    seq = (d.get("sequence") or "").strip().upper()
+    cell_name = (d.get("cell_name") or "").strip()
+    if cell_name not in f_cl_idx:
+        return jsonify({"error": "细胞系不在词表"})
+    ci = f_cl_idx[cell_name]
+
+    # 尝试 ESM 编码，失败则用基因名查找
+    emb = None
+    if _esm_batch_converter and len(seq) >= 20:
+        try:
+            emb = get_esm_embedding(seq)
+        except Exception:
+            pass
+    if emb is None and seq in f_gv_set:
+        with torch.no_grad():
+            emb = fusion_net.gene_emb(torch.tensor([f_gv.index(seq)], device=DEVICE).long())
+    if emb is None:
+        return jsonify({"error": "蛋白编码失败：输入基因符号或≥20氨基酸序列"})
+
+    with torch.no_grad():
+        z = F.normalize(emb, dim=1)
+        out = fusion_net.head(torch.cat([z, fusion_net.cell_emb(torch.tensor([ci], device=DEVICE).long())], dim=1)).cpu().numpy()[0]
+    order = np.argsort(-out)
+    up = [{"g": f_hvg[i], "v": float(out[i])} for i in order[:10] if not f_hvg[i].startswith("Gene_")]
+    dn = [{"g": f_hvg[i], "v": float(out[i])} for i in order[-10:] if not f_hvg[i].startswith("Gene_")]
+    sim = find_similar_proteins(emb.cpu()) if emb is not None else []
+    return jsonify({"seq_len": len(seq), "cell": cell_name, "up": up, "down": dn, "pathway_name": "蛋白扰动", "similar": sim})
+
+
+@app.route("/interact", methods=["POST"])
+def interact():
+    """药物-蛋白或蛋白-蛋白互作：余弦相似度"""
+    d = request.get_json(force=True)
+</pre></div>
+<div class="page"><div class="pg">第 13 页 / 共 51 页</div><pre>
+    mode = d.get("mode", "drug_protein")
+    cell_name = (d.get("cell_name") or "").strip()
+
+    def encode_protein(seq):
+        emb = None
+        if _esm_batch_converter and seq and len(seq) >= 20:
+            try:
+                emb = get_esm_embedding(seq)
+            except Exception:
+                pass
+        if emb is None and seq in f_gv_set:
+            with torch.no_grad():
+                emb = fusion_net.gene_emb(torch.tensor([f_gv.index(seq)], device=DEVICE).long())
+        return emb
+
+    with torch.no_grad():
+        smiles = (d.get("smiles") or "").strip()
+        seq_a = (d.get("sequence") or d.get("seqA") or "").strip().upper()
+        seq_b = (d.get("seqB") or "").strip().upper()
+
+        if mode == "drug_protein":
+            if not smiles or not seq_a:
+                return jsonify({"error": "请提供 SMILES 和蛋白名/序列"})
+            fp = smiles_to_ecfp4(smiles)
+            if fp is None:
+                return jsonify({"error": "SMILES 无法解析"})
+            za = F.normalize(fusion_net.cp_lin(torch.from_numpy(np.asarray(fp, dtype=np.float32)).unsqueeze(0).to(DEVICE)), dim=1)
+            zb = encode_protein(seq_a)
+            if zb is None:
+                hint = ""
+                if seq_a and seq_a not in f_gv_set:
+                    sim = sorted([g for g in f_gv_set if len(seq_a)>=3 and seq_a[:3].upper() in g], key=lambda x: abs(len(x)-len(seq_a)))[:3]
+                    hint = f"（{seq_a} 不在 4,994 基因词表中；试试 {', '.join(sim)}）" if sim else f"（{seq_a} 不在 4,994 基因词表中，请用 ≥20 aa 序列）"
+                return jsonify({"error": "蛋白编码失败："+hint if hint else "请输入基因符号或 ≥20 aa 氨基酸序列"})
+            zb = F.normalize(zb, dim=1)
+        else:
+            if not seq_a or not seq_b:
+                return jsonify({"error": "请提供两条蛋白名/序列"})
+            za = encode_protein(seq_a)
+            zb = encode_protein(seq_b)
+            if za is None or zb is None:
+                return jsonify({"error": "蛋白编码失败（需要 ESM 或有效基因名）"})
+            za = F.normalize(za, dim=1)
+            zb = F.normalize(zb, dim=1)
+        sim = float(F.cosine_similarity(za, zb).item())
+</pre></div>
+<div class="page"><div class="pg">第 14 页 / 共 51 页</div><pre>
+
+    return jsonify({"mode": mode, "similarity": round(sim, 4),
+                    "verdict": "嵌入空间邻近（仅反映统一表征余弦相似度，不直接等价于物理结合强度）"})
 
 
 if __name__ == "__main__":
@@ -413,14 +628,13 @@ if __name__ == "__main__":
     print(f"[OK] 双模型 API 就绪：http://127.0.0.1:{args.port}", flush=True)
     app.run(host="127.0.0.1", port=args.port, threaded=True, use_reloader=False)
 
+
 # ===== train_g2cp_full.py =====
 
 # -*- coding: utf-8 -*-
 """train_g2cp_full.py —— 全基因版训练（12,327 基因输出）。
 
 - 数据: data/g2cp_cache_fullgene（药物= gctx 全基因, 基因扰动= pool 978 映射到全基因列）
-</pre></div>
-<div class="page"><div class="pg">第 9 页 / 共 42 页</div><pre>
 - 模型: G2CPNet 输出 12,327；head 最后一层 12327
 - 损失: MSE + (1-PCC) + infoNCE
   - 药物样本: 全 12327 列参与损失
@@ -447,6 +661,8 @@ class CorrectG2CPNet(G2CPNet):
     """修正语义: kind=0 基因 → gene_emb; kind=1 药物 → cp_lin(指纹)。
     原版 enc 语义反了(kind=0 走 cp_lin / kind=1 走 gene_emb), 导致药物索引被 clamp
     到基因词表, 3.2 万药大部分共享一个嵌入 → 药物特异性全丢。"""
+</pre></div>
+<div class="page"><div class="pg">第 15 页 / 共 51 页</div><pre>
 
     def enc(self, kind, key):
         k0 = kind.unsqueeze(1)
@@ -471,8 +687,6 @@ def main():
     ap.add_argument("--pcc_w", type=float, default=1.0)
     ap.add_argument("--accum", type=int, default=4, help="梯度累积步数(模拟大 batch)")
     ap.add_argument("--save", default="g2cp_full.pt")
-</pre></div>
-<div class="page"><div class="pg">第 10 页 / 共 42 页</div><pre>
     ap.add_argument("--from", dest="load_from", default="")
     ap.add_argument("--max_cell", type=int, default=10)
     ap.add_argument("--lam_esm", type=float, default=0.05, help="ESM 锚定损失权重(基因嵌入前320维拉向ESM语义)")
@@ -494,6 +708,8 @@ def main():
     y = np.load(os.path.join(CACHE, "y.npy"), mmap_mode="r")
     fps = np.load(os.path.join(CACHE, "drug_fps.npy"))
     n_out = y.shape[1]
+</pre></div>
+<div class="page"><div class="pg">第 16 页 / 共 51 页</div><pre>
     n = len(kind)
     gene_cols = json.load(open(os.path.join(CACHE, "gene_cols.json")))
     log(f"数据: {n} 样本（基因 {n_gene} / 药 {n_drug} / 系 {len(cl_names)}）→ 输出 {n_out} 基因")
@@ -523,8 +739,6 @@ def main():
     for i in range(n):
         if kind[i] == 1:
             pid = drug_vocab[int(key[i])] if int(key[i]) < len(drug_vocab) else ""
-</pre></div>
-<div class="page"><div class="pg">第 11 页 / 共 42 页</div><pre>
             cls_arr[i] = pcl2id.get(drug_pcl.get(pid, ""), -1)
             if moa_cls_arr is not None and int(key[i]) < len(moa_cls_arr) and moa_cls_arr[int(key[i])] >= 0:
                 cls_arr[i] = int(moa_cls_arr[int(key[i])]) + 1000  # +1000 避免与 CMAP id 冲突
@@ -541,6 +755,8 @@ def main():
     perm = rng.permutation(n)
     tr_mask = np.zeros(n, dtype=bool)
     tr_mask[perm[:int(n * 0.9)]] = True
+</pre></div>
+<div class="page"><div class="pg">第 17 页 / 共 51 页</div><pre>
     tr_pert = sorted({int(pert_uid[i]) for i in range(n) if tr_mask[i]})
     tr_pert_set = set(tr_pert)
     # MoA 成对采样支持: 每个 batch 强制抽取"同类药物对" → nce_loss 的 MoA 正样本真正生效
@@ -575,8 +791,6 @@ def main():
             ext_cl = _cl0
             log(f"细胞系扩展: 缓存 {len(cl_names)} → 预训练 {len(ext_cl)}(GEO 全保留)")
             # 缓存 cell 索引 → 新索引(按名字)
-</pre></div>
-<div class="page"><div class="pg">第 12 页 / 共 42 页</div><pre>
             cache2new = [ext_cl.index(c) for c in cl_names]
             cell = np.array([cache2new[c] for c in cell], dtype=np.int32)
             cl_names = ext_cl
@@ -588,6 +802,8 @@ def main():
     fps_t = torch.from_numpy(fps).to(DEVICE)
 
     # ---------- ESM 蛋白语义接入(在 load_from 之后执行, 避免被权重继承覆盖) ----------
+</pre></div>
+<div class="page"><div class="pg">第 18 页 / 共 51 页</div><pre>
     if args.load_from:
         ck0 = torch.load(args.load_from, map_location="cpu", weights_only=False)
         sd0 = ck0["net"]
@@ -627,14 +843,14 @@ def main():
                       "head.2.weight", "head.2.bias", "head.3.weight", "head.3.bias"]:
                 if k in sd0:
                     sd[k] = sd0[k]
-</pre></div>
-<div class="page"><div class="pg">第 13 页 / 共 42 页</div><pre>
             net.load_state_dict(sd, strict=False)
             log("head 全层继承(含输出层 head.3)")
         log(f"加载预训练 {args.load_from}（形状匹配 {len(sd0)} 个键）")
 
     # ---------- ESM 蛋白语义接入(load_from 之后: 基因嵌入后192维继承预训练, 前320维用蛋白图传播后的ESM覆盖) ----------
     esm_path = args.esm_cache
+</pre></div>
+<div class="page"><div class="pg">第 19 页 / 共 51 页</div><pre>
     if os.path.isfile(esm_path) and args.lam_esm > 0:
         esm_cache = torch.load(esm_path, map_location="cpu", weights_only=False)
         esm_mat = torch.zeros((n_gene, 320), dtype=torch.float32)
@@ -679,9 +895,9 @@ def main():
     gene_mask_t = torch.from_numpy(gene_mask).to(DEVICE)
     log(f"参数 {sum(p.numel() for p in net.parameters())/1e6:.2f}M | 显存 {torch.cuda.memory_allocated()/1048576:.0f}MB")
 
-</pre></div>
-<div class="page"><div class="pg">第 14 页 / 共 42 页</div><pre>
     for ep in range(args.epochs):
+</pre></div>
+<div class="page"><div class="pg">第 20 页 / 共 51 页</div><pre>
         t0 = time.time()
         net.train()
         rng2 = np.random.RandomState(ep)
@@ -727,12 +943,12 @@ def main():
             yc = ym - ym.mean(1, keepdim=True)
             den = oc.norm(dim=1) * yc.norm(dim=1) + 1e-8
             pcc = (oc * yc).sum(1) / den
+</pre></div>
+<div class="page"><div class="pg">第 21 页 / 共 51 页</div><pre>
             lp = (1 - pcc).mean()
             # 对比损失只对药物样本算(基因样本不参与 → 基因侧零干扰, 保其他指标)
             dm = kb > 0
             if int(dm.sum()) >= 2:
-</pre></div>
-<div class="page"><div class="pg">第 15 页 / 共 42 页</div><pre>
                 ln = nce_loss(z[dm], g[dm], tau=0.07, groups2=cls_t[b][dm])
             else:
                 ln = torch.tensor(0.0, device=DEVICE)
@@ -774,6 +990,8 @@ def main():
             if (bi + 1) % args.accum == 0 or bi == n_batches - 1:
                 opt.step()
                 opt.zero_grad()
+</pre></div>
+<div class="page"><div class="pg">第 22 页 / 共 51 页</div><pre>
             total += len(b)
             tl += loss.item() * len(b) * args.accum
             if bi % 200 == 0:
@@ -783,8 +1001,6 @@ def main():
         eta = secs * (args.epochs - ep - 1)
         log(f"epoch {ep+1}/{args.epochs} | loss {tl/total:.4f} | {secs:.0f}s | 剩余 {eta/60:.1f}min")
         if (ep + 1) % 5 == 0 or ep + 1 == args.epochs:
-</pre></div>
-<div class="page"><div class="pg">第 16 页 / 共 42 页</div><pre>
             torch.save({"net": net.state_dict(), "gene_vocab": gene_vocab, "drug_vocab": drug_vocab,
                         "cl_names": cl_names, "hvg": json.load(open(os.path.join(CACHE, "hvg.json"))),
                         "enc_semantics": "correct"}, args.save)
@@ -794,6 +1010,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 # ===== train_g2cp_contrast.py =====
 
@@ -820,6 +1037,8 @@ def log(m):
 
 class CPEncoder(nn.Module):
     """药物编码器: 主线性投影(继承旧模型) + 残差MLP(初始0, 逐步学非线性)。
+</pre></div>
+<div class="page"><div class="pg">第 23 页 / 共 51 页</div><pre>
     输出 = main(fps) + res(fps) → 初始精确=旧模型, 表达能力升级为非线性(论文 dense embedding 投影的加强版)。
     所有旧代码 net.cp_lin(fps) 调用点零改动(CPEncoder 可调用)。"""
 
@@ -835,8 +1054,6 @@ class CPEncoder(nn.Module):
         nn.init.kaiming_normal_(self.res[0].weight)
         nn.init.zeros_(self.res[2].weight)   # 残差输出=0 → 初始输出=主路径(精确继承旧模型)
         nn.init.zeros_(self.res[2].bias)
-</pre></div>
-<div class="page"><div class="pg">第 17 页 / 共 42 页</div><pre>
 
     def forward(self, x):
         return self.main(x) + self.res(x)
@@ -867,6 +1084,8 @@ def nce_loss(z, groups, tau=0.15, groups2=None):
     N = z.shape[0]
     eye = torch.eye(N, dtype=torch.bool, device=z.device)
     mask = (groups[:, None] == groups[None, :]) & ~eye
+</pre></div>
+<div class="page"><div class="pg">第 24 页 / 共 51 页</div><pre>
     if groups2 is not None:
         same_cls = (groups2[:, None] == groups2[None, :]) & ~eye & (groups2[:, None] >= 0)
         mask = mask | same_cls
@@ -887,8 +1106,6 @@ def main():
     ap.add_argument("--pcc_w", type=float, default=0.5, help="PCC 感知损失权重")
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--lam_nce", type=float, default=0.5)
-</pre></div>
-<div class="page"><div class="pg">第 18 页 / 共 42 页</div><pre>
     ap.add_argument("--save", default="g2cp_model_v4.pt")
     ap.add_argument("--progress", default="train_progress.json")
     ap.add_argument("--phase", default="joint", choices=["joint", "contrast", "finetune"])
@@ -914,6 +1131,8 @@ def main():
     n = len(kind)
     log(f"数据: {n} 样本（基因 {n_gene} / 药物 {n_drug} / 细胞系 {len(cl_names)}）→ {yv.shape[1]} HVG")
 
+</pre></div>
+<div class="page"><div class="pg">第 25 页 / 共 51 页</div><pre>
     # 扰动唯一标签（基因/药物分开），按扰动-细胞系组织样本
     pert_uid = np.where(kind == 0, key, n_gene + key)
     pert2idx = defaultdict(list)
@@ -939,8 +1158,6 @@ def main():
     for i in range(n):
         if kind[i] == 1:
             pid = drug_vocab[int(key[i])] if int(key[i]) < len(drug_vocab) else ""
-</pre></div>
-<div class="page"><div class="pg">第 19 页 / 共 42 页</div><pre>
             cls_arr[i] = pcl2id.get(drug_pcl.get(pid, ""), -1)
     n_pcl = len(pcl_ids)
     log(f"药物类别（MoA）: {n_pcl} 类，覆盖药物样本 {int((cls_arr >= 0).sum())}")
@@ -961,6 +1178,8 @@ def main():
 
     net = G2CPNet(n_gene, ECFP4_BITS, args.emb, len(cl_names), yv.shape[1], args.headw).to(DEVICE)
     net.cls_out = n_pcl
+</pre></div>
+<div class="page"><div class="pg">第 26 页 / 共 51 页</div><pre>
     net._fps = torch.from_numpy(fps).to(DEVICE)
     if args.load_from:
         ck0 = torch.load(args.load_from, map_location="cpu", weights_only=False)
@@ -991,8 +1210,6 @@ def main():
         net.train()
         rng2 = np.random.RandomState(ep)
         total, tl, tn = 0, 0.0, 0.0
-</pre></div>
-<div class="page"><div class="pg">第 20 页 / 共 42 页</div><pre>
         n_batches = max(1, len(tr_pert) // args.bpert)
         n_cls_b = max(1, int(n_batches * args.cls_bal)) if (args.cls_bal > 0 and len(cls2drugs) > 1 and args.phase != "finetune") else 0
         for bi in range(n_batches):
@@ -1008,6 +1225,8 @@ def main():
                     pool = np.asarray(cls2drugs[cid], dtype=np.int64)
                     if len(pool) == 0:
                         continue
+</pre></div>
+<div class="page"><div class="pg">第 27 页 / 共 51 页</div><pre>
                     _, first = np.unique(key[pool], return_index=True)
                     rng2.shuffle(first)
                     for fi in first[:per_cls]:
@@ -1043,8 +1262,6 @@ def main():
             else:
                 loss = lm + args.pcc_w * lp + args.lam_nce * ln
             if args.lam_cls > 0:
-</pre></div>
-<div class="page"><div class="pg">第 21 页 / 共 42 页</div><pre>
                 cm = gc >= 0
                 if cm.any():
                     cl = nn.functional.cross_entropy(zc[cm][:, :net.cls_out], gc[cm])
@@ -1055,6 +1272,8 @@ def main():
         if args.lam_struct > 0:
             for _ in range(10):
                 pick_d = rng2.choice(n_drug, size=64, replace=False)
+</pre></div>
+<div class="page"><div class="pg">第 28 页 / 共 51 页</div><pre>
                 pd = torch.from_numpy(pick_d).long().to(DEVICE)
                 zd = F.normalize(net.cp_lin(net._fps[pd]), dim=1)
                 cosd = zd @ zd.T
@@ -1095,13 +1314,13 @@ def prep_extra():
     """
     import anndata as ad
     import pandas as pd
-</pre></div>
-<div class="page"><div class="pg">第 22 页 / 共 42 页</div><pre>
     from unipret.compound_encoder import smiles_to_ecfp4
 
     src = os.path.join(BASE, "data", "lincs_extra", "merged.h5ad")
     if not os.path.isfile(src):
         src = os.path.join(BASE, "data", "lincs_extra", "all_cells.h5ad")
+</pre></div>
+<div class="page"><div class="pg">第 29 页 / 共 51 页</div><pre>
     if not os.path.isfile(src):
         log("prep_extra: 找不到合并数据，请先跑 parse_gctx/retrain_all")
         return
@@ -1148,7 +1367,7 @@ def prep_extra():
             f = smiles_to_ecfp4(sm)
             if f is not None and f.any():
 </pre></div>
-<div class="page"><div class="pg">第 23 页 / 共 42 页</div><pre>
+<div class="page"><div class="pg">第 30 页 / 共 51 页</div><pre>
                 fps[i] = f
                 n_ok += 1
     log(f"药物指纹解析 {n_ok}/{len(cp_ids)}")
@@ -1159,7 +1378,7 @@ def prep_extra():
 
     kind = np.zeros(len(idx), dtype=np.int8)
     key = np.zeros(len(idx), dtype=np.int32)
-    cell = np.zeros(len(idx), dtype=np.int32)  # 289+ 细胞系，必须 int32
+    cell = np.zeros(len(idx), dtype=np.int32)  # 162+ 细胞系，必须 int32
     rows = obs.iloc[idx]
     for j, (_, r) in enumerate(rows.iterrows()):
         if str(r["pert_type"]) == "trt_xpr":
@@ -1194,13 +1413,13 @@ def prep_extra():
     vj = np.where(valid)[0]
     for b in range(0, len(vj), 5000):
         bi = vj[b:b+5000]
+</pre></div>
+<div class="page"><div class="pg">第 31 页 / 共 51 页</div><pre>
         Xb = a.X[idx[bi]]
         if hasattr(Xb, "toarray"):
             Xb = Xb.toarray()
         y[b:b+len(bi)] = np.asarray(Xb, dtype=np.float32)
     np.save(os.path.join(CACHE_DIR, "y.npy"), y)
-</pre></div>
-<div class="page"><div class="pg">第 24 页 / 共 42 页</div><pre>
     hvg = list(a.var_names)
     json.dump(hvg, open(os.path.join(CACHE_DIR, "hvg.json"), "w"))
     log(f"y 矩阵 {y.shape} | HVG {len(hvg)} | 缓存完成")
@@ -1209,6 +1428,7 @@ def prep_extra():
 
 if __name__ == "__main__":
     main()
+
 
 # ===== unipret/compound_encoder.py =====
 
@@ -1240,6 +1460,8 @@ except Exception as _e:  # pragma: no cover
 
 ECFP4_BITS = 2048
 
+</pre></div>
+<div class="page"><div class="pg">第 32 页 / 共 51 页</div><pre>
 
 def smiles_to_ecfp4(smiles):
     """SMILES → ECFP4 指纹（Morgan 半径2, 2048 位）→ np.float32 [2048]。
@@ -1251,8 +1473,6 @@ def smiles_to_ecfp4(smiles):
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         return None
-</pre></div>
-<div class="page"><div class="pg">第 25 页 / 共 42 页</div><pre>
     fp = AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=ECFP4_BITS)
     return np.array(fp, dtype=np.float32)
 
@@ -1287,6 +1507,8 @@ def _tokenize(smiles):
         elif c in '-=#/\\:':
             tokens.append(('bond', c)); i += 1
         elif c == '(':
+</pre></div>
+<div class="page"><div class="pg">第 33 页 / 共 51 页</div><pre>
             tokens.append(('branch', '(')); i += 1
         elif c == ')':
             tokens.append(('branch', ')')); i += 1
@@ -1303,8 +1525,6 @@ def _tokenize(smiles):
 def smiles_to_graph(smiles):
     """返回 (atom_types:List[str], edge_index:List[[a,b]], edge_type:List[str]) 无向去重。"""
     tokens = _tokenize(smiles)
-</pre></div>
-<div class="page"><div class="pg">第 26 页 / 共 42 页</div><pre>
     atom_types, edges = [], []
     ring_open, stack, last = {}, [], -1
     pending_bond = '-'
@@ -1334,6 +1554,8 @@ def smiles_to_graph(smiles):
                 if a != last:
                     edges.append((a, last, pending_bond))
             else:
+</pre></div>
+<div class="page"><div class="pg">第 34 页 / 共 51 页</div><pre>
                 ring_open[val] = last
             pending_bond = '-'
     # 去重成无向边（每条边存正反两次，供消息传递用）
@@ -1355,8 +1577,6 @@ def atom_features(atom_types, edge_index):
         deg[a] += 1; deg[b] += 1
     feats = []
     for at, d in zip(atom_types, deg):
-</pre></div>
-<div class="page"><div class="pg">第 27 页 / 共 42 页</div><pre>
         onehot = [1.0 if at == a else 0.0 for a in ATOMS]
         aromatic = 1.0 if (at and at[0].islower()) else 0.0   # 芳香小写原子 c/n/o...
         feats.append(onehot + [aromatic, min(float(d), 6.0) / 6.0])
@@ -1381,6 +1601,8 @@ def _global_pool(x, batch, mode):
         cnt.index_add_(0, batch, torch.ones_like(batch, dtype=x.dtype))
         return out / cnt.clamp_min(1.0).unsqueeze(1)
     else:  # max
+</pre></div>
+<div class="page"><div class="pg">第 35 页 / 共 51 页</div><pre>
         out = torch.full((nb, x.size(1)), float('-inf'), dtype=x.dtype, device=dev)
         for i in range(x.size(0)):
             # 注意：不能用 out[batch[i]] = ... 原地写，会破坏 autograd 版本
@@ -1407,8 +1629,6 @@ class _CompoundEncoderGNN(nn.Module):
         self.readout = nn.Linear(COMPOUND_HIDDEN * 2, EMBED_DIM)  # mean+max 拼接
         self.ln = nn.LayerNorm(EMBED_DIM)
 
-</pre></div>
-<div class="page"><div class="pg">第 28 页 / 共 42 页</div><pre>
     def forward(self, graphs):
         """
         graphs: list of (atom_types, edge_index, edge_type)  —— 一个 batch 多个分子
@@ -1428,6 +1648,8 @@ class _CompoundEncoderGNN(nn.Module):
             offset += len(atom_types)
 
         x = torch.cat(node_feats, 0)                  # [N_total, NODE_DIM]
+</pre></div>
+<div class="page"><div class="pg">第 36 页 / 共 51 页</div><pre>
         x = self.node_lin(x)
         batch = torch.tensor(batch, dtype=torch.long, device=device)
         edge_index = torch.tensor(edge_index, dtype=torch.long, device=device).t()   # [2, E]
@@ -1459,8 +1681,6 @@ class CompoundEncoder(nn.Module):
         super().__init__()
         self.linear_layer = nn.Linear(fp_dim, EMBED_DIM)
         # LayerNorm：官方嵌入无归一化（norm≈47），下游回归头会饱和；LN 归一化尺度后可训练
-</pre></div>
-<div class="page"><div class="pg">第 29 页 / 共 42 页</div><pre>
         self.ln = nn.LayerNorm(EMBED_DIM)
 
     def forward(self, graphs):
@@ -1475,9 +1695,12 @@ class CompoundEncoder(nn.Module):
             if f is None or (isinstance(f, np.ndarray) and not f.any()):
                 xs.append(np.zeros(ECFP4_BITS, dtype=np.float32))
             else:
+</pre></div>
+<div class="page"><div class="pg">第 37 页 / 共 51 页</div><pre>
                 xs.append(np.asarray(f, dtype=np.float32))
         x = torch.from_numpy(np.stack(xs)).to(next(self.parameters()).device)
         return self.ln(self.linear_layer(x))
+
 
 # ===== eval_full.py =====
 
@@ -1511,8 +1734,6 @@ def pcc_mean(pp, tt):
         if np.std(a) < 1e-8 or np.std(b) < 1e-8:
             continue
         cs.append(np.corrcoef(a, b)[0, 1])
-</pre></div>
-<div class="page"><div class="pg">第 30 页 / 共 42 页</div><pre>
     return float(np.nanmean(cs)) if cs else 0.0
 
 m = np.load(os.path.join(CACHE, "meta.npz"), allow_pickle=True)
@@ -1521,6 +1742,8 @@ gene_vocab = [str(x) for x in m["gene_vocab"]]
 drug_vocab = [str(x) for x in m["drug_vocab"]]
 cl_names = [str(x) for x in m["cl_names"]]
 y = np.load(os.path.join(CACHE, "y.npy"), mmap_mode="r")
+</pre></div>
+<div class="page"><div class="pg">第 38 页 / 共 51 页</div><pre>
 fps = np.load(os.path.join(CACHE, "drug_fps.npy"))
 n_out = y.shape[1]
 n = len(kind)
@@ -1540,7 +1763,13 @@ cl_idx = {c: i for i, c in enumerate(cl)}
 emb = ck["net"]["head.0.weight"].shape[0] - 32
 headw = ck["net"]["head.1.weight"].shape[0]
 net = G2CPNet(len(gv), ECFP4_BITS, emb, len(cl), len(hvg), headw).to(DEVICE)
-net.load_state_dict(ck["net"], strict=False)
+# ---- 兼容旧版 Linear cp_lin 权重 ----
+_sd = dict(ck["net"])
+if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+    _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+    _sd["cp_lin.main.weight"] = _w
+    _sd["cp_lin.main.bias"] = _b
+net.load_state_dict(_sd, strict=False)
 net.eval()
 print(f"模型 {CKPT}: 基因 {len(gv)}, 药 {len(dv)}, 系 {len(cl)}, 输出 {len(hvg)}", flush=True)
 
@@ -1560,11 +1789,11 @@ for i in te_idx:
         g = gene_vocab[int(key[i])]
         if g in gv_idx:
             ok.append((i, 0, gv_idx[g], cl_idx.get(cl_names[int(cell[i])], -1)))
+</pre></div>
+<div class="page"><div class="pg">第 39 页 / 共 51 页</div><pre>
     else:
         d = drug_vocab[int(key[i])]
         if d in dv_idx:
-</pre></div>
-<div class="page"><div class="pg">第 31 页 / 共 42 页</div><pre>
             ok.append((i, 1, dv_idx[d], cl_idx.get(cl_names[int(cell[i])], -1)))
 print(f"可评测样本: {len(ok)}/{len(te_idx)}", flush=True)
 
@@ -1607,6 +1836,8 @@ tr_seen = [i for i in range(n) if int(pert_uid[i]) in tr_pert_set]
 rng2 = np.random.RandomState(1)
 tr_seen_s = rng2.choice(tr_seen, size=min(8000, len(tr_seen)), replace=False)
 pr_s, tr_s = [], []
+</pre></div>
+<div class="page"><div class="pg">第 40 页 / 共 51 页</div><pre>
 for i in tr_seen_s:
     if kind[i] == 0:
         g = gene_vocab[int(key[i])]
@@ -1615,8 +1846,6 @@ for i in tr_seen_s:
         ki = gv_idx[g]
         with torch.no_grad():
             z = F.normalize(net.gene_emb(torch.tensor([ki], device=DEVICE).long()), dim=1)
-</pre></div>
-<div class="page"><div class="pg">第 32 页 / 共 42 页</div><pre>
     else:
         d = drug_vocab[int(key[i])]
         if d not in dv_idx:
@@ -1641,6 +1870,7 @@ print("\n### 参考")
 print("  论文 G2CP: 20% 化学训练下 PCC +375.4% 提升(基线 ~0.2 量级)")
 print("  说明: PCC 是'预测表达 vs 真实测量'的相关系数, 0.3+ = 中强相关, 0.5+ = 强")
 
+
 # ===== eval_smd.py =====
 
 # -*- coding: utf-8 -*-
@@ -1653,6 +1883,8 @@ import torch.nn.functional as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from train_g2cp_contrast import G2CPNet, CACHE_DIR
 from unipret.compound_encoder import ECFP4_BITS
+</pre></div>
+<div class="page"><div class="pg">第 41 页 / 共 51 页</div><pre>
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def load_drug_embs(ckpt):
@@ -1662,13 +1894,16 @@ def load_drug_embs(ckpt):
     emb = ck["net"]["head.0.weight"].shape[0] - 32
     headw = ck["net"]["head.1.weight"].shape[0]
     net = G2CPNet(len(gene_vocab), ECFP4_BITS, emb, len(ck["cl_names"]), len(ck["hvg"]), headw).to(DEVICE)
-    net.load_state_dict(ck["net"], strict=False)
+    _sd = dict(ck["net"])
+    if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+        _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+        _sd["cp_lin.main.weight"] = _w
+        _sd["cp_lin.main.bias"] = _b
+    net.load_state_dict(_sd, strict=False)
     net.eval()
     fps = np.load(os.path.join(CACHE_DIR, "drug_fps.npy"))
     with torch.no_grad():
         z = net.cp_lin(torch.from_numpy(fps).to(DEVICE))
-</pre></div>
-<div class="page"><div class="pg">第 33 页 / 共 42 页</div><pre>
         z = F.normalize(z, dim=1).cpu().numpy()
     return z, drug_vocab
 
@@ -1695,6 +1930,8 @@ def main():
     args = ap.parse_args()
     z, drug_vocab = load_drug_embs(args.ckpt)
     vset = set(drug_vocab)
+</pre></div>
+<div class="page"><div class="pg">第 42 页 / 共 51 页</div><pre>
     pcl = parse_pcl(args.pcl)
     # 关键修复: 按唯一化合物去重(同一指纹/同一化合物多批次 BRD 只留一个代表)
     # → 消除重复批次污染(类间负样本若含同类化合物重复BRD, 相似度=1.0, SMD被压到0附近)
@@ -1719,8 +1956,6 @@ def main():
             T[s:e] = np.divide(A, den, out=np.zeros_like(A), where=den != 0)
         np.fill_diagonal(T, -1)
         S = args.beta * C + (1 - args.beta) * T
-</pre></div>
-<div class="page"><div class="pg">第 34 页 / 共 42 页</div><pre>
     else:
         S = C
     np.fill_diagonal(S, -1)
@@ -1742,6 +1977,8 @@ def main():
             between = S[ci][:, other].ravel()
             if len(between) > 20000:
                 rng = np.random.RandomState(0)
+</pre></div>
+<div class="page"><div class="pg">第 43 页 / 共 51 页</div><pre>
                 between = between[rng.choice(len(between), 20000, replace=False)]
         w, b = within.astype(np.float64), between.astype(np.float64)
         pool = np.sqrt((w.var() + b.var()) / 2)
@@ -1753,6 +1990,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 # ===== eval_holdout_similarity.py =====
 
@@ -1771,8 +2009,6 @@ from collections import defaultdict
 import numpy as np
 import torch
 import torch.nn.functional as F
-</pre></div>
-<div class="page"><div class="pg">第 35 页 / 共 42 页</div><pre>
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -1788,6 +2024,8 @@ def pcc_mean(pp, tt):
     for a, b in zip(pp, tt):
         if np.std(a) < 1e-8 or np.std(b) < 1e-8:
             continue
+</pre></div>
+<div class="page"><div class="pg">第 44 页 / 共 51 页</div><pre>
         cs.append(np.corrcoef(a, b)[0, 1])
     return float(np.nanmean(cs)) if cs else 0.0
 
@@ -1811,7 +2049,12 @@ cl_idx = {c: i for i, c in enumerate(cl)}
 emb = ck["net"]["head.0.weight"].shape[0] - 32
 headw = ck["net"]["head.1.weight"].shape[0]
 net = G2CPNet(len(gv), ECFP4_BITS, emb, len(cl), len(hvg), headw).to(DEVICE)
-net.load_state_dict(ck["net"], strict=False)
+_sd = dict(ck["net"])
+if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+    _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+    _sd["cp_lin.main.weight"] = _w
+    _sd["cp_lin.main.bias"] = _b
+net.load_state_dict(_sd, strict=False)
 net.eval()
 print(f"模型 {os.path.basename(CKPT)}: 语义 {ck.get('enc_semantics','?')} | 药 {len(dv)} 系 {len(cl)}", flush=True)
 
@@ -1823,13 +2066,13 @@ perm = rng.permutation(len(perts))
 te_pert = set(int(perts[i]) for i in perm[int(len(perts) * 0.9):])
 te_drug = [i for i in range(n) if kind[i] == 1 and int(pert_uid[i]) in te_pert]
 print(f"留出药物扰动 {len(te_pert)}, 留出药物样本 {len(te_drug)}", flush=True)
-</pre></div>
-<div class="page"><div class="pg">第 36 页 / 共 42 页</div><pre>
 
 # 留出药物指纹(用于相似度) + 训练药物指纹集合
 tr_drug_idx = [i for i in range(n) if kind[i] == 1 and int(pert_uid[i]) not in te_pert]
 tr_drug_keys = set(int(key[i]) for i in tr_drug_idx)
 te_drug_keys = {}
+</pre></div>
+<div class="page"><div class="pg">第 45 页 / 共 51 页</div><pre>
 for i in te_drug:
     te_drug_keys.setdefault(int(key[i]), []).append(i)
 print(f"留出药物数 {len(te_drug_keys)}, 训练药物数 {len(tr_drug_keys)}", flush=True)
@@ -1876,7 +2119,7 @@ with torch.no_grad():
                 continue
             out = net.head(torch.cat([z, net.cell_emb(torch.tensor([ci], device=DEVICE).long())], dim=1)).cpu().numpy()[0]
 </pre></div>
-<div class="page"><div class="pg">第 37 页 / 共 42 页</div><pre>
+<div class="page"><div class="pg">第 46 页 / 共 51 页</div><pre>
             t = np.asarray(y[i], dtype=np.float32)
             s = sims.get(int(key[i]), 0.0)
             layer = 'high' if s >= 0.7 else ('mid' if s >= 0.4 else 'low')
@@ -1898,6 +2141,7 @@ if pr['all']:
     print(f"{'all':<8}{'全部新药':<16}{len(te_keys):>7}{len(pr['all']):>8}{pc:>+10.4f}")
 print("\n说明: PCC 是预测 vs 真实表达的相关; 0.2+ = 有预测信号, 0.4+ = 中强")
 print("如果'同骨架'层 PCC 明显高于'全新骨架'层 → 结构相似的新药可预测, 全新骨架仍难")
+
 
 # ===== _exam3_ef.py =====
 
@@ -1921,15 +2165,20 @@ DEVICE = torch.device('cuda')
 CKPT = sys.argv[1] if len(sys.argv) > 1 else 'g2cp_full_esm_all.pt'
 
 ck = torch.load(CKPT, map_location='cpu', weights_only=False)
+</pre></div>
+<div class="page"><div class="pg">第 47 页 / 共 51 页</div><pre>
 gv = [str(x) for x in ck['gene_vocab']]
 cl = [str(x) for x in ck['cl_names']]
 emb = ck['net']['head.0.weight'].shape[0] - 32
 headw = ck['net']['head.1.weight'].shape[0]
 n_out = len(ck['hvg'])
 net = G2CPNet(len(gv), ECFP4_BITS, emb, len(cl), n_out, headw).to(DEVICE)
-</pre></div>
-<div class="page"><div class="pg">第 38 页 / 共 42 页</div><pre>
-net.load_state_dict(ck['net'], strict=False)
+_sd = dict(ck['net'])
+if 'cp_lin.weight' in _sd and 'cp_lin.main.weight' not in _sd:
+    _w, _b = _sd.pop('cp_lin.weight'), _sd.pop('cp_lin.bias')
+    _sd['cp_lin.main.weight'] = _w
+    _sd['cp_lin.main.bias'] = _b
+net.load_state_dict(_sd, strict=False)
 net.eval()
 gv_idx = {g: i for i, g in enumerate(gv)}
 print(f'模型 {os.path.basename(CKPT)} | 基因 {len(gv)}', flush=True)
@@ -1963,6 +2212,8 @@ with torch.no_grad():
         z = F.normalize(net.cp_lin(torch.from_numpy(fp).float().unsqueeze(0).to(DEVICE)), dim=1)
         z_cache[s] = z.cpu().numpy()[0]
 print(f'编码成功: {len(z_cache)}', flush=True)
+</pre></div>
+<div class="page"><div class="pg">第 48 页 / 共 51 页</div><pre>
 
 def ef_at(cutoff, pos_ranks, n_total):
     n_pos = len(pos_ranks)
@@ -1979,8 +2230,6 @@ for t, smis in target2drugs.items():
     with torch.no_grad():
         g = F.normalize(net.gene_emb(torch.tensor([gv_idx[t]], device=DEVICE).long()), dim=1)
     g = g.cpu().numpy()[0]
-</pre></div>
-<div class="page"><div class="pg">第 39 页 / 共 42 页</div><pre>
     # 排名
     pos_set = set(smis)
     scores = []
@@ -2002,6 +2251,7 @@ for c in cuts:
 print(f'\n靶数: {len(target2drugs)} | 化合物: {len(z_cache)}')
 print('说明: 论文用 37,820 化合物×1,216 靶的独立 CPI 集(held-out); 我们用 Touchstone 1,021 化合物×', len(target2drugs), '靶(近似, 非严格 held-out)')
 
+
 # ===== _exam2_align.py =====
 
 # -*- coding: utf-8 -*-
@@ -2009,6 +2259,8 @@ print('说明: 论文用 37,820 化合物×1,216 靶的独立 CPI 集(held-out);
 CScause = 类内药物嵌入余弦(UniPert) 或 ECFP4 Tanimoto
 CSeffect = 类内药物同一细胞系表达谱相关
 ρ = Spearman(CScause上三角, CSeffect上三角), 每类每系, 5系平均。
+</pre></div>
+<div class="page"><div class="pg">第 49 页 / 共 51 页</div><pre>
 对比论文: UniPert 0.43 vs ECFP4 0.38
 """
 import sys, os, csv
@@ -2031,8 +2283,6 @@ FIVE = ['HT29', 'A375', 'A549', 'MCF7', 'PC3']
 m = np.load(os.path.join(CACHE, 'meta.npz'), allow_pickle=True)
 kind, key, cell = m['kind'], m['key'], m['cell']
 cl_names = [str(x) for x in m['cl_names']]
-</pre></div>
-<div class="page"><div class="pg">第 40 页 / 共 42 页</div><pre>
 y = np.load(os.path.join(CACHE, 'y.npy'), mmap_mode='r')
 fps = np.load(os.path.join(CACHE, 'drug_fps.npy'))
 n_out = y.shape[1]
@@ -2056,6 +2306,8 @@ sub = a.obs[a.obs['pert_type'] == 'trt_cp'][['pert_id', 'cmap_name']].drop_dupli
 a.file.close()
 dv_idx = {d: i for i, d in enumerate(dv)}
 name2key = {}
+</pre></div>
+<div class="page"><div class="pg">第 50 页 / 共 51 页</div><pre>
 for _, r in sub.iterrows():
     nm = str(r['cmap_name']).strip().lower()
     pid = str(r['pert_id'])
@@ -2083,8 +2335,6 @@ fp_bin = (fps > 0)
 # 每药物每细胞系表达谱
 def expr_of(key_, ci):
     rows = [i for i in range(len(key)) if key[i] == key_ and cell[i] == ci]
-</pre></div>
-<div class="page"><div class="pg">第 41 页 / 共 42 页</div><pre>
     if not rows:
         return None
     return np.mean([y[i] for i in rows[:80]], axis=0).astype(np.float64)
@@ -2103,6 +2353,8 @@ for moa, keys in classes.items():
     # ECFP4 Tanimoto
     a_cnt = fp_bin[keys].sum(1, keepdims=True)
     inter = fp_bin[keys] @ fp_bin[keys].T
+</pre></div>
+<div class="page"><div class="pg">第 51 页 / 共 51 页</div><pre>
     uni = a_cnt + a_cnt.T - inter
     tani = inter / np.maximum(uni, 1e-8)
     for ci, cn in zip(five_idx, [cl_names[i] for i in five_idx]):
@@ -2135,13 +2387,12 @@ all_u, all_e = [], []
 for cn in FIVE:
     u = np.mean(rho_u[cn]) if rho_u[cn] else float('nan')
     e = np.mean(rho_e[cn]) if rho_e[cn] else float('nan')
-</pre></div>
-<div class="page"><div class="pg">第 42 页 / 共 42 页</div><pre>
     all_u.append(u); all_e.append(e)
     print(f'{cn:<8}{u:>12.3f}{e:>12.3f}{len(rho_u[cn]):>8}')
 mu = np.nanmean(all_u); me = np.nanmean(all_e)
 print(f'\n平均 ρ: UniPert {mu:.3f} vs ECFP4 {me:.3f}  (论文: 0.43 vs 0.38)')
 print(f'相对提升: {(mu/me-1)*100:+.1f}%  (论文 +13.2%)')
+
 
 </pre></div>
 </body></html>

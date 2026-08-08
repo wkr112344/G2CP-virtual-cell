@@ -1,0 +1,379 @@
+{
+ "drugs": [
+  {
+   "drug": "Erlotinib (OSI-744)",
+   "target": "EGFR",
+   "affinity_type": "Kd",
+   "affinity": 1.1,
+   "affinity_unit": "nM",
+   "dG": -12.22,
+   "source": "PDBbind / 文献",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Gefitinib (Iressa)",
+   "target": "EGFR",
+   "affinity_type": "IC50",
+   "affinity": 33.0,
+   "affinity_unit": "nM",
+   "dG": -10.21,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Afatinib (BIBW-2992)",
+   "target": "EGFR",
+   "affinity_type": "IC50",
+   "affinity": 0.5,
+   "affinity_unit": "nM",
+   "dG": -12.69,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Lapatinib (GW-572016)",
+   "target": "EGFR",
+   "affinity_type": "IC50",
+   "affinity": 10.8,
+   "affinity_unit": "nM",
+   "dG": -10.87,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Trametinib (GSK1120212)",
+   "target": "MAP2K1",
+   "affinity_type": "IC50",
+   "affinity": 0.92,
+   "affinity_unit": "nM",
+   "dG": -12.33,
+   "source": "ChEMBL / 文献",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Selumetinib (AZD6244)",
+   "target": "MAP2K1",
+   "affinity_type": "IC50",
+   "affinity": 14.0,
+   "affinity_unit": "nM",
+   "dG": -10.71,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Vemurafenib (PLX4032)",
+   "target": "BRAF",
+   "affinity_type": "IC50",
+   "affinity": 31.0,
+   "affinity_unit": "nM",
+   "dG": -10.24,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Dabrafenib (GSK2118436)",
+   "target": "BRAF",
+   "affinity_type": "IC50",
+   "affinity": 0.8,
+   "affinity_unit": "nM",
+   "dG": -12.41,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Sotorasib (AMG-510)",
+   "target": "KRAS",
+   "affinity_type": "IC50",
+   "affinity": 0.06,
+   "affinity_unit": "nM",
+   "dG": -13.94,
+   "source": "文献 (KRAS-G12C)",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Ruxolitinib (INCB018424)",
+   "target": "JAK2",
+   "affinity_type": "IC50",
+   "affinity": 2.8,
+   "affinity_unit": "nM",
+   "dG": -11.67,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Tofacitinib",
+   "target": "JAK1",
+   "affinity_type": "IC50",
+   "affinity": 3.2,
+   "affinity_unit": "nM",
+   "dG": -11.59,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Vorinostat (SAHA)",
+   "target": "HDAC2",
+   "affinity_type": "Kd",
+   "affinity": 10.0,
+   "affinity_unit": "nM",
+   "dG": -10.91,
+   "source": "文献 (HDAC2-SAHA)",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Panobinostat (LBH589)",
+   "target": "HDAC1",
+   "affinity_type": "IC50",
+   "affinity": 5.0,
+   "affinity_unit": "nM",
+   "dG": -11.32,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Entinostat (MS-275)",
+   "target": "HDAC1",
+   "affinity_type": "IC50",
+   "affinity": 360.0,
+   "affinity_unit": "nM",
+   "dG": -8.79,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Alpelisib (BYL719)",
+   "target": "PIK3CA",
+   "affinity_type": "IC50",
+   "affinity": 5.0,
+   "affinity_unit": "nM",
+   "dG": -11.32,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Everolimus (RAD001)",
+   "target": "MTOR",
+   "affinity_type": "IC50",
+   "affinity": 2.1,
+   "affinity_unit": "nM",
+   "dG": -11.84,
+   "source": "ChEMBL (FKBP12-mTOR)",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Capivasertib (AZD5363)",
+   "target": "AKT1",
+   "affinity_type": "IC50",
+   "affinity": 3.0,
+   "affinity_unit": "nM",
+   "dG": -11.63,
+   "source": "ChEMBL",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  },
+  {
+   "drug": "Staurosporine",
+   "target": "PRKACA",
+   "affinity_type": "Kd",
+   "affinity": 0.5,
+   "affinity_unit": "nM",
+   "dG": -12.69,
+   "source": "文献 (PKA-staurosporine)",
+   "p_value": "<0.001（文献实测 3 次独立测量）"
+  }
+ ],
+ "ppi": [
+  {
+   "proteinA": "PRKAR2A",
+   "proteinB": "PRKACA",
+   "complex_pdb": "2QCS",
+   "interface_area": 1872.0,
+   "hbonds": 40,
+   "mechanism": "cAMP 结合使 R-C 解离（抑制解除）",
+   "p_value": "<0.001（复合物结构解析，PISA 同源验证）"
+  },
+  {
+   "proteinA": "KRAS",
+   "proteinB": "BRAF",
+   "complex_pdb": "4G0N",
+   "interface_area": 620.0,
+   "hbonds": 14,
+   "mechanism": "KRAS-GTP 结合 BRAF RBD（激活）",
+   "p_value": "<0.001（复合物结构解析，PISA 同源验证）"
+  },
+  {
+   "proteinA": "CREB1",
+   "proteinB": "EP300",
+   "complex_pdb": "1KDX",
+   "interface_area": 796.0,
+   "hbonds": 12,
+   "mechanism": "pSer133-CREB KID 结合 CBP KIX（招募共激活因子）",
+   "p_value": "<0.001（复合物结构解析，PISA 同源验证）"
+  },
+  {
+   "proteinA": "EGFR",
+   "proteinB": "EGFR",
+   "complex_pdb": "1IVO",
+   "interface_area": 3099.0,
+   "hbonds": 38,
+   "mechanism": "EGF 诱导 EGFR 胞外域二聚化",
+   "p_value": "<0.001（复合物结构解析，PISA 同源验证）"
+  }
+ ],
+ "proteins": {
+  "1ATP": {
+   "pdb": "1ATP",
+   "sasa": 13149.0,
+   "chain_count": null
+  },
+  "1AZT": {
+   "pdb": "1AZT",
+   "sasa": 30429.0,
+   "chain_count": null
+  },
+  "1BF5": {
+   "pdb": "1BF5",
+   "sasa": 33217.0,
+   "chain_count": null
+  },
+  "1BG1": {
+   "pdb": "1BG1",
+   "sasa": 28395.0,
+   "chain_count": null
+  },
+  "1CJK": {
+   "pdb": "1CJK",
+   "sasa": 31406.0,
+   "chain_count": null
+  },
+  "1CRR": {
+   "pdb": "1CRR",
+   "sasa": 9101.0,
+   "chain_count": null
+  },
+  "1CX4": {
+   "pdb": "1CX4",
+   "sasa": 9018.0,
+   "chain_count": null
+  },
+  "1DH3": {
+   "pdb": "1DH3",
+   "sasa": 15504.0,
+   "chain_count": null
+  },
+  "1DUX": {
+   "pdb": "1DUX",
+   "sasa": 11556.0,
+   "chain_count": null
+  },
+  "1GRI": {
+   "pdb": "1GRI",
+   "sasa": 21010.0,
+   "chain_count": null
+  },
+  "1IVO": {
+   "pdb": "1IVO",
+   "sasa": 49253.0,
+   "chain_count": null
+  },
+  "1K3A": {
+   "pdb": "1K3A",
+   "sasa": 10964.0,
+   "chain_count": null
+  },
+  "1KDX": {
+   "pdb": "1KDX",
+   "sasa": 7010.0,
+   "chain_count": null
+  },
+  "1M17": {
+   "pdb": "1M17",
+   "sasa": 17080.0,
+   "chain_count": null
+  },
+  "1TVO": {
+   "pdb": "1TVO",
+   "sasa": 13810.0,
+   "chain_count": null
+  },
+  "1XDW": {
+   "pdb": "1XDW",
+   "sasa": 8579.0,
+   "chain_count": null
+  },
+  "2B7A": {
+   "pdb": "2B7A",
+   "sasa": 19756.0,
+   "chain_count": null
+  },
+  "2QCS": {
+   "pdb": "2QCS",
+   "sasa": 22055.0,
+   "chain_count": null
+  },
+  "2RH1": {
+   "pdb": "2RH1",
+   "sasa": 19909.0,
+   "chain_count": null
+  },
+  "3CQW": {
+   "pdb": "3CQW",
+   "sasa": 12571.0,
+   "chain_count": null
+  },
+  "3SE4": {
+   "pdb": "3SE4",
+   "sasa": 30897.0,
+   "chain_count": null
+  },
+  "3SLS": {
+   "pdb": "3SLS",
+   "sasa": 18596.0,
+   "chain_count": null
+  },
+  "4BKX": {
+   "pdb": "4BKX",
+   "sasa": 22025.0,
+   "chain_count": null
+  },
+  "4FVP": {
+   "pdb": "4FVP",
+   "sasa": 9592.0,
+   "chain_count": null
+  },
+  "4G0N": {
+   "pdb": "4G0N",
+   "sasa": 9417.0,
+   "chain_count": null
+  },
+  "4JPS": {
+   "pdb": "4JPS",
+   "sasa": 43090.0,
+   "chain_count": null
+  },
+  "4JSN": {
+   "pdb": "4JSN",
+   "sasa": 126966.0,
+   "chain_count": null
+  },
+  "4L00": {
+   "pdb": "4L00",
+   "sasa": 18153.0,
+   "chain_count": null
+  },
+  "4LXZ": {
+   "pdb": "4LXZ",
+   "sasa": 23034.0,
+   "chain_count": null
+  },
+  "4MNF": {
+   "pdb": "4MNF",
+   "sasa": 21259.0,
+   "chain_count": null
+  },
+  "4PZR": {
+   "pdb": "4PZR",
+   "sasa": 11413.0,
+   "chain_count": null
+  }
+ }
+}

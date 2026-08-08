@@ -17,7 +17,12 @@ def load_drug_embs(ckpt):
     emb = ck["net"]["head.0.weight"].shape[0] - 32
     headw = ck["net"]["head.1.weight"].shape[0]
     net = G2CPNet(len(gene_vocab), ECFP4_BITS, emb, len(ck["cl_names"]), len(ck["hvg"]), headw).to(DEVICE)
-    net.load_state_dict(ck["net"])
+    _sd = dict(ck["net"])
+    if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+        _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+        _sd["cp_lin.main.weight"] = _w
+        _sd["cp_lin.main.bias"] = _b
+    net.load_state_dict(_sd, strict=False)
     net.eval()
     fps = np.load(os.path.join(CACHE_DIR, "drug_fps.npy"))
     with torch.no_grad():
@@ -44,6 +49,7 @@ def main():
     ap.add_argument("--pcl", default="data/g2cp/data/CMAP_mmc1.txt")
     args = ap.parse_args()
     z, drug_vocab = load_drug_embs(args.ckpt)
+    dv_idx = {d: i for i, d in enumerate(drug_vocab)}
     vset = set(drug_vocab)
     pcl = parse_pcl(args.pcl)
     # 每个药的类别（一个药可能多类，取第一个用于评测去重）
@@ -59,10 +65,10 @@ def main():
         k = max(1, int(len(drug_vocab) * top))
         hits, total_q = 0, 0
         for q, cid in drug_cls.items():
-            qi = drug_vocab.index(q)
+            qi = dv_idx[q]
             order = np.argsort(-S[qi])[:k]
             for j in order:
-                if drug_vocab[j] in drug_cls and drug_cls[drug_vocab[j]] == cid:
+                if j < len(drug_vocab) and drug_vocab[j] in drug_cls and drug_cls[drug_vocab[j]] == cid:
                     hits += 1
                     break  # 每 query 只计 1 个命中
             total_q += 1

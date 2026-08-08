@@ -17,7 +17,12 @@ def load_drug_embs(ckpt):
     emb = ck["net"]["head.0.weight"].shape[0] - 32
     headw = ck["net"]["head.1.weight"].shape[0]
     net = G2CPNet(len(gene_vocab), ECFP4_BITS, emb, len(ck["cl_names"]), len(ck["hvg"]), headw).to(DEVICE)
-    net.load_state_dict(ck["net"], strict=False)
+    _sd = dict(ck["net"])
+    if "cp_lin.weight" in _sd and "cp_lin.main.weight" not in _sd:
+        _w, _b = _sd.pop("cp_lin.weight"), _sd.pop("cp_lin.bias")
+        _sd["cp_lin.main.weight"] = _w
+        _sd["cp_lin.main.bias"] = _b
+    net.load_state_dict(_sd, strict=False)
     net.eval()
     fps = np.load(os.path.join(CACHE_DIR, "drug_fps.npy"))
     with torch.no_grad():

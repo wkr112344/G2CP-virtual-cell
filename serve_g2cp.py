@@ -3,7 +3,7 @@
 
 路由策略（"既要又要"）：
 - 5 系（HT29/A375/A549/MCF7/PC3）→ 用 V10（PCC 0.463 高精度表型头，5系专属）
-- 其余 284 系 / 新药 → 用融合模型 g2cp_fusion_v3.pt（289系全覆盖，SMD 1.94 超论文 1.85）
+- 其余系 / 新药 → 用主模型 g2cp_full_cpi_v7.pt（162系全覆盖）
 - /health 返回两个模型信息；/predict /gene /similar /cascade 自动按 cell 路由
 
 提供 /gui/<fn> 前端静态服务、/cells /drugs /genes 词表接口。
@@ -12,7 +12,7 @@ import os, sys, json, argparse, time
 import numpy as np
 import torch
 import torch.nn.functional as F
-from flask import Flask, request, jsonify, send_from_directory, make_response
+from flask import Flask, request, jsonify, send_from_directory, make_response, redirect
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -50,7 +50,19 @@ def load_model(ckpt_path, cache_dir):
     headw = ck["net"]["head.1.weight"].shape[0]
     net_cls = CorrectG2CPNet if ck.get("enc_semantics") == "correct" else G2CPNet
     net = net_cls(len(gene_vocab), ECFP4_BITS, emb, len(cl_names), len(hvg), headw)
-    net.load_state_dict(ck["net"], strict=False)
+    # ---- 兼容旧版 Linear cp_lin 权重: cp_lin.weight -> cp_lin.main.* (res 保持 0) ----
+    sd = dict(ck["net"])
+    if "cp_lin.weight" in sd and "cp_lin.main.weight" not in sd:
+        w, b = sd.pop("cp_lin.weight"), sd.pop("cp_lin.bias")
+        sd["cp_lin.main.weight"] = w
+        sd["cp_lin.main.bias"] = b
+        # res 分支保持 0 初始化(等价于旧 Linear), 显式写入当前初始化值
+        net.cp_lin.res[0].weight.data.normal_()
+        net.cp_lin.res[0].bias.data.zero_()
+        net.cp_lin.res[2].weight.data.zero_()
+        net.cp_lin.res[2].bias.data.zero_()
+        print(f"    [兼容] 旧 Linear cp_lin -> CPEncoder.main (res=0)", flush=True)
+    net.load_state_dict(sd, strict=False)
     net.cls_out = 256
     net.to(DEVICE).eval()
     fps = np.load(os.path.join(cache_dir, "drug_fps.npy"))
@@ -72,7 +84,7 @@ v_gv_set = set(v_gv)
 v_dv_idx = {d: i for i, d in enumerate(v_dv)}
 v_cl_idx = {c: i for i, c in enumerate(v_cl)}
 
-print(f"[OK] 双模型就绪：V10(5系) + FUSION(289系)", flush=True)
+print(f"[OK] 双模型就绪：V10(5系) + FUSION(162系)", flush=True)
 
 
 def find_similar_proteins(emb):
@@ -164,6 +176,11 @@ def frag_ref(mol):
     return None
 
 
+@app.route("/")
+def root():
+    return redirect("/gui/workbench.html")
+
+
 @app.route("/gui/<path:fn>")
 def gui(fn):
     resp = make_response(send_from_directory(GUI_DIR, fn))
@@ -178,7 +195,7 @@ def health():
         "ok": True,
         "models": {
             "fusion": {"ckpt": os.path.basename(CKPT_FUSION), "drugs": len(f_dv), "genes": len(f_gv),
-                       "cells": len(f_cl), "hvg": len(f_hvg), "note": "162系 ESM蛋白语义版 | 基因扰动PCC 0.40 | 新药PCC 0.27"},
+                       "cells": len(f_cl), "hvg": len(f_hvg), "note": "162系 ESM蛋白语义版 | 基因扰动PCC 0.442 | 新药PCC 0.305"},
             "v10": {"ckpt": os.path.basename(CKPT_V10), "drugs": len(v_dv), "genes": len(v_gv),
                     "cells": len(v_cl), "hvg": len(v_hvg), "note": "5系专属，PCC 0.463 高精度"}
         },
@@ -414,7 +431,7 @@ def gene():
 
 @app.route("/similar", methods=["POST"])
 def similar():
-    """相似药检索：模型嵌入 + ECFP4 Tanimoto 混合（融合模型 289系 词表）"""
+    """相似药检索：模型嵌入 + ECFP4 Tanimoto 混合（主模型 162系 词表）"""
     d = request.get_json(force=True)
     value = (d.get("drug") or "").strip()
     beta = float(d.get("beta", 0.5))
@@ -503,7 +520,7 @@ def custom_protein():
         with torch.no_grad():
             emb = fusion_net.gene_emb(torch.tensor([f_gv.index(seq)], device=DEVICE).long())
     if emb is None:
-        return jsonify({"error": "需要 ESM 编码（当前未安装 fair-esm），或输入有效基因名（如 TP53）"})
+        return jsonify({"error": "蛋白编码失败：输入基因符号或≥20氨基酸序列"})
 
     with torch.no_grad():
         z = F.normalize(emb, dim=1)

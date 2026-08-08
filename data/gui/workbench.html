@@ -196,14 +196,14 @@ const DRUGS = Object.keys(PRED).length?Object.keys(PRED):[];
 const DRUG_META=(typeof DRUG_LIST!=="undefined")?DRUG_LIST:{};
 
 fetch(API+"/cells").then(r=>r.json()).then(j=>{
-  CELLS=(j.cells||[]).sort();
+  CELLS=(j.cells||[]);  // 保持服务端顺序, 索引即服务端索引
   fillCells();
   fillDrugs();
 }).catch(()=>{ fillCells(); fillDrugs(); fillGenes(); });
 
 function fillCells(){
   const sel=document.getElementById("cell");
-  sel.innerHTML=CELLS.map((c,i)=>`<option value="${i}">${c}</option>`).join("");
+  sel.innerHTML=CELLS.map((c,i)=>`<option value="${i}">${c==="HA1E"?"HA1E ★(论文表4案例)":c==="1HAE"?"1HAE(注意:非HA1E)":c}</option>`).join("");
 }
 
 function drugPathway(name){
@@ -509,7 +509,7 @@ async function runDrug(){
   stats.innerHTML=`⏳ 模型实时推理中：${esc(d)} × ${CELLS[cell]} ...`;
   const pwId=drugPathway(d); const pw=pwId&&PATHWAYS[pwId]?PATHWAYS[pwId]:PATHWAYS.mapk;
   renderPathway(pw,d);
-  const data=await callAPI(API+"/predict",{drug:d,cell});
+  const data=await callAPI(API+"/predict",{drug:d,cell_name:CELLS[cell]});
   btn.disabled=false;
   if(!data||data.error){ stats.innerHTML=`⚠️ 实时服务不可用（${esc((data&&data.error)||"连接失败")}），回退预计算数据。`; }
   renderLive(data,d,pw,cell);
@@ -518,7 +518,7 @@ async function runGene(){
   const gn=document.getElementById("gene").value, cell=+document.getElementById("cell").value;
   const btn=document.getElementById("run");btn.disabled=true;
   stats.innerHTML=`⏳ 基因扰动实时推理中：${esc(gn)} × ${CELLS[cell]} ...`;
-  const data=await callAPI(API+"/gene",{gene:gn,cell});
+  const data=await callAPI(API+"/gene",{gene:gn,cell_name:CELLS[cell]});
   btn.disabled=false;
   if(data&&!data.error){
     renderPredicted(gn, filterNoise(data.up||[]), filterNoise(data.down||[]));
@@ -581,7 +581,7 @@ async function runCascade(){
   const stats=document.getElementById("stats"), D=document.getElementById("detail");
   if(!v){stats.innerHTML="⚠️ 请先选择或输入内容";return;}
   stats.innerHTML=`⏳ 正在生成 ${apiType==="drug"?(useSel?"药物":"未知药物"):apiType==="gene"?"基因敲除":"蛋白"}的扰动跟踪轨迹（逐级传递）…`;
-  const data=await callAPI(API+"/cascade",{type:apiType,value:v,cell});
+  const data=await callAPI(API+"/cascade",{type:apiType,value:v,cell_name:CELLS[cell]});
   if(!data||data.error){stats.innerHTML=`⚠️ ${(data&&data.error)||"服务不可用"}`;return;}
   renderCascade(data,apiType,v);
 }
