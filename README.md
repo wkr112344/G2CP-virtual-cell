@@ -111,8 +111,8 @@ data = r.json()
 Training data sources (public):
 - LINCS L1000: GSE92742 (level 5, moderated Z-scores)
 - DepMap CRISPR: 23Q2 release, CERES scores
-- sciPlex3, ChEMBL 37
-- GEO: GSE61302, GSE22886, GSE60235, and additional series
+- ChEMBL 37 (CPI annotations)
+- GEO: GSE61302, GSE11917, GSE17579, GSE20986, GSE21413, GSE25941, GSE33622, GSE50378, GSE50397, GSE53751, GSE62914, GSE22886, GSE60235 (13 series)
 
 **Model weights** and **preprocessed datasets** are available on Zenodo/Figshare (DOI to be assigned).
 
@@ -121,9 +121,9 @@ The original study's open resources: [GitHub](https://github.com/lynn-1998/UniPe
 ## Citation
 
 ```bibtex
-@article{wei2025g2cp,
-  title={Reproducing and Scaling UniPert-G2CP: A 162-Cell-Line Genome-Wide Platform for Perturbation-to-Phenotype Prediction},
-  author={Wei, Kairui},
+@article{wei2026g2cp,
+  title={Reimplementing and Scaling UniPert-G2CP: A 162-Cell-Line Genome-Wide Platform for Perturbation-to-Phenotype Prediction},
+  author={Wei, Kairui and Zhan, Lijing and Qi, Canyang},
   journal={bioRxiv},
   year={2026},
   doi={TBD}

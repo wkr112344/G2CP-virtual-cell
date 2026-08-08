@@ -529,7 +529,8 @@ def custom_protein():
     up = [{"g": f_hvg[i], "v": float(out[i])} for i in order[:10] if not f_hvg[i].startswith("Gene_")]
     dn = [{"g": f_hvg[i], "v": float(out[i])} for i in order[-10:] if not f_hvg[i].startswith("Gene_")]
     sim = find_similar_proteins(emb.cpu()) if emb is not None else []
-    return jsonify({"seq_len": len(seq), "cell": cell_name, "up": up, "down": dn, "pathway_name": "蛋白扰动", "similar": sim})
+    note = "序列路径提示：ESM2-8M 原始向量未与药物嵌入空间进行对齐训练，该预测为近似参考，分数可能接近随机；建议输入基因符号获得训练对齐的可靠预测"
+    return jsonify({"seq_len": len(seq), "cell": cell_name, "up": up, "down": dn, "pathway_name": "蛋白扰动", "similar": sim, "note": note})
 
 
 @app.route("/interact", methods=["POST"])
