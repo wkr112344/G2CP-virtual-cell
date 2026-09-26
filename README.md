@@ -2,7 +2,7 @@
 
 Independent reimplementation and large-scale extension of **UniPert-G2CP** (Li et al., *Cell*, 2026), a unified framework for predicting transcriptomic responses to genetic and chemical perturbations.
 
-[![Preprint](https://img.shields.io/badge/bioRxiv-preprint-blue)](https://www.biorxiv.org/)
+[![Preprint](https://img.shields.io/badge/openRxiv-preprint-blue)](https://doi.org/10.64898/2026.08.10.743942)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-green.svg)](https://www.python.org/)
 
@@ -18,17 +18,13 @@ This repository provides:
 
 ### Key Metrics
 
-| Metric | Value |
+| Quantity | Value |
 |---|---|
-| Genetic perturbation PCC (held-out) | 0.442 |
-| Novel drug PCC (held-out) | 0.3047 |
-| Directional accuracy (top-5% genes) | 73.8% |
-| CPI enrichment factor (top 0.5%) | 139 (training-set ranking consistency; 109 strict hold-out) |
-| Mechanism-clustering SMD | 1.636 (reference comparison; ECFP4 Tanimoto baseline 1.613) |
 | Cell lines | 162 |
 | Compounds | 32,039 |
+| Genome-wide gene output | 12,328 |
 
-See the [preprint](./biorxiv_submission.html) for full details.
+Performance metrics (genetic/novel-drug PCC, directional accuracy, CPI enrichment, mechanism-clustering SMD) are reported in the [manuscript](./biorxiv_submission.html) together with their aggregation conventions, release-controlled evaluation sets, and confidence intervals — they are convention- and release-dependent and should not be read as single face-value numbers.
 
 ## Quick Start
 
@@ -114,7 +110,7 @@ Training data sources (public):
 - ChEMBL 37 (CPI annotations)
 - GEO: GSE61302, GSE11917, GSE17579, GSE20986, GSE21413, GSE25941, GSE33622, GSE50378, GSE50397, GSE53751, GSE62914, GSE22886, GSE60235 (13 series)
 
-**Model weights** and **preprocessed datasets** are available on Zenodo/Figshare (DOI to be assigned).
+**Model weights**, cache-reconstruction scripts, and all result files are archived on Zenodo: [https://doi.org/10.5281/zenodo.22720615](https://doi.org/10.5281/zenodo.22720615) (CC-BY-4.0). The preprocessed LINCS L1000 level-5 matrices (~7.5 GB) are **not distributed** with the archive; they are regenerated from public sources (GSE92742, the LINCS level-5 beta release, and the DCIC 2021 distribution) by the cache-reconstruction scripts included in the archive.
 
 The original study's open resources: [GitHub](https://github.com/lynn-1998/UniPert-G2CP_reproduce) | [Zenodo](https://zenodo.org/records/20355906)
 
@@ -122,17 +118,17 @@ The original study's open resources: [GitHub](https://github.com/lynn-1998/UniPe
 
 ```bibtex
 @article{wei2026g2cp,
-  title={Reimplementing and Scaling UniPert-G2CP: A 162-Cell-Line Genome-Wide Platform for Perturbation-to-Phenotype Prediction},
-  author={Wei, Kairui and Zhan, Lijing and Qi, Canyang},
+  title={Cancer cell line heterogeneity imposes a primary bottleneck for virtual perturbation screening at scale},
+  author={Zhan, Lijing and Qi, Canyang and Wei, Kairui},
   journal={bioRxiv},
   year={2026},
-  doi={TBD}
+  doi={10.64898/2026.08.10.743942}
 }
 ```
 
 ## License
 
-This project is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Code in this repository is licensed under the MIT License; model weights, data, and figures are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Author
 
