@@ -133,3 +133,20 @@ Code in this repository is licensed under the MIT License; model weights, data, 
 ## Author
 
 **Kairui Wei** — School of Clinical Medicine, Xinjiang Medical University, Urumqi 830011, China
+
+---
+
+## Reproducibility package (GigaScience manuscript)
+
+The complete reproducibility bundle for the evaluation-matrix study ships inside this
+repository, alongside the G2CP source tree:
+
+- `REPRODUCTION_MAP.md` — each paper conclusion mapped to the script, input, and expected output
+- `MANIFEST.csv` — 365 entries listing every packaged file, its origin, and its role
+- `github/analysis/` — analysis and figure-build scripts, including `stability_checks/_audit_numbers.py`
+- `zenodo/source_data/` — frozen prediction matrices (11,275 × 978), reference matrices, and index files
+- `zenodo/supplementary/` — supplementary tables S1 to S33
+- `run_all.sh` — end-to-end driver; `requirements_freeze.txt` pins the archived Python 3.11 environment
+
+Checking convention: key numbers tolerate 5×10⁻⁴, interval endpoints 1×10⁻³. Compare one by one with
+`github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`.

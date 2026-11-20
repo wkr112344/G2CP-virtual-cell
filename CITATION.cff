@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "How differently generated evaluation matrices shape biomedical model performance, model comparison, drug ranking and candidate selection: a cross-ecosystem analysis of LINCS, DepMap and GTEx"
+message: "If you use this code or data, please cite both the paper and the Zenodo record."
+type: software
+authors:
+  - family-names: Wei
+    given-names: Kairui
+  # TODO: add the remaining authors (Lijing Zhan, Canyang Qi, ...) and ORCIDs
+version: "1.0.0"
+date-released: "2026-10-03"          # TODO set to the actual release date
+repository-code: "https://github.com/<account>/<repository>"   # TODO
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.<to-be-assigned>"   # TODO fill in after Zenodo publication
+license: MIT                          # TODO confirm the code license

@@ -1,0 +1,7 @@
+signature,reference,rank10_to_rank11_gap_pct_of_top10_span,boundary_band_n
+Liver_Acevedo,beta2020,0.63,11
+Liver_Acevedo,dcic2021,3.1,11
+Thyroid_ATC,beta2020,0.14,11
+Thyroid_ATC,dcic2021,0.4,11
+APL_Casorelli,beta2020,10.85,13
+APL_Casorelli,dcic2021,0.47,13

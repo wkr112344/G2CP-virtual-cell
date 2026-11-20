@@ -1,0 +1,7 @@
+﻿evaluation_matrix,model,matched_pearson,mispaired_mean,mispaired_ci95_low,mispaired_ci95_high
+SDST,XPert,0.61990,0.0371,0.0305,0.0437
+SDST,TranSiGen,0.60861,0.0296,0.0241,0.0351
+beta2020,XPert,0.03249,0.0029,-0.0003,0.0061
+beta2020,TranSiGen,0.03573,0.0057,0.0026,0.0089
+dcic2021,XPert,0.01415,-0.0035,-0.0060,-0.0012
+dcic2021,TranSiGen,0.01441,-0.0034,-0.0057,-0.0010

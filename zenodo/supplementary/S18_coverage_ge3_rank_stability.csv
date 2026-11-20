@@ -1,0 +1,6 @@
+k,cross_reference_overlap,within_beta_mean,within_beta_p2_5,within_beta_p97_5
+10,6,7.9,6,9
+20,16,15.5,13,18
+50,39,37.9,34,42
+100,71,71.6,66,77
+204,131,145,137,153

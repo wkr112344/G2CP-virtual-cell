@@ -1,0 +1,19 @@
+{
+  "alignment": {
+    "gene_space": "ENSG (version-stripped for matching)",
+    "n_common_genes": 74628,
+    "row_order": "samples in GCT column order",
+    "storage": "memmap float32 rnaseqc.npy / rsem_gene.npy"
+  },
+  "split": {
+    "seed": 20260929,
+    "unit": "donor",
+    "test_fraction": 0.2,
+    "train_donors": 757,
+    "test_donors": 189,
+    "train_samples": 15825,
+    "test_samples": 3963,
+    "tissue_label": "SMTSD",
+    "n_tissues_in_data": 68
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "design": "2x2 reference-product sensitivity (GTEx v11, release 2025-08-22)",
+  "predictors": {
+    "RNASeQC-trained": "tissue-mean (SMTSD) on RNASeQC gene TPM, train-only",
+    "RSEM-trained": "tissue-mean (SMTSD) on RSEM transcripts summed to gene, train-only"
+  },
+  "evaluation_space": "log2(TPM+1), common genes (see common_genes.csv)",
+  "split": {
+    "unit": "donor",
+    "seed": 20260929,
+    "train_donors": 757,
+    "test_donors": 189,
+    "train_samples": 15825,
+    "test_samples": 3963
+  },
+  "bootstrap": {
+    "method": "donor bootstrap (test donors resampled with replacement)",
+    "n": 5000
+  },
+  "cells": {
+    "rRR": {
+      "pearson_median": 0.9853421748557722,
+      "spearman_median": 0.8690275277052577
+    },
+    "rRE": {
+      "pearson_median": 0.949109624717922,
+      "spearman_median": 0.825112309423257
+    },
+    "rER": {
+      "pearson_median": 0.9488228487578694,
+      "spearman_median": 0.8457505795015905
+    },
+    "rEE": {
+      "pearson_median": 0.985418696401338,
+      "spearman_median": 0.8648168695866267
+    }
+  },
+  "interaction": {
+    "definition": "(rRR - rRE) - (rER - rEE)",
+    "pearson": {
+      "point_median": 0.07095688955999713,
+      "ci95": [
+        0.07049914939077018,
+        0.07155033463848437
+      ],
+      "excludes_zero": true,
+      "frac_gt_zero": 1.0
+    },
+    "spearman": {
+      "point_median": 0.06186903174140446,
+      "ci95": [
+        0.06150315878244306,
+        0.06223961176614401
+      ],
+      "excludes_zero": true,
+      "frac_gt_zero": 1.0
+    }
+  },
+  "conclusion": "Benchmark scores are sensitive to the processed reference product in GTEx: each predictor scores significantly higher on its own training reference; interaction CI excludes zero under both metrics."
+}

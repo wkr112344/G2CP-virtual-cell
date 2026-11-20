@@ -1,0 +1,3 @@
+analysis_set,interaction,ci95_low,ci95_high,notes
+main_11275,0.2785,0.2741,0.2828,compound-cluster bootstrap over 2037 held-out drugs
+sensitivity_Ecommon15990,0.1912,,,112 cells; sensitivity/scouting set

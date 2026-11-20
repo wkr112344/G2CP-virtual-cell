@@ -1,0 +1,19 @@
+figure,panel,series,value,n,ci_low,ci_high,baseline_pct_of_model
+7,A,interaction per-drug mean (raw),0.2784556993156078,2037.0,,,
+7,A,beta-trained delta mean (raw),0.2956002863277526,2037.0,,,
+7,A,dcic-trained delta mean (raw),0.01714458701214479,2037.0,,,
+7,A,interaction per-drug mean (residualized),0.19690647403972775,2037.0,,,
+7,A,beta-trained delta mean (residualized),0.23817793747090032,2037.0,,,
+7,A,dcic-trained delta mean (residualized),0.04127146343117256,2037.0,,,
+7,A,interaction bootstrap CI (raw),0.2784557006438358,2000.0,0.2645584881729939,0.2888769236392242,
+7,A,interaction bootstrap CI (residualized),0.1969064740397277,2000.0,0.1848719707422122,0.2073052729386165,
+7,C,controlled model mean (beta2020),0.3679865035626025,,,,
+7,C,gene-mean baseline mean (beta2020),0.18574388330471653,,,,50.47573253542367
+7,C,controlled model mean (dcic2021),0.072386215669592,,,,
+7,C,gene-mean baseline mean (dcic2021),0.018387301822587028,,,,25.40166197735236
+7,D,DepMap interaction (raw),0.056317147126188,,0.0558923713357531,0.0570349720938013,
+7,D,DepMap interaction (residualized),-0.0004666369836858,,-0.0047067464673641,0.0046214288996745,
+7,D,LINCS interaction (raw),0.2784557006438358,2000.0,0.2645584881729939,0.2888769236392242,
+7,D,LINCS interaction (residualized),0.1969064740397277,2000.0,0.1848719707422122,0.2073052729386165,
+7,D,LINCS share of raw interaction retained (%),70.7137521639698,,,,
+7,D,DepMap residualized CI contains zero,1.0,,,,

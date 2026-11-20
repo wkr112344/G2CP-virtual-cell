@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<table name="TableS_seven_models" nrow="7" ncol="8">
+  <columns>
+    <column>model</column>
+    <column>PCC_own_reference</column>
+    <column>PCC_dcic2021</column>
+    <column>DeltaPCC</column>
+    <column>CI95_low</column>
+    <column>CI95_high</column>
+    <column>n_pairs</column>
+    <column>n_drugs</column>
+  </columns>
+  <rows>
+    <row>
+      <c name="model">ciger</c>
+      <c name="PCC_own_reference">0.3094</c>
+      <c name="PCC_dcic2021">0.0205</c>
+      <c name="DeltaPCC">0.2889</c>
+      <c name="CI95_low">0.2815</c>
+      <c name="CI95_high">0.2962</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">deepce</c>
+      <c name="PCC_own_reference">0.4363</c>
+      <c name="PCC_dcic2021">-0.0034</c>
+      <c name="DeltaPCC">0.4397</c>
+      <c name="CI95_low">0.4346</c>
+      <c name="CI95_high">0.445</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">multidcp</c>
+      <c name="PCC_own_reference">0.2484</c>
+      <c name="PCC_dcic2021">-0.0115</c>
+      <c name="DeltaPCC">0.2599</c>
+      <c name="CI95_low">0.2569</c>
+      <c name="CI95_high">0.263</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">pertdit</c>
+      <c name="PCC_own_reference">0.3963</c>
+      <c name="PCC_dcic2021">-0.003</c>
+      <c name="DeltaPCC">0.3993</c>
+      <c name="CI95_low">0.3957</c>
+      <c name="CI95_high">0.4033</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">prnet</c>
+      <c name="PCC_own_reference">0.3106</c>
+      <c name="PCC_dcic2021">-0.0016</c>
+      <c name="DeltaPCC">0.3122</c>
+      <c name="CI95_low">0.309</c>
+      <c name="CI95_high">0.3156</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">transigen</c>
+      <c name="PCC_own_reference">0.6552</c>
+      <c name="PCC_dcic2021">0.028</c>
+      <c name="DeltaPCC">0.6273</c>
+      <c name="CI95_low">0.6228</c>
+      <c name="CI95_high">0.6317</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+    <row>
+      <c name="model">xpert</c>
+      <c name="PCC_own_reference">0.6698</c>
+      <c name="PCC_dcic2021">0.0248</c>
+      <c name="DeltaPCC">0.645</c>
+      <c name="CI95_low">0.6405</c>
+      <c name="CI95_high">0.6494</c>
+      <c name="n_pairs">9562</c>
+      <c name="n_drugs">1422</c>
+    </row>
+  </rows>
+</table>

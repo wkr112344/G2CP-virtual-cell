@@ -1,0 +1,12 @@
+{
+  "metric": "interaction_spearman",
+  "point_median": 0.06186903174140446,
+  "ci95": [
+    0.06150315878244306,
+    0.06223961176614401
+  ],
+  "excludes_zero": true,
+  "frac_gt_zero": 1.0,
+  "n_donors": 189,
+  "n_bootstrap": 5000
+}

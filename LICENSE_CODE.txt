@@ -1,0 +1,3 @@
+[TO BE CONFIRMED BY THE AUTHORS] Suggested code license: MIT or Apache-2.0.
+Once chosen, replace this file with the full license text and add a file named
+LICENSE with the same content at the root of the GitHub repository.

@@ -1,0 +1,29 @@
+no,study,prediction_endpoint,lincs_evaluation_reference,reported_model_comparisons,reference_swap_tested,reason_if_not,source_url
+1,Hodos et al. (2018) — Cell-specific prediction,Expression / rank,LINCS L1000 perturbation profiles,tensor completion vs alternatives,No,No (single reference only),https://pmc.ncbi.nlm.nih.gov/articles/PMC5753597/
+2,Iwata et al. (2019) — TT-WOPT,Expression / rank,"GSE70138/GSE92742, L5",TT-WOPT vs imputation approaches,No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC6612872/
+3,Woo et al. (2020) — DeepCOP,Gene-direction task,LINCS Level 5 MODZ; direction labels; external RNA-seq validation,Binary gene-regulation classifiers; internal AUC and external RNA-seq validation,No,No (not reported),https://academic.oup.com/bioinformatics/article/36/3/813/5554893
+4,DeepCellState (2021),Expression / rank,"LINCS L1000 978 genes, averaging doses/time",autoencoder vs other neural methods and simple transfer,No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC8519465/
+5,Pham et al. (2021) — DeepCE,Expression / rank,Bayesian-deconvoluted L1000 signatures,"DeepCE vs kNN, linear, TT-WOPT, NN",No,No (not reported),https://www.nature.com/articles/s42256-020-00285-9
+6,Zhu et al. (2021) — DLEPS,Expression + application,LINCS GSE92742; transcriptomic change profiles,Drug expression-prediction fit; disease-screening validation,No,No (not reported),https://www.nature.com/articles/s41587-021-00946-z
+7,CIGER (2022),Expression / rank,Bayesian-deconvoluted L1000 signatures,rank prediction vs baselines,No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC9023899/
+8,DeSIDE-DDI (2022),Gene-response module,LINCS L1000 Level-5 exemplar signatures,Predicts 978-gene responses from structures; validates expression generator before DDI model,No,No (not reported),https://link.springer.com/article/10.1186/s13321-022-00589-5
+9,MultiDCP (2022),Expression / rank,Bayesian L1000 Level 5 signatures,vs DeepCE and DeepCOP,No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC9398009/
+10,Qi et al. (2024) — PRnet,Expression / rank,LINCS L1000 + sci-Plex3,vs comparator methods,No,No (not reported),https://www.nature.com/articles/s41467-024-53457-1
+11,Tong et al. (2024) — TranSiGen,Expression / rank,"LINCS 2020 Level 3, paired controls; MODZ aggregated",CIGER/DeepCE/MultiDCP; prediction and downstream use,No,No (not reported),https://www.nature.com/articles/s41467-024-49620-3
+12,AnchorDrug (2025),Expression / rank,LINCS gene expression,active learning sample selection vs baselines,No,No (single reference only),https://doi.org/10.1137/1.9781611978520.49
+13,BADGER (2025),Expression / rank,L1000 chemical perturbations,vs DeepCE/CIGER/MLP/kNN,No,No (not reported),https://academic.oup.com/bioinformaticsadvances/article/5/1/vbaf029/8020789
+14,DIGERA (2025),Expression / rank,Bayesian L1000 Level 5,"vs CIGER, Transformer, RFR",No,No (not reported),https://www.mdpi.com/1422-0067/26/1/224
+15,Large perturbation model (2025),Expression / rank,LINCS + multiple contexts,vs CPA/GEARS/gene embeddings,No,No (not reported),https://doi.org/10.1038/s43588-025-00870-1
+16,PerturbNet (2025),Expression / rank,LINCS-Drug + sci-Plex,vs mean/median/KNN/chemCPA,No,No (not reported),https://link.springer.com/article/10.1038/s44320-025-00131-3
+17,Bai et al. (2026) — 7-model benchmark (preprint),Benchmark (preprint),7 published L1000 models,Seven models with drug-blind ablations and drug-free baseline,No,No (not reported),https://doi.org/10.64898/2026.05.13.724458
+18,DeepICER (2026),Expression / rank,LINCS 2020 signatures,"vs DeepCE, MultiDCP, TranSiGen",No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC13198338/
+19,ExPO (2026),Expression / rank,LINCS L1000 z-score dose/time signatures,"vs DeepCE, CIGER, others",No,No (not reported),https://link.springer.com/article/10.1186/s13321-026-01226-1
+20,GRIP-Lung (2026),Expression / rank,GEO + LINCS L1000,vs linear model/autoencoder,No,No (not reported),https://www.mdpi.com/1422-0067/27/7/3264
+21,Guo et al. (2026) — XPert,Expression / rank,L1000_sdst plus additional datasets,TranSiGen/other models; several metrics and dataset splits,No,No (not reported),https://www.nature.com/articles/s42256-025-01165-w
+22,Hu et al. (2026) — PertDiT,Expression / rank,L1000; PRnet-style processed dataset,"PRnet/ChemCPA; 10 metrics, 3 train/test splits",No,No (not reported),https://onlinelibrary.wiley.com/doi/full/10.1002/qub2.70016
+23,Kim & Yoo (2026) — latent diffusion,Expression / rank,LINCS Phase I Level 3,"vs PRnet, PertDiT",No,No (not reported),https://academic.oup.com/bioinformatics/article/42/4/btag173/8644339
+24,Li et al. (2026) — UniPert-G2CP,Expression / rank,chemical & genetic perturbation including LINCS,G2CP vs comparison methods,No,No (single reference only),https://doi.org/10.1016/j.cell.2026.06.005
+25,Ma et al. (2026) — PertDiff,Expression / rank,LINCS 2020 Level 3 / MODZ via TranSiGen preprocessing,vs SOTA baselines,No,No (not reported),https://pmc.ncbi.nlm.nih.gov/articles/PMC13364675/
+26,Peng et al. (2026) — MultiVCDiff,Expression / rank,L1000 + Cell Painting,vs single-modality baselines,No,No (not reported),https://doi.org/10.1016/j.crmeth.2026.101459
+27,scLong (2026),Expression / rank,"L1000 subset 7 cell lines, 810 compounds","vs DeepCE, scGPT, Geneformer etc",No,No (not reported),https://www.nature.com/articles/s41467-026-69102-y
+28,Xiao et al. (2026) — DEPICT (preprint),Prediction (preprint),LINCS L1000,Condition-matched transcriptomics; mechanism and combination screening,No,No (single reference only),https://doi.org/10.64898/2026.03.27.714886

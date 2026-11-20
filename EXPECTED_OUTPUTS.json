@@ -1,0 +1,94 @@
+{
+  "tolerance": 0.0005,
+  "ci_tolerance": 0.001,
+  "lincs": {
+    "delta_pearson_drug": 0.2956,
+    "delta_pearson_drug_ci": [
+      0.2918,
+      0.2993
+    ],
+    "delta_pearson_cell": 0.277,
+    "delta_spearman_drug": 0.266,
+    "delta_cosine_drug": 0.2963,
+    "rank_spearman": 0.5675,
+    "rank_kendall_tau": 0.411,
+    "top10_cross_reference": 3,
+    "within_beta_top10_mean": 7.93,
+    "within_dcic_top10_mean": 7.04,
+    "within_beta_spearman": 0.858,
+    "within_dcic_spearman": 0.8246,
+    "crossed_delta_ci": [
+      0.2855,
+      0.3128
+    ],
+    "D_beta": 0.1975,
+    "D_dcic": -0.081,
+    "interaction_I": 0.2785,
+    "interaction_I_ci": [
+      0.2657,
+      0.2887
+    ],
+    "disease_boundary_gap_pct": [
+      0.14,
+      10.85
+    ],
+    "disease_boundary_band": [
+      11,
+      13
+    ],
+    "residualized_D_beta": 0.13218,
+    "residualized_D_dcic": -0.06473,
+    "residualized_interaction_I": 0.19691,
+    "residualized_interaction_I_ci": [
+      0.18487,
+      0.20731
+    ]
+  },
+  "depmap": {
+    "raw_interaction": 0.05632,
+    "residualized_interaction": -0.00047,
+    "residualized_interaction_ci": [
+      -0.00471,
+      0.00462
+    ],
+    "baseline_medians": [
+      0.9338,
+      0.9111,
+      0.9044,
+      0.9391
+    ],
+    "consistency_mean_272": 0.9431,
+    "consistency_median_272": 0.9467,
+    "frozen_pred_vs_CERES_mean": 0.8595,
+    "frozen_pred_vs_Chronos_mean": 0.8226,
+    "paired_delta_272": 0.0369,
+    "positive_control": {
+      "ridge_CERES": 0.2164,
+      "ridge_Chronos": 0.2771,
+      "gene_CERES": 0.1233,
+      "gene_Chronos": 0.1621
+    }
+  },
+  "gtex": {
+    "interaction_pearson": 0.07096,
+    "interaction_pearson_ci": [
+      0.0705,
+      0.07155
+    ],
+    "interaction_spearman": 0.06187,
+    "interaction_spearman_ci": [
+      0.0615,
+      0.06224
+    ],
+    "quadrant_medians": {
+      "rRR": 0.9853,
+      "rRE": 0.9491,
+      "rER": 0.9488,
+      "rEE": 0.9854
+    },
+    "donor_advantage_medians": {
+      "adv_R": 0.03509,
+      "adv_E": 0.03596
+    }
+  }
+}

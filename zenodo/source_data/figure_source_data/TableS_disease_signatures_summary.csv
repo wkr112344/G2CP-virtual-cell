@@ -1,0 +1,5 @@
+signature,metric_type,coverage,n_kept,k10,spearman,top10_retention_pct,chance_retention_pct,topA_out_b50_pct,delta_rank_median,delta_rank_iqr_low,delta_rank_iqr_high,delta_rank_topA_median,flip_retention_pct
+ACEVEDO_LIVER_TUMOR_VS_NORMAL_ADJACENT_TISSUE,per_signature,0.6868,1399,140,0.5233,37.14,10.01,10.71,241.0,106.0,442.0,168.5,32.14
+RODRIGUES_THYROID_CARCINOMA_ANAPLASTIC,per_signature,0.6868,1399,140,0.498,42.86,10.01,15.0,245.0,96.0,464.5,112.0,39.29
+CASORELLI_ACUTE_PROMYELOCYTIC_LEUKEMIA,per_signature,0.6868,1399,140,0.5397,33.57,10.01,14.29,231.0,99.0,440.5,194.0,50.0
+PERFORMANCE_SAME_SUBSET,same_subset,,1399,,0.6167,64.29,10.01,7.14,207.0,,,,

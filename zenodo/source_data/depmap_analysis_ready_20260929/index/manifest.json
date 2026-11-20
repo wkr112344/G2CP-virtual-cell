@@ -1,0 +1,133 @@
+{
+  "design": "G/H controlled experiment: 3 omics (TPM+CNA+mutation) x 2 targets (CERES, Chronos)",
+  "common_cells": 908,
+  "target_genes": 17393,
+  "omics": {
+    "TPM": {
+      "genes": 19177,
+      "dtype": "float32"
+    },
+    "CNA": {
+      "genes": 27562,
+      "dtype": "float32"
+    },
+    "mutation": {
+      "genes": 18787,
+      "dtype": "int8",
+      "encoding": "binary (any mutation in gene=1)"
+    }
+  },
+  "targets": {
+    "CERES": {
+      "genes": 17393,
+      "dtype": "float32"
+    },
+    "Chronos": {
+      "genes": 17393,
+      "dtype": "float32"
+    }
+  },
+  "axes": "all .npy are (n_cells=913, n_genes); rows ordered by cell_order.txt; columns by the matching omics_genes_*.txt / target_genes.txt",
+  "split": "split.json (seed=42, 70/15/15)",
+  "note": "Two training arms differ ONLY in y (CERES vs Chronos). Same cells/genes/omics/split/arch/hyperparams/seeds.",
+  "target_nan_frac": 0.001,
+  "common_observed_frac": 0.999,
+  "common_observed_mask": "common_observed_mask.npy: bool (908,17393), True where BOTH CERES & Chronos observed; use for identical eval set across both arms",
+  "note_nan": "Y_CERES/Y_Chronos have ~0.1% NaN (DepMap unscreened genes). MASK in loss; do NOT impute.",
+  "provenance": {
+    "build_script": {
+      "path": "C:/Users/wkr20/Desktop/depmap_second_corpus/build_aligned_training_inputs.py",
+      "sha256": "b62e7e6e0f39987c5053794fc491d80c7cf2f7d93de46ef831152bed9a9aab2c",
+      "qc_script": "qc_aligned_training_inputs.py (this file)",
+      "qc_run_utc": "2026-09-28T07:35:12.080818Z"
+    },
+    "sources": [
+      {
+        "role": "CERES target",
+        "file": "raw/CRISPR_gene_effect.csv",
+        "figshare_id": "27902226",
+        "size_bytes": 340552647,
+        "sha256": "14104594caa6b50b13d703a30eec176162afcb3a07eaabba818e53831cc83bd7"
+      },
+      {
+        "role": "Chronos target",
+        "file": "raw/CRISPR_gene_effect_Chronos.csv",
+        "figshare_id": "DepMap_21Q2_Achilles_gene_effect_Chronos",
+        "size_bytes": 335697211,
+        "sha256": "f88d9b3e5e011fb26ae4a3ff9ce1c1a7ff55390995225ee1724e75ad31086a77"
+      },
+      {
+        "role": "TPM / expression",
+        "file": "omics_21Q2/TPM_21Q2.csv",
+        "figshare_id": "27902091",
+        "size_bytes": 428829336,
+        "sha256": "5116995a8f51f2144af265d58021504b30f7349689825dd3d2e4ce8f01e17c6b"
+      },
+      {
+        "role": "copy number",
+        "file": "omics_21Q2/copyNumber_21Q2.csv",
+        "figshare_id": "27902124",
+        "size_bytes": 903895493,
+        "sha256": "cf7bcb4f4f0808d0ff3f1d8b20126de4e755e63b6faa416ebd5ce92d7cb47cbb"
+      },
+      {
+        "role": "mutation (MAF)",
+        "file": "omics_21Q2/mutationCalls_21Q2.csv",
+        "figshare_id": "27902118",
+        "size_bytes": 264740841,
+        "sha256": "09c7ae30673e40809e7e10854b8a83a814b7cea9997306a5a473c632e84f57b6"
+      },
+      {
+        "role": "metadata",
+        "file": "omics_21Q2/metadata_21Q2.csv",
+        "figshare_id": "27902376",
+        "size_bytes": 394246,
+        "sha256": "e2a85444c233f866fb4bf9cd9be086c6e7d1ebbcbba3fd48b0e3366bbefb7cd9"
+      }
+    ],
+    "outputs": [
+      {
+        "file": "common_observed_mask.npy",
+        "size_bytes": 15792972,
+        "sha256": "b38a96ec9e01103b96e74ce3433e0698cfcf280e0b648b3f588bda53777b4241"
+      },
+      {
+        "file": "X_CNA.npy",
+        "size_bytes": 100105312,
+        "sha256": "ee83ef48e6527eb085f399fa77d1acb7229776f5881805f5567000b4debb0162"
+      },
+      {
+        "file": "X_mutation.npy",
+        "size_bytes": 17058724,
+        "sha256": "2ba1ee866a903506ecb0b2d006e94bc4f73f0e11e1211843b8e72966aed311cf"
+      },
+      {
+        "file": "X_TPM.npy",
+        "size_bytes": 69650992,
+        "sha256": "b6c7e5a42638637d17f3fdb4f6b034652ed6602c468cfcec17ce80eadc95895c"
+      },
+      {
+        "file": "Y_CERES.npy",
+        "size_bytes": 63171504,
+        "sha256": "58c1902f2e4a11582f865fc456927b84b99c50c362bb2468cf7d6524938d5cf3"
+      },
+      {
+        "file": "Y_Chronos.npy",
+        "size_bytes": 63171504,
+        "sha256": "ffed7fd1825b33633ce546f3f6f686cce61454620f34a0aa3abe95d221d74509"
+      }
+    ]
+  },
+  "qc": {
+    "passed": true,
+    "n_checks": 26,
+    "n_failed": 0,
+    "split_counts": {
+      "train": 636,
+      "val": 136,
+      "test": 136
+    },
+    "datasets_deterministic": true,
+    "note": "All matrices re-derived from original CSVs using cell_order.txt/target_genes.txt and matched byte-equivalent; row i == cell_order[i] for all 5 arrays; CERES/Chronos share identical target gene order."
+  }
+}

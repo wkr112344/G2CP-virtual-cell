@@ -1,0 +1,12 @@
+section,metric,value,share_of_heldout_drugs,caliber_note
+S19.1,total held-out drugs,3204,100%,"official last 10%, drug-level split; 28,835 drugs in the training set"
+S19.1,bit-identical ECFP4 fingerprint twin in the training set,2284,71.3%,"the recomputable fact of ""bit-identical fingerprint"", not a chemical judgment"
+S19.1,structurally genuinely novel (no identical fingerprint in training),920,28.7%,= 3204 - 2284
+S19.1,median of max Tanimoto,1.0,—,p25 = 0.7953; min = 0.1429; max = 1.0
+S19.1,threshold sensitivity: Tanimoto >= 0.99,2284,—,"same set as ""identical"""
+S19.1,threshold sensitivity: Tanimoto >= 0.90,2300,—,relaxing to 0.90 adds only 16
+S19.1,duplicate pairs within the held-out drugs,687,—,"denominator 5,131,206 pairs"
+S19.2,fingerprint bits,2048,—,ECFP4
+S19.2,rows in the fingerprint file,32039,—,
+S19.2,of which distinct fingerprints,13151,—,
+S19.2,number of duplicate groups,4610,—,

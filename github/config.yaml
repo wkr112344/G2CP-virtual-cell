@@ -1,0 +1,33 @@
+release: "2025-08-22"
+
+paths:
+  # raw large files (already downloaded and md5-verified; still on the Desktop, not moved)
+  gene_tpm_gz: "C:/Users/wkr20/Desktop/GTEx_Analysis_2025-08-22_v11_RNASeQCv2.4.3_gene_tpm.gct (1).gz"
+  transcripts_tpm_gz: "C:/Users/wkr20/Desktop/GTEx_Analysis_2025-08-22_v11_RSEMv1.3.3_transcripts_tpm.txt.gz"
+  # metadata already inside the project
+  sample_attributes: "C:/Users/wkr20/WorkBuddy/Claw/gigascience_v5/data/gtex_v11/GTEx_Analysis_v11_Annotations_SampleAttributesDS.txt"
+  sample_ids_txt: "C:/Users/wkr20/WorkBuddy/Claw/gigascience_v5/data/gtex_v11/gtex_v11_sample_ids.txt"
+
+# Verified expected values (scripts 00/01 check these and abort on mismatch)
+expected:
+  gene_tpm_gz_bytes: 2637294603
+  transcripts_tpm_gz_bytes: 5175067764
+  gene_tpm_md5: "519aa81dccb0fc05d2ce4c5ac1b8de4c"
+  transcripts_tpm_md5: "8b1346ab46afab2ff04f02534b98191f"
+  gct_rows: 74628          # number of genes (data rows)
+  gct_cols: 19788          # number of sample columns
+  transcripts_rows: 385659
+  transcripts_sample_cols: 19788
+
+analysis:
+  log_transform: "log2_tpm_plus_1"     # main analysis space
+  primary_gene_set: "all"              # "all" | "protein_coding"
+                                       # GCT/RSEM carry no biotype column; the protein-coding subset needs
+                                       # gene_biotype_file (two columns ENSG -> biotype, tsv); left null for now
+  gene_biotype_file: null
+  strip_gene_version: true             # ENSG00000223972.5 -> ENSG00000223972 before intersecting
+  tissue_label: "SMTSD"                # fine-grained tissue (70 classes); use "SMTS" for the 31 broad classes
+  n_bootstrap: 5000
+  split_unit: "donor"                  # split by donor, never by sample
+  test_fraction: 0.2
+  seed: 20260929

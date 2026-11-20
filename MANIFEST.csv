@@ -1,0 +1,366 @@
+upload_to,path_in_package,source_in_workspace,note
+github,.gitattributes,(generated),
+github,.gitignore,(generated),
+github,CITATION.cff,(generated),
+github,DATA_SOURCES.md,(generated),
+github,EXPECTED_OUTPUTS.json,(generated),
+github,LICENSE_CODE.txt,(generated),
+github,LICENSE_DATA.txt,(generated),
+github,README.md,(generated),
+github,REPRODUCTION_MAP.md,(generated),
+github,github/analysis/00_inspect_headers.py,(generated),GTEx pipeline
+github,github/analysis/01_check_samples.py,(generated),GTEx pipeline
+github,github/analysis/02_aggregate_rsem_to_gene.py,(generated),GTEx pipeline
+github,github/analysis/03_align_products.py,(generated),GTEx pipeline
+github,github/analysis/04_make_splits.py,(generated),GTEx pipeline
+github,github/analysis/05_build_predictors.py,(generated),GTEx pipeline
+github,github/analysis/06_score_2x2.py,(generated),GTEx pipeline
+github,github/analysis/07_bootstrap.py,(generated),GTEx pipeline
+github,github/analysis/08_make_figures.py,(generated),GTEx pipeline
+github,github/analysis/09_make_deliverables.py,(generated),GTEx pipeline
+github,github/analysis/A02_reconcile_969_gene_axis.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/A07_build_common_eval_pairs.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/B_extract_sevenmodel_beta_dcic_boot.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/CD_consolidate_from_prior.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/E_extract_max_tanimoto.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/F_within_product_reproducibility.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/I_product_decomposition.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/J_expand_existing_signature_panel.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/K_topk_exact_nulls.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/L_depmap_effect_heterogeneity.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/M_negative_controls_summary.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/N_crossmodality_cellprofile.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_commonX_build.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_commonX_train_eval.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_commonX_train_eval_multiseed.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_commonX_train_eval_strengthened.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_dcic_QC.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/PRnet_dcic_QC_genes.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/P_frozen_multimetric_cohorts.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/Q_depmap_disjoint_cohorts.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/R_big_independent_cohort.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/S_drugsplit_metrics_ci.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/audit_and_redraw.py,(generated),as-supplied reproduction scripts
+github,github/analysis/bootstrap_interaction.py,(generated),as-supplied reproduction scripts
+github,github/analysis/common.py,(generated),GTEx pipeline
+github,github/analysis/compute_perrow_all_states.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/depmap_background_control.py,(generated),as-supplied reproduction scripts
+github,github/analysis/diag_predict_variance.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/export_BN_figures_data.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/figure_build/build_main_figures_final.py,(generated),main-figure / per-panel rendering
+github,github/analysis/figure_build/make_figure_review.py,(generated),main-figure / per-panel rendering
+github,github/analysis/figure_build/render_panels.py,(generated),main-figure / per-panel rendering
+github,github/analysis/gtex_reference_sensitivity.py,(generated),as-supplied reproduction scripts
+github,github/analysis/make_panelAB_figure.py,(generated),as-supplied reproduction scripts
+github,github/analysis/make_panelC_figure.py,(generated),as-supplied reproduction scripts
+github,github/analysis/make_panel_figure.py,(generated),as-supplied reproduction scripts
+github,github/analysis/plot_BN_figures.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/plot_gtex_figure7.py,(generated),as-supplied reproduction scripts
+github,github/analysis/plot_multiseed_2x2.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/positive_control_expression_ridge.py,(generated),as-supplied reproduction scripts
+github,github/analysis/prnet_2x2_alignment_qc.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/prnet_2x2_dose_tolerance_probe.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/probe_ridge_ceiling.py,(generated),LINCS/DepMap/GTEx analysis scripts
+github,github/analysis/reanalyse.py,(generated),as-supplied reproduction scripts
+github,github/analysis/stability_checks/_audit_numbers.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_check_gene_subset_residualization.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_crossed_bootstrap_and_disease.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_patch_A_B.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_rebuild_fig4a.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_recompute_depmap272.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/stability_checks/_within_ref_stability.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/config.yaml,(generated),dependencies and configuration
+github,github/docs/README.md,(generated),existing notes
+github,github/docs/README_ANALYSIS_READY.md,(generated),existing notes
+github,github/docs/README_MANIFEST.md,(generated),existing notes
+github,github/docs/REPRODUCTION_BOUNDARY.md,(generated),
+github,github/docs/prior_details/FigS5_DepMap_fixed_output_replication.pdf,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/FigS5_DepMap_fixed_output_replication.png,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/NoteS13_method_and_prior_details.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/NoteS14_robustness_and_readings.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/NoteS25_training_evaluation_2x2.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/NoteS26_gene_caliber_and_seven_model_arms.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/README_supplementary.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS19_drug_identity_audit.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS19_drug_identity_audit.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS20_absolute_topk_screening_rank.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS21_L1000_provenance_audit.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS21a_representative_object_tracking_cases.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS22_strict_two_sided_absent_per_drug.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS23_DepMap_fixed_output_replication.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS23_DepMap_fixed_output_replication.md,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS24_seven_predictor_fixed_output.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS25_interaction_summary.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/docs/prior_details/TableS25_training_evaluation_2x2.csv,(generated),upstream data provenance and caliber notes (with URL/MD5)
+github,github/requirements_gtex.txt,(generated),dependencies and configuration
+github,requirements.txt,(generated),
+github,run_all.sh,(generated),
+not_included,(not included) gtex_reference_sensitivity/data_processed/RSEM_gene_tpm.npy,,"* very large / raw data, obtained externally per DATA_SOURCES.md (5907.0 MB)"
+not_included,(not included) gtex_reference_sensitivity/data_processed/rnaseqc.npy,,"* very large / raw data, obtained externally per DATA_SOURCES.md (5907.0 MB)"
+not_included,(not included) gtex_reference_sensitivity/data_processed/rsem_gene.npy,,"* very large / raw data, obtained externally per DATA_SOURCES.md (5907.0 MB)"
+skipped(duplicate),zenodo/source_data/depmap_analysis_ready_20260929/README_ANALYSIS_READY.md,(generated),"content identical to github/docs/README_ANALYSIS_READY.md (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_analysis_ready_20260929/README_MANIFEST.md,(generated),"content identical to github/docs/README_MANIFEST.md (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/README.md,(generated),"content identical to github/docs/README.md (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/scripts/bootstrap_interaction.py,(generated),"content identical to github/analysis/bootstrap_interaction.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/scripts/make_panelAB_figure.py,(generated),"content identical to github/analysis/make_panelAB_figure.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/scripts/make_panelC_figure.py,(generated),"content identical to github/analysis/make_panelC_figure.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/scripts/make_panel_figure.py,(generated),"content identical to github/analysis/make_panel_figure.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_positive_control/scripts/positive_control_expression_ridge.py,(generated),"content identical to github/analysis/positive_control_expression_ridge.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/README_MANIFEST.md,(generated),"content identical to github/docs/README_MANIFEST.md (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/_intersection_stats.json,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/first_predictor_DeepDEP/_intersection_stats.json (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/mapping_audit.json,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/first_predictor_DeepDEP/mapping_audit.json (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/cell_order.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/depmap_index.json,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/depmap_index.json (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/manifest.json,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/manifest.json (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/split.json,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/split.json (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/target_genes.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/target_genes.txt (sha256 match); deduplicated, 0.3 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order_seed0.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order_seed1.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order_seed2.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order_seed3.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/index/test_cell_order_seed4.txt,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed0_pred_ceres_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed0_pred_ceres_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed0_pred_chronos_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed0_pred_chronos_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed1_pred_ceres_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed1_pred_ceres_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed1_pred_chronos_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed1_pred_chronos_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed2_pred_ceres_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed2_pred_ceres_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed2_pred_chronos_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed2_pred_chronos_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed3_pred_ceres_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed3_pred_ceres_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed3_pred_chronos_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed3_pred_chronos_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed4_pred_ceres_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed4_pred_ceres_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/predictions_test/seed4_pred_chronos_arm_test.npy,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed4_pred_chronos_arm_test.npy (sha256 match); deduplicated, 9.5 MB"
+skipped(duplicate),zenodo/source_data/depmap_raw_artifacts_20260929/verify_alignment.py,(generated),"content identical to zenodo/source_data/depmap_analysis_ready_20260929/verify_alignment.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/config.yaml,(generated),"content identical to github/config.yaml (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/figures/fig1_score_distributions.png,(generated),"content identical to zenodo/source_data/gtex_reference_sensitivity/deliverables/fig_reference_agreement.png (sha256 match); deduplicated, 0.1 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/figures/fig2_2x2_interaction.png,(generated),"content identical to zenodo/source_data/gtex_reference_sensitivity/deliverables/fig_2x2_heatmap.png (sha256 match); deduplicated, 0.1 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/results/per_sample_scores.csv,(generated),"content identical to zenodo/source_data/gtex_reference_sensitivity/deliverables/per_sample_scores.csv (sha256 match); deduplicated, 1.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/00_inspect_headers.py,(generated),"content identical to github/analysis/00_inspect_headers.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/01_check_samples.py,(generated),"content identical to github/analysis/01_check_samples.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/02_aggregate_rsem_to_gene.py,(generated),"content identical to github/analysis/02_aggregate_rsem_to_gene.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/03_align_products.py,(generated),"content identical to github/analysis/03_align_products.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/04_make_splits.py,(generated),"content identical to github/analysis/04_make_splits.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/05_build_predictors.py,(generated),"content identical to github/analysis/05_build_predictors.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/06_score_2x2.py,(generated),"content identical to github/analysis/06_score_2x2.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/07_bootstrap.py,(generated),"content identical to github/analysis/07_bootstrap.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/08_make_figures.py,(generated),"content identical to github/analysis/08_make_figures.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/09_make_deliverables.py,(generated),"content identical to github/analysis/09_make_deliverables.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/gtex_reference_sensitivity/scripts/common.py,(generated),"content identical to github/analysis/common.py (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/source_data/lincs_index/union_inst_ids.txt,(generated),"content identical to zenodo/source_data/lincs_index/dcic2021_trt_inst_ids.txt (sha256 match); deduplicated, 43.2 MB"
+skipped(duplicate),zenodo/supplementary/S13_depmap_positive_control_model_metrics.csv,(generated),"content identical to zenodo/source_data/depmap_positive_control/results/model_metric_summary.csv (sha256 match); deduplicated, 0.0 MB"
+skipped(duplicate),zenodo/supplementary/S14_depmap_positive_control_genewise_across_cell.csv,(generated),"content identical to zenodo/source_data/depmap_positive_control/results/per_gene_across_cell.csv (sha256 match); deduplicated, 8.8 MB"
+zenodo,zenodo/README.md,(generated),archive guide for the Zenodo records
+zenodo,zenodo/checksums/MD5SUMS_github.txt,(generated),"MD5 manifest, repository-relative paths"
+zenodo,zenodo/checksums/MD5SUMS_zenodo.txt,(generated),"MD5 manifest, archive-relative paths"
+zenodo,zenodo/checksums/README.md,(generated),checksum manifest index
+zenodo,zenodo/checksums/SHA256SUMS_github.txt,(generated),"SHA256 manifest, repository-relative paths"
+zenodo,zenodo/checksums/SHA256SUMS_zenodo.txt,(generated),"SHA256 manifest, archive-relative paths"
+zenodo,zenodo/figures/Figure1_design.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure1_design.png,(generated),final figures
+zenodo,zenodo/figures/Figure2_fixed_output.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure2_fixed_output.png,(generated),final figures
+zenodo,zenodo/figures/Figure3_training_evaluation.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure3_training_evaluation.png,(generated),final figures
+zenodo,zenodo/figures/Figure4_ranking_consequence.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure4_ranking_consequence.png,(generated),final figures
+zenodo,zenodo/figures/Figure5_depmap_mechanism_control.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure5_depmap_mechanism_control.png,(generated),final figures
+zenodo,zenodo/figures/Figure6_gtex_reference_matching.pdf,(generated),final figures
+zenodo,zenodo/figures/Figure6_gtex_reference_matching.png,(generated),final figures
+zenodo,zenodo/figures/Figure7_lincs_gene_mean_residualized.pdf,(generated),
+zenodo,zenodo/figures/Figure7_lincs_gene_mean_residualized.png,(generated),
+zenodo,zenodo/figures/Supplementary_Figure_S1_LINCS_heterogeneity.pdf,(generated),final figures
+zenodo,zenodo/figures/Supplementary_Figure_S1_LINCS_heterogeneity.png,(generated),final figures
+zenodo,zenodo/figures/Supplementary_Figure_S2_GTEx_tissue_matrix.pdf,(generated),
+zenodo,zenodo/figures/Supplementary_Figure_S2_GTEx_tissue_matrix.png,(generated),
+zenodo,zenodo/manuscript/Cover_Letter_CN_.docx,(generated),
+zenodo,zenodo/manuscript/Main_Text_CN_GigaScience.docx,(generated),manuscript (with figure plates)
+zenodo,zenodo/source_data/crossed_bootstrap_2x2.csv,(generated),crossed 2x2
+zenodo,zenodo/source_data/crossed_bootstrap_delta.csv,(generated),crossed main Δ
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/first_predictor_DeepDEP/_intersection_stats.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/first_predictor_DeepDEP/mapping_audit.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/cell_order.txt,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/depmap_index.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/manifest.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/split.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/target_genes.txt,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/index/test_cell_order.txt,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed0_pred_ceres_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed0_pred_chronos_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed1_pred_ceres_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed1_pred_chronos_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed2_pred_ceres_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed2_pred_chronos_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed3_pred_ceres_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed3_pred_chronos_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed4_pred_ceres_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/predictions_test/seed4_pred_chronos_arm_test.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/reference_test/Y_CERES_test136.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/reference_test/Y_Chronos_test136.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/reference_test/common_observed_mask_test136.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/train_gene_mean/train_genemean_Y_CERES.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/train_gene_mean/train_genemean_Y_Chronos.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/train_gene_mean/train_observed_count.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_analysis_ready_20260929/verify_alignment.py,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_background_control/REPORT.md,(generated),
+zenodo,zenodo/source_data/depmap_background_control/sensitivity_common_mean_residualization.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task1_train_gene_mean_baseline_summary.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task2_4_model_score_summaries.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task2_cellwise_raw_scores.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task2_model_vs_trainmean_baseline_paired.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task4_cellwise_residualized_scores.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task5_interaction_per_cell_seed.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task5_raw_2x2_quadrants.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task5_residualized_2x2_quadrants.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task6_interaction_bootstrap_distributions.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task7_DeepDEP_43x1244_cellwise_detail.csv,(generated),
+zenodo,zenodo/source_data/depmap_background_control/task7_DeepDEP_43x1244_summary.csv,(generated),
+zenodo,zenodo/source_data/depmap_positive_control/depmap_positive_control_20260930.zip,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/figures/fig_panelC_2x2_heatmap.png,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/figures/panel_ABC_positive_control.png,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/figures/panel_AB_positive_control.png,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/results/interaction_bootstrap.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/results/model_metric_summary.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/results/per_cell_metrics.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/results/per_gene_across_cell.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_positive_control/results/positive_control_summary.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/DeepDEP_predictor_final.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/DeepDEP_predictor_strict.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/mapping_audit_cell_lines.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/first_predictor_DeepDEP/mapping_audit_lost_genes.csv,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/index/split_summary.json,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/index/train_cell_order.txt,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/index/val_cell_order.txt,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/reference/Y_CERES.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/reference/Y_Chronos.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/depmap_raw_artifacts_20260929/reference/common_observed_mask.npy,(generated),DepMap derived data
+zenodo,zenodo/source_data/disease_list_boundary_fragility.csv,(generated),disease shortlist boundary
+zenodo,zenodo/source_data/figure_source_data/DepMap_CERES_272x1244.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/DepMap_Chronos_272x1244.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/DepMap_aligned_CERES.csv.gz,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/DepMap_aligned_Chronos.csv.gz,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/DepMap_percell_PCC.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/DepMap_percell_delta_eval.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/TableS_disease_perdrug_scored.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/TableS_disease_signatures_summary.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/TableS_disease_top10_shortlist.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/TableS_seven_models.csv,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/csv_to_xml.py,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/DepMap_CERES_272x1244.xml,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/DepMap_Chronos_272x1244.xml,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/DepMap_percell_PCC.xml,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/DepMap_percell_delta_eval.xml,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/TableS_disease_perdrug_scored.xml,(generated),figure source data
+zenodo,zenodo/source_data/figure_source_data/xml/TableS_seven_models.xml,(generated),figure source data
+zenodo,zenodo/source_data/frozen_prediction_matrices/README_prediction_matrices.txt,(generated),"LINCS frozen prediction matrices 11,275x978"
+zenodo,zenodo/source_data/frozen_prediction_matrices/frozen_perrow_three_metrics.csv,(generated),"LINCS frozen prediction matrices 11,275x978"
+zenodo,zenodo/source_data/frozen_prediction_matrices/frozen_pred_matrix_beta_trained_11275x978.npy,(generated),"LINCS frozen prediction matrices 11,275x978"
+zenodo,zenodo/source_data/frozen_prediction_matrices/frozen_pred_matrix_dcic_trained_11275x978.npy,(generated),"LINCS frozen prediction matrices 11,275x978"
+zenodo,zenodo/source_data/gtex_reference_sensitivity/README.md,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/data_processed/RSEM_gene_tpm.meta.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/data_processed/tissue_mean_rnaseqc.npz,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/data_processed/tissue_mean_rsem.npz,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/alignment_split_summary.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/benchmark_summary.csv,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/benchmark_summary.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/common_genes.csv,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/fig_2x2_heatmap.png,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/fig_reference_agreement.png,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/input_overlap.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/per_sample_scores.csv,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/deliverables/sample_split.csv,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/gtex_reference_sensitivity_deliverables_20260930.zip,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/metadata/common_grid.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/metadata/donors.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/metadata/headers.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/metadata/sample_tissue_map.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/metadata/splits.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/results/bootstrap.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/results/bootstrap_interaction_pearson.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/results/bootstrap_interaction_spearman.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/results/pipeline.log,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/gtex_reference_sensitivity/results/score_summary.json,(generated),GTEx derived data (with per-sample scores)
+zenodo,zenodo/source_data/lincs_index/93_gene_map_12328_to_978.json,(generated),
+zenodo,zenodo/source_data/lincs_index/beta_v2_trt_inst_ids.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/controls_inst_ids.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/dcic2021_conditions.tsv,(generated),gene / condition metadata
+zenodo,zenodo/source_data/lincs_index/dcic2021_trt_inst_ids.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/eval11275_trt_inst_ids.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/geneinfo_beta.txt,(generated),gene / condition metadata
+zenodo,zenodo/source_data/lincs_index/rebuilt_training_trt_inst_ids.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/union_inst_ids_gctx_present.txt,(generated),LINCS inst_id lists (for rebuilding the reference matrices)
+zenodo,zenodo/source_data/lincs_index/within_reference_topk_stability_replicates.csv,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/README.md,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/Y_beta2020_11275x978.json,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/Y_beta2020_11275x978.npy,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/Y_dcic2021_11275x978.json,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/Y_dcic2021_11275x978.npy,(generated),
+zenodo,zenodo/source_data/lincs_reference_matrices/build_lincs_reference_matrices.py,(generated),
+zenodo,zenodo/source_data/within_reference_topk_stability.csv,(generated),within-reference stability
+zenodo,zenodo/supplementary/Figure_summary_values.csv,(generated),
+zenodo,zenodo/supplementary/Figure_summary_values_fig7.csv,(generated),
+zenodo,zenodo/supplementary/S10_gtex_donor_medians.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S11_gtex_donor_bootstrap.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S12_gtex_tissue_sensitivity.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S13_depmap_positive_control_model_metrics.csv,(generated),"content identical to zenodo/source_data/depmap_positive_control/results/model_metric_summary.csv (sha256 match); deduplicated, 0.0 MB"
+zenodo,zenodo/supplementary/S14_depmap_positive_control_genewise_across_cell.csv,(generated),"content identical to zenodo/source_data/depmap_positive_control/results/per_gene_across_cell.csv (sha256 match); deduplicated, 8.8 MB"
+zenodo,zenodo/supplementary/S15_depmap_positive_control_interaction_bootstrap.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S16_depmap_272cell_consistency_and_prediction_means.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S17_within_reference_rank_stability.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S17b_coverage_ge3_rank_stability.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S17c_within_reference_spearman.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S19_disease_shortlist_boundary.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S1_weighting_and_metrics.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S21_rank_concordance_summary.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S22_topk_random_expectation.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S23_lincs_crossed_bootstrap.csv,(generated),
+zenodo,zenodo/supplementary/S24_lincs_perdrug_raw_vs_residualized.csv,(generated),
+zenodo,zenodo/supplementary/S25_direction_check.csv,(generated),
+zenodo,zenodo/supplementary/S25_disease_within_reference_stability.csv,(generated),
+zenodo,zenodo/supplementary/S25_disease_within_reference_stability_method.py,(generated),
+zenodo,zenodo/supplementary/S25_inside_outside_verdict.csv,(generated),
+zenodo,zenodo/supplementary/S26_signature_pair_audit.csv,(generated),
+zenodo,zenodo/supplementary/S26_signature_pair_audit.py,(generated),
+zenodo,zenodo/supplementary/S26_signature_pair_summary.csv,(generated),
+zenodo,zenodo/supplementary/S26b_beta_matrix_vs_dcic.py,(generated),
+zenodo,zenodo/supplementary/S26b_beta_matrix_vs_dcic_gctx.csv,(generated),
+zenodo,zenodo/supplementary/S26b_summary.csv,(generated),
+zenodo,zenodo/supplementary/S2_leave_one_cell_out.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S3_topk_performance_ranking.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S4_depmap_train_gene_mean_baseline.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S5_depmap_raw_residualized_2x2.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S6_depmap_interaction_bootstrap_summary.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S7_deepdep_common_grid_summary.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S8_gtex_reference_product_2x2.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S9_depmap_crossed_bootstrap.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_cosine_by_cell.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_cosine_by_drug.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_pearson_by_cell.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_pearson_by_drug.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_spearman_by_cell.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S_spearman_by_drug.csv,(generated),supplementary
+zenodo,zenodo/supplementary/Supplementary_Figure_S1_LINCS_heterogeneity.pdf,(generated),
+zenodo,zenodo/supplementary/Supplementary_Figure_S1_LINCS_heterogeneity.png,(generated),
+zenodo,zenodo/supplementary/Supplementary_Figure_S2_GTEx_tissue_matrix.pdf,(generated),
+zenodo,zenodo/supplementary/Supplementary_Figure_S2_GTEx_tissue_matrix.png,(generated),
+zenodo,zenodo/supplementary/Supplementary_Material_CN.docx,(generated),
+zenodo,zenodo/supplementary/Supplementary_Notes_CN.docx,(generated),
+zenodo,zenodo/supplementary/TableS_drug_coverage_matrix_drugs.csv,(generated),supplementary
+zenodo,zenodo/supplementary/analysis_summary.json,(generated),supplementary
+zenodo,zenodo/supplementary/frozen_multimetric_perrow_scores.csv,(generated),supplementary
+zenodo,zenodo/supplementary/S27_sdst_beta2020_condition_audit.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S27_sdst_beta2020_condition_audit.csv,SDST x beta2020 condition/well audit (S27)
+zenodo,zenodo/supplementary/S28_xpert_transigen_matched_summary.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S28_xpert_transigen_matched_summary.csv,"XPert vs TranSiGen matched summary, six normal-match values behind Table 4 (S28)"
+zenodo,zenodo/supplementary/S28_permutation_scheme_comparison.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S28_permutation_scheme_comparison.csv,"Two permutation schemes A/B for drug mis-pairing, 12 rows (S28)"
+zenodo,zenodo/supplementary/S28_matched_vs_mispaired_pearson_historical_schemeA.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S28_matched_vs_mispaired_pearson_historical_schemeA.csv,"Historical scheme A result, superseded by S28_permutation_scheme_comparison (S28)"
+zenodo,zenodo/supplementary/S29_paired_advantage_bootstrap.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S29_paired_advantage_bootstrap.csv,"Paired-advantage bootstrap over 1,343 drugs, 0.01453 / -0.00298 (S29)"
+zenodo,zenodo/supplementary/S30_lincs_model_comparison_practices.csv,gigascience_aligned_55point_20261001/submission_package/supplementary/S30_lincs_model_comparison_practices.csv,Survey of model-comparison practices across LINCS studies (S30)
+github,github/analysis/supplementary_rebuild_S23_S28/README.md,github/analysis/supplementary_rebuild_S23_S28/README.md,"Rebuild notes for supplementary tables S25, S27-S30"
+github,github/analysis/supplementary_rebuild_S23_S28/build_S25_gene_counts.py,github/analysis/supplementary_rebuild_S23_S28/build_S25_gene_counts.py,"Rebuild S25 disease-signature gene counts from the 12,328 shared hvg axis"
+github,github/analysis/supplementary_rebuild_S23_S28/build_S27_condition_audit.py,github/analysis/supplementary_rebuild_S23_S28/build_S27_condition_audit.py,Rebuild S27 condition/well audit for SDST x beta2020
+github,github/analysis/supplementary_rebuild_S23_S28/build_S28_permutation.py,github/analysis/supplementary_rebuild_S23_S28/build_S28_permutation.py,Rebuild S28 two-scheme drug mis-pairing permutation
+github,github/analysis/supplementary_rebuild_S23_S28/build_S29_paired_bootstrap.py,github/analysis/supplementary_rebuild_S23_S28/build_S29_paired_bootstrap.py,"Rebuild S29 paired-advantage bootstrap over 1,343 drugs"
+github,github/analysis/supplementary_rebuild_S23_S28/config_paths.py,github/analysis/supplementary_rebuild_S23_S28/config_paths.py,Path configuration for the S23-S30 rebuild scripts
+zenodo,zenodo/supplementary/S18_coverage_ge3_rank_stability.csv,(alias of S17b),"Same content as S17b; the 11-20 manuscript cites this table as S18 (k=10 overlap 6, k=20 overlap 16)"
+zenodo,zenodo/supplementary/S31_unrestricted_substitution.csv,zenodo/supplementary/S28_permutation_scheme_comparison.csv,"Scheme-A view of S28: drug substitution without the same-cell-line restriction, 6 rows"
+zenodo,zenodo/supplementary/S33_matrix_swap_reporting_survey.csv,zenodo/supplementary/S30_lincs_model_comparison_practices.csv,Focused view of S30: whether each surveyed study tested matrix swap and reported model reranking (0 of 28 did)
+github,requirements_freeze.txt,(generated),Pinned dependency versions for the archived Python 3.11 environment

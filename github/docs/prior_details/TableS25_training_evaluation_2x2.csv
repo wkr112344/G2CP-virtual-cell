@@ -1,0 +1,9 @@
+analysis_set,training_product,evaluation_product,PCC,ci95_low,ci95_high,within_training_beta_minus_dcic,contrast_ci95_low,contrast_ci95_high
+main_11275,beta-trained,beta,0.368,0.3627,0.3733,0.2956,0.2917,0.2996
+main_11275,beta-trained,dcic2021,0.0724,0.0683,0.0765,,,
+main_11275,dcic-trained,beta,0.1705,0.1652,0.1757,0.0171,0.014,0.0204
+main_11275,dcic-trained,dcic2021,0.1534,0.1485,0.1581,,,
+sensitivity_Ecommon15990,beta-trained,beta,0.3438,,,0.2314,,
+sensitivity_Ecommon15990,beta-trained,dcic2021,0.1124,,,,,
+sensitivity_Ecommon15990,dcic-trained,beta,0.1792,,,0.0402,,
+sensitivity_Ecommon15990,dcic-trained,dcic2021,0.139,,,,,

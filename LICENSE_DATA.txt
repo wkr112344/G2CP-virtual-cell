@@ -1,0 +1,4 @@
+[TO BE CONFIRMED BY THE AUTHORS] Suggested data/figure license: CC-BY-4.0 (derived
+products may be redistributed; third-party raw data remains under its original
+license, see DATA_SOURCES.md). Once chosen, select the corresponding license on
+the Zenodo record.

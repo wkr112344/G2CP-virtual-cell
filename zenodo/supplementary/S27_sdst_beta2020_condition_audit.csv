@@ -1,0 +1,5 @@
+﻿item,matched,total,ratio
+SDST records with 24 h treatment time and 10 uM concentration,78453,78453,1.0
+beta2020 signatures with identical drug/cell line/time/concentration,78453,78453,1.0
+SDST original experimental well IDs found in beta2020,219010,219066,0.99974
+Matched wells with consistent treatment time and concentration,218953,219010,0.99974

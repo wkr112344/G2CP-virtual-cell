@@ -1,0 +1,4960 @@
+<?xml version='1.0' encoding='utf-8'?>
+<table name="DepMap_percell_PCC" nrow="990" ncol="3">
+  <columns>
+    <column>cell_line</column>
+    <column>pearson</column>
+    <column>spearman</column>
+  </columns>
+  <rows>
+    <row>
+      <c name="cell_line">ACH-000001</c>
+      <c name="pearson">0.9540619339047541</c>
+      <c name="spearman">0.9136651269642962</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000004</c>
+      <c name="pearson">0.9476830932797324</c>
+      <c name="spearman">0.8966749084462466</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000005</c>
+      <c name="pearson">0.9371456795815944</c>
+      <c name="spearman">0.8600507437023175</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000007</c>
+      <c name="pearson">0.9518241985767999</c>
+      <c name="spearman">0.8900225727552492</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000009</c>
+      <c name="pearson">0.9615255822207565</c>
+      <c name="spearman">0.9182256023375397</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000011</c>
+      <c name="pearson">0.9240907090355795</c>
+      <c name="spearman">0.8418101272377652</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000012</c>
+      <c name="pearson">0.9556500862645353</c>
+      <c name="spearman">0.9152125951119706</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000013</c>
+      <c name="pearson">0.962943939804922</c>
+      <c name="spearman">0.9216473118636721</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000014</c>
+      <c name="pearson">0.9525265028131689</c>
+      <c name="spearman">0.9029572657084608</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000015</c>
+      <c name="pearson">0.9457258103266569</c>
+      <c name="spearman">0.8633563706934417</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000017</c>
+      <c name="pearson">0.9548659516812907</c>
+      <c name="spearman">0.9153672825702098</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000018</c>
+      <c name="pearson">0.9494892508250011</c>
+      <c name="spearman">0.9141577639542205</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000019</c>
+      <c name="pearson">0.9486702785243282</c>
+      <c name="spearman">0.903083769494205</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000021</c>
+      <c name="pearson">0.9463406326739354</c>
+      <c name="spearman">0.8845747039653475</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000022</c>
+      <c name="pearson">0.9596158859411881</c>
+      <c name="spearman">0.9060065667923326</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000023</c>
+      <c name="pearson">0.9534617791099557</c>
+      <c name="spearman">0.8912751637689909</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000024</c>
+      <c name="pearson">0.9611945099109274</c>
+      <c name="spearman">0.9177667018044625</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000025</c>
+      <c name="pearson">0.9574587814660539</c>
+      <c name="spearman">0.9219389151835985</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000028</c>
+      <c name="pearson">0.9352835557102572</c>
+      <c name="spearman">0.8813536210235577</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000029</c>
+      <c name="pearson">0.9603103816954526</c>
+      <c name="spearman">0.9202809692738468</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000030</c>
+      <c name="pearson">0.9655131676114462</c>
+      <c name="spearman">0.9328836196275759</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000035</c>
+      <c name="pearson">0.9505849160917604</c>
+      <c name="spearman">0.9085435927619808</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000036</c>
+      <c name="pearson">0.9389468714928779</c>
+      <c name="spearman">0.8759918161279752</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000037</c>
+      <c name="pearson">0.9455182479965708</c>
+      <c name="spearman">0.8840136810642739</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000039</c>
+      <c name="pearson">0.9467695775244317</c>
+      <c name="spearman">0.8821021171540299</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000040</c>
+      <c name="pearson">0.9484650610145136</c>
+      <c name="spearman">0.8953876949993597</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000041</c>
+      <c name="pearson">0.9347080337290553</c>
+      <c name="spearman">0.8576080123536944</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000042</c>
+      <c name="pearson">0.9470116537898144</c>
+      <c name="spearman">0.9022677044759648</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000045</c>
+      <c name="pearson">0.9329622831349622</c>
+      <c name="spearman">0.8536475908320945</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000047</c>
+      <c name="pearson">0.9519937973323901</c>
+      <c name="spearman">0.8948833072049516</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000048</c>
+      <c name="pearson">0.9589548464504611</c>
+      <c name="spearman">0.9217924021209186</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000052</c>
+      <c name="pearson">0.9455623662863892</c>
+      <c name="spearman">0.8916661806655131</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000053</c>
+      <c name="pearson">0.9598794997355784</c>
+      <c name="spearman">0.90112407163821</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000054</c>
+      <c name="pearson">0.9518563647530964</c>
+      <c name="spearman">0.8932510781732877</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000055</c>
+      <c name="pearson">0.9390532418880885</c>
+      <c name="spearman">0.8664573208309034</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000060</c>
+      <c name="pearson">0.9532777511854796</c>
+      <c name="spearman">0.9158776527658787</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000067</c>
+      <c name="pearson">0.9573916772489683</c>
+      <c name="spearman">0.9265131581647931</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000070</c>
+      <c name="pearson">0.9456765584903326</c>
+      <c name="spearman">0.8705373366963604</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000074</c>
+      <c name="pearson">0.9456567471283158</c>
+      <c name="spearman">0.8913909349820067</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000075</c>
+      <c name="pearson">0.9534631924850356</c>
+      <c name="spearman">0.8895046121398009</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000076</c>
+      <c name="pearson">0.9474834595004306</c>
+      <c name="spearman">0.8874768228172689</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000078</c>
+      <c name="pearson">0.9241491812034688</c>
+      <c name="spearman">0.8549460869790364</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000082</c>
+      <c name="pearson">0.9488793253764982</c>
+      <c name="spearman">0.8941846838558392</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000085</c>
+      <c name="pearson">0.9464880763094106</c>
+      <c name="spearman">0.9011578772200883</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000086</c>
+      <c name="pearson">0.9609018798969825</c>
+      <c name="spearman">0.9291584882197406</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000087</c>
+      <c name="pearson">0.94922240610124</c>
+      <c name="spearman">0.8966567762788955</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000092</c>
+      <c name="pearson">0.9532674292743142</c>
+      <c name="spearman">0.9128739950686502</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000093</c>
+      <c name="pearson">0.8872590808879742</c>
+      <c name="spearman">0.8225997257786786</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000094</c>
+      <c name="pearson">0.9469588443083954</c>
+      <c name="spearman">0.8945888576622364</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000095</c>
+      <c name="pearson">0.9358195972890202</c>
+      <c name="spearman">0.8518669358148176</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000096</c>
+      <c name="pearson">0.9202570205256171</c>
+      <c name="spearman">0.8583100325095386</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000097</c>
+      <c name="pearson">0.9466829972063784</c>
+      <c name="spearman">0.8694517868444273</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000098</c>
+      <c name="pearson">0.9657514183683913</c>
+      <c name="spearman">0.9175519713453788</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000099</c>
+      <c name="pearson">0.936994208725869</c>
+      <c name="spearman">0.8476332827602614</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000103</c>
+      <c name="pearson">0.9472858952072981</c>
+      <c name="spearman">0.9064990238518866</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000108</c>
+      <c name="pearson">0.9614780485813035</c>
+      <c name="spearman">0.9292114303233667</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000111</c>
+      <c name="pearson">0.9483241190443975</c>
+      <c name="spearman">0.888812708670282</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000113</c>
+      <c name="pearson">0.9504056011263701</c>
+      <c name="spearman">0.8851963632342656</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000114</c>
+      <c name="pearson">0.9548047781966266</c>
+      <c name="spearman">0.9102812585771932</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000115</c>
+      <c name="pearson">0.9347616961953011</c>
+      <c name="spearman">0.8695931708980388</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000116</c>
+      <c name="pearson">0.9588548754907579</c>
+      <c name="spearman">0.9159876447391844</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000118</c>
+      <c name="pearson">0.9601882557129086</c>
+      <c name="spearman">0.9105966896423912</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000120</c>
+      <c name="pearson">0.9501672796510877</c>
+      <c name="spearman">0.8858427826668506</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000123</c>
+      <c name="pearson">0.9524545957731746</c>
+      <c name="spearman">0.9056973128383898</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000124</c>
+      <c name="pearson">0.940676431778042</c>
+      <c name="spearman">0.8685873699814841</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000127</c>
+      <c name="pearson">0.9538877995736428</c>
+      <c name="spearman">0.8922271339835941</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000128</c>
+      <c name="pearson">0.9541763968018584</c>
+      <c name="spearman">0.9120909768693752</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000132</c>
+      <c name="pearson">0.9613469680376376</c>
+      <c name="spearman">0.9265992125893755</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000133</c>
+      <c name="pearson">0.9597793025656154</c>
+      <c name="spearman">0.9257853382533463</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000137</c>
+      <c name="pearson">0.9627041048119357</c>
+      <c name="spearman">0.9175796806761793</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000138</c>
+      <c name="pearson">0.9590689016280376</c>
+      <c name="spearman">0.9194665386263133</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000139</c>
+      <c name="pearson">0.9536535528609218</c>
+      <c name="spearman">0.9253867536984688</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000141</c>
+      <c name="pearson">0.9523467548675558</c>
+      <c name="spearman">0.904560029267526</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000142</c>
+      <c name="pearson">0.9531994479095055</c>
+      <c name="spearman">0.903765750003641</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000143</c>
+      <c name="pearson">0.9545383051043042</c>
+      <c name="spearman">0.9078206019141979</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000144</c>
+      <c name="pearson">0.9297441029072611</c>
+      <c name="spearman">0.8781417909267741</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000146</c>
+      <c name="pearson">0.9577094916411074</c>
+      <c name="spearman">0.8886730301115094</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000147</c>
+      <c name="pearson">0.9600134280887864</c>
+      <c name="spearman">0.9070594887191232</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000148</c>
+      <c name="pearson">0.9577646835432468</c>
+      <c name="spearman">0.9075204024408711</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000149</c>
+      <c name="pearson">0.8796509272685956</c>
+      <c name="spearman">0.8142863391906701</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000150</c>
+      <c name="pearson">0.9407439948043931</c>
+      <c name="spearman">0.8852748635455314</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000151</c>
+      <c name="pearson">0.9487124706586727</c>
+      <c name="spearman">0.8919448884046336</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000152</c>
+      <c name="pearson">0.9522966889748377</c>
+      <c name="spearman">0.9067794698522892</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000153</c>
+      <c name="pearson">0.9425176293020759</c>
+      <c name="spearman">0.8993856341079605</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000155</c>
+      <c name="pearson">0.9508957974160915</c>
+      <c name="spearman">0.8870575533527597</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000159</c>
+      <c name="pearson">0.9540915773770671</c>
+      <c name="spearman">0.9101026908467778</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000160</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000161</c>
+      <c name="pearson">0.9494958398163985</c>
+      <c name="spearman">0.9099999614352792</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000163</c>
+      <c name="pearson">0.9564216784081074</c>
+      <c name="spearman">0.9037915990719562</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000164</c>
+      <c name="pearson">0.957048620132695</c>
+      <c name="spearman">0.9063345328633663</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000167</c>
+      <c name="pearson">0.9373516544253208</c>
+      <c name="spearman">0.8816536573513167</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000168</c>
+      <c name="pearson">0.9280405444459986</c>
+      <c name="spearman">0.8439373115448202</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000169</c>
+      <c name="pearson">0.9588860128679495</c>
+      <c name="spearman">0.9119526619246647</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000172</c>
+      <c name="pearson">0.9196060655977957</c>
+      <c name="spearman">0.8774684516860308</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000174</c>
+      <c name="pearson">0.9503632643203537</c>
+      <c name="spearman">0.9039386756328699</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000176</c>
+      <c name="pearson">0.9475805226177253</c>
+      <c name="spearman">0.894456063524657</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000178</c>
+      <c name="pearson">0.9463838329353089</c>
+      <c name="spearman">0.8723111483633973</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000181</c>
+      <c name="pearson">0.9541868326121472</c>
+      <c name="spearman">0.919216758504901</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000182</c>
+      <c name="pearson">0.9538365547013069</c>
+      <c name="spearman">0.8875137028215984</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000183</c>
+      <c name="pearson">0.9464732221657043</c>
+      <c name="spearman">0.8860101720170698</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000187</c>
+      <c name="pearson">0.9463649433105056</c>
+      <c name="spearman">0.8846795050141087</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000188</c>
+      <c name="pearson">0.9552879173227545</c>
+      <c name="spearman">0.9148255864231837</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000189</c>
+      <c name="pearson">0.9339385337320238</c>
+      <c name="spearman">0.8834690605167991</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000190</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000192</c>
+      <c name="pearson">0.9297899082066966</c>
+      <c name="spearman">0.8736753919123564</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000198</c>
+      <c name="pearson">0.9330107417976</c>
+      <c name="spearman">0.8581200036828726</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000200</c>
+      <c name="pearson">0.945992080745321</c>
+      <c name="spearman">0.8882594464060942</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000202</c>
+      <c name="pearson">0.9212482205762043</c>
+      <c name="spearman">0.8393557347033281</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000204</c>
+      <c name="pearson">0.9400417449943735</c>
+      <c name="spearman">0.8639084462882816</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000206</c>
+      <c name="pearson">0.9337299732880764</c>
+      <c name="spearman">0.8753210364484525</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000207</c>
+      <c name="pearson">0.953061425085661</c>
+      <c name="spearman">0.917489974996113</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000209</c>
+      <c name="pearson">0.9370245356178493</c>
+      <c name="spearman">0.8885545064251198</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000211</c>
+      <c name="pearson">0.9528796278135058</c>
+      <c name="spearman">0.8979699915324625</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000212</c>
+      <c name="pearson">0.9493698680574854</c>
+      <c name="spearman">0.9021913430412942</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000213</c>
+      <c name="pearson">0.9393806772228722</c>
+      <c name="spearman">0.8709195129731045</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000215</c>
+      <c name="pearson">0.9539463238721534</c>
+      <c name="spearman">0.8902748609226094</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000217</c>
+      <c name="pearson">0.9594404746235793</c>
+      <c name="spearman">0.9061044123211284</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000219</c>
+      <c name="pearson">0.9464141120767539</c>
+      <c name="spearman">0.8597043362144938</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000221</c>
+      <c name="pearson">0.9492519596762514</c>
+      <c name="spearman">0.897606999181737</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000222</c>
+      <c name="pearson">0.9559812975743825</c>
+      <c name="spearman">0.8965778698639906</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000223</c>
+      <c name="pearson">0.9565330705969954</c>
+      <c name="spearman">0.913235939062466</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000226</c>
+      <c name="pearson">0.9463714857805675</c>
+      <c name="spearman">0.9049627270373445</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000227</c>
+      <c name="pearson">0.9410409902167954</c>
+      <c name="spearman">0.8521073252354359</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000228</c>
+      <c name="pearson">0.9506246122113833</c>
+      <c name="spearman">0.8999424448929855</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000231</c>
+      <c name="pearson">0.9507195719793387</c>
+      <c name="spearman">0.8905432440800025</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000232</c>
+      <c name="pearson">0.9568956609562703</c>
+      <c name="spearman">0.8857134882788998</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000233</c>
+      <c name="pearson">0.951926320951294</c>
+      <c name="spearman">0.893979133795012</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000234</c>
+      <c name="pearson">0.9361943557060196</c>
+      <c name="spearman">0.8728472829686958</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000235</c>
+      <c name="pearson">0.9633550527945708</c>
+      <c name="spearman">0.9224567856196674</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000237</c>
+      <c name="pearson">0.9412488025349873</c>
+      <c name="spearman">0.8532476388112211</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000238</c>
+      <c name="pearson">0.952539108543963</c>
+      <c name="spearman">0.9081715704644826</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000243</c>
+      <c name="pearson">0.9643000662902144</c>
+      <c name="spearman">0.9179205599363792</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000244</c>
+      <c name="pearson">0.9519992558029059</c>
+      <c name="spearman">0.8991552998240415</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000246</c>
+      <c name="pearson">0.9517371491773982</c>
+      <c name="spearman">0.8927335417934855</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000247</c>
+      <c name="pearson">0.9367883769622316</c>
+      <c name="spearman">0.8662011389461481</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000248</c>
+      <c name="pearson">0.9524945163027525</c>
+      <c name="spearman">0.9023011860621193</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000249</c>
+      <c name="pearson">0.9490867102590537</c>
+      <c name="spearman">0.8915922182798592</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000250</c>
+      <c name="pearson">0.9479075794596382</c>
+      <c name="spearman">0.8842580226930554</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000251</c>
+      <c name="pearson">0.9158673337349965</c>
+      <c name="spearman">0.8373079548124963</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000252</c>
+      <c name="pearson">0.928575691720942</c>
+      <c name="spearman">0.8507849261066928</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000253</c>
+      <c name="pearson">0.954132643258399</c>
+      <c name="spearman">0.9003687455740857</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000255</c>
+      <c name="pearson">0.9549583160571373</c>
+      <c name="spearman">0.9178070977707342</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000256</c>
+      <c name="pearson">0.9415088131216928</c>
+      <c name="spearman">0.8831427058335791</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000257</c>
+      <c name="pearson">0.921050079798178</c>
+      <c name="spearman">0.8583156181868058</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000258</c>
+      <c name="pearson">0.9020468510856092</c>
+      <c name="spearman">0.8364476362026924</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000259</c>
+      <c name="pearson">0.9550568681920547</c>
+      <c name="spearman">0.89155809922733</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000260</c>
+      <c name="pearson">0.9619962007713808</c>
+      <c name="spearman">0.901803430891843</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000261</c>
+      <c name="pearson">0.9500052875101302</c>
+      <c name="spearman">0.8896215111461353</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000262</c>
+      <c name="pearson">0.9483058155235471</c>
+      <c name="spearman">0.9079698101127429</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000263</c>
+      <c name="pearson">0.9373495538594266</c>
+      <c name="spearman">0.8928731440816466</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000264</c>
+      <c name="pearson">0.9533923240504817</c>
+      <c name="spearman">0.8972503001030967</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000265</c>
+      <c name="pearson">0.957065341826143</c>
+      <c name="spearman">0.9005704742074547</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000266</c>
+      <c name="pearson">0.9473211303029938</c>
+      <c name="spearman">0.8863590358928671</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000269</c>
+      <c name="pearson">0.9452092722672505</c>
+      <c name="spearman">0.9094648719722251</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000271</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000272</c>
+      <c name="pearson">0.9435579504380128</c>
+      <c name="spearman">0.8819289856880728</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000273</c>
+      <c name="pearson">0.9618925233366609</c>
+      <c name="spearman">0.9237313703013079</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000274</c>
+      <c name="pearson">0.9334248203089976</c>
+      <c name="spearman">0.8779224116180172</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000276</c>
+      <c name="pearson">0.9551493952322307</c>
+      <c name="spearman">0.921529881677118</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000277</c>
+      <c name="pearson">0.9445508422342233</c>
+      <c name="spearman">0.8920532594297798</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000278</c>
+      <c name="pearson">0.9359581324501579</c>
+      <c name="spearman">0.8602979714542727</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000279</c>
+      <c name="pearson">0.9560468390936632</c>
+      <c name="spearman">0.9016364984201285</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000280</c>
+      <c name="pearson">0.909663799963111</c>
+      <c name="spearman">0.811935101851242</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000281</c>
+      <c name="pearson">0.9154682021535283</c>
+      <c name="spearman">0.8453162418332147</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000282</c>
+      <c name="pearson">0.9559729814605094</c>
+      <c name="spearman">0.8950935777779718</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000286</c>
+      <c name="pearson">0.9474891557990577</c>
+      <c name="spearman">0.9013783555842722</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000288</c>
+      <c name="pearson">0.9534125469331378</c>
+      <c name="spearman">0.8976190573196491</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000290</c>
+      <c name="pearson">0.9542841930695408</c>
+      <c name="spearman">0.8836643608559243</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000291</c>
+      <c name="pearson">0.9633548574775785</c>
+      <c name="spearman">0.9227425656597475</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000292</c>
+      <c name="pearson">0.9502272726034584</c>
+      <c name="spearman">0.9126970328955614</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000293</c>
+      <c name="pearson">0.9540413148471442</c>
+      <c name="spearman">0.9162436201841423</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000294</c>
+      <c name="pearson">0.9524417536502024</c>
+      <c name="spearman">0.9042365597789641</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000295</c>
+      <c name="pearson">0.9401112907772791</c>
+      <c name="spearman">0.8866915256352448</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000296</c>
+      <c name="pearson">0.9464250171684289</c>
+      <c name="spearman">0.8984662181176907</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000302</c>
+      <c name="pearson">0.962718339857324</c>
+      <c name="spearman">0.9118058541734656</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000303</c>
+      <c name="pearson">0.9537577680405647</c>
+      <c name="spearman">0.9048345647702348</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000304</c>
+      <c name="pearson">0.9429852934987675</c>
+      <c name="spearman">0.8933663691534797</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000305</c>
+      <c name="pearson">0.9649150966096158</c>
+      <c name="spearman">0.9214227547669978</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000307</c>
+      <c name="pearson">0.9580632316952549</c>
+      <c name="spearman">0.9113323044459559</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000308</c>
+      <c name="pearson">0.9455291968807327</c>
+      <c name="spearman">0.8957329624752057</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000310</c>
+      <c name="pearson">0.9135595980349804</c>
+      <c name="spearman">0.8365081410023931</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000311</c>
+      <c name="pearson">0.9520940962063968</c>
+      <c name="spearman">0.8986419889168813</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000312</c>
+      <c name="pearson">0.9504599319501206</c>
+      <c name="spearman">0.8956622257280432</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000315</c>
+      <c name="pearson">0.9462943984493668</c>
+      <c name="spearman">0.9005503616296895</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000316</c>
+      <c name="pearson">0.9528107013229473</c>
+      <c name="spearman">0.9051410151593968</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000317</c>
+      <c name="pearson">0.9343521982100581</c>
+      <c name="spearman">0.8746506086533375</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000318</c>
+      <c name="pearson">0.9588122270032284</c>
+      <c name="spearman">0.910570513681926</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000319</c>
+      <c name="pearson">0.9558474800985584</c>
+      <c name="spearman">0.9047846821530697</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000320</c>
+      <c name="pearson">0.957506556021218</c>
+      <c name="spearman">0.9045502326491414</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000322</c>
+      <c name="pearson">0.9135385535149282</c>
+      <c name="spearman">0.8564027495021167</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000323</c>
+      <c name="pearson">0.9599621513368994</c>
+      <c name="spearman">0.9295786048176558</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000324</c>
+      <c name="pearson">0.9490332870054956</c>
+      <c name="spearman">0.8902377054255738</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000325</c>
+      <c name="pearson">0.9465544202673023</c>
+      <c name="spearman">0.8827766339274148</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000326</c>
+      <c name="pearson">0.954393032397093</c>
+      <c name="spearman">0.9009898752453248</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000329</c>
+      <c name="pearson">0.9554812733941566</c>
+      <c name="spearman">0.9101680050191742</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000330</c>
+      <c name="pearson">0.9365209216142992</c>
+      <c name="spearman">0.8658426097579066</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000331</c>
+      <c name="pearson">0.9477877275997559</c>
+      <c name="spearman">0.9044085361618115</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000332</c>
+      <c name="pearson">0.9426378212608878</c>
+      <c name="spearman">0.8695139649876921</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000334</c>
+      <c name="pearson">0.9456777525326377</c>
+      <c name="spearman">0.8948706222074807</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000335</c>
+      <c name="pearson">0.925858059375319</c>
+      <c name="spearman">0.869606097715489</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000336</c>
+      <c name="pearson">0.9530489941351593</c>
+      <c name="spearman">0.8918949876777723</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000337</c>
+      <c name="pearson">0.950964050856445</c>
+      <c name="spearman">0.9123498424083624</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000339</c>
+      <c name="pearson">0.9523765876204939</c>
+      <c name="spearman">0.893682181990932</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000341</c>
+      <c name="pearson">0.9538126397680653</c>
+      <c name="spearman">0.8758870623764095</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000343</c>
+      <c name="pearson">0.9585989294613902</c>
+      <c name="spearman">0.914752457104673</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000344</c>
+      <c name="pearson">0.9531684402366818</c>
+      <c name="spearman">0.9113870236248147</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000348</c>
+      <c name="pearson">0.9563122557069539</c>
+      <c name="spearman">0.8916441767286224</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000350</c>
+      <c name="pearson">0.9157369017924911</c>
+      <c name="spearman">0.8286731634007563</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000352</c>
+      <c name="pearson">0.9585766691220879</c>
+      <c name="spearman">0.9154337730909785</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000354</c>
+      <c name="pearson">0.9495593536618053</c>
+      <c name="spearman">0.8765683815514145</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000355</c>
+      <c name="pearson">0.940764438993974</c>
+      <c name="spearman">0.8828447972796483</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000356</c>
+      <c name="pearson">0.9452433834005315</c>
+      <c name="spearman">0.912478616274576</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000361</c>
+      <c name="pearson">0.9356519431624231</c>
+      <c name="spearman">0.8803763097916247</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000362</c>
+      <c name="pearson">0.9366264645716789</c>
+      <c name="spearman">0.8627040983583081</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000363</c>
+      <c name="pearson">0.955671524555361</c>
+      <c name="spearman">0.8938996212282978</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000364</c>
+      <c name="pearson">0.9581200596589331</c>
+      <c name="spearman">0.9212106077547374</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000365</c>
+      <c name="pearson">0.9379322144877519</c>
+      <c name="spearman">0.8643075211025655</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000366</c>
+      <c name="pearson">0.953225678222579</c>
+      <c name="spearman">0.9033475907763172</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000367</c>
+      <c name="pearson">0.9341475925787418</c>
+      <c name="spearman">0.8830368682848568</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000368</c>
+      <c name="pearson">0.9504509944363569</c>
+      <c name="spearman">0.9012856323395476</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000370</c>
+      <c name="pearson">0.9113329062770003</c>
+      <c name="spearman">0.8831395553552855</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000371</c>
+      <c name="pearson">0.9516114976868153</c>
+      <c name="spearman">0.9016459878958035</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000374</c>
+      <c name="pearson">0.9541923679107445</c>
+      <c name="spearman">0.9141250838680224</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000375</c>
+      <c name="pearson">0.9416180377372623</c>
+      <c name="spearman">0.8847018568209949</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000376</c>
+      <c name="pearson">0.9616801314068267</c>
+      <c name="spearman">0.9018605969987562</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000377</c>
+      <c name="pearson">0.9439362485944286</c>
+      <c name="spearman">0.8780187597896386</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000378</c>
+      <c name="pearson">0.9537022199699491</c>
+      <c name="spearman">0.90611215184777</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000381</c>
+      <c name="pearson">0.9487418855383101</c>
+      <c name="spearman">0.8935738216143616</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000383</c>
+      <c name="pearson">0.9555501197735055</c>
+      <c name="spearman">0.8880904667702372</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000385</c>
+      <c name="pearson">0.9434410918521189</c>
+      <c name="spearman">0.8924266599873081</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000387</c>
+      <c name="pearson">0.9532403005421197</c>
+      <c name="spearman">0.9020040815468803</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000389</c>
+      <c name="pearson">0.9293596352682574</c>
+      <c name="spearman">0.8621573490274361</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000390</c>
+      <c name="pearson">0.9466991424872299</c>
+      <c name="spearman">0.8598350874795021</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000391</c>
+      <c name="pearson">0.9607042929282827</c>
+      <c name="spearman">0.9169084664257438</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000393</c>
+      <c name="pearson">0.9490989682723739</c>
+      <c name="spearman">0.8972924713602256</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000395</c>
+      <c name="pearson">0.9604877782495119</c>
+      <c name="spearman">0.9246100436935338</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000397</c>
+      <c name="pearson">0.954084186346553</c>
+      <c name="spearman">0.9099636135050303</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000401</c>
+      <c name="pearson">0.9506331631784611</c>
+      <c name="spearman">0.8953137403008845</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000402</c>
+      <c name="pearson">0.9354502061198853</c>
+      <c name="spearman">0.8955903835224294</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000403</c>
+      <c name="pearson">0.9413872988061754</c>
+      <c name="spearman">0.8568517463031553</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000404</c>
+      <c name="pearson">0.9479051192093125</c>
+      <c name="spearman">0.9052001708823352</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000405</c>
+      <c name="pearson">0.9495420282509893</c>
+      <c name="spearman">0.8840554135872011</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000406</c>
+      <c name="pearson">0.955163609037644</c>
+      <c name="spearman">0.8864744096275338</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000407</c>
+      <c name="pearson">0.9585079324366951</c>
+      <c name="spearman">0.917363271783512</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000408</c>
+      <c name="pearson">0.9475986345752822</c>
+      <c name="spearman">0.889182287654923</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000410</c>
+      <c name="pearson">0.9597808199762546</c>
+      <c name="spearman">0.9177162762652614</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000411</c>
+      <c name="pearson">0.9483965410978826</c>
+      <c name="spearman">0.8759014498299041</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000414</c>
+      <c name="pearson">0.9584320732637707</c>
+      <c name="spearman">0.900162150930816</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000415</c>
+      <c name="pearson">0.9493538642398772</c>
+      <c name="spearman">0.8939575620399257</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000416</c>
+      <c name="pearson">0.9550636179330249</c>
+      <c name="spearman">0.9057922194025567</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000417</c>
+      <c name="pearson">0.9551625774472698</c>
+      <c name="spearman">0.9195200410998571</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000420</c>
+      <c name="pearson">0.9505092458812574</c>
+      <c name="spearman">0.8986881121988045</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000421</c>
+      <c name="pearson">0.9578206853672975</c>
+      <c name="spearman">0.9006796217231844</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000422</c>
+      <c name="pearson">0.9520522164253616</c>
+      <c name="spearman">0.8912740630093011</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000424</c>
+      <c name="pearson">0.9616531964229126</c>
+      <c name="spearman">0.9228165886759909</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000425</c>
+      <c name="pearson">0.9553125837168367</c>
+      <c name="spearman">0.9123518717535456</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000426</c>
+      <c name="pearson">0.9395076344405524</c>
+      <c name="spearman">0.8759765401205093</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000427</c>
+      <c name="pearson">0.9553879456750539</c>
+      <c name="spearman">0.9051534784788353</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000430</c>
+      <c name="pearson">0.957512540727601</c>
+      <c name="spearman">0.915369282918548</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000431</c>
+      <c name="pearson">0.9568316182033296</c>
+      <c name="spearman">0.9066283378284186</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000433</c>
+      <c name="pearson">0.9331584019097887</c>
+      <c name="spearman">0.8845490541980688</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000434</c>
+      <c name="pearson">0.9487705672555632</c>
+      <c name="spearman">0.9076459430714194</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000435</c>
+      <c name="pearson">0.9256948404130347</c>
+      <c name="spearman">0.8926849699234113</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000436</c>
+      <c name="pearson">0.9494379349017368</c>
+      <c name="spearman">0.8984797082228786</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000437</c>
+      <c name="pearson">0.9607961972722837</c>
+      <c name="spearman">0.917827048500844</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000438</c>
+      <c name="pearson">0.9551302657806265</c>
+      <c name="spearman">0.9009413570748219</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000441</c>
+      <c name="pearson">0.9492509246531259</c>
+      <c name="spearman">0.8826459144612454</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000442</c>
+      <c name="pearson">0.9580464777302167</c>
+      <c name="spearman">0.912313581501001</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000444</c>
+      <c name="pearson">0.9547611453383483</c>
+      <c name="spearman">0.9023428044891539</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000445</c>
+      <c name="pearson">0.9509993631936735</c>
+      <c name="spearman">0.9116575694447081</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000448</c>
+      <c name="pearson">0.9470270501406148</c>
+      <c name="spearman">0.8818643513580607</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000450</c>
+      <c name="pearson">0.9465206453691725</c>
+      <c name="spearman">0.896344908589817</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000452</c>
+      <c name="pearson">0.9649607105943802</c>
+      <c name="spearman">0.9285885668165199</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000454</c>
+      <c name="pearson">0.9380227269800117</c>
+      <c name="spearman">0.8786992784185719</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000455</c>
+      <c name="pearson">0.9526641861695493</c>
+      <c name="spearman">0.8870268755898253</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000458</c>
+      <c name="pearson">0.9583640196106842</c>
+      <c name="spearman">0.917322917547725</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000459</c>
+      <c name="pearson">0.8366248829859992</c>
+      <c name="spearman">0.7208592211511334</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000460</c>
+      <c name="pearson">0.9544693342749144</c>
+      <c name="spearman">0.900462587262342</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000461</c>
+      <c name="pearson">0.9549163461283906</c>
+      <c name="spearman">0.9111952623461038</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000463</c>
+      <c name="pearson">0.9375678888283397</c>
+      <c name="spearman">0.8504248235129481</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000464</c>
+      <c name="pearson">0.9591337622541606</c>
+      <c name="spearman">0.9129035887821564</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000466</c>
+      <c name="pearson">0.9388456187649463</c>
+      <c name="spearman">0.8815919801200235</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000467</c>
+      <c name="pearson">0.9441117215638354</c>
+      <c name="spearman">0.8555542766235278</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000468</c>
+      <c name="pearson">0.9452725986272811</c>
+      <c name="spearman">0.8883443436200757</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000469</c>
+      <c name="pearson">0.9528994029374487</c>
+      <c name="spearman">0.9039871408392097</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000470</c>
+      <c name="pearson">0.9433419090812282</c>
+      <c name="spearman">0.8750220802587825</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000471</c>
+      <c name="pearson">0.9528946305961734</c>
+      <c name="spearman">0.8945430800738119</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000472</c>
+      <c name="pearson">0.9547548146954028</c>
+      <c name="spearman">0.8966087159305645</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000473</c>
+      <c name="pearson">0.9404572101541597</c>
+      <c name="spearman">0.8413440328874432</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000475</c>
+      <c name="pearson">0.9502673163117586</c>
+      <c name="spearman">0.8730257227209477</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000476</c>
+      <c name="pearson">0.9554602262536095</c>
+      <c name="spearman">0.9093525259532758</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000477</c>
+      <c name="pearson">0.9465701883250045</c>
+      <c name="spearman">0.887846076608997</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000478</c>
+      <c name="pearson">0.9519531284838699</c>
+      <c name="spearman">0.9057853654430406</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000480</c>
+      <c name="pearson">0.9450216201648725</c>
+      <c name="spearman">0.8620907438200117</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000481</c>
+      <c name="pearson">0.9579852393683025</c>
+      <c name="spearman">0.9011468427241256</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000483</c>
+      <c name="pearson">0.947184365793644</c>
+      <c name="spearman">0.8838093618381017</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000484</c>
+      <c name="pearson">0.9433235855572685</c>
+      <c name="spearman">0.8918323031459867</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000485</c>
+      <c name="pearson">0.943699853032037</c>
+      <c name="spearman">0.8819446625384932</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000486</c>
+      <c name="pearson">0.9579292887162248</c>
+      <c name="spearman">0.9170670071200225</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000487</c>
+      <c name="pearson">0.9405131424807524</c>
+      <c name="spearman">0.8731598043393597</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000488</c>
+      <c name="pearson">0.9520435806696602</c>
+      <c name="spearman">0.8963552651999247</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000490</c>
+      <c name="pearson">0.958717032395817</c>
+      <c name="spearman">0.9148393601572943</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000491</c>
+      <c name="pearson">0.9306801946235363</c>
+      <c name="spearman">0.8464936707917818</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000493</c>
+      <c name="pearson">0.9498253509658408</c>
+      <c name="spearman">0.9133155335817915</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000495</c>
+      <c name="pearson">0.9446659782869431</c>
+      <c name="spearman">0.9156279966590245</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000496</c>
+      <c name="pearson">0.9589870531625032</c>
+      <c name="spearman">0.9186443446584829</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000498</c>
+      <c name="pearson">0.9004078948039181</c>
+      <c name="spearman">0.8761752500430542</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000499</c>
+      <c name="pearson">0.9493150512801244</c>
+      <c name="spearman">0.9048986456322302</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000500</c>
+      <c name="pearson">0.9135520947257829</c>
+      <c name="spearman">0.864772859523175</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000501</c>
+      <c name="pearson">0.8690272956521239</c>
+      <c name="spearman">0.7728927380954225</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000502</c>
+      <c name="pearson">0.9540355375656218</c>
+      <c name="spearman">0.9076064770406651</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000503</c>
+      <c name="pearson">0.9406477189956509</c>
+      <c name="spearman">0.8892455100185014</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000504</c>
+      <c name="pearson">0.9549967951103464</c>
+      <c name="spearman">0.9168606507380634</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000505</c>
+      <c name="pearson">0.9578601593989067</c>
+      <c name="spearman">0.9125514337212535</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000507</c>
+      <c name="pearson">0.9550486572124656</c>
+      <c name="spearman">0.9096422204268215</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000510</c>
+      <c name="pearson">0.964766772842986</c>
+      <c name="spearman">0.9255837001007609</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000511</c>
+      <c name="pearson">0.9469522463587929</c>
+      <c name="spearman">0.882663981743733</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000512</c>
+      <c name="pearson">0.9226933873102217</c>
+      <c name="spearman">0.8630206466814164</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000514</c>
+      <c name="pearson">0.9525300444883501</c>
+      <c name="spearman">0.8943960424491062</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000516</c>
+      <c name="pearson">0.9431288412716441</c>
+      <c name="spearman">0.8771929634461612</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000517</c>
+      <c name="pearson">0.948821951640029</c>
+      <c name="spearman">0.8833184048870705</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000518</c>
+      <c name="pearson">0.9583169924851684</c>
+      <c name="spearman">0.9194929290045532</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000520</c>
+      <c name="pearson">0.9501868255442262</c>
+      <c name="spearman">0.8996652570022978</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000521</c>
+      <c name="pearson">0.9424481796921442</c>
+      <c name="spearman">0.9002676655932185</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000522</c>
+      <c name="pearson">0.9583329012118663</c>
+      <c name="spearman">0.9122143317857099</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000524</c>
+      <c name="pearson">0.9610026791984025</c>
+      <c name="spearman">0.9155760500714858</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000527</c>
+      <c name="pearson">0.959965650276106</c>
+      <c name="spearman">0.9107223529904224</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000528</c>
+      <c name="pearson">0.957471318954615</c>
+      <c name="spearman">0.9063825910459434</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000532</c>
+      <c name="pearson">0.9483964614336114</c>
+      <c name="spearman">0.8860116415820674</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000533</c>
+      <c name="pearson">0.9383117516128696</c>
+      <c name="spearman">0.8847891596874442</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000535</c>
+      <c name="pearson">0.9609271586370896</c>
+      <c name="spearman">0.9176247772179661</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000537</c>
+      <c name="pearson">0.9579160444471746</c>
+      <c name="spearman">0.9091403517019271</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000541</c>
+      <c name="pearson">0.9316256350408617</c>
+      <c name="spearman">0.8759605628803117</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000542</c>
+      <c name="pearson">0.9382516528093944</c>
+      <c name="spearman">0.8527407348381457</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000544</c>
+      <c name="pearson">0.9605528497968979</c>
+      <c name="spearman">0.9203707909335138</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000545</c>
+      <c name="pearson">0.9599020620363297</c>
+      <c name="spearman">0.923695285585704</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000546</c>
+      <c name="pearson">0.9519339366658877</c>
+      <c name="spearman">0.9049321649477207</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000547</c>
+      <c name="pearson">0.9460820516091016</c>
+      <c name="spearman">0.8962345105045484</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000548</c>
+      <c name="pearson">0.960101419508392</c>
+      <c name="spearman">0.924791142058193</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000549</c>
+      <c name="pearson">0.9520497046241218</c>
+      <c name="spearman">0.9114343069749319</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000550</c>
+      <c name="pearson">0.9371821411731872</c>
+      <c name="spearman">0.8711732811635822</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000551</c>
+      <c name="pearson">0.9403007950007286</c>
+      <c name="spearman">0.879175411149175</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000552</c>
+      <c name="pearson">0.9652978930306794</c>
+      <c name="spearman">0.9228816824462135</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000554</c>
+      <c name="pearson">0.9344405214715173</c>
+      <c name="spearman">0.8726510184393332</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000556</c>
+      <c name="pearson">0.9532967711967578</c>
+      <c name="spearman">0.8931741960166474</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000557</c>
+      <c name="pearson">0.9215334491034509</c>
+      <c name="spearman">0.8181955047551577</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000558</c>
+      <c name="pearson">0.9499841949459567</c>
+      <c name="spearman">0.9166436797085069</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000561</c>
+      <c name="pearson">0.9213632865919199</c>
+      <c name="spearman">0.8364515177527537</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000562</c>
+      <c name="pearson">0.9287833770059454</c>
+      <c name="spearman">0.8465838140270892</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000563</c>
+      <c name="pearson">0.9362381955863224</c>
+      <c name="spearman">0.8788124287411767</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000565</c>
+      <c name="pearson">0.9447913232414776</c>
+      <c name="spearman">0.8833447693932989</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000570</c>
+      <c name="pearson">0.9580458252405613</c>
+      <c name="spearman">0.9031076886955407</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000571</c>
+      <c name="pearson">0.9622723992157692</c>
+      <c name="spearman">0.9240625624719335</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000573</c>
+      <c name="pearson">0.9572011017788572</c>
+      <c name="spearman">0.8918727348733158</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000576</c>
+      <c name="pearson">0.9453875429844579</c>
+      <c name="spearman">0.8914471538871266</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000577</c>
+      <c name="pearson">0.9350145782256536</c>
+      <c name="spearman">0.8907929654161164</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000579</c>
+      <c name="pearson">0.949755797902768</c>
+      <c name="spearman">0.9005918328593147</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000580</c>
+      <c name="pearson">0.9505804391412964</c>
+      <c name="spearman">0.8983810177096653</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000581</c>
+      <c name="pearson">0.9505260682310278</c>
+      <c name="spearman">0.9155025467395834</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000583</c>
+      <c name="pearson">0.9458702042272629</c>
+      <c name="spearman">0.9102811254632848</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000584</c>
+      <c name="pearson">0.961846058208022</c>
+      <c name="spearman">0.9009561502755379</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000585</c>
+      <c name="pearson">0.9592489839172604</c>
+      <c name="spearman">0.9266997350774745</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000587</c>
+      <c name="pearson">0.9637452366977141</c>
+      <c name="spearman">0.9243211979047077</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000588</c>
+      <c name="pearson">0.9445240537205439</c>
+      <c name="spearman">0.8802553308522503</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000589</c>
+      <c name="pearson">0.9526243166686019</c>
+      <c name="spearman">0.8909605113798946</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000591</c>
+      <c name="pearson">0.9563837248552048</c>
+      <c name="spearman">0.91420247017363</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000592</c>
+      <c name="pearson">0.9611373746503297</c>
+      <c name="spearman">0.9259614922974713</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000593</c>
+      <c name="pearson">0.9576700373105766</c>
+      <c name="spearman">0.9104889517917761</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000595</c>
+      <c name="pearson">0.9603318320596778</c>
+      <c name="spearman">0.9178312917538932</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000596</c>
+      <c name="pearson">0.9475979164549452</c>
+      <c name="spearman">0.9015404781546342</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000599</c>
+      <c name="pearson">0.9490292512073357</c>
+      <c name="spearman">0.8869723480418332</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000600</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000601</c>
+      <c name="pearson">0.9609541270836819</c>
+      <c name="spearman">0.9063755492882354</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000602</c>
+      <c name="pearson">0.9627209258092674</c>
+      <c name="spearman">0.9183536536421305</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000604</c>
+      <c name="pearson">0.9296682370596541</c>
+      <c name="spearman">0.8807441621448916</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000605</c>
+      <c name="pearson">0.9474011218882961</c>
+      <c name="spearman">0.8908469755018946</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000606</c>
+      <c name="pearson">0.9476510012316738</c>
+      <c name="spearman">0.8882601887498214</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000607</c>
+      <c name="pearson">0.9516829783433202</c>
+      <c name="spearman">0.9083743634252643</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000608</c>
+      <c name="pearson">0.9287464360368378</c>
+      <c name="spearman">0.8168559389098629</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000609</c>
+      <c name="pearson">0.9582983005571325</c>
+      <c name="spearman">0.902927174601752</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000614</c>
+      <c name="pearson">0.9429588452664174</c>
+      <c name="spearman">0.8912554786638248</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000616</c>
+      <c name="pearson">0.9408726595275523</c>
+      <c name="spearman">0.8841321328020094</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000618</c>
+      <c name="pearson">0.9518424264803534</c>
+      <c name="spearman">0.8971747419582529</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000619</c>
+      <c name="pearson">0.9643506919020073</c>
+      <c name="spearman">0.9380797492362867</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000620</c>
+      <c name="pearson">0.9570286864052424</c>
+      <c name="spearman">0.9075063982807222</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000621</c>
+      <c name="pearson">0.9379812205654695</c>
+      <c name="spearman">0.8562464980644803</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000622</c>
+      <c name="pearson">0.9476662952756753</c>
+      <c name="spearman">0.9022194557332568</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000623</c>
+      <c name="pearson">0.946863589024621</c>
+      <c name="spearman">0.8845253609899477</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000624</c>
+      <c name="pearson">0.961272318853112</c>
+      <c name="spearman">0.914638649243172</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000627</c>
+      <c name="pearson">0.9584776579381953</c>
+      <c name="spearman">0.914291706396105</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000630</c>
+      <c name="pearson">0.9569281040092703</c>
+      <c name="spearman">0.9179959774292744</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000632</c>
+      <c name="pearson">0.9605524384636293</c>
+      <c name="spearman">0.9162032335151106</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000633</c>
+      <c name="pearson">0.9504462233849692</c>
+      <c name="spearman">0.8940122561860169</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000634</c>
+      <c name="pearson">0.9502670656399068</c>
+      <c name="spearman">0.9010119982116296</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000637</c>
+      <c name="pearson">0.9562384447460207</c>
+      <c name="spearman">0.9169892413030057</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000638</c>
+      <c name="pearson">0.9476384372952927</c>
+      <c name="spearman">0.9049066009022186</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000639</c>
+      <c name="pearson">0.9451903200656926</c>
+      <c name="spearman">0.8629834067204848</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000645</c>
+      <c name="pearson">0.9477005898860977</c>
+      <c name="spearman">0.8953913996629587</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000646</c>
+      <c name="pearson">0.940288258046554</c>
+      <c name="spearman">0.8889706798549015</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000647</c>
+      <c name="pearson">0.9564653506554736</c>
+      <c name="spearman">0.9003601283861343</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000648</c>
+      <c name="pearson">0.9386616826532487</c>
+      <c name="spearman">0.8795573759185008</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000649</c>
+      <c name="pearson">0.9486611842120036</c>
+      <c name="spearman">0.8676996432912694</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000651</c>
+      <c name="pearson">0.9493261504879581</c>
+      <c name="spearman">0.8790886066097092</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000652</c>
+      <c name="pearson">0.9601930711261707</c>
+      <c name="spearman">0.9144132027840809</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000653</c>
+      <c name="pearson">0.9506252820060346</c>
+      <c name="spearman">0.8911580713337731</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000654</c>
+      <c name="pearson">0.9505872809046402</c>
+      <c name="spearman">0.8959178542598674</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000655</c>
+      <c name="pearson">0.9502585833624118</c>
+      <c name="spearman">0.901151381175824</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000656</c>
+      <c name="pearson">0.9464401617666793</c>
+      <c name="spearman">0.8872681324184049</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000657</c>
+      <c name="pearson">0.9431439726149669</c>
+      <c name="spearman">0.867953695461804</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000658</c>
+      <c name="pearson">0.9462380874111429</c>
+      <c name="spearman">0.8728699884539998</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000660</c>
+      <c name="pearson">0.9210044269807763</c>
+      <c name="spearman">0.8759032692621292</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000661</c>
+      <c name="pearson">0.9553063246597555</c>
+      <c name="spearman">0.8966776767698609</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000662</c>
+      <c name="pearson">0.9529918816137792</c>
+      <c name="spearman">0.8923087938731873</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000663</c>
+      <c name="pearson">0.9338807463795653</c>
+      <c name="spearman">0.8503542395574505</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000665</c>
+      <c name="pearson">0.9604386500038243</c>
+      <c name="spearman">0.9226985161577812</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000666</c>
+      <c name="pearson">0.951137622639362</c>
+      <c name="spearman">0.9036459906267202</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000667</c>
+      <c name="pearson">0.9551180523538103</c>
+      <c name="spearman">0.9126924410583108</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000668</c>
+      <c name="pearson">0.9338032138628436</c>
+      <c name="spearman">0.8842553464631212</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000671</c>
+      <c name="pearson">0.9583758610629063</c>
+      <c name="spearman">0.9143062589430409</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000673</c>
+      <c name="pearson">0.9471284556581929</c>
+      <c name="spearman">0.8859764612735478</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000676</c>
+      <c name="pearson">0.9564251584544148</c>
+      <c name="spearman">0.8983894069634824</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000677</c>
+      <c name="pearson">0.9602519891597162</c>
+      <c name="spearman">0.9044848360644879</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000680</c>
+      <c name="pearson">0.8967897752993734</c>
+      <c name="spearman">0.8678127702232189</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000681</c>
+      <c name="pearson">0.949648989238697</c>
+      <c name="spearman">0.8760745988199788</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000682</c>
+      <c name="pearson">0.9540569430965423</c>
+      <c name="spearman">0.9005958650054635</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000683</c>
+      <c name="pearson">0.9483972186714344</c>
+      <c name="spearman">0.871639726027231</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000684</c>
+      <c name="pearson">0.9010479681882528</c>
+      <c name="spearman">0.8502015490243379</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000685</c>
+      <c name="pearson">0.9516024139624591</c>
+      <c name="spearman">0.8904640190936697</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000688</c>
+      <c name="pearson">0.9194262146018168</c>
+      <c name="spearman">0.8061792475425157</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000693</c>
+      <c name="pearson">0.9566650992342828</c>
+      <c name="spearman">0.9044528510441445</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000694</c>
+      <c name="pearson">0.959715183644591</c>
+      <c name="spearman">0.9170211112914324</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000695</c>
+      <c name="pearson">0.9348768383484307</c>
+      <c name="spearman">0.8889919513545465</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000696</c>
+      <c name="pearson">0.9597523800307298</c>
+      <c name="spearman">0.9000054227603593</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000697</c>
+      <c name="pearson">0.9402259482757749</c>
+      <c name="spearman">0.899258546128237</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000698</c>
+      <c name="pearson">0.9358324478607304</c>
+      <c name="spearman">0.8445162743322165</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000699</c>
+      <c name="pearson">0.952830973827086</c>
+      <c name="spearman">0.8969844177065167</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000700</c>
+      <c name="pearson">0.9300023026944507</c>
+      <c name="spearman">0.8754507164320912</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000701</c>
+      <c name="pearson">0.9290073997345705</c>
+      <c name="spearman">0.8352467236433316</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000702</c>
+      <c name="pearson">0.9519248400422465</c>
+      <c name="spearman">0.8897174916487036</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000704</c>
+      <c name="pearson">0.8795896120078003</c>
+      <c name="spearman">0.8305701884248716</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000706</c>
+      <c name="pearson">0.9597418230184124</c>
+      <c name="spearman">0.9133290702389748</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000711</c>
+      <c name="pearson">0.9562818173382945</c>
+      <c name="spearman">0.9173167562433306</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000713</c>
+      <c name="pearson">0.9254806787264716</c>
+      <c name="spearman">0.8689230226208956</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000714</c>
+      <c name="pearson">0.953713779454138</c>
+      <c name="spearman">0.9025853031463533</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000717</c>
+      <c name="pearson">0.9497483626576378</c>
+      <c name="spearman">0.9090715968465656</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000718</c>
+      <c name="pearson">0.9460696297711997</c>
+      <c name="spearman">0.8983091039490353</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000719</c>
+      <c name="pearson">0.9607072905363289</c>
+      <c name="spearman">0.9093945533881269</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000720</c>
+      <c name="pearson">0.9573158601334231</c>
+      <c name="spearman">0.9092549983345243</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000721</c>
+      <c name="pearson">0.958480306209648</c>
+      <c name="spearman">0.9144411884636778</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000722</c>
+      <c name="pearson">0.9411902907655534</c>
+      <c name="spearman">0.8649942331007163</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000724</c>
+      <c name="pearson">0.9392760792869624</c>
+      <c name="spearman">0.8682887286235469</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000725</c>
+      <c name="pearson">0.947116906160637</c>
+      <c name="spearman">0.8926003293598288</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000732</c>
+      <c name="pearson">0.9525521058765933</c>
+      <c name="spearman">0.9136157703441846</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000734</c>
+      <c name="pearson">0.9513678797142652</c>
+      <c name="spearman">0.8825240310825604</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000735</c>
+      <c name="pearson">0.9580363400873054</c>
+      <c name="spearman">0.9173416357231489</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000736</c>
+      <c name="pearson">0.9501567323591338</c>
+      <c name="spearman">0.9032777422572763</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000738</c>
+      <c name="pearson">0.9575013224117765</c>
+      <c name="spearman">0.9168780796242343</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000739</c>
+      <c name="pearson">0.9528214258804594</c>
+      <c name="spearman">0.9043667677041023</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000740</c>
+      <c name="pearson">0.9558765492953528</c>
+      <c name="spearman">0.9076596469014694</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000746</c>
+      <c name="pearson">0.9507637528408591</c>
+      <c name="spearman">0.8856225810688698</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000747</c>
+      <c name="pearson">0.9552364352738064</c>
+      <c name="spearman">0.9202033019025516</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000748</c>
+      <c name="pearson">0.9604248096189338</c>
+      <c name="spearman">0.9035167358226707</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000753</c>
+      <c name="pearson">0.9578169025899804</c>
+      <c name="spearman">0.9017108156528924</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000754</c>
+      <c name="pearson">0.9490510471635256</c>
+      <c name="spearman">0.8928204169612624</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000756</c>
+      <c name="pearson">0.9629782359263133</c>
+      <c name="spearman">0.9250510123312151</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000757</c>
+      <c name="pearson">0.9439147361705542</c>
+      <c name="spearman">0.8889700409665686</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000758</c>
+      <c name="pearson">0.9533306191971095</c>
+      <c name="spearman">0.9045306194970718</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000760</c>
+      <c name="pearson">0.9573356570714963</c>
+      <c name="spearman">0.9041928528977032</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000762</c>
+      <c name="pearson">0.9495806051264286</c>
+      <c name="spearman">0.8981074575495199</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000763</c>
+      <c name="pearson">0.932570949632183</c>
+      <c name="spearman">0.8613633017640973</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000764</c>
+      <c name="pearson">0.9420950417615611</c>
+      <c name="spearman">0.8973280516507444</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000765</c>
+      <c name="pearson">0.9536387528781447</c>
+      <c name="spearman">0.9105122754672736</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000766</c>
+      <c name="pearson">0.9438711154892045</c>
+      <c name="spearman">0.8875803654904174</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000767</c>
+      <c name="pearson">0.9338361851143204</c>
+      <c name="spearman">0.844471244572475</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000768</c>
+      <c name="pearson">0.9495281880711269</c>
+      <c name="spearman">0.8856325604892659</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000769</c>
+      <c name="pearson">0.9577843695440301</c>
+      <c name="spearman">0.9030677755693517</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000770</c>
+      <c name="pearson">0.9466625384974796</c>
+      <c name="spearman">0.8803150017678044</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000771</c>
+      <c name="pearson">0.9562095634075366</c>
+      <c name="spearman">0.9070254603692032</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000773</c>
+      <c name="pearson">0.9519586736178314</c>
+      <c name="spearman">0.9008071561046815</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000774</c>
+      <c name="pearson">0.9310965915107257</c>
+      <c name="spearman">0.8754301091340264</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000775</c>
+      <c name="pearson">0.9598043700207923</c>
+      <c name="spearman">0.9184603297054268</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000776</c>
+      <c name="pearson">0.9524899215869992</c>
+      <c name="spearman">0.9171240909779635</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000777</c>
+      <c name="pearson">0.9497704534309108</c>
+      <c name="spearman">0.8901315927474042</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000778</c>
+      <c name="pearson">0.9480988124910031</c>
+      <c name="spearman">0.8679212313473897</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000781</c>
+      <c name="pearson">0.964687065179455</c>
+      <c name="spearman">0.919375028813569</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000782</c>
+      <c name="pearson">0.9416679280083227</c>
+      <c name="spearman">0.8852136117126223</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000783</c>
+      <c name="pearson">0.9243220187697352</c>
+      <c name="spearman">0.8201416052590438</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000784</c>
+      <c name="pearson">0.962477961637987</c>
+      <c name="spearman">0.913726469412816</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000785</c>
+      <c name="pearson">0.9471971895023834</c>
+      <c name="spearman">0.8918281206954363</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000787</c>
+      <c name="pearson">0.9647693487046612</c>
+      <c name="spearman">0.9285474412747032</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000788</c>
+      <c name="pearson">0.9614017540478785</c>
+      <c name="spearman">0.9133945147341918</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000790</c>
+      <c name="pearson">0.9533209680986293</c>
+      <c name="spearman">0.9026760448133707</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000791</c>
+      <c name="pearson">0.9490900955524917</c>
+      <c name="spearman">0.8999192049229761</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000792</c>
+      <c name="pearson">0.9587385044486701</c>
+      <c name="spearman">0.9025761588404289</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000793</c>
+      <c name="pearson">0.9573827857069598</c>
+      <c name="spearman">0.8955023908926524</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000794</c>
+      <c name="pearson">0.9557128455350392</c>
+      <c name="spearman">0.9185532627177053</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000796</c>
+      <c name="pearson">0.9482993700595482</c>
+      <c name="spearman">0.8935588448476878</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000799</c>
+      <c name="pearson">0.9062151024761121</c>
+      <c name="spearman">0.8484828609940286</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000800</c>
+      <c name="pearson">0.9429466822256223</c>
+      <c name="spearman">0.8944490641733822</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000801</c>
+      <c name="pearson">0.9467283774467693</c>
+      <c name="spearman">0.8872611602663594</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000802</c>
+      <c name="pearson">0.9544344503772222</c>
+      <c name="spearman">0.9052106946245684</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000804</c>
+      <c name="pearson">0.933530286712517</c>
+      <c name="spearman">0.883159802648008</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000805</c>
+      <c name="pearson">0.9518374634418559</c>
+      <c name="spearman">0.9062395461841725</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000807</c>
+      <c name="pearson">0.9502089068182278</c>
+      <c name="spearman">0.9012336433349287</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000809</c>
+      <c name="pearson">0.9603365239122627</c>
+      <c name="spearman">0.9067064286674573</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000810</c>
+      <c name="pearson">0.9456136860594618</c>
+      <c name="spearman">0.8965964042519335</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000811</c>
+      <c name="pearson">0.9340420734807163</c>
+      <c name="spearman">0.8160775850621067</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000814</c>
+      <c name="pearson">0.9154725953511149</c>
+      <c name="spearman">0.8575843285761274</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000817</c>
+      <c name="pearson">0.946660240850403</c>
+      <c name="spearman">0.9004344033439443</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000819</c>
+      <c name="pearson">0.9576950347343512</c>
+      <c name="spearman">0.9222001485972116</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000820</c>
+      <c name="pearson">0.8940224486620973</c>
+      <c name="spearman">0.7971617141646232</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000821</c>
+      <c name="pearson">0.951314431240376</c>
+      <c name="spearman">0.9025548651978479</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000822</c>
+      <c name="pearson">0.9592051796899964</c>
+      <c name="spearman">0.9106758115010697</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000823</c>
+      <c name="pearson">0.9649588428315349</c>
+      <c name="spearman">0.9267259808850768</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000824</c>
+      <c name="pearson">0.9587234021166323</c>
+      <c name="spearman">0.9011995355267779</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000826</c>
+      <c name="pearson">0.9384898781971427</c>
+      <c name="spearman">0.878559948277031</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000827</c>
+      <c name="pearson">0.9401452002331943</c>
+      <c name="spearman">0.8443613912076716</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000829</c>
+      <c name="pearson">0.935204293687912</c>
+      <c name="spearman">0.8765499007914367</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000831</c>
+      <c name="pearson">0.9406038811667032</c>
+      <c name="spearman">0.8818389934040258</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000832</c>
+      <c name="pearson">0.9566896915450113</c>
+      <c name="spearman">0.9085940964150532</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000833</c>
+      <c name="pearson">0.9476394792902426</c>
+      <c name="spearman">0.8808491943778542</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000834</c>
+      <c name="pearson">0.9588898279108667</c>
+      <c name="spearman">0.9152238129273552</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000835</c>
+      <c name="pearson">0.9588703140188698</c>
+      <c name="spearman">0.9082438885017671</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000836</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000837</c>
+      <c name="pearson">0.9572965576095649</c>
+      <c name="spearman">0.9049093510528451</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000838</c>
+      <c name="pearson">0.9560048989906476</c>
+      <c name="spearman">0.911723793597402</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000839</c>
+      <c name="pearson">0.9534647116923707</c>
+      <c name="spearman">0.9235862373776556</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000840</c>
+      <c name="pearson">0.9317519002552502</c>
+      <c name="spearman">0.8761969530576517</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000841</c>
+      <c name="pearson">0.9592216629532926</c>
+      <c name="spearman">0.9247600000323735</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000843</c>
+      <c name="pearson">0.9639281819326138</c>
+      <c name="spearman">0.9156347365706082</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000845</c>
+      <c name="pearson">0.9294786507167666</c>
+      <c name="spearman">0.8678038279434291</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000846</c>
+      <c name="pearson">0.9526011660842358</c>
+      <c name="spearman">0.8996480993658322</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000847</c>
+      <c name="pearson">0.9609591516875875</c>
+      <c name="spearman">0.9218684654779346</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000848</c>
+      <c name="pearson">0.9524697847270089</c>
+      <c name="spearman">0.8952907630965699</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000849</c>
+      <c name="pearson">0.9556150122877656</c>
+      <c name="spearman">0.9013783815562615</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000851</c>
+      <c name="pearson">0.9562922856169184</c>
+      <c name="spearman">0.9205909713286891</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000853</c>
+      <c name="pearson">0.9592285919752908</c>
+      <c name="spearman">0.9237250480184468</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000854</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000855</c>
+      <c name="pearson">0.9579605911650776</c>
+      <c name="spearman">0.9005741442023457</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000856</c>
+      <c name="pearson">0.9578292585474363</c>
+      <c name="spearman">0.907401269940787</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000858</c>
+      <c name="pearson">0.964039651790791</c>
+      <c name="spearman">0.9169642777169305</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000859</c>
+      <c name="pearson">0.9462645571982766</c>
+      <c name="spearman">0.9081024800446057</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000860</c>
+      <c name="pearson">0.9506334254011718</c>
+      <c name="spearman">0.8939799476125179</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000861</c>
+      <c name="pearson">0.956655779103439</c>
+      <c name="spearman">0.9162001506390698</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000862</c>
+      <c name="pearson">0.9538521883966604</c>
+      <c name="spearman">0.8954354368032286</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000863</c>
+      <c name="pearson">0.9492365852469363</c>
+      <c name="spearman">0.8839852688632717</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000864</c>
+      <c name="pearson">0.9528559979956635</c>
+      <c name="spearman">0.9022352553040865</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000865</c>
+      <c name="pearson">0.9590866000992707</c>
+      <c name="spearman">0.9032577644534465</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000866</c>
+      <c name="pearson">0.9520086764136256</c>
+      <c name="spearman">0.8852589472534416</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000867</c>
+      <c name="pearson">0.945459840395594</c>
+      <c name="spearman">0.8654624793187562</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000869</c>
+      <c name="pearson">0.9540820974687149</c>
+      <c name="spearman">0.9089096256512486</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000872</c>
+      <c name="pearson">0.9427602664747807</c>
+      <c name="spearman">0.8772585793767873</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000873</c>
+      <c name="pearson">0.938820450286115</c>
+      <c name="spearman">0.8873016438835686</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000876</c>
+      <c name="pearson">0.9517281906071597</c>
+      <c name="spearman">0.883949281285222</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000878</c>
+      <c name="pearson">0.902918540599334</c>
+      <c name="spearman">0.803426639975979</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000879</c>
+      <c name="pearson">0.9368549660588332</c>
+      <c name="spearman">0.8864189955051459</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000880</c>
+      <c name="pearson">0.9571115755984503</c>
+      <c name="spearman">0.9047455992027227</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000881</c>
+      <c name="pearson">0.9460312757807603</c>
+      <c name="spearman">0.8582524043278627</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000882</c>
+      <c name="pearson">0.9533442466660753</c>
+      <c name="spearman">0.8933354797542544</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000884</c>
+      <c name="pearson">0.956602426747036</c>
+      <c name="spearman">0.9118715343121014</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000885</c>
+      <c name="pearson">0.9510212362298672</c>
+      <c name="spearman">0.8944221652050169</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000886</c>
+      <c name="pearson">0.9501752332019756</c>
+      <c name="spearman">0.8826413843886486</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000887</c>
+      <c name="pearson">0.9555759231667812</c>
+      <c name="spearman">0.8991623262045024</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000888</c>
+      <c name="pearson">0.959473885731496</c>
+      <c name="spearman">0.9171964129663616</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000889</c>
+      <c name="pearson">0.945077055152154</c>
+      <c name="spearman">0.8800680483861865</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000890</c>
+      <c name="pearson">0.9430998844394508</c>
+      <c name="spearman">0.8936313922059171</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000894</c>
+      <c name="pearson">0.9576536940926965</c>
+      <c name="spearman">0.9104009121993502</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000896</c>
+      <c name="pearson">0.9592817431265303</c>
+      <c name="spearman">0.9167641458815671</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000898</c>
+      <c name="pearson">0.9571695001256524</c>
+      <c name="spearman">0.9101135215357756</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000899</c>
+      <c name="pearson">0.9310370979903594</c>
+      <c name="spearman">0.8655766814705751</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000900</c>
+      <c name="pearson">0.9550553353163782</c>
+      <c name="spearman">0.9370883760082147</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000901</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000903</c>
+      <c name="pearson">0.9564761714577307</c>
+      <c name="spearman">0.9174702251961852</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000905</c>
+      <c name="pearson">0.9567938385763507</c>
+      <c name="spearman">0.912032927883706</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000906</c>
+      <c name="pearson">0.9642703514522136</c>
+      <c name="spearman">0.9143208601741635</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000907</c>
+      <c name="pearson">0.9257405126627014</c>
+      <c name="spearman">0.8629605174938533</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000910</c>
+      <c name="pearson">0.943693251125997</c>
+      <c name="spearman">0.8777472097628247</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000911</c>
+      <c name="pearson">0.9642595002375742</c>
+      <c name="spearman">0.9342026501680226</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000912</c>
+      <c name="pearson">0.9512859742929141</c>
+      <c name="spearman">0.8995663566113893</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000913</c>
+      <c name="pearson">0.9621725868417336</c>
+      <c name="spearman">0.9146096653697714</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000914</c>
+      <c name="pearson">0.9387139055456238</c>
+      <c name="spearman">0.8605631188895277</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000915</c>
+      <c name="pearson">0.9549368559734693</c>
+      <c name="spearman">0.898618809128029</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000916</c>
+      <c name="pearson">0.9112544083820583</c>
+      <c name="spearman">0.8834294893266277</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000917</c>
+      <c name="pearson">0.9593896599667984</c>
+      <c name="spearman">0.9117002883198179</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000919</c>
+      <c name="pearson">0.9454270442474225</c>
+      <c name="spearman">0.8911644910633425</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000921</c>
+      <c name="pearson">0.9573135238666095</c>
+      <c name="spearman">0.9146721834932516</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000924</c>
+      <c name="pearson">0.957942164057277</c>
+      <c name="spearman">0.9075337750049026</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000926</c>
+      <c name="pearson">0.9486710108127339</c>
+      <c name="spearman">0.8785050804870255</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000928</c>
+      <c name="pearson">0.8751776569992774</c>
+      <c name="spearman">0.7895034549196576</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000929</c>
+      <c name="pearson">0.9425342073886158</c>
+      <c name="spearman">0.8876872542142993</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000932</c>
+      <c name="pearson">0.9613046309280756</c>
+      <c name="spearman">0.9156001609663605</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000934</c>
+      <c name="pearson">0.9234778070783795</c>
+      <c name="spearman">0.8525139337100844</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000935</c>
+      <c name="pearson">0.9553548150239753</c>
+      <c name="spearman">0.9128055119183877</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000936</c>
+      <c name="pearson">0.9618805167509075</c>
+      <c name="spearman">0.9192322217300264</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000937</c>
+      <c name="pearson">0.9347116189140479</c>
+      <c name="spearman">0.8386564774768384</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000938</c>
+      <c name="pearson">0.9474370907353807</c>
+      <c name="spearman">0.8757860445441547</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000939</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-000941</c>
+      <c name="pearson">0.9543043901472255</c>
+      <c name="spearman">0.8947638846796248</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000943</c>
+      <c name="pearson">0.9549110527244465</c>
+      <c name="spearman">0.8835167608048217</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000945</c>
+      <c name="pearson">0.9240893510428759</c>
+      <c name="spearman">0.8844270097859356</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000946</c>
+      <c name="pearson">0.9440069913390163</c>
+      <c name="spearman">0.8637788024015504</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000947</c>
+      <c name="pearson">0.9512845543175148</c>
+      <c name="spearman">0.8754002547214044</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000948</c>
+      <c name="pearson">0.9551918278354261</c>
+      <c name="spearman">0.9045018768890976</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000950</c>
+      <c name="pearson">0.9414928232109411</c>
+      <c name="spearman">0.865735264808942</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000953</c>
+      <c name="pearson">0.934944210319961</c>
+      <c name="spearman">0.8580356826103365</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000956</c>
+      <c name="pearson">0.9354390315621242</c>
+      <c name="spearman">0.8800713539350887</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000957</c>
+      <c name="pearson">0.9484272671746223</c>
+      <c name="spearman">0.8725788913998573</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000958</c>
+      <c name="pearson">0.9538359209792339</c>
+      <c name="spearman">0.8948487644575476</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000959</c>
+      <c name="pearson">0.9560054875742127</c>
+      <c name="spearman">0.9048655454546926</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000960</c>
+      <c name="pearson">0.9470453995835574</c>
+      <c name="spearman">0.8673127361534234</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000961</c>
+      <c name="pearson">0.9332190979660011</c>
+      <c name="spearman">0.8805432151847105</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000962</c>
+      <c name="pearson">0.9240956237992968</c>
+      <c name="spearman">0.8596824075728908</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000963</c>
+      <c name="pearson">0.8800133062147152</c>
+      <c name="spearman">0.7440273043261205</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000965</c>
+      <c name="pearson">0.9589180717942445</c>
+      <c name="spearman">0.9037580815702012</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000966</c>
+      <c name="pearson">0.941494960076559</c>
+      <c name="spearman">0.8951925317969586</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000968</c>
+      <c name="pearson">0.9575622466564385</c>
+      <c name="spearman">0.9166347353249842</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000969</c>
+      <c name="pearson">0.9600218452780217</c>
+      <c name="spearman">0.9126610855418069</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000970</c>
+      <c name="pearson">0.9545614001654027</c>
+      <c name="spearman">0.8965090412935135</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000971</c>
+      <c name="pearson">0.9503240488119312</c>
+      <c name="spearman">0.8886992687139412</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000973</c>
+      <c name="pearson">0.9541964124267373</c>
+      <c name="spearman">0.8876305861688923</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000974</c>
+      <c name="pearson">0.9553082937632447</c>
+      <c name="spearman">0.8876245730713014</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000975</c>
+      <c name="pearson">0.9574431988675849</c>
+      <c name="spearman">0.912621429302429</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000976</c>
+      <c name="pearson">0.9467530579743804</c>
+      <c name="spearman">0.8948396130299001</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000977</c>
+      <c name="pearson">0.9448763676497842</c>
+      <c name="spearman">0.8562653519007664</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000978</c>
+      <c name="pearson">0.9301969841067141</c>
+      <c name="spearman">0.8625605351052246</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000979</c>
+      <c name="pearson">0.9548169200349765</c>
+      <c name="spearman">0.902000468413215</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000980</c>
+      <c name="pearson">0.9638766192628743</c>
+      <c name="spearman">0.9022748358608684</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000983</c>
+      <c name="pearson">0.950495562558091</c>
+      <c name="spearman">0.8888889649979521</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000984</c>
+      <c name="pearson">0.9293823373656255</c>
+      <c name="spearman">0.8465359884561374</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000985</c>
+      <c name="pearson">0.9358174765706563</c>
+      <c name="spearman">0.8723396404571763</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000986</c>
+      <c name="pearson">0.9587656759522613</c>
+      <c name="spearman">0.9232402742455611</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000988</c>
+      <c name="pearson">0.9476276105083485</c>
+      <c name="spearman">0.877742680511263</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000991</c>
+      <c name="pearson">0.9458006505342749</c>
+      <c name="spearman">0.8845219784554843</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000993</c>
+      <c name="pearson">0.9433457729113793</c>
+      <c name="spearman">0.8823346185855968</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000994</c>
+      <c name="pearson">0.9444630923473535</c>
+      <c name="spearman">0.8866500533013872</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000995</c>
+      <c name="pearson">0.9355800128847876</c>
+      <c name="spearman">0.886524472228648</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000996</c>
+      <c name="pearson">0.9461722701782247</c>
+      <c name="spearman">0.896463087630419</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-000997</c>
+      <c name="pearson">0.9502058565435166</c>
+      <c name="spearman">0.8843560289092399</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001001</c>
+      <c name="pearson">0.9485671606819867</c>
+      <c name="spearman">0.8795544171825479</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001016</c>
+      <c name="pearson">0.950585424901658</c>
+      <c name="spearman">0.8977829595518225</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001020</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001028</c>
+      <c name="pearson">0.9558883569241348</c>
+      <c name="spearman">0.8919223926633069</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001031</c>
+      <c name="pearson">0.9407594786850421</c>
+      <c name="spearman">0.8733536434576854</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001033</c>
+      <c name="pearson">0.9059671185036601</c>
+      <c name="spearman">0.8580759134195092</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001038</c>
+      <c name="pearson">0.9554462171054371</c>
+      <c name="spearman">0.8851852761338249</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001039</c>
+      <c name="pearson">0.9389678075811511</c>
+      <c name="spearman">0.8568506476196863</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001041</c>
+      <c name="pearson">0.9634384660239377</c>
+      <c name="spearman">0.928629777315186</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001048</c>
+      <c name="pearson">0.9525272995303685</c>
+      <c name="spearman">0.8811662391575753</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001050</c>
+      <c name="pearson">0.949005560630289</c>
+      <c name="spearman">0.9032179603509338</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001053</c>
+      <c name="pearson">0.9376767991717287</c>
+      <c name="spearman">0.8722121654718122</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001054</c>
+      <c name="pearson">0.9386678933480023</c>
+      <c name="spearman">0.864887293803639</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001061</c>
+      <c name="pearson">0.9383344949322069</c>
+      <c name="spearman">0.8384411010621597</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001063</c>
+      <c name="pearson">0.9552135490048521</c>
+      <c name="spearman">0.915889986412186</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001065</c>
+      <c name="pearson">0.9494361216939531</c>
+      <c name="spearman">0.8920659838502433</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001067</c>
+      <c name="pearson">0.9318609798168781</c>
+      <c name="spearman">0.8687806618530953</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001075</c>
+      <c name="pearson">0.9437553330497045</c>
+      <c name="spearman">0.8858596614539974</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001081</c>
+      <c name="pearson">0.951137831142558</c>
+      <c name="spearman">0.8938541980943536</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001096</c>
+      <c name="pearson">0.9544014512822885</c>
+      <c name="spearman">0.9119079848877729</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001099</c>
+      <c name="pearson">0.9246643131119023</c>
+      <c name="spearman">0.8611354044946747</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001107</c>
+      <c name="pearson">0.9561453598694402</c>
+      <c name="spearman">0.9009344455523363</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001126</c>
+      <c name="pearson">0.9484424853530053</c>
+      <c name="spearman">0.8932511592153893</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001129</c>
+      <c name="pearson">0.9197330361732498</c>
+      <c name="spearman">0.8213908318000446</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001134</c>
+      <c name="pearson">0.9468068032506008</c>
+      <c name="spearman">0.8732826397982614</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001137</c>
+      <c name="pearson">0.9391808013400778</c>
+      <c name="spearman">0.8721953638519385</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001145</c>
+      <c name="pearson">0.9507029068584438</c>
+      <c name="spearman">0.8937215971864898</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001151</c>
+      <c name="pearson">0.961850418655952</c>
+      <c name="spearman">0.9136999749675884</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001163</c>
+      <c name="pearson">0.9533348327531438</c>
+      <c name="spearman">0.8885645958155595</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001164</c>
+      <c name="pearson">0.9452208080796624</c>
+      <c name="spearman">0.8938221039695744</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001172</c>
+      <c name="pearson">0.9587640107919643</c>
+      <c name="spearman">0.9062245619563818</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001173</c>
+      <c name="pearson">0.9460754568201675</c>
+      <c name="spearman">0.8625335320658202</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001183</c>
+      <c name="pearson">0.9501919886451774</c>
+      <c name="spearman">0.9079230251120485</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001184</c>
+      <c name="pearson">0.9369477536311837</c>
+      <c name="spearman">0.8792665053630198</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001190</c>
+      <c name="pearson">0.9571227333259711</c>
+      <c name="spearman">0.9211701135210729</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001192</c>
+      <c name="pearson">0.9527338354716666</c>
+      <c name="spearman">0.9090397866499265</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001193</c>
+      <c name="pearson">0.9590033591270827</c>
+      <c name="spearman">0.9272984403065121</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001194</c>
+      <c name="pearson">0.9382465869440982</c>
+      <c name="spearman">0.8972916198928031</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001196</c>
+      <c name="pearson">0.9461781016463015</c>
+      <c name="spearman">0.8847574041485304</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001197</c>
+      <c name="pearson">0.9323042223489773</c>
+      <c name="spearman">0.8872678830675946</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001205</c>
+      <c name="pearson">0.9330416500575169</c>
+      <c name="spearman">0.8645666949902133</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001211</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001212</c>
+      <c name="pearson">0.9234048235386835</c>
+      <c name="spearman">0.8781141202694941</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001228</c>
+      <c name="pearson">0.9492674779260278</c>
+      <c name="spearman">0.9034549353311035</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001229</c>
+      <c name="pearson">0.9452957933293503</c>
+      <c name="spearman">0.8758693916507703</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001232</c>
+      <c name="pearson">0.9444084439984186</c>
+      <c name="spearman">0.8837312333300542</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001233</c>
+      <c name="pearson">0.9585029103448521</c>
+      <c name="spearman">0.9138935954413522</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001239</c>
+      <c name="pearson">0.9584401498497074</c>
+      <c name="spearman">0.9137096811508042</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001274</c>
+      <c name="pearson">0.9389360940939933</c>
+      <c name="spearman">0.8724786826198451</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001275</c>
+      <c name="pearson">0.9442469032503604</c>
+      <c name="spearman">0.8879138662656879</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001277</c>
+      <c name="pearson">0.9458832306225377</c>
+      <c name="spearman">0.8922258743729024</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001278</c>
+      <c name="pearson">0.9523231968989294</c>
+      <c name="spearman">0.9046981938116535</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001279</c>
+      <c name="pearson">0.9336811669500602</c>
+      <c name="spearman">0.8641476356390094</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001280</c>
+      <c name="pearson">0.930688935312986</c>
+      <c name="spearman">0.8757663340072466</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001283</c>
+      <c name="pearson">0.9584853663842927</c>
+      <c name="spearman">0.9143910581705993</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001289</c>
+      <c name="pearson">0.9490782809536187</c>
+      <c name="spearman">0.8854825170233923</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001295</c>
+      <c name="pearson">0.9321835463622453</c>
+      <c name="spearman">0.8183440407118726</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001300</c>
+      <c name="pearson">0.9349829034134406</c>
+      <c name="spearman">0.8704941791737691</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001301</c>
+      <c name="pearson">0.9380691615772673</c>
+      <c name="spearman">0.8851598272256346</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001302</c>
+      <c name="pearson">0.9414347511934325</c>
+      <c name="spearman">0.8826184949282397</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001303</c>
+      <c name="pearson">0.929288800141346</c>
+      <c name="spearman">0.8833160110472157</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001306</c>
+      <c name="pearson">0.9576465889211825</c>
+      <c name="spearman">0.9131937971648215</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001310</c>
+      <c name="pearson">0.9528102173772373</c>
+      <c name="spearman">0.9110193796892266</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001318</c>
+      <c name="pearson">0.9560162647898092</c>
+      <c name="spearman">0.9074333823698971</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001322</c>
+      <c name="pearson">0.9492149385498031</c>
+      <c name="spearman">0.9048462324211348</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001328</c>
+      <c name="pearson">0.9617954806749555</c>
+      <c name="spearman">0.930329137489618</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001329</c>
+      <c name="pearson">0.9462045068219402</c>
+      <c name="spearman">0.8856448581385028</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001331</c>
+      <c name="pearson">0.9592053178351267</c>
+      <c name="spearman">0.9126153384056891</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001332</c>
+      <c name="pearson">0.9404054111399613</c>
+      <c name="spearman">0.8957492637278066</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001333</c>
+      <c name="pearson">0.951492382417439</c>
+      <c name="spearman">0.9007932783002752</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001334</c>
+      <c name="pearson">0.952185441193368</c>
+      <c name="spearman">0.8968907502158354</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001335</c>
+      <c name="pearson">0.9601682634526647</c>
+      <c name="spearman">0.9069072928707111</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001336</c>
+      <c name="pearson">0.953904389567896</c>
+      <c name="spearman">0.8990414144832282</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001340</c>
+      <c name="pearson">0.9478636345658622</c>
+      <c name="spearman">0.8880879825515645</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001341</c>
+      <c name="pearson">0.9543933617788477</c>
+      <c name="spearman">0.8840222080166483</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001344</c>
+      <c name="pearson">0.9065166141968621</c>
+      <c name="spearman">0.8817784181106398</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001345</c>
+      <c name="pearson">0.9535549371922972</c>
+      <c name="spearman">0.8815990624390233</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001346</c>
+      <c name="pearson">0.9569409382597339</c>
+      <c name="spearman">0.9119057201794684</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001347</c>
+      <c name="pearson">0.9487844002705242</c>
+      <c name="spearman">0.8874431710507298</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001353</c>
+      <c name="pearson">0.9501468579079696</c>
+      <c name="spearman">0.8979183833941339</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001354</c>
+      <c name="pearson">0.9368939288266114</c>
+      <c name="spearman">0.8897640393928161</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001356</c>
+      <c name="pearson">0.9507391795799148</c>
+      <c name="spearman">0.9061931393272201</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001366</c>
+      <c name="pearson">0.9450432633241681</c>
+      <c name="spearman">0.8806889182854563</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001368</c>
+      <c name="pearson">0.9636220540765571</c>
+      <c name="spearman">0.9266221913198865</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001369</c>
+      <c name="pearson">0.9501883792407024</c>
+      <c name="spearman">0.9103702903088191</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001374</c>
+      <c name="pearson">0.9188757486553145</c>
+      <c name="spearman">0.8686275053779292</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001375</c>
+      <c name="pearson">0.9523912483851859</c>
+      <c name="spearman">0.8990703750968393</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001377</c>
+      <c name="pearson">0.946558325664179</c>
+      <c name="spearman">0.87730756210706</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001379</c>
+      <c name="pearson">0.9543907090875919</c>
+      <c name="spearman">0.9067361688370669</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001380</c>
+      <c name="pearson">0.9561793849433546</c>
+      <c name="spearman">0.9035789867142174</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001382</c>
+      <c name="pearson">0.9184963802257543</c>
+      <c name="spearman">0.852921733673688</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001386</c>
+      <c name="pearson">0.9565973238428743</c>
+      <c name="spearman">0.9054794425785522</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001390</c>
+      <c name="pearson">0.946791363942935</c>
+      <c name="spearman">0.893476849666738</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001391</c>
+      <c name="pearson">0.949793375877383</c>
+      <c name="spearman">0.8928522099061764</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001394</c>
+      <c name="pearson">0.9457145191542916</c>
+      <c name="spearman">0.887801216364301</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001396</c>
+      <c name="pearson">0.9269216597276357</c>
+      <c name="spearman">0.8761297933007481</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001399</c>
+      <c name="pearson">0.9578370840362824</c>
+      <c name="spearman">0.908553797749084</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001402</c>
+      <c name="pearson">0.9456017625349593</c>
+      <c name="spearman">0.8679557959547642</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001403</c>
+      <c name="pearson">0.9519620451936173</c>
+      <c name="spearman">0.9097524246546072</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001407</c>
+      <c name="pearson">0.9599279610604154</c>
+      <c name="spearman">0.9165766901319331</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001408</c>
+      <c name="pearson">0.9568293970756349</c>
+      <c name="spearman">0.9053917765420405</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001409</c>
+      <c name="pearson">0.9123500637586479</c>
+      <c name="spearman">0.8629901530132781</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001411</c>
+      <c name="pearson">0.9486447942276532</c>
+      <c name="spearman">0.9045878771324973</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001412</c>
+      <c name="pearson">0.9535391826718255</c>
+      <c name="spearman">0.9056338132711107</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001413</c>
+      <c name="pearson">0.9313379649060792</c>
+      <c name="spearman">0.8830033961181348</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001414</c>
+      <c name="pearson">0.9419379786874879</c>
+      <c name="spearman">0.867134642957635</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001415</c>
+      <c name="pearson">0.9370345442858175</c>
+      <c name="spearman">0.882641336567943</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001416</c>
+      <c name="pearson">0.9466868005504872</c>
+      <c name="spearman">0.9003395026542096</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001418</c>
+      <c name="pearson">0.9600019095076547</c>
+      <c name="spearman">0.9164286936161125</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001421</c>
+      <c name="pearson">0.9416129739507824</c>
+      <c name="spearman">0.884614501719653</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001430</c>
+      <c name="pearson">0.9157835981022447</c>
+      <c name="spearman">0.8449175404654742</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001431</c>
+      <c name="pearson">0.9416011667987607</c>
+      <c name="spearman">0.8916050631503261</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001433</c>
+      <c name="pearson">0.9409732751565276</c>
+      <c name="spearman">0.8573378627781749</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001442</c>
+      <c name="pearson">0.9556125210106097</c>
+      <c name="spearman">0.9131536130403288</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001443</c>
+      <c name="pearson">0.9518050769386305</c>
+      <c name="spearman">0.8960672641079458</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001450</c>
+      <c name="pearson">0.9479151224793569</c>
+      <c name="spearman">0.8995416409954167</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001451</c>
+      <c name="pearson">0.9519096144265091</c>
+      <c name="spearman">0.9044453771061236</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001453</c>
+      <c name="pearson">0.9546752316095015</c>
+      <c name="spearman">0.9178926326357969</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001454</c>
+      <c name="pearson">0.8802814724421177</c>
+      <c name="spearman">0.798394047912626</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001458</c>
+      <c name="pearson">0.9463914099141862</c>
+      <c name="spearman">0.8993389294520212</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001459</c>
+      <c name="pearson">0.9447337954461609</c>
+      <c name="spearman">0.8862277568409518</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001460</c>
+      <c name="pearson">0.9482676637059944</c>
+      <c name="spearman">0.8867239369468668</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001461</c>
+      <c name="pearson">0.9103059374749726</c>
+      <c name="spearman">0.8480476836190054</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001484</c>
+      <c name="pearson">0.9391451410470636</c>
+      <c name="spearman">0.8883418728579721</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001485</c>
+      <c name="pearson">0.9246943018665742</c>
+      <c name="spearman">0.8867773495143262</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001494</c>
+      <c name="pearson">0.9549744166795922</c>
+      <c name="spearman">0.8993767908605013</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001495</c>
+      <c name="pearson">0.9475092698880532</c>
+      <c name="spearman">0.8991256516157542</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001496</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001497</c>
+      <c name="pearson">0.9374772600793833</c>
+      <c name="spearman">0.8753714961999957</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001498</c>
+      <c name="pearson">0.9447384253646941</c>
+      <c name="spearman">0.8878249713196176</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001500</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001509</c>
+      <c name="pearson">0.9425841285365315</c>
+      <c name="spearman">0.911381471541842</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001510</c>
+      <c name="pearson">0.9481431620056279</c>
+      <c name="spearman">0.8819412775315439</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001511</c>
+      <c name="pearson">0.9511363792167892</c>
+      <c name="spearman">0.9032634951702565</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001513</c>
+      <c name="pearson">0.953740417230177</c>
+      <c name="spearman">0.8939535243359689</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001515</c>
+      <c name="pearson">0.9505970978336673</c>
+      <c name="spearman">0.8890144825729606</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001517</c>
+      <c name="pearson">0.9551992442286111</c>
+      <c name="spearman">0.8942232768001863</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001518</c>
+      <c name="pearson">0.9537539976473494</c>
+      <c name="spearman">0.9082016720771966</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001520</c>
+      <c name="pearson">0.9293638569102581</c>
+      <c name="spearman">0.8719048651226174</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001521</c>
+      <c name="pearson">0.9417507914544031</c>
+      <c name="spearman">0.8946471069728315</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001522</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001523</c>
+      <c name="pearson">0.9560118440475898</c>
+      <c name="spearman">0.9170709194900133</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001524</c>
+      <c name="pearson">0.9537360399686843</c>
+      <c name="spearman">0.9103270686157889</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001525</c>
+      <c name="pearson">0.9476742498551936</c>
+      <c name="spearman">0.902834184287017</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001526</c>
+      <c name="pearson">0.9456625761475885</c>
+      <c name="spearman">0.8876946094915725</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001529</c>
+      <c name="pearson">0.943694550724541</c>
+      <c name="spearman">0.8886319363293036</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001530</c>
+      <c name="pearson">0.947271405068234</c>
+      <c name="spearman">0.8938328335605961</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001532</c>
+      <c name="pearson">0.934140217771213</c>
+      <c name="spearman">0.8433933372611913</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001536</c>
+      <c name="pearson">0.9289293279825173</c>
+      <c name="spearman">0.8736633888643905</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001538</c>
+      <c name="pearson">0.9590766259020169</c>
+      <c name="spearman">0.9296883089586131</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001539</c>
+      <c name="pearson">0.9487297758119384</c>
+      <c name="spearman">0.8970556560941683</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001542</c>
+      <c name="pearson">0.9610035290655179</c>
+      <c name="spearman">0.9239287898831323</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001543</c>
+      <c name="pearson">0.9530380404918246</c>
+      <c name="spearman">0.9046571561913893</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001544</c>
+      <c name="pearson">0.9352007944142297</c>
+      <c name="spearman">0.8713724318489999</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001548</c>
+      <c name="pearson">0.9351979296181681</c>
+      <c name="spearman">0.8794438406194011</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001549</c>
+      <c name="pearson">0.9489179873360071</c>
+      <c name="spearman">0.8849722997842875</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001550</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-001551</c>
+      <c name="pearson">0.9549114763642159</c>
+      <c name="spearman">0.9062258702844557</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001552</c>
+      <c name="pearson">0.9439537866552152</c>
+      <c name="spearman">0.8977100745482552</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001554</c>
+      <c name="pearson">0.9560528570608054</c>
+      <c name="spearman">0.8946342166839393</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001555</c>
+      <c name="pearson">0.920704315282709</c>
+      <c name="spearman">0.8597254010116753</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001556</c>
+      <c name="pearson">0.935977300505695</c>
+      <c name="spearman">0.8586383176342511</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001559</c>
+      <c name="pearson">0.9480392561012074</c>
+      <c name="spearman">0.9117940491130507</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001563</c>
+      <c name="pearson">0.9320219723415234</c>
+      <c name="spearman">0.859447668320484</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001566</c>
+      <c name="pearson">0.9535268315811074</c>
+      <c name="spearman">0.902159208501436</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001567</c>
+      <c name="pearson">0.95235538226766</c>
+      <c name="spearman">0.8972839457994266</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001568</c>
+      <c name="pearson">0.9544915946906505</c>
+      <c name="spearman">0.9081032100985689</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001570</c>
+      <c name="pearson">0.9556922712305376</c>
+      <c name="spearman">0.9106157397517394</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001574</c>
+      <c name="pearson">0.920924109683963</c>
+      <c name="spearman">0.8673840785104896</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001577</c>
+      <c name="pearson">0.945385305495994</c>
+      <c name="spearman">0.8999384507622872</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001603</c>
+      <c name="pearson">0.9382874606826986</c>
+      <c name="spearman">0.849885362827481</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001605</c>
+      <c name="pearson">0.9573582432520089</c>
+      <c name="spearman">0.9133619951073592</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001606</c>
+      <c name="pearson">0.9508926275973723</c>
+      <c name="spearman">0.9131548117805961</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001607</c>
+      <c name="pearson">0.9445713614946936</c>
+      <c name="spearman">0.8705285813644897</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001608</c>
+      <c name="pearson">0.9546350533914328</c>
+      <c name="spearman">0.8994343509432005</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001609</c>
+      <c name="pearson">0.9509058678286427</c>
+      <c name="spearman">0.8992601717125505</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001610</c>
+      <c name="pearson">0.9316106358154889</c>
+      <c name="spearman">0.8964665415328562</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001611</c>
+      <c name="pearson">0.9546990727352396</c>
+      <c name="spearman">0.9134285976379839</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001616</c>
+      <c name="pearson">0.9495379973909102</c>
+      <c name="spearman">0.8674369998242826</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001618</c>
+      <c name="pearson">0.9349130629529002</c>
+      <c name="spearman">0.8784728696355083</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001619</c>
+      <c name="pearson">0.9192166346537362</c>
+      <c name="spearman">0.8668762825203107</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001622</c>
+      <c name="pearson">0.9475039110520821</c>
+      <c name="spearman">0.8896311528190304</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001623</c>
+      <c name="pearson">0.9450499985199459</c>
+      <c name="spearman">0.8946961594483702</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001624</c>
+      <c name="pearson">0.9340006267672162</c>
+      <c name="spearman">0.8852500871316101</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001625</c>
+      <c name="pearson">0.9348540915791049</c>
+      <c name="spearman">0.8957557500278948</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001626</c>
+      <c name="pearson">0.9506362521794791</c>
+      <c name="spearman">0.8913660408833608</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001627</c>
+      <c name="pearson">0.9438688572111085</c>
+      <c name="spearman">0.8712670640835588</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001628</c>
+      <c name="pearson">0.94542200446921</c>
+      <c name="spearman">0.9083186071633511</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001630</c>
+      <c name="pearson">0.962006106889968</c>
+      <c name="spearman">0.9096997417725416</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001632</c>
+      <c name="pearson">0.9468629009199003</c>
+      <c name="spearman">0.8968645695746298</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001634</c>
+      <c name="pearson">0.9492527047934015</c>
+      <c name="spearman">0.889345755276567</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001639</c>
+      <c name="pearson">0.9345560813921545</c>
+      <c name="spearman">0.8742277597674252</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001645</c>
+      <c name="pearson">0.9336204248388776</c>
+      <c name="spearman">0.8565755991185763</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001647</c>
+      <c name="pearson">0.9456960323135101</c>
+      <c name="spearman">0.8888868328836815</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001650</c>
+      <c name="pearson">0.9347303149188383</c>
+      <c name="spearman">0.8532893228614618</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001651</c>
+      <c name="pearson">0.914852251970032</c>
+      <c name="spearman">0.8135830653732613</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001652</c>
+      <c name="pearson">0.9540678537093439</c>
+      <c name="spearman">0.9054836596366322</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001653</c>
+      <c name="pearson">0.9528317638899957</c>
+      <c name="spearman">0.898195490364271</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001654</c>
+      <c name="pearson">0.9576155027662634</c>
+      <c name="spearman">0.90625512608387</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001655</c>
+      <c name="pearson">0.9400969152870583</c>
+      <c name="spearman">0.875466073537166</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001664</c>
+      <c name="pearson">0.9471070198442376</c>
+      <c name="spearman">0.866693977795221</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001668</c>
+      <c name="pearson">0.9100083814404786</c>
+      <c name="spearman">0.8551641840544051</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001673</c>
+      <c name="pearson">0.9479814522777381</c>
+      <c name="spearman">0.870736449193862</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001674</c>
+      <c name="pearson">0.9616556509463905</c>
+      <c name="spearman">0.9286388233319969</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001677</c>
+      <c name="pearson">0.932341743296485</c>
+      <c name="spearman">0.870908694093785</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001685</c>
+      <c name="pearson">0.9438255650979535</c>
+      <c name="spearman">0.870757235152833</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001687</c>
+      <c name="pearson">0.9476594231612206</c>
+      <c name="spearman">0.8877504307912599</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001690</c>
+      <c name="pearson">0.9511574135361467</c>
+      <c name="spearman">0.8870394777687036</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001692</c>
+      <c name="pearson">0.9469517756215314</c>
+      <c name="spearman">0.8668597351868411</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001698</c>
+      <c name="pearson">0.9575665268787071</c>
+      <c name="spearman">0.9143927930946292</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001699</c>
+      <c name="pearson">0.9546885574176178</c>
+      <c name="spearman">0.904209707397633</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001702</c>
+      <c name="pearson">0.9288962009994526</c>
+      <c name="spearman">0.8194602892598893</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001711</c>
+      <c name="pearson">0.9099672522136512</c>
+      <c name="spearman">0.8723681626893318</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001715</c>
+      <c name="pearson">0.9501569048591527</c>
+      <c name="spearman">0.9238925287760145</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001719</c>
+      <c name="pearson">0.9574047265952088</c>
+      <c name="spearman">0.903174768128599</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001735</c>
+      <c name="pearson">0.945780629296423</c>
+      <c name="spearman">0.8716780641768723</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001736</c>
+      <c name="pearson">0.9465375218005652</c>
+      <c name="spearman">0.8814452288599903</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001737</c>
+      <c name="pearson">0.9003423268401078</c>
+      <c name="spearman">0.8563681889725427</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001740</c>
+      <c name="pearson">0.9542654938471853</c>
+      <c name="spearman">0.9048528796955084</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001745</c>
+      <c name="pearson">0.9585514296512688</c>
+      <c name="spearman">0.9113079414583881</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001750</c>
+      <c name="pearson">0.950168728102251</c>
+      <c name="spearman">0.8988446763358409</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001765</c>
+      <c name="pearson">0.9595840076198595</c>
+      <c name="spearman">0.9176238110411424</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001786</c>
+      <c name="pearson">0.8926094013314637</c>
+      <c name="spearman">0.8144474256840496</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001790</c>
+      <c name="pearson">0.9067602920854423</c>
+      <c name="spearman">0.8123839787096954</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001791</c>
+      <c name="pearson">0.9383241869420578</c>
+      <c name="spearman">0.8774009838770785</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001793</c>
+      <c name="pearson">0.9398806348521621</c>
+      <c name="spearman">0.887636997686232</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001794</c>
+      <c name="pearson">0.9445644234409003</c>
+      <c name="spearman">0.8867805602366327</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001795</c>
+      <c name="pearson">0.9426236282623047</c>
+      <c name="spearman">0.8746025133642866</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001796</c>
+      <c name="pearson">0.9438460446757934</c>
+      <c name="spearman">0.9019801037219602</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001799</c>
+      <c name="pearson">0.9467328803107947</c>
+      <c name="spearman">0.9068153775251052</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001802</c>
+      <c name="pearson">0.9474452047199128</c>
+      <c name="spearman">0.8912865098399981</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001804</c>
+      <c name="pearson">0.9367614558164223</c>
+      <c name="spearman">0.8872798062466598</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001814</c>
+      <c name="pearson">0.9299002561948956</c>
+      <c name="spearman">0.8648896491336253</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001819</c>
+      <c name="pearson">0.9518114213356276</c>
+      <c name="spearman">0.8868998414098489</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001820</c>
+      <c name="pearson">0.9579512433863022</c>
+      <c name="spearman">0.9093195830256058</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001834</c>
+      <c name="pearson">0.9375407897024682</c>
+      <c name="spearman">0.8875387620599976</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001835</c>
+      <c name="pearson">0.9521729802606519</c>
+      <c name="spearman">0.8961069914286989</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001836</c>
+      <c name="pearson">0.9538529441355025</c>
+      <c name="spearman">0.9010471662282358</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001838</c>
+      <c name="pearson">0.9315608599150332</c>
+      <c name="spearman">0.8628635842800095</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001839</c>
+      <c name="pearson">0.9468767591934736</c>
+      <c name="spearman">0.8926287911753852</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001841</c>
+      <c name="pearson">0.9575376492943332</c>
+      <c name="spearman">0.9105135243702335</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001842</c>
+      <c name="pearson">0.9243310996573836</c>
+      <c name="spearman">0.8556193998855159</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001843</c>
+      <c name="pearson">0.8776224013427404</c>
+      <c name="spearman">0.8018871607295915</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001848</c>
+      <c name="pearson">0.9418838117384212</c>
+      <c name="spearman">0.8670788371016922</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001849</c>
+      <c name="pearson">0.9348641207377401</c>
+      <c name="spearman">0.8364013728177455</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001850</c>
+      <c name="pearson">0.9601248974158881</c>
+      <c name="spearman">0.9203027262964978</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001852</c>
+      <c name="pearson">0.9477378887658371</c>
+      <c name="spearman">0.8651216675306819</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001853</c>
+      <c name="pearson">0.9307266582290554</c>
+      <c name="spearman">0.8514772145617965</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001856</c>
+      <c name="pearson">0.9495475717272623</c>
+      <c name="spearman">0.8963534235752625</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001857</c>
+      <c name="pearson">0.9480219061965034</c>
+      <c name="spearman">0.9084674702063351</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001858</c>
+      <c name="pearson">0.9565668524833717</c>
+      <c name="spearman">0.8991442261459651</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001862</c>
+      <c name="pearson">0.9569413758462367</c>
+      <c name="spearman">0.9114252913667686</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001864</c>
+      <c name="pearson">0.9547519867332761</c>
+      <c name="spearman">0.9014400453523853</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001955</c>
+      <c name="pearson">0.9545205509143422</c>
+      <c name="spearman">0.8933572585454528</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001956</c>
+      <c name="pearson">0.945551387962424</c>
+      <c name="spearman">0.8466528431390702</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001957</c>
+      <c name="pearson">0.9420358154533144</c>
+      <c name="spearman">0.8772617048919136</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001959</c>
+      <c name="pearson">0.9501212790988968</c>
+      <c name="spearman">0.8951770545231587</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001960</c>
+      <c name="pearson">0.9547550462571093</c>
+      <c name="spearman">0.9066812308977569</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001970</c>
+      <c name="pearson">0.9319645979598091</c>
+      <c name="spearman">0.8589099422715661</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001973</c>
+      <c name="pearson">0.9476506732992247</c>
+      <c name="spearman">0.8820928024743597</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001993</c>
+      <c name="pearson">0.9565533901170067</c>
+      <c name="spearman">0.9061372752763084</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001997</c>
+      <c name="pearson">0.9539288701422493</c>
+      <c name="spearman">0.909545194965541</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-001999</c>
+      <c name="pearson">0.9559915073561334</c>
+      <c name="spearman">0.9100273403630847</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002001</c>
+      <c name="pearson">0.9419919991111606</c>
+      <c name="spearman">0.8874997802913429</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002002</c>
+      <c name="pearson">0.9358984881520512</c>
+      <c name="spearman">0.859743479722574</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002003</c>
+      <c name="pearson">0.9342453728498156</c>
+      <c name="spearman">0.8732964350681527</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002004</c>
+      <c name="pearson">0.933208107629512</c>
+      <c name="spearman">0.8965698236662197</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002005</c>
+      <c name="pearson">0.9428122552413732</c>
+      <c name="spearman">0.8844932195729451</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002015</c>
+      <c name="pearson">0.9356367996283348</c>
+      <c name="spearman">0.8460526547812339</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002016</c>
+      <c name="pearson">0.934380684030536</c>
+      <c name="spearman">0.8541639033014853</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002017</c>
+      <c name="pearson">0.9009450169756271</c>
+      <c name="spearman">0.8737055607489338</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002018</c>
+      <c name="pearson">0.9593852856411524</c>
+      <c name="spearman">0.9062361079377589</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002019</c>
+      <c name="pearson">0.951716312319693</c>
+      <c name="spearman">0.8908899405590635</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002024</c>
+      <c name="pearson">0.9197127346224419</c>
+      <c name="spearman">0.8634909265059273</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002025</c>
+      <c name="pearson">0.9593885335717223</c>
+      <c name="spearman">0.9131537440376977</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002027</c>
+      <c name="pearson">0.9396100865515612</c>
+      <c name="spearman">0.8736822258705101</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002029</c>
+      <c name="pearson">0.9490609668603327</c>
+      <c name="spearman">0.8985328412768598</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002041</c>
+      <c name="pearson">0.9525456888389132</c>
+      <c name="spearman">0.8880091920087889</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002042</c>
+      <c name="pearson">0.9507087044556407</c>
+      <c name="spearman">0.9181827861042825</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002043</c>
+      <c name="pearson">0.9562190467757388</c>
+      <c name="spearman">0.9164091640349663</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002045</c>
+      <c name="pearson">0.957342141478282</c>
+      <c name="spearman">0.9214932904917622</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002046</c>
+      <c name="pearson">0.9523187912697268</c>
+      <c name="spearman">0.8903671462328567</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002059</c>
+      <c name="pearson">0.9489317876449623</c>
+      <c name="spearman">0.8902493222872346</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002069</c>
+      <c name="pearson">0.9566651463755087</c>
+      <c name="spearman">0.9053622068011211</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002083</c>
+      <c name="pearson">0.9358051936480397</c>
+      <c name="spearman">0.8572181556399513</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002105</c>
+      <c name="pearson">0.9348040565734039</c>
+      <c name="spearman">0.8449909190695408</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002106</c>
+      <c name="pearson">0.9582740310200552</c>
+      <c name="spearman">0.9162304160605942</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002109</c>
+      <c name="pearson">0.9484494872337748</c>
+      <c name="spearman">0.8821640078483951</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002110</c>
+      <c name="pearson">0.9485938059932982</c>
+      <c name="spearman">0.9012524002148288</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002114</c>
+      <c name="pearson">0.957515232794762</c>
+      <c name="spearman">0.9146517643734631</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002116</c>
+      <c name="pearson">0.957831691519122</c>
+      <c name="spearman">0.9136083853147229</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002119</c>
+      <c name="pearson">0.9470393196085065</c>
+      <c name="spearman">0.885867673802805</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002140</c>
+      <c name="pearson">0.9547298944589808</c>
+      <c name="spearman">0.9095665895349824</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002141</c>
+      <c name="pearson">0.9572371460327523</c>
+      <c name="spearman">0.9244170688911737</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002143</c>
+      <c name="pearson">0.936243971979097</c>
+      <c name="spearman">0.8801485085538382</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002150</c>
+      <c name="pearson">0.9553446245912481</c>
+      <c name="spearman">0.9032824808021317</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002156</c>
+      <c name="pearson">0.9555042131650949</c>
+      <c name="spearman">0.9025285866048144</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002160</c>
+      <c name="pearson">0.937750858961102</c>
+      <c name="spearman">0.8929544836314268</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002161</c>
+      <c name="pearson">0.9620899706400579</c>
+      <c name="spearman">0.9274157183710328</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002179</c>
+      <c name="pearson">0.9396036159874936</c>
+      <c name="spearman">0.8735204944146858</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002181</c>
+      <c name="pearson">0.9553303208587409</c>
+      <c name="spearman">0.9021991317991916</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002183</c>
+      <c name="pearson">0.8944993848144077</c>
+      <c name="spearman">0.8562794921619531</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002186</c>
+      <c name="pearson">0.9448536974951202</c>
+      <c name="spearman">0.8975412561220741</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002189</c>
+      <c name="pearson">0.9522390646065046</c>
+      <c name="spearman">0.9004731684412692</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002198</c>
+      <c name="pearson">0.9167972624213185</c>
+      <c name="spearman">0.8632570643851766</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002202</c>
+      <c name="pearson">0.9489475512289881</c>
+      <c name="spearman">0.8948629233527472</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002204</c>
+      <c name="pearson" />
+      <c name="spearman" />
+    </row>
+    <row>
+      <c name="cell_line">ACH-002210</c>
+      <c name="pearson">0.9511072665508074</c>
+      <c name="spearman">0.8931018116048275</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002212</c>
+      <c name="pearson">0.9429291883014008</c>
+      <c name="spearman">0.8963420527719177</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002217</c>
+      <c name="pearson">0.9525613902866057</c>
+      <c name="spearman">0.9012529135010321</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002228</c>
+      <c name="pearson">0.9534959023245237</c>
+      <c name="spearman">0.9088945254160504</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002229</c>
+      <c name="pearson">0.9261830557126356</c>
+      <c name="spearman">0.8223950440202822</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002230</c>
+      <c name="pearson">0.9489984184503051</c>
+      <c name="spearman">0.90501766853414</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002233</c>
+      <c name="pearson">0.93970022381205</c>
+      <c name="spearman">0.8771942630230221</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002234</c>
+      <c name="pearson">0.9394651965386065</c>
+      <c name="spearman">0.8933997530627866</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002239</c>
+      <c name="pearson">0.9488422382664529</c>
+      <c name="spearman">0.88883312036004</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002243</c>
+      <c name="pearson">0.9303789613259659</c>
+      <c name="spearman">0.8898963388942782</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002247</c>
+      <c name="pearson">0.8963805718230548</c>
+      <c name="spearman">0.8443853085729873</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002249</c>
+      <c name="pearson">0.9574962165906967</c>
+      <c name="spearman">0.9223539749858723</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002250</c>
+      <c name="pearson">0.9584824491643991</c>
+      <c name="spearman">0.9115802144601434</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002251</c>
+      <c name="pearson">0.9556990836708311</c>
+      <c name="spearman">0.9118228273310173</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002257</c>
+      <c name="pearson">0.9526719947880715</c>
+      <c name="spearman">0.8918884607298697</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002261</c>
+      <c name="pearson">0.9477967934973723</c>
+      <c name="spearman">0.8864972604341682</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002263</c>
+      <c name="pearson">0.9584294795060139</c>
+      <c name="spearman">0.9057974663947859</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002265</c>
+      <c name="pearson">0.9560567445710072</c>
+      <c name="spearman">0.9193413671683963</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002269</c>
+      <c name="pearson">0.959021436585185</c>
+      <c name="spearman">0.927083936945598</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002278</c>
+      <c name="pearson">0.9225613387404127</c>
+      <c name="spearman">0.8035676941431008</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002280</c>
+      <c name="pearson">0.9266693735301531</c>
+      <c name="spearman">0.8654846619612072</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002282</c>
+      <c name="pearson">0.9424611608239741</c>
+      <c name="spearman">0.8817136472904772</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002283</c>
+      <c name="pearson">0.9498043967159153</c>
+      <c name="spearman">0.8910379457946868</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002284</c>
+      <c name="pearson">0.9484924326660644</c>
+      <c name="spearman">0.894741181006011</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002285</c>
+      <c name="pearson">0.9453753990573158</c>
+      <c name="spearman">0.890361268371457</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002294</c>
+      <c name="pearson">0.9555410596103135</c>
+      <c name="spearman">0.9151664831734652</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002295</c>
+      <c name="pearson">0.9599613868381673</c>
+      <c name="spearman">0.9142898608719833</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002296</c>
+      <c name="pearson">0.9543717382711697</c>
+      <c name="spearman">0.9054148473184372</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002297</c>
+      <c name="pearson">0.9505793317254183</c>
+      <c name="spearman">0.9165003058580311</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002298</c>
+      <c name="pearson">0.9388746089694961</c>
+      <c name="spearman">0.90001294236396</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002304</c>
+      <c name="pearson">0.9579580904032033</c>
+      <c name="spearman">0.919671855447927</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002305</c>
+      <c name="pearson">0.9359812971996</c>
+      <c name="spearman">0.8718170864483953</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002315</c>
+      <c name="pearson">0.9434040205019905</c>
+      <c name="spearman">0.8888508632786434</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002399</c>
+      <c name="pearson">0.9507092518168193</c>
+      <c name="spearman">0.908416705866585</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002446</c>
+      <c name="pearson">0.962386579616787</c>
+      <c name="spearman">0.9132494825095524</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002458</c>
+      <c name="pearson">0.9174114575510742</c>
+      <c name="spearman">0.8568006076180091</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002459</c>
+      <c name="pearson">0.9377439647585222</c>
+      <c name="spearman">0.8516665524967668</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002460</c>
+      <c name="pearson">0.9372461713598895</c>
+      <c name="spearman">0.8771154305930059</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002462</c>
+      <c name="pearson">0.9278325011512476</c>
+      <c name="spearman">0.8328130242932734</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002463</c>
+      <c name="pearson">0.9250655783026741</c>
+      <c name="spearman">0.8377227441591285</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002464</c>
+      <c name="pearson">0.9136317731622615</c>
+      <c name="spearman">0.814823258730739</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002467</c>
+      <c name="pearson">0.9325869855224062</c>
+      <c name="spearman">0.8730300554996155</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002508</c>
+      <c name="pearson">0.9498132501572727</c>
+      <c name="spearman">0.8967677588466961</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002510</c>
+      <c name="pearson">0.9491430519392606</c>
+      <c name="spearman">0.8877253891161103</c>
+    </row>
+    <row>
+      <c name="cell_line">ACH-002512</c>
+      <c name="pearson">0.9081344914688535</c>
+      <c name="spearman">0.8384821723238218</c>
+    </row>
+  </rows>
+</table>
