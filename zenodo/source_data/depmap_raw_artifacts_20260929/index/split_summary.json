@@ -1,0 +1,16 @@
+{
+  "split_seed": 42,
+  "split_ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "n_cells": 908,
+  "n_train": 636,
+  "n_val": 136,
+  "n_test": 136,
+  "train_val_test_mutually_exclusive": true,
+  "union_equals_908": true,
+  "note_test_cell_ids": "All 5 seeds share the same 136 test-cell IDs (the split is locked at seed 42; training did not re-split). A copy is exported per seed; content is identical.",
+  "row_order_rule": "Row order of Y_CERES/Y_Chronos/mask = cell_order.txt; row order of *_test.npy = test_cell_order.txt (identical to the test_cells order in split.json)"
+}

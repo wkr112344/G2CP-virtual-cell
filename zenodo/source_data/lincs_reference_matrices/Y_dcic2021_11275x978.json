@@ -1,0 +1,15 @@
+{
+ "tag": "dcic2021",
+ "file": "Y_dcic2021_11275x978.npy",
+ "shape": [
+  11275,
+  978
+ ],
+ "md5": "dece7c79a00114e96ff1c35adf09edc2",
+ "rows": "row order of frozen_multimetric_perrow_scores.csv (cell, drug)",
+ "cols": "internal_col of 93_gene_map_12328_to_978.json (the 978 landmark genes)",
+ "source": "C:\\Users\\wkr20\\WorkBuddy\\2026-09-06-00-53-37\\data\\g2cp_cache_2021\\y.npy",
+ "verify_drug_equal_weight_pearson": 0.07238621264696121,
+ "expected": 0.0724,
+ "pass": true
+}

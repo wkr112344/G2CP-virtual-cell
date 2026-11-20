@@ -1,0 +1,11 @@
+category,value
+both_traceable,11274.0
+identical,11217.0
+subset,57.0
+partial,0.0
+disjoint,0.0
+identical_pct_of_traceable,99.4944
+subset_pct_of_traceable,0.5056
+untraceable_in_both,0.0
+traceable_only_in_beta2020,1.0
+traceable_only_in_dcic2021,0.0

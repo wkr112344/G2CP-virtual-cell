@@ -1,0 +1,21 @@
+{
+  "gene_overlap": {
+    "gct_genes": 74628,
+    "rsem_transcript_rows": 385659,
+    "common_genes": 74628,
+    "note": "RSEM transcripts summed to gene_id; intersection with GCT = 74628 (all GCT genes present in RSEM aggregation)"
+  },
+  "sample_overlap": {
+    "gct_samples": 19788,
+    "transcripts_samples": 19788,
+    "sample_order_identical": true,
+    "annotation_table_samples": 48231,
+    "matrix_samples_in_annotation": 19788,
+    "join_coverage": "100% (0 unmatched)"
+  },
+  "donors": {
+    "total": 946,
+    "train": 757,
+    "test": 189
+  }
+}

@@ -1,0 +1,11 @@
+term,predictor,reference,pearson_median,spearman_median
+rRR,RNASeQC-trained,RNASeQC,0.9853421748557722,0.8690275277052577
+rRE,RNASeQC-trained,RSEM,0.949109624717922,0.825112309423257
+rER,RSEM-trained,RNASeQC,0.9488228487578694,0.8457505795015905
+rEE,RSEM-trained,RSEM,0.985418696401338,0.8648168695866267
+interaction_pearson,,,0.07095688955999713,
+interaction_spearman,,,,0.06186903174140446
+interaction_ci95_low_pearson,,,0.07049914939077018,
+interaction_ci95_high_pearson,,,0.07155033463848437,
+interaction_ci95_low_spearman,,,,0.06150315878244306
+interaction_ci95_high_spearman,,,,0.06223961176614401

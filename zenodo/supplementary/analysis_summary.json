@@ -1,0 +1,99 @@
+{
+  "lincs": {
+    "rows": 11275,
+    "cells": 63,
+    "drugs": 2037,
+    "duplicate_pairs": 0,
+    "rank_rho": 0.567455143344181
+  },
+  "depmap_interaction": [
+    {
+      "analysis": "raw",
+      "estimate": 0.05631714712618807,
+      "ci_low": 0.05589237133575318,
+      "ci_high": 0.05703497209380136,
+      "seed_min": 0.0560955071837367,
+      "seed_max": 0.05655414255160665
+    },
+    {
+      "analysis": "residualized",
+      "estimate": -0.00046663698368583015,
+      "ci_low": -0.004706746467364198,
+      "ci_high": 0.004621428899674583,
+      "seed_min": -0.00412659743237935,
+      "seed_max": 0.00131673745630765
+    }
+  ],
+  "gene_wise_residual_max_abs_diff": 6.106226635438361e-16,
+  "gene_wise_median_range": [
+    -0.0053730403657801,
+    0.0059335989309754
+  ],
+  "gtex": {
+    "samples": 3963,
+    "donors": 189,
+    "tissues": 68,
+    "statistics": [
+      {
+        "statistic": "interaction_pearson",
+        "estimate": 0.0709568895599971,
+        "ci_low": 0.0704991493907701,
+        "ci_high": 0.0715503346384843
+      },
+      {
+        "statistic": "interaction_spearman",
+        "estimate": 0.0618690317414044,
+        "ci_low": 0.061503158782443,
+        "ci_high": 0.062239611766143954
+      },
+      {
+        "statistic": "adv_R",
+        "estimate": 0.03509198235196359,
+        "ci_low": 0.03476749661246803,
+        "ci_high": 0.035646178434256104
+      },
+      {
+        "statistic": "adv_E",
+        "estimate": 0.035964444517327165,
+        "ci_low": 0.035785849084974175,
+        "ci_high": 0.03616587999248966
+      }
+    ],
+    "pearson_quadrant_medians": {
+      "rRR": 0.9853421748557722,
+      "rRE": 0.949109624717922,
+      "rER": 0.9488228487578694,
+      "rEE": 0.985418696401338
+    },
+    "spearman_quadrant_medians": {
+      "sp_rRR": 0.8690275277052577,
+      "sp_rRE": 0.825112309423257,
+      "sp_rER": 0.8457505795015905,
+      "sp_rEE": 0.8648168695866267
+    },
+    "sample_median_interaction": 0.0712551987163634,
+    "difference_of_medians": 0.07282839778131878,
+    "sample_adv_E_negative": 6,
+    "tissue_positive": 68,
+    "tissue_range": [
+      0.0597220712300693,
+      0.10828160665808614
+    ],
+    "low_coverage_tissues": 18
+  },
+  "depmap_positive_control": {
+    "same_split": "train 636 / val 136 / test 136, seed 42",
+    "ridge_CERES_shift": 0.2163537199611539,
+    "ridge_Chronos_shift": 0.2770543638279709,
+    "ridge_CERES_across_cell": 0.12330687160872114,
+    "ridge_Chronos_across_cell": 0.16211381019498824,
+    "ridge_shift_interaction": 0.30571739392543135,
+    "frozen_shift_interaction": -0.000322516245099391,
+    "permuted_shift_interaction": 0.0,
+    "supplementary_tables": [
+      "S13",
+      "S14",
+      "S15"
+    ]
+  }
+}

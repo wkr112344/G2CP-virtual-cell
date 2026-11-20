@@ -1,0 +1,22 @@
+{
+ "final": {
+  "shape": [
+   273,
+   1244
+  ],
+  "genes_in_GH": 1244,
+  "cells_in_all908": 272,
+  "cells_in_test136": 43,
+  "cells_in_train636": 190
+ },
+ "strict": {
+  "shape": [
+   272,
+   1244
+  ],
+  "genes_in_GH": 1244,
+  "cells_in_all908": 271,
+  "cells_in_test136": 43,
+  "cells_in_train636": 189
+ }
+}

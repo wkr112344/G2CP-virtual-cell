@@ -1,0 +1,12 @@
+{
+  "metric": "interaction_pearson",
+  "point_median": 0.07095688955999713,
+  "ci95": [
+    0.07049914939077018,
+    0.07155033463848437
+  ],
+  "excludes_zero": true,
+  "frac_gt_zero": 1.0,
+  "n_donors": 189,
+  "n_bootstrap": 5000
+}

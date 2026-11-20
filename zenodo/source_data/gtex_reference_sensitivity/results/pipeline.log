@@ -1,0 +1,191 @@
+=== PIPELINE v9 (resumed from 03) START Wed Sep 30 00:57:25     2026 ===
+---- STEP 03_align_products ----
+[00:57:26] opening the RSEM gene matrix
+[00:57:27] RSEM: 74628 genes x 19788 samples (memmap 5.91 GB)
+[00:57:27] 74628 common genes (reusing 02 result, no rescan)
+[00:57:27] pass2: streaming GCT -> rnaseqc.npy
+[00:57:42]   GCT 1577/74628 rows, 14s
+[00:57:47]   GCT 3363/74628 rows, 20s
+[00:57:51]   GCT 5022/74628 rows, 24s
+[00:57:55]   GCT 6983/74628 rows, 28s
+[00:57:59]   GCT 8875/74628 rows, 32s
+[00:58:03]   GCT 11029/74628 rows, 36s
+[00:58:07]   GCT 12873/74628 rows, 40s
+[00:58:11]   GCT 14700/74628 rows, 44s
+[00:58:15]   GCT 16590/74628 rows, 48s
+[00:58:19]   GCT 18819/74628 rows, 52s
+[00:58:24]   GCT 21206/74628 rows, 57s
+[00:58:28]   GCT 23081/74628 rows, 60s
+[00:58:31]   GCT 24802/74628 rows, 64s
+[00:58:35]   GCT 26847/74628 rows, 68s
+[00:58:40]   GCT 28908/74628 rows, 72s
+[00:58:44]   GCT 30726/74628 rows, 76s
+[00:58:48]   GCT 32885/74628 rows, 81s
+[00:58:52]   GCT 34909/74628 rows, 85s
+[00:58:56]   GCT 36886/74628 rows, 89s
+[00:59:00]   GCT 38827/74628 rows, 93s
+[00:59:04]   GCT 40542/74628 rows, 96s
+[00:59:08]   GCT 42498/74628 rows, 100s
+[00:59:12]   GCT 44411/74628 rows, 104s
+[00:59:15]   GCT 46090/74628 rows, 108s
+[00:59:19]   GCT 47958/74628 rows, 112s
+[00:59:23]   GCT 50311/74628 rows, 116s
+[00:59:27]   GCT 52127/74628 rows, 120s
+[00:59:31]   GCT 54191/74628 rows, 124s
+[00:59:35]   GCT 55815/74628 rows, 127s
+[00:59:39]   GCT 57706/74628 rows, 131s
+[00:59:42]   GCT 59328/74628 rows, 135s
+[00:59:46]   GCT 60930/74628 rows, 138s
+[00:59:49]   GCT 62733/74628 rows, 142s
+[00:59:53]   GCT 64306/74628 rows, 145s
+[00:59:56]   GCT 65757/74628 rows, 149s
+[00:59:59]   GCT 67456/74628 rows, 152s
+[01:00:04]   GCT 69527/74628 rows, 156s
+[01:00:07]   GCT 71180/74628 rows, 160s
+[01:00:12]   GCT 73451/74628 rows, 164s
+[01:00:14]   GCT 74628/74628 rows, 166s
+[01:00:18] RSEM -> rsem_gene.npy (chunked transpose)
+[01:00:19]   2000/74628, 1s
+[01:00:20]   4000/74628, 2s
+[01:00:20]   6000/74628, 3s
+[01:00:22]   8000/74628, 4s
+[01:00:23]   10000/74628, 5s
+[01:00:24]   12000/74628, 6s
+[01:00:25]   14000/74628, 8s
+[01:00:27]   16000/74628, 9s
+[01:00:28]   18000/74628, 10s
+[01:00:29]   20000/74628, 12s
+[01:00:31]   22000/74628, 13s
+[01:00:32]   24000/74628, 14s
+[01:00:33]   26000/74628, 15s
+[01:00:34]   28000/74628, 17s
+[01:00:36]   30000/74628, 18s
+[01:00:37]   32000/74628, 19s
+[01:00:38]   34000/74628, 21s
+[01:00:40]   36000/74628, 22s
+[01:00:41]   38000/74628, 23s
+[01:00:42]   40000/74628, 25s
+[01:00:44]   42000/74628, 26s
+[01:00:45]   44000/74628, 27s
+[01:00:46]   46000/74628, 29s
+[01:00:48]   48000/74628, 30s
+[01:00:54]   50000/74628, 36s
+[01:01:00]   52000/74628, 42s
+[01:01:06]   54000/74628, 48s
+[01:01:12]   56000/74628, 54s
+[01:01:18]   58000/74628, 61s
+[01:01:24]   60000/74628, 67s
+[01:01:30]   62000/74628, 73s
+[01:01:36]   64000/74628, 79s
+[01:01:43]   66000/74628, 85s
+[01:01:49]   68000/74628, 91s
+[01:01:55]   70000/74628, 97s
+[01:02:00]   72000/74628, 103s
+[01:02:04]   74000/74628, 106s
+[01:02:04]   74628/74628, 106s
+[01:02:07] PASS -> data_processed/{rnaseqc,rsem_gene}.npy (19788 x 74628) + metadata/common_grid.json
+---- STEP 04_make_splits ----
+[01:02:09] donors 946 = train 757 + test 189; samples train 15825 / test 3963 -> metadata/splits.json
+---- STEP 05_build_predictors ----
+[01:02:11]   rnaseqc: 512/15825 train samples, 1s
+[01:02:12]   rnaseqc: 1024/15825 train samples, 1s
+[01:02:13]   rnaseqc: 1536/15825 train samples, 2s
+[01:02:13]   rnaseqc: 2048/15825 train samples, 3s
+[01:02:14]   rnaseqc: 2560/15825 train samples, 4s
+[01:02:15]   rnaseqc: 3072/15825 train samples, 4s
+[01:02:16]   rnaseqc: 3584/15825 train samples, 5s
+[01:02:16]   rnaseqc: 4096/15825 train samples, 6s
+[01:02:17]   rnaseqc: 4608/15825 train samples, 7s
+[01:02:18]   rnaseqc: 5120/15825 train samples, 7s
+[01:02:19]   rnaseqc: 5632/15825 train samples, 8s
+[01:02:19]   rnaseqc: 6144/15825 train samples, 9s
+[01:02:20]   rnaseqc: 6656/15825 train samples, 9s
+[01:02:21]   rnaseqc: 7168/15825 train samples, 10s
+[01:02:21]   rnaseqc: 7680/15825 train samples, 11s
+[01:02:22]   rnaseqc: 8192/15825 train samples, 12s
+[01:02:23]   rnaseqc: 8704/15825 train samples, 12s
+[01:02:24]   rnaseqc: 9216/15825 train samples, 13s
+[01:02:24]   rnaseqc: 9728/15825 train samples, 14s
+[01:02:25]   rnaseqc: 10240/15825 train samples, 15s
+[01:02:26]   rnaseqc: 10752/15825 train samples, 15s
+[01:02:27]   rnaseqc: 11264/15825 train samples, 16s
+[01:02:27]   rnaseqc: 11776/15825 train samples, 17s
+[01:02:28]   rnaseqc: 12288/15825 train samples, 17s
+[01:02:29]   rnaseqc: 12800/15825 train samples, 18s
+[01:02:29]   rnaseqc: 13312/15825 train samples, 19s
+[01:02:30]   rnaseqc: 13824/15825 train samples, 20s
+[01:02:31]   rnaseqc: 14336/15825 train samples, 20s
+[01:02:32]   rnaseqc: 14848/15825 train samples, 21s
+[01:02:32]   rnaseqc: 15360/15825 train samples, 22s
+[01:02:33]   rnaseqc: 15825/15825 train samples, 23s
+[01:02:34] rnaseqc: 68 tissues x 74628 genes, 23s -> tissue_mean_rnaseqc.npz
+[01:02:35]   rsem: 512/15825 train samples, 1s
+[01:02:36]   rsem: 1024/15825 train samples, 1s
+[01:02:37]   rsem: 1536/15825 train samples, 2s
+[01:02:37]   rsem: 2048/15825 train samples, 3s
+[01:02:38]   rsem: 2560/15825 train samples, 3s
+[01:02:39]   rsem: 3072/15825 train samples, 4s
+[01:02:39]   rsem: 3584/15825 train samples, 5s
+[01:02:40]   rsem: 4096/15825 train samples, 6s
+[01:02:41]   rsem: 4608/15825 train samples, 6s
+[01:02:41]   rsem: 5120/15825 train samples, 7s
+[01:02:42]   rsem: 5632/15825 train samples, 8s
+[01:02:43]   rsem: 6144/15825 train samples, 8s
+[01:02:44]   rsem: 6656/15825 train samples, 9s
+[01:02:44]   rsem: 7168/15825 train samples, 10s
+[01:02:45]   rsem: 7680/15825 train samples, 11s
+[01:02:46]   rsem: 8192/15825 train samples, 11s
+[01:02:46]   rsem: 8704/15825 train samples, 12s
+[01:02:47]   rsem: 9216/15825 train samples, 13s
+[01:02:48]   rsem: 9728/15825 train samples, 13s
+[01:02:48]   rsem: 10240/15825 train samples, 14s
+[01:02:49]   rsem: 10752/15825 train samples, 15s
+[01:02:50]   rsem: 11264/15825 train samples, 16s
+[01:02:51]   rsem: 11776/15825 train samples, 16s
+[01:02:51]   rsem: 12288/15825 train samples, 17s
+[01:02:52]   rsem: 12800/15825 train samples, 18s
+[01:02:53]   rsem: 13312/15825 train samples, 18s
+[01:02:53]   rsem: 13824/15825 train samples, 19s
+[01:02:54]   rsem: 14336/15825 train samples, 20s
+[01:02:55]   rsem: 14848/15825 train samples, 20s
+[01:02:56]   rsem: 15360/15825 train samples, 21s
+[01:02:56]   rsem: 15825/15825 train samples, 22s
+[01:02:57] rsem: 68 tissues x 74628 genes, 23s -> tissue_mean_rsem.npz
+---- STEP 06_score_2x2 ----
+[01:02:59] 3963 test samples; scoring sample by sample
+[01:03:38]   200/3963, 39s
+[01:04:19]   400/3963, 80s
+[01:04:59]   600/3963, 120s
+[01:05:38]   800/3963, 159s
+[01:06:17]   1000/3963, 198s
+[01:06:56]   1200/3963, 237s
+[01:07:35]   1400/3963, 276s
+[01:08:14]   1600/3963, 315s
+[01:08:54]   1800/3963, 355s
+[01:09:34]   2000/3963, 394s
+[01:10:13]   2200/3963, 434s
+[01:10:52]   2400/3963, 473s
+[01:11:31]   2600/3963, 512s
+[01:12:10]   2800/3963, 551s
+[01:12:49]   3000/3963, 590s
+[01:13:28]   3200/3963, 629s
+[01:14:07]   3400/3963, 668s
+[01:14:47]   3600/3963, 708s
+[01:15:26]   3800/3963, 746s
+[01:15:57] PASS -> results/per_sample_scores.csv + score_summary.json
+[01:15:57] median interaction: pearson=+0.071255 spearman=+0.062190
+---- STEP 07_bootstrap ----
+[01:15:58] 3963 test samples
+[01:15:58] interaction_pearson      point=+0.070957 CI[+0.070499,+0.071550] excludes0=True frac>0=1.000
+[01:15:58] interaction_spearman     point=+0.061869 CI[+0.061503,+0.062240] excludes0=True frac>0=1.000
+[01:15:58] PASS -> results/bootstrap.json
+---- STEP 08_make_figures ----
+Traceback (most recent call last):
+  File "C:\Users\wkr20\WorkBuddy\Claw\gtex_reference_sensitivity\scripts\08_make_figures.py", line 24, in <module>
+    v = np.array([float(r[key]) for r in rows])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wkr20\WorkBuddy\Claw\gtex_reference_sensitivity\scripts\08_make_figures.py", line 24, in <listcomp>
+    v = np.array([float(r[key]) for r in rows])
+                        ~^^^^^
+KeyError: 'rrRR'
+FAILED AT 08_make_figures

@@ -1,0 +1,12 @@
+quantity,value,source
+cell_line_consistency_mean,0.9431392899861831,DepMap_CERES_272x1244.csv + DepMap_Chronos_272x1244.csv
+cell_line_consistency_median,0.9466724747991423,same
+frozen_pred_vs_CERES_mean,0.8595077828060607,DeepDEP_predictor_strict.csv + DepMap_CERES_272x1244.csv
+frozen_pred_vs_Chronos_mean,0.8226058448415844,DeepDEP_predictor_strict.csv + DepMap_Chronos_272x1244.csv
+paired_delta_mean,0.036901937964476175,paired over 272 cell lines
+paired_delta_ci_low,0.034094932198024036,"archived 5,000-cell bootstrap"
+paired_delta_ci_high,0.039824339726122975,"archived 5,000-cell bootstrap"
+cells_delta_positive,258.0,paired over 272 cell lines
+cells_total,272.0,common grid
+delta_min,-0.031035609514399543,paired over 272 cell lines
+delta_max,0.12595549780629478,paired over 272 cell lines

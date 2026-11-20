@@ -1,0 +1,13 @@
+﻿scheme,evaluation_matrix,model,observed_pearson,null_mean,null_ci95_low,null_ci95_high,observed_exceeds_ci,n_single_record_groups,n_drugs,B,seed
+A_positional_old,SDST,XPert,0.6199,0.03711,0.03052,0.04369,True,92,1343,2000,20261011
+A_positional_old,SDST,TranSiGen,0.60861,0.02958,0.02411,0.03511,True,92,1343,2000,20261011
+A_positional_old,MODZ,XPert,0.03249,0.00291,-0.00025,0.00611,True,92,1343,2000,20261011
+A_positional_old,MODZ,TranSiGen,0.03573,0.00569,0.00258,0.00893,True,92,1343,2000,20261011
+A_positional_old,CD,XPert,0.01415,-0.00353,-0.00595,-0.00124,True,92,1343,2000,20261011
+A_positional_old,CD,TranSiGen,0.01441,-0.00336,-0.00573,-0.00101,True,92,1343,2000,20261011
+B_within_cell,SDST,XPert,0.6199,0.20582,0.19291,0.21738,True,92,1343,2000,20261011
+B_within_cell,SDST,TranSiGen,0.60861,0.19709,0.18526,0.2075,True,92,1343,2000,20261011
+B_within_cell,MODZ,XPert,0.03249,0.01122,0.009,0.01359,True,92,1343,2000,20261011
+B_within_cell,MODZ,TranSiGen,0.03573,0.01344,0.01132,0.01564,True,92,1343,2000,20261011
+B_within_cell,CD,XPert,0.01415,-0.00201,-0.00373,-0.00033,True,92,1343,2000,20261011
+B_within_cell,CD,TranSiGen,0.01441,-0.00313,-0.00481,-0.00147,True,92,1343,2000,20261011

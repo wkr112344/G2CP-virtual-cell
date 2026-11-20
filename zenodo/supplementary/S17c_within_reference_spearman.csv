@@ -1,0 +1,4 @@
+comparison,spearman,p2_5,p97_5,rounds
+within_beta2020,0.858,0.8449,0.8704,2000
+within_dcic2021,0.8246,0.8074,0.8399,2000
+observed_cross_reference,0.5675,,,observed

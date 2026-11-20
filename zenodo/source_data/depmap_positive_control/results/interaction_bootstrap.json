@@ -1,0 +1,89 @@
+{
+  "raw": {
+    "Ridge": {
+      "point": 0.06204638194398804,
+      "ci95": [
+        0.05868892345124847,
+        0.06539436174401361
+      ],
+      "excludes_zero": true,
+      "n_cells": 136
+    },
+    "Frozen": {
+      "point": 0.057309252665068366,
+      "ci95": [
+        0.05485665066579522,
+        0.05972469441422308
+      ],
+      "excludes_zero": true,
+      "n_cells": 136
+    },
+    "Permuted": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "excludes_zero": false,
+      "n_cells": 136
+    }
+  },
+  "shift": {
+    "Ridge": {
+      "point": 0.30571739392543135,
+      "ci95": [
+        0.2730646102171633,
+        0.34081683569154625
+      ],
+      "excludes_zero": true,
+      "n_cells": 136
+    },
+    "Frozen": {
+      "point": -0.000322516245099391,
+      "ci95": [
+        -0.017226002617831387,
+        0.016747072341204285
+      ],
+      "excludes_zero": false,
+      "n_cells": 136
+    },
+    "Permuted": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "excludes_zero": false,
+      "n_cells": 136
+    }
+  },
+  "zres": {
+    "Ridge": {
+      "point": 0.21013860093689957,
+      "ci95": [
+        0.18853854676935053,
+        0.23471978930344958
+      ],
+      "excludes_zero": true,
+      "n_cells": 136
+    },
+    "Frozen": {
+      "point": 0.009417354360359727,
+      "ci95": [
+        -0.005116285661507145,
+        0.022172686127107828
+      ],
+      "excludes_zero": false,
+      "n_cells": 136
+    },
+    "Permuted": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "excludes_zero": false,
+      "n_cells": 136
+    }
+  }
+}

@@ -1,0 +1,6 @@
+analysis_set,k,cross_reference_overlap,within_beta_mean,within_beta_p2_5,within_beta_p97_5,within_dcic_mean,within_dcic_p2_5,within_dcic_p97_5
+full,10,3,7.93,6,9,7.04,5,9
+full,20,13,17.1,15,19,15.1,13,17
+full,50,30,42.0,39,45,42.4,39,45
+full,100,64,83.2,79,88,87.6,83,92
+full,204,122,167.0,160,173,173.8,168,180

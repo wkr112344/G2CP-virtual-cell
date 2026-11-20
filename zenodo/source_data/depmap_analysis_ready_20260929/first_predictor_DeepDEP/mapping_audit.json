@@ -1,0 +1,40 @@
+{
+  "source_matrix": "C:/Users/wkr20/xwechat_files/wxid_ciqdy5fvzszc22_1d44/temp/RWTemp/2026-09/9e20f478899dc29eb19741386f9343c8/DeepDEP_TableS8_fixed_predictions_transposed.csv",
+  "source_orientation": "rows=cell line, columns=gene (transposed by user)",
+  "source_shape": [
+    278,
+    1298
+  ],
+  "final_shape": [
+    273,
+    1244
+  ],
+  "final_intersection": "273 cell lines x 1244 genes",
+  "cells_dropped": 5,
+  "genes_dropped": 54,
+  "dropped_cell_lines": [
+    "KS1_CENTRAL_NERVOUS_SYSTEM",
+    "RT4_URINARY_TRACT",
+    "ISTMES1_PLEURA",
+    "CL40_LARGE_INTESTINE",
+    "SR786_HAEMATOPOIETIC_AND_LYMPHOID_TISSUE"
+  ],
+  "flagged_mappings": [
+    {
+      "deepdep_cell_line": "S117_SOFT_TISSUE",
+      "depmap_id": "ACH-000037",
+      "method": "lineage-label-rescue(base=S117)"
+    }
+  ],
+  "unmapped": [],
+  "value_range": [
+    -2.3978,
+    1.7533
+  ],
+  "value_mean": -0.37943453617657796,
+  "note": "Index = DepMap_ID; columns = bare HGNC symbols. Run 03 with --strip-gene-suffix.",
+  "lost_gene_breakdown": {
+    "absent from CERES and Chronos (likely legacy symbol)": 44,
+    "in CERES but absent from Chronos": 10
+  }
+}
