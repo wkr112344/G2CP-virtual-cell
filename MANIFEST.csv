@@ -360,3 +360,4 @@ github,github/analysis/supplementary_rebuild_S23_S28/build_S27_condition_audit.p
 github,github/analysis/supplementary_rebuild_S23_S28/build_S28_permutation.py,github/analysis/supplementary_rebuild_S23_S28/build_S28_permutation.py,Rebuild S28 two-scheme drug mis-pairing permutation
 github,github/analysis/supplementary_rebuild_S23_S28/build_S29_paired_bootstrap.py,github/analysis/supplementary_rebuild_S23_S28/build_S29_paired_bootstrap.py,"Rebuild S29 paired-advantage bootstrap over 1,343 drugs"
 github,github/analysis/supplementary_rebuild_S23_S28/config_paths.py,github/analysis/supplementary_rebuild_S23_S28/config_paths.py,Path configuration for the S23-S30 rebuild scripts
+zenodo,zenodo/supplementary/S18_coverage_ge3_rank_stability.csv,(alias of S17b),"Same content as S17b; the 11-20 manuscript cites this table as S18 (k=10 overlap 6, k=20 overlap 16)"
