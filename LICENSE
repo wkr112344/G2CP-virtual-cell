@@ -1,13 +1,16 @@
-Creative Commons Attribution 4.0 International (CC BY 4.0)
+This repository contains two kinds of material, released under two licenses.
+
+1. Source code — MIT License
+   All scripts under github/analysis/, run_all.sh, and any other program code.
+   Full text: see LICENSE_CODE.txt
+
+2. Data, model weights, and figures — Creative Commons Attribution 4.0 (CC BY 4.0)
+   Processed matrices, frozen prediction matrices, held-out scores, bootstrap
+   summaries, supplementary tables S1–S33, figure source data, and figure files.
+   Full text: see LICENSE_DATA.txt
+
+Third-party raw data (LINCS L1000, DepMap, GTEx) are not covered by the licenses
+above and remain under their original terms. Provenance and source licenses are
+listed in DATA_SOURCES.md.
 
 Copyright (c) 2026 Kairui Wei
-
-You are free to:
-- Share — copy and redistribute the material in any medium or format
-- Adapt — remix, transform, and build upon the material for any purpose
-
-Under the following terms:
-- Attribution — You must give appropriate credit, provide a link to the license,
-  and indicate if changes were made.
-
-Full license: https://creativecommons.org/licenses/by/4.0/

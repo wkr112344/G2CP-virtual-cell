@@ -1,0 +1,7 @@
+signature,direction,genes_after_intersection,msigdb_collection,source_script
+Liver,up,679,"C2:CGP v2023.2 (ACEVEDO liver cancer UP)",build_S25_gene_counts.py
+Liver,down,236,"C2:CGP v2023.2 (ACEVEDO liver cancer DN)",build_S25_gene_counts.py
+Thyroid,up,573,"C2:CGP v2023.2 (thyroid anaplastic UP)",build_S25_gene_counts.py
+Thyroid,down,392,"C2:CGP v2023.2 (thyroid anaplastic DN)",build_S25_gene_counts.py
+APL,up,156,"C2:CGP v2023.2 (acute promyelocytic leukemia UP)",build_S25_gene_counts.py
+APL,down,656,"C2:CGP v2023.2 (acute promyelocytic leukemia DN)",build_S25_gene_counts.py
