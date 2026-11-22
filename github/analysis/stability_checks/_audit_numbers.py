@@ -4,17 +4,31 @@ Part A: item-by-item check of the headline conclusions (tolerance 5e-4, interval
 Part B: coverage check -- can every number with >=3 significant digits in the main text be traced to an archived file?
 """
 import json, re, os
+from pathlib import Path
 import pandas as pd
 import numpy as np
 
-PKG = r"C:/Users/wkr20/WorkBuddy/Claw/gigascience_upload_work/GigaScience_Submission_Upload"
-SUP = os.path.join(PKG, "supplementary")
+# Paths are resolved relative to this file so the audit runs on any checkout:
+#   <repo>/analysis/stability_checks/_audit_numbers.py
+#   <repo>/supplementary/*.csv                (archived tables)
+#   <repo>/manuscript/MainText_EN.docx        (the submitted English manuscript)
+HERE = Path(__file__).resolve()
+REPO = HERE.parents[2]
+SUP = REPO / "supplementary"
+MANUSCRIPT = REPO / "manuscript" / "MainText_EN.docx"
+if not MANUSCRIPT.exists():
+    cand = sorted((REPO / "manuscript").glob("*.docx")) if (REPO / "manuscript").exists() else []
+    if not cand:
+        cand = sorted(REPO.glob("**/*MainText*.docx"))
+    if not cand:
+        raise SystemExit("manuscript .docx not found under %s" % (REPO / "manuscript"))
+    MANUSCRIPT = cand[0]
 import docx
-D = docx.Document(os.path.join(PKG, "manuscript/Main_Text_CN_GigaScience_revised.docx"))
+D = docx.Document(str(MANUSCRIPT))
 TXT = "\n".join(p.text for p in D.paragraphs)
 
-S = {f: pd.read_csv(os.path.join(SUP, f)) for f in os.listdir(SUP) if f.endswith(".csv")}
-J = json.load(open(os.path.join(SUP, "analysis_summary.json"), encoding="utf-8"))
+S = {f: pd.read_csv(str(SUP / f)) for f in os.listdir(SUP) if f.endswith(".csv")}
+J = json.load(open(str(SUP / "analysis_summary.json"), encoding="utf-8"))
 
 def v(x, d=6):
     return round(float(x), d)

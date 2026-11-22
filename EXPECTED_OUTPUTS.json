@@ -25,8 +25,8 @@
     "D_dcic": -0.081,
     "interaction_I": 0.2785,
     "interaction_I_ci": [
-      0.2657,
-      0.2887
+      0.2646,
+      0.2889
     ],
     "disease_boundary_gap_pct": [
       0.14,

@@ -20,7 +20,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.gridspec import GridSpec
 
 R = Path(__file__).resolve().parents[1]
-S, O = R / "source_data", R / "supplementary"
+S, O = R.parents[1] / "zenodo" / "source_data", R.parents[1] / "zenodo" / "supplementary"
 OUT = Path(r"C:/Users/wkr20/WorkBuddy/Claw/gigascience_panels_rendered_20260930")
 OUT.mkdir(parents=True, exist_ok=True)
 MM = 25.4
@@ -857,7 +857,7 @@ SYS_COLOR = {"Brain & CNS": "#6B5B95", "Blood & immune": "#C65C27", "Heart": "#A
 
 
 def f7f(fig, which="rep", letter="F", fs_tick=6.5, fs_ylab=7.0, title=None,
-        top=0.90, bottom=0.265, legend=True):
+        top=0.90, bottom=0.265, legend=True, left=0.30):
     E_all = S12.copy(); E_all["sys"] = E_all.tissue.map(organ_system)
     E_all = E_all.sort_values(["sys", "interaction_pearson"],
                               ascending=[True, False]).reset_index(drop=True)
@@ -873,7 +873,7 @@ def f7f(fig, which="rep", letter="F", fs_tick=6.5, fs_ylab=7.0, title=None,
               "adv.\nRNASeQC (R)", "adv.\nRSEM (E)"]
     cb_labels = ["interaction", "interaction", "donors", "advantage", "advantage"]
     inner = GridSpec(2, len(cols) + 1, figure=fig, width_ratios=[0.3] + [1] * len(cols),
-                     height_ratios=[1, 0.05], wspace=0.30, hspace=0.22, left=0.30,
+                     height_ratios=[1, 0.05], wspace=0.30, hspace=0.22, left=left,
                      right=0.965, top=top, bottom=bottom)
     # the organ-system strip must span exactly the heat-map row, not the colour-bar row too
     side = fig.add_subplot(inner[0, 0])
@@ -994,7 +994,8 @@ JOBS = [
     # full 68-tissue version, moved out of the main text into Supplementary Figure S2
     ("Supplementary_Figure_S2_GTEx_tissue_matrix",
      lambda fig: f7f(fig, which="all", letter="S2", fs_tick=6.5, fs_ylab=5.8,
-                     title="All 68 tissues, grouped by organ system", top=0.90, bottom=0.245),
+                     title="All 68 tissues, grouped by organ system", top=0.90, bottom=0.245,
+                     left=0.375),
      155, 258, True),
 ]
 
