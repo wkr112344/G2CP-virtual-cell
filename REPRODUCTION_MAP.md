@@ -18,7 +18,7 @@
 | GTEx interaction 0.07096 / 0.06187 (median of medians) | `gtex_reference_sensitivity/scripts/07_bootstrap.py` | `gtex_reference_sensitivity` (per-sample scores) | S8, S10–S12 |
 | Figures 1–7 and single panels | `github/analysis/figure_build/*.py` | `zenodo/source_data/figure_source_data` | same-named files in `zenodo/figures/` |
 
-> Permutation control: the archived comparison tables `S28_permutation_scheme_comparison.csv` and `S31` record schemes A (positional) and B (within-cell-line). `build_S28_v2.py` additionally runs a third, drug-identity-constrained scheme with empirical P values as a sensitivity analysis; those 18 rows are not part of the archived tables.
+> Permutation control: `S28_permutation_scheme_comparison.csv` now holds all three schemes — A (positional), B (within-cell-line), and C (within-cell-line restricted to strata that admit a complete drug-identity derangement; 6,800 of 6,892 records, 92 single-record strata excluded) — with observed values, null means, 95% intervals and empirical P values. `build_S28_v2.py` regenerates this table; `S31` remains the unrestricted substitution analysis.
 
 > Checking convention: all key numbers use tolerance 5×10⁻⁴; interval endpoints 1×10⁻³. The one-by-one comparison
 > script is `github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`.
