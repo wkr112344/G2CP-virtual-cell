@@ -1,0 +1,3 @@
+﻿scheme,permutations_checked,records_per_permutation,strata_per_permutation,positions_checked,positions_retaining_original_drug,deterministic_fallbacks,B,seed,note
+B_within_cell,2005,6800,352,13634000,0,0,2000,20261011,2000 null draws plus 5 audit draws. The 92 single-record strata are held fixed by design and are reported as n_single_record_groups in the comparison file; every stratum that is permuted pairs each record with a different drug.
+C_within_cell_permutable_only,2000,6800,352,13600000,0,0,2000,20261011,"All 92 single-record strata excluded, so every remaining stratum admits a complete drug-identity derangement; no fallback construction was needed."

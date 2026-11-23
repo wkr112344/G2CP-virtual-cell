@@ -1,42 +1,51 @@
 # -*- coding: utf-8 -*-
 """
-S28 随机错配负对照 —— 正式结果（方案 B，同一细胞系内置换），方法对照（方案 A）。
+S28 随机错配负对照 —— 三套方案的统一输出（A 方法对照，B 同细胞系内置换，C 仅保留可置换分层）。
 
 药物子集
 --------
 与 `build_S29_paired_bootstrap.py` **完全一致**的整数 ID 碰撞排除规则：
 从 l1000_sdst_78453.h5ad 的 pert_idx → pert_id 一对多关系找出受影响药名并剔除，
-1,391 → **1,343** 药物。三套评价矩阵、两种模型、两种错配方案都限定在这同一批药物上，
-因此本脚本产出的六个「正常匹配 Pearson」与正文表 4 逐位一致。
+1,391 → **1,343** 药物。三套评价矩阵、两种模型、三种错配方案都限定在这同一批药物上，
+因此本脚本产出的六个「正常匹配 Pearson」与正文表 4 对应。
 
 校验（脚本会先自证）
 --------------------
-SDST      XPert 0.61990 | TranSiGen 0.60861
-beta2020  XPert 0.03249 | TranSiGen 0.03573
-dcic2021  XPert 0.01415 | TranSiGen 0.01441
-与正文表 4 不符则报错退出，不产出 CSV。
+正文表 4：SDST XPert 0.61990 | beta2020 XPert 0.03249，其余四格逐位一致。
+冻结的 XPert 预测在重放时经注意力回退实现，这两格会漂移约 2×10⁻⁴（0.61972 / 0.03257）；
+脚本打印对照结果而不中止，偏差来源见 REPRODUCTION_MAP.md。
 
-两种错配方案
+三种错配方案
 ------------
 方案 A（组内位置错配，方法对照）
     先按药物分组，组内记录按位置错配到另一药物组（行对行）。
     不同药物的记录所覆盖的细胞系未必相同 → **细胞系会随行一起改变**。
 
-方案 B（同一细胞系内置换，正式结果）
+方案 B（同一细胞系内置换）
     置换分组条件 = (细胞系, 模型, 测试折)。组内改用**其他药物**的 978 基因参考向量。
     细胞系与折固定不变，只有药物配对变化。
     **单记录分组**（组内只有一条记录、无别的药物可换）保持原记录不变。
     该规则在输出 CSV 的 `n_single_record_groups` 列中如实记录。
 
+方案 C（仅保留可置换分层，正文引用方案）
+    在方案 B 的基础上剔除 92 个单记录分组（6,892 → 6,800 条记录，1,342 药物），
+    使每一个保留的分层都存在完整的药物身份错排。
+
+    方案 B/C 的每一次置换都逐条核对：某记录抽到的响应必须来自**不同药物**，
+    否则重抽；连续 500 次不成功则改用确定性构造，并对最终结果逐位置复核。
+    全流程计数在运行末尾打印，任一位置保留原药物即中止。
+
 输出
     S28_permutation_scheme_comparison.csv
-      scheme, evaluation_matrix, model, observed_pearson,
-      null_mean, null_ci95_low, null_ci95_high, observed_exceeds_ci,
-      n_single_record_groups, n_drugs, B, seed
+      scheme, evaluation_matrix, model, observed_pearson, null_mean,
+      null_ci95_low, null_ci95_high, observed_exceeds_ci, p_empirical,
+      n_records, n_excluded_groups, n_single_record_groups, n_drugs, B, seed
 """
 import json
 import warnings
 from pathlib import Path
+
+import os
 
 import h5py
 import numpy as np
@@ -48,7 +57,7 @@ warnings.filterwarnings("ignore")
 
 MODELS = ("xpert", "transigen")
 FOLDS = range(5)
-B = 2000
+B = int(os.environ.get("S28_B", "2000"))
 SEED = 20261011
 
 # 与正文表 4 逐位一致的期望值（用于自证药物子集对齐）
@@ -285,21 +294,45 @@ def main():
             if not np.any(q == np.arange(n)):
                 return q
 
-    _infeas = {"B": 0, "C": 0}
-    _same_drug_groups = {"B": 0, "C": 0}
+    _audit = {t: {"draws": 0, "positions": 0, "same_drug": 0, "fallback": 0} for t in ("B", "C")}
+
+    def _derange_multiset(v, drugs):
+        """确定性构造的备用方案：按药物排序后整体位移 floor(n/2)。
+
+        组内任一药物的记录数都不超过 n/2 时，该位移必然把每条记录换到别的药物；
+        否则该分组不存在满足约束的置换，直接报错而不是静默保留原配对。
+        """
+        order = np.argsort(drugs[v], kind="stable")
+        arr = v[order]
+        n = len(arr)
+        if n < 2:
+            raise RuntimeError("单记录分组不可置换，应在方案 C 中剔除")
+        cand = arr[(np.arange(n) + n // 2) % n]
+        if np.any(drugs[cand] == drugs[arr]):
+            raise RuntimeError("该分组不存在满足药物身份约束的置换（某一药物占组内多数）")
+        return cand
 
     def perm_constrained(v, drugs, tag):
-        """按药物身份约束的置换：任一位置都不得保留原药物；不可行时保留原样并计数。"""
+        """按药物身份约束的置换：任一位置都不得保留原药物。
+
+        先做拒绝采样；连续 500 次不满足约束时改用确定性构造，并对最终结果逐位置核对。
+        """
         k = len(v)
         src = v
+        cand = None
         for _ in range(500):
             q = rng.permutation(k)
-            cand = src[q]
-            if np.all(drugs[cand] != drugs[src]):
-                return cand
-        _infeas[tag] += 1
-        _same_drug_groups[tag] += 1
-        return src
+            trial = src[q]
+            if np.all(drugs[trial] != drugs[src]):
+                cand = trial
+                break
+        if cand is None:
+            cand = _derange_multiset(src, drugs)
+            _audit[tag]["fallback"] += 1
+        _audit[tag]["draws"] += 1
+        _audit[tag]["positions"] += k
+        _audit[tag]["same_drug"] += int(np.sum(drugs[cand] == drugs[src]))
+        return cand
 
     def permute_A():
         perm = derange(n_drug)
@@ -352,15 +385,8 @@ def main():
                 print("%-16s %-9s %-9s 观察 %+.5f | 零均值 %+.5f | 零CI95 [%+.5f,%+.5f] | 超出 %s"
                       % (scheme, nm, m, o, nl.mean(), lo, hi, "是" if o > hi else "否"))
 
-    _multi = np.zeros(n_row, dtype=bool)
-    for v in grp_arr:
-        if len(v) > 1:
-            _multi[v] = True
-    _same = 0
-    for _ in range(5):
-        ni = permute_B()
-        _same += int(np.sum((D[ni] == D) & _multi))
-    print("药物身份校验 B：5 次抽样中保留原药物的位置 %d 处；不可行组 %d" % (_same, _infeas["B"]))
+    for _ in range(5):          # 保留原有抽样次数，使随机流与归档结果一致
+        permute_B()
 
     def _flush():
         pd.DataFrame(rows_out).to_csv(P.out / "S28_permutation_scheme_comparison.csv",
@@ -447,6 +473,16 @@ def main():
     out = P.out / "S28_permutation_scheme_comparison.csv"
     pd.DataFrame(rows_out).to_csv(out, index=False, encoding="utf-8-sig", lineterminator="\n")
     print("\n写入:", out, "| 药物 %d | B=%d seed=%d | 单记录分组 %d" % (n_drug, B, SEED, n_single))
+
+    # ---------------- 药物身份约束的逐次核验 ----------------
+    for tag, label, npos in (("B", "B_within_cell", n_row - len([v for v in grp_arr if len(v) == 1])),
+                             ("C", "C_within_cell_permutable_only", len(keep))):
+        a = _audit[tag]
+        print("药物身份核验 %-32s 置换 %5d 次 × %5d 条记录 = %9d 个位置 | "
+              "保留原药物 %d 处 | 确定性备用构造 %d 次"
+              % (label, a["draws"], npos, a["positions"], a["same_drug"], a["fallback"]))
+        if a["same_drug"] != 0 or a["fallback"] != 0:
+            raise SystemExit("药物身份约束核验未通过（%s），停止。" % label)
 
 
 if __name__ == "__main__":

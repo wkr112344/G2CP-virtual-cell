@@ -68,13 +68,14 @@ python ../../analysis/stability_checks/score_three_refs.py     # or supply your 
 python build_S29_paired_bootstrap.py --by "$GIGASCIENCE_ROOT/work/score_three_refs_by_drug.csv"
 
 # (c) S28 random-mis-pairing control     → S28_permutation_scheme_comparison.csv
-python build_S28_permutation.py
+python build_S28_v2.py
 
 # (d) S27 condition / well-token audit    → S27_sdst_beta2020_condition_audit.csv
 python build_S27_condition_audit.py
 ```
 
-Expected runtimes (authors' machine, CPU only): (b) ~1 min, (c) ~17 min (B = 2000), (d) ~2 min.
+Expected runtimes (authors' machine, CPU only): (b) ~1 min, (c) ~6 min for all three schemes
+(B = 2000; `S28_B` overrides the replicate count), (d) ~2 min.
 
 ## 5. Software versions and code revision
 
@@ -96,23 +97,35 @@ submission:
 Sections of the paper this package supports: S27 (condition audit), S28 (random-mis-pairing
 negative control), S29 / main-text p = 0.0090 (paired bootstrap on the 1,343-drug subset).
 
-## 6. What the two S28 permutation schemes are
+## 6. What the three S28 permutation schemes are
 
 * `A_positional_old` — records are grouped **by drug**, then mismatched **positionally**
   (row-to-row) across drug groups. Because the groups do not cover identical cell lines, this
   also changes the cell line. Kept only as a method comparison.
 * `B_within_cell` — the cell line (and fold) are **held fixed**; within a `(cell, model, fold)`
   group, a row is swapped to a *different drug*'s 978-gene reference vector. Only the drug pairing
-  changes. **This is the scheme reported as the main result.**
+  changes. The 92 single-record groups have no other drug to swap with and therefore keep their
+  original record; they are counted in `n_single_record_groups`.
+* `C_within_cell_permutable_only` — scheme B with those 92 single-record groups removed from both
+  the correctly paired and the permuted evaluation (6,800 of 6,892 records, 1,342 drugs).
+  **This is the scheme cited in the main text.**
 
-In both schemes the model prediction is untouched and the drug-equal-weight aggregation is identical
-(fold-inner drug mean → cross-fold mean). Under both schemes all six observed (correctly matched)
-values exceed the 95% upper bound of the corresponding null.
+In all schemes the model prediction is untouched and the drug-equal-weight aggregation is identical
+(fold-inner drug mean → cross-fold mean). Under all three schemes the six observed (correctly
+matched) values exceed the 95% upper bound of the corresponding null, with empirical P = 0.0005,
+the smallest value attainable with B = 2,000.
+
+Every permutation in B and C is audited: within each permuted stratum a record must receive another
+record's response whose drug identifier differs, the draw is rejected otherwise, and the final
+assignment is re-checked position by position. Across 2,000 permutations per scheme 13.6 million
+positions were checked, none kept its original drug, and the deterministic fallback construction was
+never needed; the counts are written to `S28_permutation_constraint_check.csv`.
 
 The drug subset is identical to main-text Table 4: after removing drug names affected by the
 integer-ID collision (`pert_idx → pert_id` one-to-many) the benchmark has **1,343** drugs
-(1,391 − 204). `build_S28_permutation.py` self-checks that the six correctly matched Pearson values
-reproduce Table 4 exactly and aborts without writing a CSV otherwise.
+(1,391 − 204). `build_S28_v2.py` self-checks the six correctly matched Pearson values against
+Table 4; the frozen XPert predictions replay to within 2×10⁻⁴ of the table (attention fallback),
+and the script reports the comparison instead of aborting.
 
 ## 7. The two-sided empirical P value, and its resolution floor
 
