@@ -22,3 +22,29 @@
 
 > Checking convention: all key numbers use tolerance 5×10⁻⁴; interval endpoints 1×10⁻³. The one-by-one comparison
 > script is `github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`.
+
+> Supplementary renumbering in the submitted package. This snapshot keeps the original file names used during
+> analysis. The submission package removes the duplicate tables (old S18 = S17b; old S22 = S3; old S23 = S17c)
+> and closes the gaps, so the following identifiers refer to the same data:
+
+| Package S | Snapshot file in `zenodo/supplementary/` |
+|---|---|
+| S18 | `S17b_coverage_ge3_rank_stability.csv` |
+| S19 | `S21_rank_concordance_summary.csv` |
+| S20 | `S24_lincs_perdrug_raw_vs_residualized.csv` |
+| S21 | `S23_lincs_crossed_bootstrap.csv` |
+| S22 | `S27_disease_signature_gene_counts.csv` |
+| S23 | `S26_signature_pair_summary.csv` |
+| S24 | `S29_paired_advantage_bootstrap.csv` |
+| S25 | `S27_sdst_beta2020_condition_audit.csv` |
+| S26 | `S31_unrestricted_substitution.csv` |
+| S27 | `S33_matrix_swap_reporting_survey.csv` |
+| S28 | `S34_deepdep_top10_overlap.csv` |
+| S29 | `S35_depmap_controlled_within_gene.csv` |
+
+> Detail files in the package follow the same mapping: package `detail/S18_*` = snapshot `S19_disease_shortlist_boundary.csv`;
+> `detail/S21_*` = snapshot `S25_direction_check.csv` and `S25_inside_outside_verdict.csv`;
+> `detail/S23_*` and `detail/S23b_*` = snapshot `S26_signature_pair_audit.csv`, `S26b_*.csv`;
+> `detail/S26_*` = snapshot `S28_matched_vs_mispaired_pearson_historical_schemeA.csv`,
+> `S28_per_row_pearson.csv`, `S28_permutation_scheme_comparison.csv`,
+> `S28_permutation_constraint_check.csv`, `S28_xpert_transigen_matched_summary.csv`.
