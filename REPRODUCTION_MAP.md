@@ -6,7 +6,7 @@
 | The three metrics agree in direction across matrices | same as above | same as above | Table S1 (Pearson/Spearman/cosine × drug/cell line) |
 | Training-state reversal D_beta = +0.1975, D_dcic = −0.0810, I = 0.2785 | `_patch_A_B.py` | `supplementary/frozen_multimetric_perrow_scores.csv` | Table 3, S25 |
 | Crossed 2×2 reversal holds 2000/2000 | `_patch_A_B.py` | same | S25 (direction_probability = 1.0) |
-| Crossed CI for the main Δ, 0.2855–0.3128 | `_crossed_bootstrap_and_disease.py` | frozen per-row scores | S25 |
+| Crossed CI for the main Δ, 0.2857–0.3130 | `_crossed_bootstrap_and_disease.py` | frozen per-row scores | S25 |
 | Rank Spearman 0.5675 / Kendall τ 0.4110 | `_audit_numbers.py` + `_within_ref_stability.py` | per-drug ranks | S19 |
 | top-10 across matrices 3/10; same-reference 7.93 / 7.04 | `_within_ref_stability.py`, `_patch_A_B.py` | per-row scores (B = 2000 independent pairs) | S17, S17b, S17c |
 | top-k vs random expectation | `_audit_numbers.py` | n_drugs = 2,037 | S22 |
