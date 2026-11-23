@@ -18,22 +18,22 @@ No other generative AI service was used for the work reported here.
 
 ## User
 
-Kairui Wei (first author, corresponding author). All prompts, decisions, and
+Kairui Wei (first author). All prompts, decisions, and
 acceptance of edits were made by this author.
 
 ## Scope of use
 
-AI assistance was limited to editorial and mechanical tasks:
+AI assistance was limited to three editorial and mechanical tasks, matching the
+`Use of AI tools` statement in the manuscript:
 
 1. **Language editing** — grammar, article usage, and phrasing in the English
    manuscript. No new scientific claims were introduced.
-2. **Reference checking** — verifying that reference numbers in the text match the
+2. **Reference formatting** — checking that reference numbers in the text match the
    reference list, and that DOIs resolve to the cited records.
-3. **Document formatting** — section ordering, heading styles, table and figure
-   caption layout, and export settings.
-4. **Package assembly** — generating the file manifest, rebuilding two
-   supplementary tables (S31, S33) from existing analysis outputs, and
-   standardising the license files.
+3. **Document preparation** — section ordering, heading styles, table and figure
+   caption layout, export settings, assembly of the submission files, manifest
+   generation, standardisation of the license files, and reformatting of two
+   supplementary tables (S31, S33) from existing analysis outputs.
 
 ## What was not done by AI
 

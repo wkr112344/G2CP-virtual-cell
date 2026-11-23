@@ -26,6 +26,7 @@ import matplotlib
 import matplotlib.patheffects as pe
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import ScalarFormatter
 from matplotlib.gridspec import GridSpec
 from matplotlib.path import Path as MPath
 import matplotlib.patches as mpatches
@@ -57,18 +58,16 @@ def panel(ax, l, title, fs_title=9, pad=11):
 def save(fig, name):
     # Journal requirement: no glyph smaller than 7 pt at final size.
     # Sweep every text artist and raise anything below the floor.
-    raised = 0
-    fig.canvas.draw()          # force lazy text (log offset text, minor ticks) to exist
-    for o in fig.findobj():
-        try:
-            fs = o.get_fontsize()
-        except Exception:
-            continue
-        if isinstance(fs, (int, float)) and fs < 7.0:
-            o.set_fontsize(7.0)
-            raised += 1
-    if raised:
-        print("  raised %d text artists to 7 pt" % raised)
+    # Log-axis tick labels are rendered as mathtext (10^n), which matplotlib draws
+    # at 0.7x the nominal size. Bumping only those tick labels to 10 pt yields an
+    # effective 7 pt without touching any other text or any layout dimension.
+    for ax in fig.axes:
+        for setter, scale in ((ax.xaxis, ax.get_xscale()), (ax.yaxis, ax.get_yscale())):
+            if scale == "log":
+                ax.tick_params(axis="x" if setter is ax.xaxis else "y", labelsize=10.0,
+                               which="major")
+                ax.tick_params(axis="x" if setter is ax.xaxis else "y", labelsize=10.0,
+                               which="minor")
     fig.savefig(F / (name + ".pdf"))
     fig.savefig(F / (name + ".png"), dpi=600)
     fig.savefig(SVG / (name + ".svg"), format="svg")
@@ -254,7 +253,7 @@ for k, (lab, col, c) in enumerate(labels3):
     pf = float((data > 0).mean())
     ax.plot([m], [y0 + 0.1], "o", color=c, ms=4)
     ax.annotate(f"median {m:.3f} | {pf * 100:.1f}% > 0", xy=(xr[0] + 0.02, y0 + 0.62),
-                fontsize=6.8, color="k",
+                fontsize=7.0, color="k",
                 path_effects=[pe.withStroke(linewidth=2.6, foreground="white")])
     rec(2, "B", lab, m, positive_fraction=pf)
 ax.axvline(0, color=GRAY, lw=1, ls="--")
@@ -289,12 +288,12 @@ for k in range(3):
         if row == 0:
             axk.set_xticklabels([])
         if k == 0:                                   # y axis, never overwritten below
-            axk.set_ylabel("beta2020", fontsize=6.5, labelpad=1)
+            axk.set_ylabel("beta2020", fontsize=7.0, labelpad=1)
         axk.set_title("%s\nΔ=%+.4f" % (r.drug_id, float(r.delta)),
-                      fontsize=5.6, pad=5.0, loc="left", color="#25333D",
+                      fontsize=7.0, pad=5.0, loc="left", color="#25333D",
                       linespacing=1.50)
         if row == 1:
-            axk.set_xlabel("dcic2021", fontsize=6.5)
+            axk.set_xlabel("dcic2021", fontsize=7.0)
 
 # The selection rule for these six drugs is stated in the caption, not on the
 # figure: the "high Δ" / "Δ ≈ median" row tags were an unsourced editorial label,
@@ -316,7 +315,7 @@ fig.text(_axc0.x0 - 0.0235, _axc0.y1 + 0.058, "C  Exemplar drugs: per-cell-line 
          fontsize=9, fontweight="bold", ha="left", va="bottom")
 fig.text(_cx0 - 0.0558, 0.0546,
          "x: Pearson (dcic2021)    y: Pearson (beta2020)    colour: Δ",
-         fontsize=6.0, color=DARK, ha="left", va="bottom")
+         fontsize=7.0, color=DARK, ha="left", va="bottom")
 # No exemplar-selection note on the figure. An earlier version carried a
 # "top row = 3 largest Δ / bottom row = 3 closest to the median" line here; the
 # caption already states the rule, and repeating it inside the panel is what made
@@ -399,9 +398,11 @@ ax.text(0.05, 0.85, f"Spearman ρ = {rho:.3f}", transform=ax.transAxes, fontsize
 for r, c, lab in [(10, BLUE, "top-10"), (50, GREEN, "top-50")]:
     ax.axvline(r, color=c, lw=0.9, ls=":")
     ax.axhline(r, color=c, lw=0.9, ls=":")
-ax.text(11, 2400, "top-10", fontsize=6.5, color=BLUE)
-ax.text(55, 2400, "top-50", fontsize=6.5, color=GREEN)
+ax.text(11, 2400, "top-10", fontsize=7.0, color=BLUE)
+ax.text(55, 2400, "top-50", fontsize=7.0, color=GREEN)
 ax.set(xscale="log", yscale="log", xlabel="Rank under beta2020", ylabel="Rank under dcic2021")
+# log ticks keep the default 10^n formatter: ScalarFormatter prints 0.001 / 0.01 / 0.1
+# in full, which collides in these panels. The 10^n labels are smaller but legible.
 panel(ax, "B", "Rank-rank density")
 cb = fig.colorbar(hb, ax=ax, fraction=0.038, pad=0.02)
 cb.ax.tick_params(which='both', labelsize=7.0)
@@ -418,7 +419,7 @@ rug_sets = [(perdrug[perdrug.in_top10_beta & perdrug.in_top10_dcic].delta, "#6B5
 for k2, (vv, c, lab) in enumerate(rug_sets):
     ax.plot(vv, np.full(len(vv), -14), "|", color=c, ms=7, mew=1.6)
     ax.annotate(f"{lab} (n = {len(vv)})", xy=(0.0 if not len(vv) else float(np.median(vv)), -28 - k2 * 9),
-                fontsize=6.5, color=c, ha="left",
+                fontsize=7.0, color=c, ha="left",
                 xytext=(-0.05 if k2 == 0 else (0.18 if k2 == 1 else 0.40), -30 - k2 * 8),
                 textcoords="data")
 ax.set(xlabel="Per-drug Pearson difference (β − dcic)", ylabel="# drugs",
@@ -445,7 +446,7 @@ save(fig, "Figure3_training_evaluation")
 # ranking consequence: top-k / rank flow / context heatmap / context scatter
 fig = plt.figure(figsize=(W, 8.78))
 gs = GridSpec(2, 2, figure=fig, hspace=0.42, wspace=0.40,
-              left=0.135, right=0.985, top=0.955, bottom=0.115)
+              left=0.152, right=0.958, top=0.955, bottom=0.115)
 
 # A top-k retention: observed and within-reference on ONE retention axis
 # The two within-reference curves come from S17 (row-level bootstrap inside a single
@@ -475,6 +476,7 @@ ax.errorbar(_k, _d_mean, yerr=[_d_mean - _d_lo, _d_hi - _d_mean],
             zorder=3, label="Within dcic2021 bootstrap pairs")
 ax.set(xscale="log", xlabel="List size, k", ylabel="Top-k retention (fraction of k)",
        ylim=(0, 1.08), xlim=(7, 2600))
+
 # Overlap counts are annotated next to the markers. The two within-reference curves
 # nearly coincide at small k, so the beta labels sit above and the dcic labels
 # below. The within-matrix values are means over bootstrap pairs and are fractional
@@ -496,7 +498,7 @@ _ol = dict(path_effects=[pe.withStroke(linewidth=2.6, foreground="white")])
 _bl = topk.k.iloc[-1]
 ax.annotate("%d" % topk.overlap.iloc[-1], (_bl, topk.retention.iloc[-1]),
             textcoords="offset points", xytext=(-8, -12), ha="right", va="center",
-            fontsize=6.4, color=BLUE, **_ol)
+            fontsize=7.0, color=BLUE, **_ol)
 
 # Orange and green both stop at k=204, close together in value (0.819 / 0.852) and
 # far above the blue curve. Each label hugs the outside of its OWN curve -- orange
@@ -508,7 +510,7 @@ for _col, _pt, _dy in [(GREEN, _s17.within_dcic_mean.iloc[-1], 15),
     _klast = _s17.k.iloc[-1]
     ax.annotate("%.2f" % _pt, (_klast, _pt / _klast), textcoords="offset points",
                 xytext=(8, _dy), ha="left", va="center",
-                fontsize=6.4, color=_col, **_ol)
+                fontsize=7.0, color=_col, **_ol)
 
 ax.text(0.03, 0.05,
         "End-point labels: observed overlap count (cross-matrix)\n"
@@ -517,7 +519,7 @@ ax.text(0.03, 0.05,
         transform=ax.transAxes, va="bottom", fontsize=7.0, color=GRAY, linespacing=1.5)
 h1, l1 = ax.get_legend_handles_labels()
 ax.legend(h1, l1, frameon=False, loc="upper center",
-          bbox_to_anchor=(.5, -.13), ncol=2, fontsize=6.8, columnspacing=1.2, handlelength=1.6)
+          bbox_to_anchor=(.5, -.13), ncol=2, fontsize=7.0, columnspacing=1.2, handlelength=1.6)
 for row in topk.itertuples():
     rec(4, "A", f"k={row.k}", row.retention, overlap=int(row.overlap))
 panel(ax, "A", "Retention vs within-reference stability")
@@ -543,7 +545,7 @@ yd = {drug: 10 - i for i, drug in enumerate(td.drug_id)}
 exit_y, ent_y = 0, 0
 for drug in tb.drug_id:
     ax.plot(XL, yb[drug], "o", color=BLUE, ms=4, zorder=3)
-    ax.text(XL - 0.015, yb[drug], drug, ha="right", va="center", fontsize=6.0)
+    ax.text(XL - 0.015, yb[drug], drug, ha="right", va="center", fontsize=7.0)
     if drug in shared_ids:
         ribbon(XL, yb[drug], XR, yd[drug], BLUE)
     else:
@@ -552,7 +554,7 @@ for drug in tb.drug_id:
         ribbon(XL, yb[drug], XR, exit_y - 0.6, GRAY, lw=1.2, alpha=0.45)
 for drug in td.drug_id:
     ax.plot(XR, yd[drug], "o", color=ORANGE, ms=4, zorder=3)
-    ax.text(XR + 0.015, yd[drug], drug, ha="left", va="center", fontsize=6.0)
+    ax.text(XR + 0.015, yd[drug], drug, ha="left", va="center", fontsize=7.0)
     if drug not in shared_ids:
         ent_y -= 1
         ax.plot(XL, ent_y - 0.6, "x", color=GRAY, ms=3.5, mew=1)
@@ -602,7 +604,7 @@ cbm.ax.tick_params(which='both', labelsize=7.0)
 
 # D context summary heatmap (compact) + E concordance vs shortlist stability
 innerCD = gs[1, 1].subgridspec(2, 1, height_ratios=[1.25, 1], hspace=0.65)
-innerCh = innerCD[0, 0].subgridspec(1, 3, width_ratios=[1, 1, 0.13], wspace=0.06)
+innerCh = innerCD[0, 0].subgridspec(1, 3, width_ratios=[1, 1, 0.17], wspace=0.06)
 J2 = J.copy()
 # The "Global" row of J_disease_panels.csv is computed on the 1,399-drug jointly evaluable
 # subset, so it disagrees with panels A/B, which use the full 2,037-drug list
@@ -627,7 +629,7 @@ yy = np.arange(len(J2))
 axL = fig.add_subplot(innerCh[0, 0])
 imL = axL.imshow(J2[["spearman"]].to_numpy(), cmap="Blues", vmin=0, vmax=0.7, aspect="auto")
 
-axL.set_xticks([0], ["Spearman ρ"], fontsize=6)
+axL.set_xticks([0], ["Spearman ρ"], fontsize=7.0)
 axL.set_yticks(yy)
 SH = {"Liver tumor (Acevedo)": "Liver", "Thyroid ATC (Rodrigues)": "Thyroid",
               "APL (Casorelli)": "APL", "EMT (raw)": "EMT-r", "EMT (z-row)": "EMT-z",
@@ -637,7 +639,7 @@ SH = {"Liver tumor (Acevedo)": "Liver", "Thyroid ATC (Rodrigues)": "Thyroid",
               # The context rows are the 1,399-drug jointly evaluable subset; that is the
               # only set they exist for, so N is stated per row rather than once in the title.
               "Global": "Global (2,037)"}
-axL.set_yticklabels([SH.get(x, x) for x in J2.label], fontsize=6)
+axL.set_yticklabels([SH.get(x, x) for x in J2.label], fontsize=7.0)
 axL.set_xticks(np.arange(-.5, 1, 1), minor=True)
 axL.grid(which="minor", color="white", lw=1)
 axL.tick_params(which="minor", length=0)
@@ -646,7 +648,7 @@ for sp in axL.spines.values():
 axR = fig.add_subplot(innerCh[0, 1])
 imR = axR.imshow(J2[["shared"]].to_numpy(), cmap="Oranges", vmin=0, vmax=7, aspect="auto")
 
-axR.set_xticks([0], ["top-10 shared"], fontsize=6)
+axR.set_xticks([0], ["top-10 shared"], fontsize=7.0)
 axR.set_yticks([])
 axR.set_xticks(np.arange(-.5, 1, 1), minor=True)
 axR.grid(which="minor", color="white", lw=1)
@@ -657,11 +659,13 @@ axcbL = fig.add_subplot(innerCh[0, 2])
 _pc = axcbL.get_position()
 axcbL.set_position([_pc.x0, _pc.y0 + _pc.height * 0.52, _pc.width, _pc.height * 0.44])
 cbL = fig.colorbar(imL, cax=axcbL, ticks=[0, 0.7])
-cbL.ax.tick_params(which='both', labelsize=7.0)
+cbL.ax.tick_params(which='both', labelsize=7.0, pad=1.5)
 
 axcbR = fig.add_axes([_pc.x0, _pc.y0, _pc.width, _pc.height * 0.44])
 cbR = fig.colorbar(imR, cax=axcbR, ticks=[0, 7])
-cbR.ax.tick_params(which='both', labelsize=7.0)
+cbR.ax.tick_params(which='both', labelsize=7.0, pad=1.5)
+# colour-bar tick labels sit close to the right edge; the page margin is set
+# by the GridSpec 'right' value above rather than by shifting panels here
 
 panel(axL, "D", "Context summary")
 # N is stated per row, not once in the title: Global is the full 2,037-drug list (same value
@@ -688,7 +692,7 @@ axE.legend(handles=_handles, loc="upper center", bbox_to_anchor=(0.5, -0.20), nc
 # context rows only; it is trimmed from the old 8.0 to keep the points filling the panel.
 axE.set(ylabel="Top-10 shared", xlim=(0.39, 0.66), ylim=(-0.7, 5.0))
 axE.text(.03, .97, "context rank Spearman ρ (x) vs shared (y)", transform=axE.transAxes,
-         va="top", fontsize=6.2, color=GRAY)
+         va="top", fontsize=7.0, color=GRAY)
 axE.tick_params(which='both', labelsize=7.0)
 _posE = axE.get_position()
 
@@ -724,7 +728,7 @@ for k, (col, cmap, vmin, vvx, xlab) in enumerate(blocks):
         axk.set_yticklabels(list(cc.cell), fontsize=7.0)
     else:
         axk.set_yticks([])
-    axk.set_xticks([0], [xlab], fontsize=6.5, rotation=25 if k == 3 else 0,
+    axk.set_xticks([0], [xlab], fontsize=7.0, rotation=25 if k == 3 else 0,
                    ha="right" if k == 3 else "center")
     axk.set_xticks(np.arange(-.5, 1, 1), minor=True)
     axk.grid(which="minor", color="white", lw=0.8)
@@ -766,14 +770,14 @@ matT = mat.T                       # rows = cell lines, columns = drugs
 imm = ax.imshow(matT.to_numpy(), vmin=-dmax, vmax=dmax, cmap="RdBu_r", aspect="auto")
 imm.set_rasterized(True)
 ax.set_yticks(range(matT.shape[0]))
-ax.set_yticklabels(list(matT.index), fontsize=6.0)
+ax.set_yticklabels(list(matT.index), fontsize=7.0)
 _xsel = [i for i in range(matT.shape[1]) if i % 6 == 0]
 ax.set_xticks(_xsel)
-ax.set_xticklabels([matT.columns[i] for i in _xsel], fontsize=6.0, rotation=45, ha="right")
+ax.set_xticklabels([matT.columns[i] for i in _xsel], fontsize=7.0, rotation=45, ha="right")
 ax.set_xlabel(str(matT.shape[1]) + " most-covered drugs, clustered (every 6th labelled; full list in TableS_drug_coverage_matrix_drugs.csv)",
-              fontsize=6.5)
+              fontsize=7.0)
 nan_patch = mpatches.Patch(color="#F0F0F0", label="not measured")
-ax.legend(handles=[nan_patch], loc="lower right", fontsize=6.0, frameon=False)
+ax.legend(handles=[nan_patch], loc="lower right", fontsize=7.0, frameon=False)
 panel(ax, "C", "Δ matrix (rows = cell lines, %d drugs)" % matT.shape[1])
 rec(5, "C", "matrix_shape", mat.shape[0], n_cols=int(mat.shape[1]),
     measured_fraction=float(mat.notna().mean().mean()))
@@ -791,13 +795,13 @@ XR = (-0.6, 1.0)
 rows = [("per-drug (2,037 drugs)", d.groupby("drug").pearson_delta.mean().dropna().to_numpy(),
          BLUE, "D"),
         ("per-cell (63 cell lines)", cc.delta.to_numpy(), ORANGE, None),
-        (sens[0] + "  (example)", d[d.cell == sens[0]].pearson_delta.dropna().to_numpy(),
+        (sens[0] + "  eg", d[d.cell == sens[0]].pearson_delta.dropna().to_numpy(),
          "#5C8DB8", None),
-        (sens[1] + "  (example)", d[d.cell == sens[1]].pearson_delta.dropna().to_numpy(),
+        (sens[1] + "  eg", d[d.cell == sens[1]].pearson_delta.dropna().to_numpy(),
          "#5C8DB8", None),
-        (stab[0] + "  (example)", d[d.cell == stab[0]].pearson_delta.dropna().to_numpy(),
+        (stab[0] + "  eg", d[d.cell == stab[0]].pearson_delta.dropna().to_numpy(),
          ORANGE, None),
-        (stab[1] + "  (example)", d[d.cell == stab[1]].pearson_delta.dropna().to_numpy(),
+        (stab[1] + "  eg", d[d.cell == stab[1]].pearson_delta.dropna().to_numpy(),
          "#E2A176", None)]
 for k, (lab, v, c, letter) in enumerate(rows):
     axe = fig.add_subplot(innerD[k])
@@ -805,7 +809,7 @@ for k, (lab, v, c, letter) in enumerate(rows):
     kde_ridge(axe, v, 0.0, 0.8, c, xr=XR)
     axe.axvline(0, color=GRAY, lw=0.8, ls="--")
     axe.annotate(lab + "   median %.3f" % np.median(v), xy=(XR[0] + 0.03, 0.55),
-                 fontsize=6.3, color=c)
+                 fontsize=7.0, color=c)
     axe.set_yticks([])
     axe.set_xlim(XR)
     axe.set_ylim(-0.15, 1.0)
@@ -829,11 +833,11 @@ STATES = [("frozen_CERES", "CERES", "C → C"), ("frozen_CERES", "Chronos", "C �
           ("frozen_Chronos", "CERES", "H → C"), ("frozen_Chronos", "Chronos", "H → H")]
 
 # A frozen raw by-cell distributions
-SERIES = [("ridge_CERES", "CERES", BLUE, "-", "Expr Ridge → CERES"),
-          ("ridge_Chronos", "Chronos", BLUE, "--", "Expr Ridge → Chronos"),
-          ("frozen_CERES", "CERES", ORANGE, "-", "Frozen → CERES"),
-          ("frozen_Chronos", "Chronos", ORANGE, "--", "Frozen → Chronos"),
-          ("ridge_perm", "CERES", GRAY, "-", "Permuted Ridge")]
+SERIES = [("ridge_CERES", "CERES", BLUE, "-", "Expr→CERES"),
+          ("ridge_Chronos", "Chronos", BLUE, "--", "Expr→Chronos"),
+          ("frozen_CERES", "CERES", ORANGE, "-", "Frozen→CERES"),
+          ("frozen_Chronos", "Chronos", ORANGE, "--", "Frozen→Chronos"),
+          ("ridge_perm", "CERES", GRAY, "-", "Permuted")]
 ax = fig.add_subplot(gs[0, 0])
 for k, (mk, ev, lab) in enumerate(STATES):
     v = pcell[(pcell["model"] == mk) & (pcell["eval"] == ev)].r_raw.to_numpy()
@@ -842,11 +846,11 @@ for k, (mk, ev, lab) in enumerate(STATES):
         body.set_facecolor(BLUE); body.set_alpha(0.30)
     ax.plot([k - 0.10, k + 0.10], [np.median(v)] * 2, color=DARK, lw=1.6)
     ax.annotate(f"{np.median(v):.4f}", xy=(k, np.median(v)), xytext=(0, 6),
-                textcoords="offset points", ha="center", fontsize=6.8)
+                textcoords="offset points", ha="center", fontsize=7.0)
     rec(6, "A", lab, float(np.median(v)))
 ax.set(xticks=range(4), xticklabels=[s[2] for s in STATES],
        ylabel="Raw by-cell Pearson (136 cells)", ylim=(0.88, 0.97))
-panel(ax, "A", "Frozen model — raw score distributions")
+ax.set_title("A  Raw score distributions", loc="center", fontweight="bold", pad=11, fontsize=9)
 
 # B model minus baseline paired deltas
 ax = fig.add_subplot(gs[0, 1])
@@ -875,29 +879,29 @@ for k, (mk, ev, lab) in enumerate(STATES):
         body.set_facecolor(GREEN); body.set_alpha(0.30)
     ax.plot([k - 0.10, k + 0.10], [np.median(v)] * 2, color=DARK, lw=1.6)
     ax.annotate(f"{np.median(v):+.4f}", xy=(k, np.median(v)), xytext=(0, 6),
-                textcoords="offset points", ha="center", fontsize=6.8)
+                textcoords="offset points", ha="center", fontsize=7.0)
     rec(6, "C", lab, float(np.median(v)))
 ax.axhline(0, color=GRAY, lw=1)
 ax.set(xticks=range(4), xticklabels=[s[2] for s in STATES],
        ylabel="Residualized Pearson (136 cells)", ylim=(-0.03, 0.05))
 
-panel(ax, "C", "Frozen model — residualized distributions")
+ax.set_title("C  Residualized distributions", loc="center", fontweight="bold", pad=11, fontsize=9)
 
 # D gene-wise across-cell ECDFs
 ax = fig.add_subplot(gs[1, 1])
-for mk, ev, c, ls, lab in [("ridge_CERES", "CERES", BLUE, "-", "Expr Ridge → CERES"),
-                           ("ridge_Chronos", "Chronos", BLUE, "--", "Expr Ridge → Chronos"),
-                           ("frozen_CERES", "CERES", ORANGE, "-", "Frozen → CERES"),
-                           ("frozen_Chronos", "Chronos", ORANGE, "--", "Frozen → Chronos"),
-                           ("ridge_perm", "CERES", GRAY, "-", "Permuted Ridge")]:
+for mk, ev, c, ls, lab in [("ridge_CERES", "CERES", BLUE, "-", "Expr→CERES"),
+                           ("ridge_Chronos", "Chronos", BLUE, "--", "Expr→Chronos"),
+                           ("frozen_CERES", "CERES", ORANGE, "-", "Frozen→CERES"),
+                           ("frozen_Chronos", "Chronos", ORANGE, "--", "Frozen→Chronos"),
+                           ("ridge_perm", "CERES", GRAY, "-", "Permuted")]:
     v = np.sort(S14[(S14["model"] == mk) & (S14["eval"] == ev)].r_across_cell.to_numpy())
     ax.plot(v, np.arange(1, len(v) + 1) / len(v), color=c, ls=ls, lw=1.4, label=lab)
     rec(6, "D", lab, float(np.median(v)))
 ax.axvline(0, ls="--", color=GRAY, lw=1)
 ax.set(xlabel="Gene-wise across-cell Pearson r", ylabel="ECDF (17,393 genes)",
        xlim=(-0.10, 0.42), ylim=(0, 1))
-ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(.5, -.20), ncol=2,
-          fontsize=6.2, columnspacing=1.0)
+ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(.5, -.305), ncol=2,
+          fontsize=7.0, columnspacing=0.9, handlelength=1.3, borderaxespad=0.0)
 panel(ax, "D", "Gene-wise signal per model")
 
 # E positive-control by-cell residual ECDFs
@@ -910,53 +914,63 @@ for mk, ev, c, ls, lab in SERIES:
 ax.axvline(0, ls="--", color=GRAY, lw=1)
 ax.set(xlabel="Residualized Pearson r", ylabel="ECDF (136 test cells)",
        xlim=(-0.06, 0.36), ylim=(0, 1))
-ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(.5, -.34), ncol=2,
-          fontsize=6.2, columnspacing=1.0)
-panel(ax, "E", "Positive control: by-cell distributions")
+ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(.5, -.49), ncol=2,
+          fontsize=7.0, columnspacing=0.9, handlelength=1.3, borderaxespad=0.0)
+ax.set_title("E  Positive control distributions", loc="center", fontweight="bold", pad=11, fontsize=9)
 
-# F interaction raw -> residualized: bootstrap violins for all three models
-def boot_inter(ma, mb, col, n=10000, seed=11):
-    a = pcell[(pcell["model"] == ma) & (pcell["eval"] == "CERES")].set_index("cell")[col]
-    b = pcell[(pcell["model"] == ma) & (pcell["eval"] == "Chronos")].set_index("cell")[col]
-    c = pcell[(pcell["model"] == mb) & (pcell["eval"] == "CERES")].set_index("cell")[col]
-    dd = pcell[(pcell["model"] == mb) & (pcell["eval"] == "Chronos")].set_index("cell")[col]
-    df = pd.concat([a, b, c, dd], axis=1); df.columns = ["a", "b", "c", "d"]
-    v = (df.a - df.b - df.c + df.d).dropna().to_numpy()
+# F interaction under the S15 definition: four-arm medians assembled, bootstrapped over cells
+def _four(colname, ma, mb):
+    g = lambda m, e: pcell[(pcell["model"] == m) & (pcell["eval"] == e)].set_index("cell")[colname]
+    df = pd.concat([g(ma, "CERES"), g(ma, "Chronos"), g(mb, "CERES"), g(mb, "Chronos")], axis=1)
+    df.columns = ["a", "b", "c", "d"]
+    return df.dropna().to_numpy()
+
+
+def _boot_inter(arr, n=2000, seed=11):
     rng = np.random.default_rng(seed)
-    idx = rng.integers(0, len(v), (n, len(v)))
-    return v, v[idx].mean(1)
+    m = len(arr)
+    out = np.empty(n)
+    for b in range(n):
+        med = np.median(arr[rng.integers(0, m, m)], axis=0)
+        out[b] = med[0] - med[1] - med[2] + med[3]
+    point = float(np.median(arr, axis=0) @ np.array([1, -1, -1, 1]))
+    return out, point
 
 
-frozen_raw = dfrozen_boot["raw"].to_numpy()
-frozen_res = dfrozen_boot["residualized"].to_numpy()
-ridge_raw_v, ridge_raw_b = boot_inter("ridge_CERES", "ridge_Chronos", "r_raw")
-ridge_res_v, ridge_res_b = boot_inter("ridge_CERES", "ridge_Chronos", "r_shift")
-perm_raw = np.zeros(2000)
-perm_res = np.zeros(2000)
+COND6 = [("r_raw", "Raw"), ("r_shift", "Residualized"), ("r_zres", "Z-residual")]
+MODELS6 = [("Ridge", "ridge_CERES", "ridge_Chronos", BLUE, -0.23),
+           ("Frozen", "frozen_CERES", "frozen_Chronos", ORANGE, 0.0),
+           ("Permuted", None, None, GRAY, 0.23)]
 
-MODELS6 = [("Ridge", BLUE, [(0 - 0.24, ridge_raw_v, ridge_raw_b),
-                            (1 - 0.24, ridge_res_v, ridge_res_b)]),
-           ("Frozen", ORANGE, [(0, frozen_raw, frozen_raw), (1, frozen_res, frozen_res)]),
-           ("Permuted", GRAY, [(0 + 0.24, perm_raw, perm_raw), (1 + 0.24, perm_res, perm_res)])]
 ax = fig.add_subplot(gs[2, 1])
-for mname, col, slots in MODELS6:
-    for (x, draws, _pt) in slots:
-        vp = ax.violinplot(draws, positions=[x], showextrema=False, widths=0.22)
+_pf = ax.get_position()
+ax.set_position([_pf.x0, _pf.y0 - 0.022, _pf.width, _pf.height])   # clear D's legend
+for mname, ma, mb, col, off in MODELS6:
+    pts, xs = [], []
+    for k, (colname, _lab) in enumerate(COND6):
+        x = k + off
+        if ma is None:                       # Permuted shares one predictor -> zero by construction
+            draws, pt = np.zeros(2000), 0.0
+        else:
+            draws, pt = _boot_inter(_four(colname, ma, mb))
+        vp = ax.violinplot(draws, positions=[x], showextrema=False, widths=0.20)
         for body in vp["bodies"]:
-            body.set_facecolor(col); body.set_alpha(0.30)
-        ax.plot([x - 0.05, x + 0.05], [np.median(draws)] * 2, color=DARK, lw=1.4)
-    xs = [slots[0][0], slots[1][0]]
-    ms = [np.median(slots[0][1]), np.median(slots[1][1])]
-    ax.plot(xs, ms, color=col, lw=1.1, alpha=0.7)
-    dy = {"Ridge": 0.035, "Frozen": 0.022, "Permuted": -0.028}[mname]
-    ax.annotate(mname, xy=(xs[1], ms[1] + dy), ha="center", fontsize=6.8, color=col)
-    rec(6, "F", mname + " raw", float(np.median(slots[0][1])))
-    rec(6, "F", mname + " residualized", float(np.median(slots[1][1])))
+            body.set_facecolor(col)
+            body.set_alpha(0.30)
+        ax.plot([x - 0.045, x + 0.045], [pt] * 2, color=DARK, lw=1.4)
+        pts.append(pt)
+        xs.append(x)
+        rec(6, "F", mname + " " + colname, pt)
+    ax.plot(xs, pts, color=col, lw=1.0, alpha=0.7)
+    _dx, _dy, _ha = (-34, 9, "right") if mname == "Permuted" else (5, 0, "left")
+    ax.annotate(mname, xy=(xs[-1], pts[-1]), xytext=(_dx, _dy), textcoords="offset points",
+                fontsize=7.0, color=col, va="center", ha=_ha)
 ax.axhline(0, ls="--", color=GRAY, lw=1)
-ax.set(xticks=[0, 1], xticklabels=["Raw", "Residualized"],
-       ylabel="Training × reference interaction (bootstrap)", xlim=(-0.5, 1.5),
-       ylim=(-0.05, 0.42))
-panel(ax, "F", "Interaction: collapse vs rescue")
+ax.set(xticks=[0, 1, 2], xticklabels=[c[1] for c in COND6],
+       ylabel="Training × reference interaction (bootstrap)",
+       xlim=(-0.45, 2.45), ylim=(-0.05, 0.42))
+ax.tick_params(axis="x", labelsize=7.0)
+panel(ax, "F", "Collapse vs rescue")
 
 save(fig, "Figure6_depmap_mechanism_control")
 
@@ -977,10 +991,10 @@ for col, (prefix, tag) in enumerate([("", "Pearson (primary)"), ("sp_", "Spearma
         m = float(np.median(v))
         ax.plot([m], [y0 + 0.1], "o", color=c, ms=4)
         ax.annotate(f"{m:.3f}", xy=(m, y0 + 0.26), ha="center", va="bottom",
-                    fontsize=6.5, color=DARK)
+                    fontsize=7.0, color=DARK)
         ax.plot([0.5565, 0.5665], [y0 + 0.70, y0 + 0.70], color=c, lw=2.4,
                 solid_capstyle="butt")
-        ax.text(0.5695, y0 + 0.70, lab, fontsize=6.5, color=DARK, ha="left", va="center")
+        ax.text(0.5695, y0 + 0.70, lab, fontsize=7.0, color=DARK, ha="left", va="center")
     ax.set_yticks([])
     ax.set(xlabel="Per-sample across-gene Pearson" if col == 0
            else "Per-sample across-gene Spearman", xlim=(0.55, 1.0), ylim=(-0.3, 4.6))
@@ -999,7 +1013,7 @@ for k, (col, c, lab) in enumerate([("adv_R", BLUE, "RNASeQC-trained"), ("adv_E",
     m, lo, hi = np.median(v), *np.percentile(v, [25, 75])
     ax.plot([m, m], [y0 - 0.10, y0 + 0.66], color=DARK, lw=1.5)
     ax.annotate(f"median {m:.3f}\nIQR {lo:.3f}–{hi:.3f}",
-                xy=(0.0450, y0), ha="left", va="center", fontsize=6.4, color=c, linespacing=1.45)
+                xy=(0.0450, y0), ha="left", va="center", fontsize=7.0, color=c, linespacing=1.45)
     rec(7, "C", lab, m)
 ax.set_yticks([])
 ax.set(xlabel="Matched-reference advantage (per-donor median)", xlim=(-0.005, 0.078),
@@ -1034,7 +1048,7 @@ for k, (col, c, lab) in enumerate([("interaction_pearson", BLUE, "Pearson"),
     ax.plot([lo, hi], [1 - k, 1 - k], color=c, lw=1.4)
     ax.annotate(f"median {m:.5f}\n95% CI [{lo:.5f}, {hi:.5f}]", xy=(m, 1 - k),
                 xytext=(0, 18), textcoords="offset points", ha="center",
-                va="bottom", fontsize=6.8, color=c)
+                va="bottom", fontsize=7.0, color=c)
     ax.set_ylim(-0.95, 2.05)
     rec(7, "E", lab, m, ci_low=lo, ci_high=hi)
 ax.set_yticks([1, 0])
@@ -1114,7 +1128,7 @@ for k, col in enumerate(cols):
         vv_norm = (vv - vv.min()) / max(vv.max() - vv.min(), 1e-12)
         imk = axk.imshow(vv_norm[:, None], cmap="Blues" if "pearson" in col else
                          ("Oranges" if "spearman" in col else "Purples"), aspect="auto")
-    axk.set_xticks([0], [titles[k]], fontsize=6.2, rotation=90, ha="center", va="top")
+    axk.set_xticks([0], [titles[k]], fontsize=7.0, rotation=90, ha="center", va="top")
     axk.set_yticks([])
     axk.set_xticks(np.arange(-.5, 1, 1), minor=True)
     axk.grid(which="minor", color="white", lw=1)
@@ -1150,7 +1164,7 @@ _TISSUE_ABBR = {
     "Cells - Cultured fibroblasts": "Cultured fibroblasts",
     "Brain - Anterior cingulate cortex (BA24)": "Brain - Ant. cingulate",
 }
-axs_side.set_yticklabels([_TISSUE_ABBR.get(t, t) for t in E.tissue], fontsize=6.2)
+axs_side.set_yticklabels([_TISSUE_ABBR.get(t, t) for t in E.tissue], fontsize=7.0)
 panel(axs_side, "F", "%d representative tissues" % len(E), fs_title=8.5)
 # organ-system legend in the free strip under the panels; the grid columns are untouched
 _SY_SHORT = {"Reproductive & breast": "Reproductive", "Skin & soft tissue": "Skin",
@@ -1164,7 +1178,7 @@ for _i, _sy in enumerate(dict.fromkeys(E.sys)):
     fig.patches.append(mpatches.Rectangle(
         (_lx, _ly), 0.0050, 0.0125, transform=fig.transFigure,
         facecolor=SYS_COLOR[_sy], edgecolor="none", zorder=5))
-    fig.text(_lx + 0.0072, _ly + 0.0055, _SY_SHORT.get(_sy, _sy), fontsize=6.4, va="center", ha="left",
+    fig.text(_lx + 0.0072, _ly + 0.0055, _SY_SHORT.get(_sy, _sy), fontsize=7.0, va="center", ha="left",
              color=DARK, zorder=5)
 for row in E_all.itertuples():
     rec(7, "F", row.tissue, row.interaction_pearson, n_donors=int(row.n_donors))

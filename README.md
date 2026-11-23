@@ -145,7 +145,7 @@ repository, alongside the G2CP source tree:
 - `MANIFEST.csv` — 365 entries listing every packaged file, its origin, and its role
 - `github/analysis/` — analysis and figure-build scripts, including `stability_checks/_audit_numbers.py`
 - `zenodo/source_data/` — frozen prediction matrices (11,275 × 978), reference matrices, and index files
-- `zenodo/supplementary/` — supplementary tables S1 to S33
+- `zenodo/supplementary/` — supplementary tables S1 to S35 (S20, S26 and S32 are unused numbers)
 - `run_all.sh` — end-to-end driver; `requirements_freeze.txt` pins the archived Python 3.11 environment
 
 Checking convention: key numbers tolerate 5×10⁻⁴, interval endpoints 1×10⁻³. Compare one by one with

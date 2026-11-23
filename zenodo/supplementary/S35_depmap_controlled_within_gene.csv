@@ -1,0 +1,5 @@
+model,evaluation_matrix,n_genes,median_within_gene,q25,q75,mean
+frozen_CERES,CERES,17393,0.0003,-0.0592,0.0590,0.0003
+frozen_CERES,Chronos,17393,-0.0012,-0.0591,0.0591,-0.0002
+frozen_Chronos,CERES,17393,0.0032,-0.0554,0.0611,0.0029
+frozen_Chronos,Chronos,17393,0.0055,-0.0564,0.0655,0.0045

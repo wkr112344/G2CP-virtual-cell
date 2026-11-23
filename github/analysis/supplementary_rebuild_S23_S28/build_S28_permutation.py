@@ -223,8 +223,15 @@ def main():
     print("方案 B 分组：共 %d 组，组内平均 %.2f 条，最大 %d 条；单记录分组 %d 组（保持原记录不变）"
           % (len(grp_arr), n_row / len(grp_arr), max(len(v) for v in grp_arr), n_single))
 
+    def derange(n):
+        """无固定点置换：确保没有药物映射到自身。"""
+        while True:
+            q = rng.permutation(n)
+            if not np.any(q == np.arange(n)):
+                return q
+
     def permute_A():
-        perm = rng.permutation(n_drug)
+        perm = derange(n_drug)
         src = gpos[perm]
         newidx = np.empty(n_row, dtype=np.int64)
         newidx[gpos[valid]] = src[valid]
@@ -237,10 +244,7 @@ def main():
             if k == 1:
                 newidx[v[0]] = v[0]              # 单记录分组：保持原记录
             else:
-                p = rng.permutation(k)
-                if np.any(p == np.arange(k)):    # 保证是「错配」而非原地不动
-                    p = np.roll(np.arange(k), 1)
-                newidx[v] = v[p]
+                newidx[v] = v[derange(k)]        # 随机无固定点置换（原实现为固定循环移位）
         return newidx
 
     rows_out = []

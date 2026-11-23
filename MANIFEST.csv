@@ -364,3 +364,5 @@ zenodo,zenodo/supplementary/S18_coverage_ge3_rank_stability.csv,(alias of S17b),
 zenodo,zenodo/supplementary/S31_unrestricted_substitution.csv,zenodo/supplementary/S28_permutation_scheme_comparison.csv,"Scheme-A view of S28: drug substitution without the same-cell-line restriction, 6 rows"
 zenodo,zenodo/supplementary/S33_matrix_swap_reporting_survey.csv,zenodo/supplementary/S30_lincs_model_comparison_practices.csv,Focused view of S30: whether each surveyed study tested matrix swap and reported model reranking (0 of 28 did)
 github,requirements_freeze.txt,(generated),Pinned dependency versions for the archived Python 3.11 environment
+zenodo,zenodo/supplementary/S34_deepdep_top10_overlap.csv,,DeepDEP top-10 essential-gene overlap fractions (272 cell lines)
+zenodo,zenodo/supplementary/S35_depmap_controlled_within_gene.csv,,DepMap controlled-network within-gene medians and quartiles
