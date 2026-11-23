@@ -285,6 +285,22 @@ def main():
             if not np.any(q == np.arange(n)):
                 return q
 
+    _infeas = {"B": 0, "C": 0}
+    _same_drug_groups = {"B": 0, "C": 0}
+
+    def perm_constrained(v, drugs, tag):
+        """按药物身份约束的置换：任一位置都不得保留原药物；不可行时保留原样并计数。"""
+        k = len(v)
+        src = v
+        for _ in range(500):
+            q = rng.permutation(k)
+            cand = src[q]
+            if np.all(drugs[cand] != drugs[src]):
+                return cand
+        _infeas[tag] += 1
+        _same_drug_groups[tag] += 1
+        return src
+
     def permute_A():
         perm = derange(n_drug)
         src = gpos[perm]
@@ -295,11 +311,10 @@ def main():
     def permute_B():
         newidx = np.empty(n_row, dtype=np.int64)
         for v in grp_arr:
-            k = len(v)
-            if k == 1:
+            if len(v) == 1:
                 newidx[v[0]] = v[0]              # 单记录分组：保持原记录
             else:
-                newidx[v] = v[derange(k)]        # 随机无固定点置换（原实现为固定循环移位）
+                newidx[v] = perm_constrained(v, D, "B")   # 药物身份必须改变
         return newidx
 
     rows_out = []
@@ -336,6 +351,16 @@ def main():
                 })
                 print("%-16s %-9s %-9s 观察 %+.5f | 零均值 %+.5f | 零CI95 [%+.5f,%+.5f] | 超出 %s"
                       % (scheme, nm, m, o, nl.mean(), lo, hi, "是" if o > hi else "否"))
+
+    _multi = np.zeros(n_row, dtype=bool)
+    for v in grp_arr:
+        if len(v) > 1:
+            _multi[v] = True
+    _same = 0
+    for _ in range(5):
+        ni = permute_B()
+        _same += int(np.sum((D[ni] == D) & _multi))
+    print("药物身份校验 B：5 次抽样中保留原药物的位置 %d 处；不可行组 %d" % (_same, _infeas["B"]))
 
     def _flush():
         pd.DataFrame(rows_out).to_csv(P.out / "S28_permutation_scheme_comparison.csv",
@@ -381,7 +406,7 @@ def main():
     def permute_C():
         newidx = np.empty(len(keep), dtype=np.int64)
         for v in grp_c:
-            newidx[v] = v[derange(len(v))]
+            newidx[v] = perm_constrained(v, Dc, "C")      # 药物身份必须改变
         return newidx
 
     null_c = {nm: {m: np.empty(B) for m in MODELS} for nm in ("SDST", "MODZ", "CD")}
