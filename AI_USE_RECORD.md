@@ -8,7 +8,7 @@ reviewers can judge which parts of the work involved AI assistance.
 
 | Tool | Model | Provider | Access |
 |---|---|---|---|
-| ChatGPT | [model/version: to be confirmed by author] | OpenAI | https://chatgpt.com/ |
+| ChatGPT | Codex based on GPT-6 | OpenAI | https://chatgpt.com/ |
 
 No other generative AI service was used for the work reported here.
 

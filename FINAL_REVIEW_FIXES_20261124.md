@@ -81,9 +81,10 @@ main-text DOCX (the manuscript was left byte-for-byte unchanged; baseline SHA-25
 - Corresponding author: P005 still says "to be assigned"; Author_Information marks
   all six as Corresponding=No; a Chinese "通讯作者待定" remains in the main text.
   Cannot be inferred from the cover-letter signature.
-- AI model/version and exact usage dates: could not be verified; left as an explicit
-  placeholder `[model/version: to be confirmed by author]` rather than fabricating.
-  Historical use of other models/services is the author's to confirm.
+- AI model/version and exact usage dates: the author elected to retain the originally
+  recorded model name (package: `GPT-6`; repo record: `Codex based on GPT-6`) rather
+  than replace it with a placeholder. Exact dates and any historical use of other
+  models/services remain the author's to confirm.
 - DepMap centering-rule reconciliation between Table 5 and Figure 6 (review §2.2):
   requires editing main-text Methods/caption and/or re-deriving figures; left intact.
 - Abstract XPert "reversed order" wording (review §2.5): main text, left intact.
