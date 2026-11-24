@@ -2,7 +2,11 @@
 import os, time, yaml
 import numpy as np
 
-BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # gtex_reference_sensitivity/
+_REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Steps 06-09 read the archived GTEx intermediates, which live in the repository; override with
+# G2CP_GTEX_ROOT when replaying the upstream steps 00-05 from raw downloads.
+BASE = os.environ.get("G2CP_GTEX_ROOT") or os.path.join(
+    _REPO, "zenodo", "source_data", "gtex_reference_sensitivity")
 
 def load_config():
     with open(os.path.join(BASE, "config.yaml"), encoding="utf-8") as f:

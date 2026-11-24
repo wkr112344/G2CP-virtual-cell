@@ -25,8 +25,14 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import KFold
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-AL = r"C:/Users/wkr20/Desktop/depmap_second_corpus/work/DeepDEP_training_data/aligned_21Q2_908_3omics"
-FR = r"C:/Users/wkr20/WorkBuddy/Claw/depmap_analysis_ready_20260929"
+ROOT = os.path.dirname(os.path.dirname(BASE))     # repository root
+# Archived reference arrays, index and split ship with the repository, so only the 908 x 19,177 expression
+# matrix X_TPM.npy has to be supplied. Point G2CP_ALIGNED_DIR at a directory holding it (rebuild it with
+# github/analysis/rebuild_X_TPM.py; see DATA_SOURCES.md). Nothing below depends on an author workstation path.
+AL = os.environ.get("G2CP_ALIGNED_DIR",
+                    os.path.join(ROOT, "zenodo", "source_data", "depmap_raw_artifacts_20260929", "reference"))
+FR = os.environ.get("G2CP_DEPMAP_READY",
+                    os.path.join(ROOT, "zenodo", "source_data", "depmap_analysis_ready_20260929"))
 R = lambda *a: os.path.join(BASE, *a)
 N_PC = 100
 ALPHAS = [0.1, 1.0, 10.0, 100.0, 1000.0]
@@ -39,12 +45,20 @@ def log(m):
     print("[%s] %s" % (time.strftime("%H:%M:%S"), m), flush=True)
 
 
+def _first(*cands):
+    for c in cands:
+        if os.path.exists(c):
+            return c
+    return cands[0]
+
+
 def load():
-    X = np.load(os.path.join(AL, "X_TPM.npy")).astype(np.float32)
-    Ycer = np.load(os.path.join(AL, "Y_CERES.npy")).astype(np.float32)
-    Ychr = np.load(os.path.join(AL, "Y_Chronos.npy")).astype(np.float32)
-    mask = np.load(os.path.join(AL, "common_observed_mask.npy"))
-    split = json.load(open(os.path.join(AL, "split.json")))
+    ref = os.path.join(ROOT, "zenodo", "source_data", "depmap_raw_artifacts_20260929", "reference")
+    X = np.load(_first(os.path.join(AL, "X_TPM.npy"), os.path.join(FR, "X_TPM.npy"))).astype(np.float32)
+    Ycer = np.load(_first(os.path.join(AL, "Y_CERES.npy"), os.path.join(ref, "Y_CERES.npy"))).astype(np.float32)
+    Ychr = np.load(_first(os.path.join(AL, "Y_Chronos.npy"), os.path.join(ref, "Y_Chronos.npy"))).astype(np.float32)
+    mask = np.load(_first(os.path.join(AL, "common_observed_mask.npy"), os.path.join(ref, "common_observed_mask.npy")))
+    split = json.load(open(_first(os.path.join(AL, "split.json"), os.path.join(FR, "index", "split.json"))))
     idx = json.load(open(os.path.join(FR, "index", "depmap_index.json")))
     return X, Ycer, Ychr, mask, split, idx
 

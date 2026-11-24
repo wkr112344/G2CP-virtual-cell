@@ -12,13 +12,30 @@
 | GTEx v11 RNASeQC v2.4.3 / RSEM v1.3.3 | 2025-08-22 release | gtexportal.org | 2026-09-24 | Derived data in package; raw 5.9 GB ×2 not included | GTEx terms |
 | MSigDB C2:CGP (ACEVEDO_LIVER… / RODRIGUES_THYROID… / CASORELLI_APL…) | v2023.2 | msigdb.org (registration required) | 2026-09-24 | **No (license restriction)** | MSigDB terms; whole-database redistribution prohibited |
 
-## One item the authors still need to add (needed for bit-for-bit reproduction)
+## The one input that is rebuilt rather than shipped
 
-**`X_TPM.npy` for the DepMap positive control** (908×19,177, ~69 MB): this file is no longer in the workspace.
-To rebuild it: from DepMap 21Q2 `OmicsExpressionProteinCodingGenesTPMLogp1.csv`, select the 908 cell lines given in
-`cell_order.txt`, keep the 19,177 protein-coding genes, write as float32 `X_TPM.npy`, and place it on Zenodo
-(with a rebuild script + checksum). Otherwise the positive control can only be "rerun to the same result" and the
-input matrix itself cannot be checked.
+**`X_TPM.npy` for the DepMap positive control** (908 × 19,177, float32, ~69 MB) is not redistributed because it is a
+direct projection of the public DepMap 21Q2 expression file onto the analysed cell lines. The rebuild is scripted and
+deterministic:
+
+```
+python github/analysis/rebuild_X_TPM.py /path/to/OmicsExpressionProteinCodingGenesTPMLogp1.csv --out <dir>
+export G2CP_ALIGNED_DIR=<dir>
+./run_all.sh
+```
+
+The rule, which needs no author-side judgement: read the 908 identifiers in
+`source_data/depmap_analysis_ready_20260929/index/cell_order.txt`, select those rows from the expression file in that
+order, keep every gene column in the file's own order, cast to float32. The script prints the resulting shape and a
+sha256, so a rebuilt matrix can be compared directly between reviewers. `Y_CERES.npy`, `Y_Chronos.npy`,
+`common_observed_mask.npy`, `index/split.json` and the frozen test predictions all ship with the archive, so the only
+missing piece is this projection.
+
+The matrix is certified numerically rather than by a hash recorded here: after the rebuild,
+`positive_control_expression_ridge.py` must reproduce the archived S13–S15 values (for example `ridge_CERES` evaluated
+on CERES: `cell_raw_median` 0.9345, `cell_zres_median` 0.1432), and the audit step of `run_all.sh` reports any
+mismatch against `EXPECTED_OUTPUTS.json`. `run_all.sh` skips this step with an explicit message when `X_TPM.npy` is
+absent, so a fresh checkout still completes the archived-output verification end to end.
 
 ## Resolved gap (kept here for the record)
 

@@ -10,7 +10,16 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-R=Path(__file__).resolve().parents[1];S=R/'source_data'; O=R/'supplementary';F=R/'figures'; A=R/'author_notes'
+HERE = Path(__file__).resolve()
+R = HERE.parents[2]                      # repository root, not github/
+S = R / 'zenodo' / 'source_data'         # archived inputs (read only)
+SI = R / 'zenodo' / 'supplementary'      # archived tables used as inputs below (read only)
+OUT = R / 'reproduction_outputs'         # regenerated tables and figures land here, archive untouched
+O = OUT / 'supplementary'
+F = OUT / 'figures'
+A = OUT / 'author_notes'
+for _d in (O, F, A):
+    _d.mkdir(parents=True, exist_ok=True)
 plt.rcParams.update({'font.family':'DejaVu Sans','font.size':8,'axes.titlesize':9,'axes.labelsize':8,'xtick.labelsize':7.5,'ytick.labelsize':7.5,'legend.fontsize':7.5,'axes.spines.top':False,'axes.spines.right':False,'pdf.fonttype':42,'ps.fonttype':42,'lines.linewidth':1.15,'savefig.dpi':600})
 BLUE='#216A94'; ORANGE='#C65C27'; GRAY='#687681'; GREEN='#337F66';W=170/25.4
 report={}; plotdata=[]
@@ -22,14 +31,14 @@ def rec(fig,panel,series,val,**kw):plotdata.append(dict(figure=fig,panel=panel,s
 # LINCS aggregation and source checks.
 d=pd.read_csv(S/'frozen_prediction_matrices/frozen_perrow_three_metrics.csv')
 assert not d.duplicated(['cell','drug']).any()
-met=pd.read_csv(O/'S1_weighting_and_metrics.csv');c=pd.read_csv(S/'C_perdrug_stability.csv');ext=pd.read_csv(S/'B_sevenmodel.csv');dep=pd.read_csv(S/'L_heterogeneity_272cell.csv')
+met=pd.read_csv(SI/'S1_weighting_and_metrics.csv');c=pd.read_csv(S/'C_perdrug_stability.csv');ext=pd.read_csv(S/'B_sevenmodel.csv');dep=pd.read_csv(S/'L_heterogeneity_272cell.csv')
 for m in ['pearson','spearman','cosine']:
  d[m+'_delta']=d[m+'_A_beta2020']-d[m+'_B_dcic2021']
  for unit in ['drug','cell']:
   q=d.groupby(unit)[[m+'_A_beta2020',m+'_B_dcic2021',m+'_delta']].mean().mean()
   old=met[(met.metric==m)&(met.weighting==unit)].iloc[0]
   assert np.allclose(q,[old.beta_mean,old.dcic_mean,old.delta],atol=1e-12)
-rank=pd.read_csv(O/'S3_topk_performance_ranking.csv')
+rank=pd.read_csv(SI/'S3_topk_performance_ranking.csv')
 for row in rank.itertuples():
  aa=set(c.nsmallest(row.k,'rank_beta').drug_id);bb=set(c.nsmallest(row.k,'rank_dcic').drug_id)
  assert len(aa&bb)==row.overlap
@@ -58,7 +67,13 @@ graw=pd.read_csv(D/'task3_genewise_raw_scores.csv');gres=pd.read_csv(D/'task4_ge
 report['gene_wise_residual_max_abs_diff']=err
 report['gene_wise_median_range']=[graw.groupby(['seed','arm','reference']).pearson.median().min(),graw.groupby(['seed','arm','reference']).pearson.median().max()]
 # GTEx: donor-median estimand recovered from supplied individual score table.
-G=S/'gtex_reference_sensitivity';g=pd.read_csv(G/'per_sample_scores.csv');split=pd.read_csv(G/'sample_split.csv');assert not g['sample'].duplicated().any();assert set(g['sample'])==set(split.loc[split.split=='test','sample']);assert not set(split.loc[split.split=='test','donor'])&set(split.loc[split.split=='train','donor']);assert not g.isna().any().any()
+G=S/'gtex_reference_sensitivity'
+def gp(name):
+ c=[G/name, G/'deliverables'/name]
+ for x in c:
+  if x.exists(): return x
+ raise FileNotFoundError(str(c))
+g=pd.read_csv(gp('per_sample_scores.csv'));split=pd.read_csv(gp('sample_split.csv'));assert not g['sample'].duplicated().any();assert set(g['sample'])==set(split.loc[split.split=='test','sample']);assert not set(split.loc[split.split=='test','donor'])&set(split.loc[split.split=='train','donor']);assert not g.isna().any().any()
 for pref,col in [('r','interaction_pearson'),('sp_r','interaction_spearman')]:assert np.allclose(g[pref+'RR']-g[pref+'RE']-g[pref+'ER']+g[pref+'EE'],g[col],atol=1e-12)
 g['adv_R']=g.rRR-g.rRE;g['adv_E']=g.rEE-g.rER
 donor=g.groupby('donor')[['interaction_pearson','interaction_spearman','adv_R','adv_E']].median();rng=np.random.default_rng(20260930);ids=rng.integers(0,len(donor),(5000,len(donor)));gb=np.median(donor.to_numpy()[ids],axis=1)
@@ -138,5 +153,5 @@ hi=tissue.n_donors>=10
 axs[1,1].scatter(tissue.loc[hi,'n_donors'],tissue.loc[hi,'interaction_pearson'],s=13,color=GREEN,alpha=.8,label='≥10 donors');axs[1,1].scatter(tissue.loc[~hi,'n_donors'],tissue.loc[~hi,'interaction_pearson'],s=15,facecolor='white',edgecolor=GRAY,label='<10 donors');axs[1,1].axhline(0,c=GRAY,lw=.8);axs[1,1].set(xscale='log',xlabel='Test donors per tissue',ylabel='Median sample interaction',ylim=(-.004,.118));axs[1,1].legend(frameon=False,loc='lower left',fontsize=7);panel(axs[1,1],'D','68 tissue labels');save('Figure7_gtex_reference_matching',fig)
 write(pd.DataFrame(plotdata),'Figure_summary_values.csv')
 (A/'numerical_audit.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
-(R/'supplementary'/'analysis_summary.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
+(O/'analysis_summary.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
 print(json.dumps(report,indent=2,ensure_ascii=False))
