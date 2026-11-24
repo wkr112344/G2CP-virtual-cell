@@ -291,3 +291,21 @@ Applied all body items from the review:
   consecutive; verified Li et al. -> [19] and Wei et al. -> [20] at P19.
 - NOT changed (author scope): corresponding-author placeholder, GitHub commit references.
 - Did not adopt the optional LINCS-centering rewrite in section 4 (limitation retained as-is).
+
+## giaa155-benchmarked final review — 3 fixes (24 Nov 2026)
+
+- Potential implications: deleted the duplicated "For compound prioritization, the same
+  workflow can return..." paragraph (incl. the "team selecting ten compounds" example);
+  kept the "For compound screening, report rank agreement..." paragraph.
+- Figure 6 caption: removed the older "Violins are bootstrap distributions..." sentence
+  from run1 (it duplicated the run2 text), and rewrote the run2 opener to the review's
+  "Using the frozen predictors... violins show interaction distributions from 2,000
+  bootstrap resamples of the 136 test cell lines..." Kept "Its centering and aggregation
+  differ from Table 5" and the z-residual definition. Caption now states the bootstrap
+  method once.
+- P41: merged the dangling parenthetical "−0.00088). (Table 4; ...)." into
+  "−0.00088; Table 4; Supplementary Table S24)."
+- Soft suggestion NOT applied: splitting the ~3,200-char DepMap Methods paragraph at the
+  three named anchors (review said "suggested, but no need to delete technical content");
+  user's pass condition was limited to the two repetitions + the punctuation fix, so no
+  extra structural change was made to avoid new inconsistency.
