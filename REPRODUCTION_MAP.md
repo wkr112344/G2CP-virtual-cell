@@ -5,10 +5,11 @@
 | LINCS main Δ 0.2956 (95% CI 0.2918–0.2993) | `github/analysis/stability_checks/_audit_numbers.py` or as-supplied | `zenodo/source_data/frozen_prediction_matrices/frozen_perrow_three_metrics.csv` | same value as Table S1 |
 | The three metrics agree in direction across matrices | same as above | same as above | Table S1 (Pearson/Spearman/cosine × drug/cell line) |
 | Training-state reversal D_beta = +0.1975, D_dcic = −0.0810, I = 0.2785 | `github/analysis/stability_checks/_patch_A_B.py` | `supplementary/frozen_multimetric_perrow_scores.csv` | Table 3, S25 |
+| Crossed 2×2 CI for I, 0.2646–0.2889 (raw) and 0.1849–0.2073 (gene-mean removed) | `github/analysis/stability_checks/S21_lincs_crossed_bootstrap.py` (canonical, seed 20260930) | frozen per-row scores + `source_data/lincs_reference_matrices/*.npy` + `source_data/frozen_prediction_matrices/*.npy` | S21, Table 6, Figure 4B |
 | Crossed 2×2 reversal holds 2000/2000 | `github/analysis/stability_checks/_patch_A_B.py` | same | S25 (direction_probability = 1.0) |
 | Crossed CI for the main Δ, 0.2857–0.3130 | `github/analysis/stability_checks/_crossed_bootstrap_and_disease.py` | frozen per-row scores | S25 |
 | Rank Spearman 0.5675 / Kendall τ 0.4110 | `github/analysis/stability_checks/_audit_numbers.py` + `_within_ref_stability.py` | per-drug ranks | S18 |
-| top-10 across matrices 3/10; same-reference 7.93 / 7.04 | `github/analysis/stability_checks/_within_ref_stability.py`, `_patch_A_B.py` | per-row scores (B = 2000 independent pairs) | S17, S17b, S17c |
+| top-10 across matrices 3/10; same-reference 7.93 / 7.04 | `_patch_A_B.py` section A (2,000 independent pairs → S17, S17c); `_within_ref_stability.py` (B = 200 → C(200,2) = 19,900 pairs → S17b) | per-row scores | S17, S17b, S17c |
 | top-k vs random expectation | `github/analysis/stability_checks/_audit_numbers.py` | n_drugs = 2,037 | S22 |
 | Disease shortlist boundary 0.14%–10.85%, band 11–13 | `github/analysis/stability_checks/_crossed_bootstrap_and_disease.py` | `figure_source_data/TableS_disease_perdrug_scored.csv` | `detail/S19_disease_shortlist_boundary.csv` |
 | DepMap interaction 0.05632 → −0.00047 | `github/analysis/audit_and_redraw.py` (canonical generator of S6/S9; `depmap_background_control.py` uses a different bootstrap and is not used for these tables) | `zenodo/source_data/depmap_analysis_ready_*` | Table 5, S6 |
@@ -57,13 +58,13 @@
 | S14 | `S14_depmap_positive_control_genewise_across_cell.csv` |
 | S15 | `S15_depmap_positive_control_interaction_bootstrap.csv` |
 | S16 | `S16_depmap_272cell_consistency_and_prediction_means.csv` |
-| S17 | `S17_within_reference_rank_stability.csv` — prediction-accuracy shortlist stability, from 2,000 independent bootstrap pairs |
-| S17b | `S17b_coverage_ge3_rank_stability.csv` (identical content to `S18_coverage_ge3_rank_stability.csv`; the duplicate is dropped) |
+| S17 | `S17_within_reference_rank_stability.csv` — prediction-accuracy shortlist stability on the full 2,037-drug set, from 2,000 independent bootstrap pairs (mean and percentile bounds match `_patch_A_B.py` section A to Monte Carlo precision; that driver is seeded 20260930, so overlap means can differ by ≤0.25 counts while every percentile bound is identical) |
+| S17b | `S17b_coverage_ge3_rank_stability.csv` — the same quantities for the 1,303 drugs with ≥3 evaluation records, from a *different* pairing scheme: 200 bootstrap rankings per matrix (`_within_ref_stability.py`, `B = 200`, V2 branch), scored over all C(200,2) = 19,900 unordered ranking pairs. Reproduced exactly (0 diff) from the shipped per-pair detail `zenodo/source_data/lincs_index/within_reference_topk_stability_replicates.csv` (`scenario = V2_ge3_cells`, `reference = beta`). Identical content to `S18_coverage_ge3_rank_stability.csv`; the duplicate is dropped |
 | S17c | `S17c_within_reference_spearman.csv` — 2,000 independent within-matrix Spearman values (0.8580 beta2020, 0.8246 dcic2021) |
 | S18 | `S21_rank_concordance_summary.csv` — cross-matrix rank concordance (Spearman 0.5675, Kendall τ 0.4110) |
 | S19 | `S25_disease_within_reference_stability.csv` — disease-reversal rankings, 2,000 replicates with 11,175 non-independent pairs taken from the first 150 |
 | S20 | `S24_lincs_perdrug_raw_vs_residualized.csv` |
-| S21 | `S23_lincs_crossed_bootstrap.csv` |
+| S21 | `S23_lincs_crossed_bootstrap.csv` — crossed drug × cell bootstrap, raw and gene-mean-removed. Canonical generator: `github/analysis/stability_checks/S21_lincs_crossed_bootstrap.py` (seed 20260930, 2,000 rounds); all 20 rows reproduce to float64 round-off (max absolute difference 9×10⁻¹⁷), including the raw interaction 0.278456 (95% CI 0.264558–0.288877) reported as 0.2785 (0.2646–0.2889). Do **not** use `_patch_A_B.py` section B for this table: same estimator, different RNG consumption order, returns 0.2657–0.2887 |
 | S22 | `S27_disease_signature_gene_counts.csv` |
 | S23 | `S26_signature_pair_summary.csv` |
 | S24 | `S29_paired_advantage_bootstrap.csv` |
@@ -74,7 +75,8 @@
 | S29 | `S35_depmap_controlled_within_gene.csv` |
 
 > Detail files in the package follow the same mapping: package `detail/S17b_*` = snapshot `S17b_coverage_ge3_rank_stability.csv`
-> (same content as `S18_coverage_ge3_rank_stability.csv`); `detail/S17c_*` = snapshot `S17c_within_reference_spearman.csv`;
+> (same content as `S18_coverage_ge3_rank_stability.csv`; B = 200 rankings → 19,900 pairs, not the 2,000-independent-pair
+> scheme used by S17/S17c); `detail/S17c_*` = snapshot `S17c_within_reference_spearman.csv`;
 > `detail/S18_*` = snapshot `S19_disease_shortlist_boundary.csv`;
 > `detail/S19_context_panel_*` are generated in-package and have no snapshot predecessor;
 > `detail/S21_*` = snapshot `S25_direction_check.csv` and `S25_inside_outside_verdict.csv`;

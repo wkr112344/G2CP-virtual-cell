@@ -536,3 +536,52 @@ verified**.
   strict holdout for the two trained evaluation states, not for the base's internal pretraining corpus.
 - `provenance/README.md` rewritten to state this correctly; `78_*` and `81_*` evidence added to
   `provenance/`. No text change to the manuscript — the held-out sentence was already accurate.
+
+## Round 8 — S17b bootstrap scheme (24 Nov 2026)
+
+Reviewed ruling: "应改" (Methods + table note), no recomputation. Verified from the generator code before editing:
+
+- `github/analysis/stability_checks/_within_ref_stability.py` sets `B = 200` and enumerates
+  `for i in range(B) for j in range(i+1, B)`, i.e. C(200,2) = 19,900 unordered pairs, for both the
+  full 2,037-drug set (V1) and the 1,303-drug ≥3-record subset (V2). `S17b` is the V2 row of that run.
+- Exact check: the shipped `S17b_coverage_ge3_rank_stability.csv` equals the V2 branch to the last digit
+  (6/7.9/6–9, 16/15.5/13–18, 39/37.9/34–42, 71/71.6/66–77, 131/145/137–153), and is reproduced with zero
+  difference from `source_data/lincs_index/within_reference_topk_stability_replicates.csv`
+  (`scenario = V2_ge3_cells`, `reference = beta`; 19,900 pairs × 5 k).
+- `S17` and `S17c` come from `_patch_A_B.py` section A: 2,000 rounds, two independent row resamples per
+  round, so 2,000 mutually independent pairs. `_patch_A_B.py` reproduces S17's k=10 row exactly
+  (7.9345/7.045 → 7.93/7.04) and every percentile bound; the k=20/k=100 means differ by ≤0.25 counts,
+  so S17's original seed run is not archived — recorded as a residual gap, not as an error.
+- Text changes: Methods P83 now states the ≥3-record analysis uses 200 rankings per matrix → 19,900 pairs,
+  and that these pairs share rankings so their percentile ranges are descriptive; the disease sentence
+  changed "share resamples" → "likewise share bootstrap rankings" so S17b and S19 use the same wording.
+  Table S17's caption now documents the `detail/S17b_*` companion file and its 200/19,900 construction.
+- Docs: `REPRODUCTION_MAP.md` no longer attributes "B = 2000 independent pairs" to S17b;
+  `REPRODUCTION_BOUNDARY.md` section B now separates the two schemes instead of applying the 200-pair
+  description to all three tables.
+
+## Round 9 — S21 entry point, LINCS centring unit, S1 labels, GitHub docs (24 Nov 2026)
+
+- **S21 generator found.** The reviewer's re-run gave 0.2657–0.2887 against the submitted 0.2646–0.2889.
+  Root cause: two drivers implement the same estimator with different RNG consumption. `_patch_A_B.py`
+  section B runs after section A has already consumed 4,000 resamples, so its draw sequence differs and it
+  writes `S20_lincs_crossed_2x2_model_comparison.csv` (0.2657–0.2887). The table actually submitted
+  (`S23_lincs_crossed_bootstrap.csv`) came from `_lincs_crossed_bootstrap.py`, which was never shipped into
+  the release. It is now archived as `github/analysis/stability_checks/S21_lincs_crossed_bootstrap.py`
+  (repo-relative paths, seed 20260930, 2,000 rounds) and was re-run: all 20 rows reproduce to float64
+  round-off (max absolute difference 9×10⁻¹⁷), including the raw interaction 0.278456 (0.264558–0.288877)
+  and the gene-mean-removed 0.196906 (0.184872–0.207305). No manuscript number changed.
+- **LINCS centring unit.** Methods P52 and the Figure 4 caption now say the leave-one-drug-out means are
+  computed "across all response records of the other 2,036 held-out drugs", which is what `lodo_mean()`
+  does (pooled row sums over `len(drug) - count(d)`) and removes the ambiguity with per-drug-then-average.
+- **S1 panel D labels.** `ASC (most sensitive)`, `NKDBA (sensitive)`, `AGS (less sensitive)` and
+  `U937 (most stable)` implied a sensitivity ranking that the panel does not measure (no cell is perturbed;
+  the ridges are per-cell distributions of the same fixed predictions). All four parentheticals removed in
+  place, leaving cell name and median (ASC 0.364, NKDBA 0.394, AGS 0.157, U937 0.142). Page box, the six
+  BRD labels and every other panel verified unchanged; the archived PDF/PNG copies in `zenodo/figures` and
+  `zenodo/supplementary` were regenerated from the corrected PDF.
+- **GitHub docs.** README's "every result in the paper can be rescored" narrowed to LINCS scores, contrasts
+  and rankings, with an explicit statement that seven-model and pathway-context scores ship as summaries;
+  a pinned-snapshot section and tag added; `REPRODUCTION_BOUNDARY.md` now states that all paths are relative
+  to `zenodo/`, records the canonical S21 entry, and moves the three disease contexts out of the
+  "summary-only" table because `TableS_disease_perdrug_scored.csv` (4,197 rows) is archived.

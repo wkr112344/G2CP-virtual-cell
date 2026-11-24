@@ -6,6 +6,22 @@ Independent reimplementation and large-scale extension of **UniPert-G2CP** (Li e
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-green.svg)](https://www.python.org/)
 
+## Pinned submission snapshot
+
+The state of this repository used for the submitted manuscript is tagged
+**`gigascience-submission-20261124`**. To obtain exactly that state rather than the current
+`master-with-repro` head:
+
+```bash
+git clone https://github.com/wkr112344/G2CP-virtual-cell.git
+cd G2CP-virtual-cell
+git checkout gigascience-submission-20261124
+```
+
+The manuscript's Data Availability statement cites the commit this tag points at. Later
+commits only extend documentation; the analysis scripts, frozen matrices and supplementary
+tables under the tag are the ones that generated the reported numbers.
+
 ## Overview
 
 This repository provides:
@@ -110,7 +126,7 @@ Training data sources (public):
 - ChEMBL 37 (CPI annotations)
 - GEO: GSE61302, GSE11917, GSE17579, GSE20986, GSE21413, GSE25941, GSE33622, GSE50378, GSE50397, GSE53751, GSE62914, GSE22886, GSE60235 (13 series)
 
-**Model weights**, cache-reconstruction scripts, and all result files are archived on Zenodo: [https://doi.org/10.5281/zenodo.22720615](https://doi.org/10.5281/zenodo.22720615) (CC-BY-4.0). A distinction that matters for reuse: the full upstream LINCS L1000 level-5 matrices (~7.5 GB) are **not distributed** and must be regenerated from public sources (GSE92742, the LINCS level-5 beta release, and the DCIC 2021 distribution) with the included cache-reconstruction scripts. The matrices actually used in this study are distributed: `zenodo/source_data/lincs_reference_matrices/` and `frozen_prediction_matrices/` contain the 11,275 × 978 aligned reference and frozen prediction matrices (`.npy`), so every result in the paper can be rescored without rebuilding the upstream matrices. See `REPRODUCTION_BOUNDARY.md` for an item-by-item statement of what is exactly recomputable versus summary-only.
+**Model weights**, cache-reconstruction scripts, and all result files are archived on Zenodo: [https://doi.org/10.5281/zenodo.22720615](https://doi.org/10.5281/zenodo.22720615) (CC-BY-4.0). A distinction that matters for reuse: the full upstream LINCS L1000 level-5 matrices (~7.5 GB) are **not distributed** and must be regenerated from public sources (GSE92742, the LINCS level-5 beta release, and the DCIC 2021 distribution) with the included cache-reconstruction scripts. The matrices actually used in this study are distributed: `zenodo/source_data/lincs_reference_matrices/` and `frozen_prediction_matrices/` contain the 11,275 × 978 aligned reference and frozen prediction matrices (`.npy`), so every LINCS score, contrast and ranking in the paper can be rescored from the archived matrices without rebuilding the upstream ones. Scores that depend on data this archive does not redistribute (the seven-model per-(cell, drug) predictions and the pathway-context scores) are delivered as summary tables only. See `REPRODUCTION_BOUNDARY.md` for an item-by-item statement of what is exactly recomputable versus summary-only.
 
 The original study's open resources: [GitHub](https://github.com/lynn-1998/UniPert-G2CP_reproduce) | [Zenodo](https://zenodo.org/records/20355906)
 
@@ -142,7 +158,7 @@ The complete reproducibility bundle for the evaluation-matrix study ships inside
 repository, alongside the G2CP source tree:
 
 - `REPRODUCTION_MAP.md` — each paper conclusion mapped to the script, input, and expected output
-- `MANIFEST.csv` — 369 entries listing every packaged file, its origin, and its role
+- `MANIFEST.csv` — 370 entries listing every packaged file, its origin, and its role
 - `github/analysis/` — analysis and figure-build scripts, including `stability_checks/_audit_numbers.py`
 - `zenodo/source_data/` — frozen prediction matrices (11,275 × 978), reference matrices, and index files
 - `zenodo/supplementary/` — the 29 numbered supplementary tables S1–S29 plus detail files used by the submitted package (this snapshot retains the original analysis-era file names; `REPRODUCTION_MAP.md` maps package identifiers to snapshot files)
