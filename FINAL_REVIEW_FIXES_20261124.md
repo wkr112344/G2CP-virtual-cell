@@ -110,3 +110,38 @@ withdrawn by the author. The convention now is:
   XPert predictions, reported per scheme. REPRODUCTION_MAP.md carries the same note.
 - The fixed-prediction recheck remains a numerical-verification item; it is NOT claimed as
   a completed recomputation anywhere in the package.
+
+## Second review pass (24 Nov 2026, after the author said "corresponding author aside")
+
+Done in the package:
+- AI record Statement line: "solely for editorial and formatting support" →
+  "language editing, document preparation, and consistency review" (now matches scope).
+- Usage period extended 20–22 → 20–24 November 2026 in the main text, the AI record, and
+  reference [39] access date (24 Nov was an actual day of AI-assisted editing).
+- Markdown backticks removed from the main text (8) and Captions (90); content preserved.
+- Methods: documented the expression-PCA→Ridge parameters from the script (train-set
+  standardisation, PCA-100 random_state=0, Ridge alpha from {0.1,1,10,100,1000} by 5-fold
+  CV on training lines only), the bootstrap units, and that controlled networks are used
+  as supplied frozen 5-seed predictions (their optimizer/early-stopping/network
+  hyperparameters are not in this package and were NOT invented).
+- Figure 6 caption bold state re-verified: [True, False] for all seven captions, i.e. only
+  the "Figure N." label is bold — already consistent; the review saw an older package.
+  Caption length (202 words) left as is; the item list did not ask to shorten it.
+
+Still open (not done — see report):
+- GitHub push: network blocked (git proxy 127.0.0.1:26561 dead; direct connection reset).
+  Local commits 926a0f1 / 0b3a211 / 56b1275 contain the reproduction fixes but are UNPUSHED.
+  Commit references in the package deliberately remain 583cbac (the only publicly
+  reachable snapshot); pointing them at an unpushed commit would 404 for readers.
+  Once the proxy is available: push, then update the commit hash in main text (P98/P99/
+  P106/P175), cover letter (P16), and AI record (P26).
+- XPert single-version recomputation of Table 4/CI: numerical-verification item, not done
+  (author withdrew the "replace with replay values" instruction; main result stays set 1).
+- Figure 6F generator script is not shipped in the package, so the reviewer cannot
+  independently verify it; the S15 caption documents the script/seed/bootstrap setting.
+- Figure 2D per-record predictions are summary-only; documented in the repository
+  REPRODUCTION_BOUNDARY.md but not restated in the submitted package.
+- Review §4 figure/misc details not in the 23-item list (Fig 4A CC/CH, Fig 6 C/H,
+  Fig 5A/5C, Fig 7F, Fig 2D error bars, Methods detail beyond the above): left as is.
+- Persistent archive (GigaDB/Zenodo DOI), CRediT Validation tick, corresponding author:
+  author/editorial decisions.
