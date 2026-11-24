@@ -224,3 +224,17 @@ Open / not done:
   removed from P092 (already in P086); DepMap crossed bootstrap kept in P092 and relabelled
   as the five-seed analysis.
 - Only the main-text DOCX changed in this pass; the other 58 package files are identical.
+
+## (8).zip — delete one duplicated sentence (24 Nov 2026)
+
+- P092: removed the sentence "For the seven-model comparison (Figure 2D), the point estimate
+  was the difference between drug-weighted Pearson correlations against each model's original
+  evaluation matrix and dcic2021, calculated on matched cell line-drug records." P085 already
+  describes this comparison; the deletion is a deduplication, not a scientific change. Neighbouring
+  sentences (Figure 6F crossed-bootstrap distinction; DepMap crossed-bootstrap interval) intact.
+- Only the main-text DOCX changed; the other 58 package files are byte-identical.
+- The four experimental-detail items raised in the (8).zip review require no package edits:
+  GH training config/loss were verified earlier from GH_second_predictor/config.yaml and
+  train_GH_arm.py; Figure 2D CI basis from B_sevenmodel_beta_dcic_ci.csv; Figure 6F bootstrap
+  from build_main_figures_final.py (n=2000, seed=11). XPert: author elected to keep the first
+  (original-prediction) value set and only soften wording; no recomputation, as previously decided.
