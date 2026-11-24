@@ -495,7 +495,14 @@ Repository (commit before this record):
    interval ends, empirical P, n_drugs, B; max difference 0). Scheme C keeps 6,800 records over 1,342
    drugs after excluding 92 single-record groups. The two XPert cells replay 0.61972 / 0.03257 against
    Table 4's 0.61990 / 0.03249, the documented SDPA-fallback drift.
-4. Still open for the author: the G2CP training-record rule. No script in the archive trains G2CP against
-   beta2020 vs dcic2021; the in-repo `train_g2cp.py` splits records 90/10 at random (seed 0), not by drug
-   identity. The Methods sentence ("10% of perturbations held out by drug identity") therefore cannot be
-   confirmed from archived material and needs the author's own record.
+4. G2CP training-record rule — RESOLVED (search extended outside the repository). The earlier note saying
+   it could not be confirmed was wrong: `train_g2cp.py` in the repo is a different, generic trainer. The
+   actual records were found in the author's working material and are now copied into `provenance/`:
+   `drug_holdout_beta2020.json` / `drug_holdout_dcic2021.json` (split_unit = drug, seed 0, last 10% of
+   sorted BRD drug IDs, identical ids_md5 f5333fac8ba1d833aa27c8b03b29c308, all rows of a held-out drug
+   assigned to test), `controlled_swap_source_sensitivity.py` L83–88 (the exact split code),
+   `20_split_provenance_20260918.md` (forensic record of the 20,370/2,037 subset and the two-arm shared
+   holdout), and `ft3_cellbal_20260911.py` L53–56/L213–215 (24 epochs, lr 3e-4, wd 1e-4, batch 256,
+   cosine schedule, MSE + (1 − PCC), best checkpoint on validation PCC). `provenance/README.md` maps each
+   Methods clause to the file that supports it. No text change was needed: the Methods sentence was
+   already correct.

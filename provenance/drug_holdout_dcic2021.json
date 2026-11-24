@@ -1,0 +1,28 @@
+{
+ "task": "drug_holdout",
+ "source": "dcic2021",
+ "cache": "g2cp_cache_2021",
+ "split_unit": "drug",
+ "id_space": "drug_id (BRD-…)",
+ "recipe": "药物全集 = 该缓存 pairs_meta 中出现的唯一 drug_id（升序）；perm = numpy.random.RandomState(0).permutation(n_universe)；held = perm[int(round(0.9*n_universe)):]；留出单位 = 药物（drug_id）；test 行 = 该版本中 drug_id ∈ held 的全部行；行序 = 缓存行序（升序稳定）。",
+ "universe_size": 32039,
+ "n_ids_file": null,
+ "n_train": 140937,
+ "n_test": 15994,
+ "n_pert": 3204,
+ "seed": 0,
+ "oracle": false,
+ "evaluable": true,
+ "identity_pairs": [],
+ "reconcile": {
+  "old_n_pert": 3204,
+  "old_n_test": 15994,
+  "old_src": "results/stage45_official_split_2021.json (official)",
+  "this_n_pert": 3204,
+  "this_n_test": 15994,
+  "matches_old": true
+ },
+ "notes": "⚠️ 规模对账但集合未对齐：本配方 n_pert=3204 与 stage45 的 official 相同（都是 10%×32,039），但 n_test 不同（本 15,994 / stage45-ours 15,157），⇒ ID 列表不同。stage45 的 official 15,994 与本配方一致、ours 不一致，二者谁是官方 split 需人工再核。本文件是「本工程自建划分」，不得称「官方划分」。",
+ "ids_file": "_scratch/v31_mvpa/holdout/dcic2021/drug_holdout.ids.txt",
+ "ids_md5": "f5333fac8ba1d833aa27c8b03b29c308"
+}

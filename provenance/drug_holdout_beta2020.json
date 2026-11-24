@@ -1,0 +1,28 @@
+{
+ "task": "drug_holdout",
+ "source": "beta2020",
+ "cache": "g2cp_cache_beta_all",
+ "split_unit": "drug",
+ "id_space": "drug_id (BRD-…)",
+ "recipe": "药物全集 = 该缓存 pairs_meta 中出现的唯一 drug_id（升序）；perm = numpy.random.RandomState(0).permutation(n_universe)；held = perm[int(round(0.9*n_universe)):]；留出单位 = 药物（drug_id）；test 行 = 该版本中 drug_id ∈ held 的全部行；行序 = 缓存行序（升序稳定）。",
+ "universe_size": 32039,
+ "n_ids_file": null,
+ "n_train": 141457,
+ "n_test": 16065,
+ "n_pert": 3204,
+ "seed": 0,
+ "oracle": false,
+ "evaluable": true,
+ "identity_pairs": [],
+ "reconcile": {
+  "old_n_pert": 2037,
+  "old_n_test": 20031,
+  "old_src": "results/stage35_official_split.json / stage36",
+  "this_n_pert": 3204,
+  "this_n_test": 16065,
+  "matches_old": false
+ },
+ "notes": "⚠️ 不与旧读数对账：本配方给出 n_pert=3204/n_test=16065，而 stage35/36 记的是 2037/20031。差异原因：旧读数的药物全集不是 32,039，而是一个约 20,370 的子集（2,037 = 10% × 20,370，与受控换源设计的 20,370 药一致）。⇒ 旧 beta 划分属于「两源共用子集」设计，与本文件的全集配方不是同一回事，不可混用。",
+ "ids_file": "_scratch/v31_mvpa/holdout/beta2020/drug_holdout.ids.txt",
+ "ids_md5": "f5333fac8ba1d833aa27c8b03b29c308"
+}

@@ -1,0 +1,78 @@
+{
+ "what": "受控换源 A−B 读数的来源登记（侧车，不改动 results/ 与 handoff/产物/ 下的既有产物）",
+ "why": "用户指令：旧读数加注 source / holdout，保留不删；且必须查清 0.2480 与 0.2494 的差异来源，不能静默替换。",
+ "registry_version": "2026-09-18 (r52)",
+ "note_on_labels": "用户原拟标签把两者说成「同一划分构造的两个实现版本，差异来自浮点/抽样顺序」。本轮取证表明该说法不成立：两者是**两个不同的 A 臂真值源**。标签已按证据改写，量级结论不变。",
+ "common": {
+  "design": {"Cstar_cells": 64, "Dstar_drugs": 20370, "heldout_drugs": 2037, "eval_pairs": 11275},
+  "split_name": "self_constructed_drug_holdout_v1",
+  "ckpt": "g2cp_v7_beta_ft.pt",
+  "B_arm": {"cache": "g2cp_cache_2021", "pcc": 0.10565192997455597},
+  "B_arm_other": {"cache": "g2cp_cache_2021", "pcc": 0.10565192162188584, "abs_diff": 8.35e-09}
+ },
+ "readings": [
+  {
+   "label": "A_beta2020_raw",
+   "source": "controlled_swap_A_beta_v2",
+   "holdout": "self_constructed_drug_holdout_v1",
+   "A_truth_cache": "g2cp_cache_beta_v2",
+   "A_truth_desc": "level5_beta_trt_cp_n720216x12328（对级）",
+   "file": "results/controlled_swap_level5beta2020_20260913.json",
+   "key": "A_beta2020_raw.pcc[0]",
+   "A_pcc": 0.35363528818538553,
+   "dPCC": 0.2479833594,
+   "dPCC_rounded": 0.2480,
+   "reported_by_user_as": "旧读数"
+  },
+  {
+   "label": "A_GEO_MODZ",
+   "source": "controlled_swap_A_rebuilt_GSE92742_MODZ",
+   "holdout": "self_constructed_drug_holdout_v1",
+   "A_truth_cache": "g2cp_cache_rebuilt",
+   "A_truth_desc": "GSE92742 Level5 MODZ 重建（signature 级 → 按键取均值）",
+   "file": "handoff/产物/stage55_source_sensitivity_betaft.json",
+   "also_in": "results/stage55b_three_arms_20260913.json → designs.D1_regression.metrics.reb",
+   "key": "A_GEO_MODZ.pcc[0]",
+   "A_pcc": 0.3550865352153778,
+   "dPCC": 0.2494346052,
+   "dPCC_rounded": 0.2494,
+   "reported_by_user_as": "新读数"
+  }
+ ],
+ "delta": {
+  "A_diff": 0.00145125,
+  "dPCC_diff": 0.00145125,
+  "attribution": "A 臂换了数据集（不是浮点、不是抽样顺序、不是划分、不是 B 臂）",
+  "hypotheses_checked": {
+   "H1_split_changed": "排除（design 四项逐项相同：64/20370/2037/11275）",
+   "H2_eval_pairs_changed": "排除（同上，P* 就是 11,275）",
+   "H3_B_arm_recomputed": "排除（B 两处差 8.35e-09，float32 累加级）",
+   "H4_A_arm_dataset_changed": "成立"
+  },
+  "quantified": {
+   "probe": "_scratch/v31_mvpa/21_dpcc_provenance.py",
+   "n_sampled_pairs": 400,
+   "row_pcc_median_between_two_A_truths": 0.9991450309753418,
+   "row_pcc_mean": 0.9497238993644714,
+   "row_pcc_p05": 0.5395591259002686,
+   "frac_r_gt_0.99": 0.8625,
+   "bitwise_equal": false,
+   "max_abs_diff_elementwise": 10.0,
+   "row_sd_median": {"A_rebuilt": 0.6682672500610352, "A_beta2020": 0.6547788381576538}
+  },
+  "contrast": {
+   "same_platform_two_releases": {"dPCC": 0.00145, "row_pcc_median": 0.9991},
+   "cross_release_family": {"dPCC": 0.2480, "row_pcc_median": 0.4904, "src": "_scratch/v31_mvpa/01_version_overlap.json"},
+   "ratio_dPCC": 171.0
+  }
+ },
+ "disposition": {
+  "both_kept": true,
+  "not_deleted": true,
+  "originals_untouched": ["results/controlled_swap_level5beta2020_20260913.json",
+                          "handoff/产物/stage55_source_sensitivity_betaft.json",
+                          "results/stage55b_three_arms_20260913.json"],
+  "main_text_choice": "PENDING_USER — 取决于正文蓝臂指谁：指 LINCS/GEO 发布版 → 0.3536/0.2480；指本工程重建的 GSE92742 → 0.3551/0.2494。两者不得并称同一读数。",
+  "magnitude_verdict": "两条读数差 0.00145，远小于跨源 0.2480（比值 171×），不改变任何结论；但解释必须写成「两个 A 臂数据源」，不得写成 implementation-level/浮点差异。"
+ }
+}
