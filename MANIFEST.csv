@@ -66,6 +66,10 @@ github,github/analysis/stability_checks/_audit_numbers.py,(generated),stability 
 github,github/analysis/stability_checks/_check_gene_subset_residualization.py,(generated),stability / crossed-bootstrap / audit scripts
 github,github/analysis/stability_checks/_crossed_bootstrap_and_disease.py,(generated),stability / crossed-bootstrap / audit scripts
 github,github/analysis/stability_checks/_patch_A_B.py,(generated),stability / crossed-bootstrap / audit scripts
+github,github/analysis/training/verify_ft_20260911.py,(generated),the run that produced the beta-trained state (g2cp_v7_beta_ft.pt); hyperparameters at L28
+github,github/analysis/training/p3_dcic_adapt_20260914.py,(generated),the run that produced the dcic-trained state (g2cp_v7_dcic_ft.pt); hyperparameters at L40
+github,github/analysis/training/verify_ft2_20260911.py,(generated),"the beta_v2 control arm (not one of the two paper states); 32 epochs, lr 2e-4"
+github,github/analysis/training/README.md,(generated),maps each Methods hyperparameter clause to the line that sets it
 github,github/analysis/stability_checks/S21_lincs_crossed_bootstrap.py,(generated),"canonical generator of S21 (S23_lincs_crossed_bootstrap.csv); seed 20260930, 2,000 rounds, 20/20 rows exact"
 github,github/analysis/stability_checks/_rebuild_fig4a.py,(generated),stability / crossed-bootstrap / audit scripts
 github,github/analysis/stability_checks/_recompute_depmap272.py,(generated),stability / crossed-bootstrap / audit scripts

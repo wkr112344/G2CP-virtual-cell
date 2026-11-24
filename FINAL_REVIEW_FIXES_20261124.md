@@ -631,3 +631,26 @@ conclusion altered):
   closing sentence scoping that section to the 3,204-drug set. Scope note: "both of which are strict
   holdouts" → "both of which use the same strict adaptation holdout". Removes the apparent conflict with the
   1,845/192 paragraph further down.
+
+## Round 12 — training scripts archived, S17b sentence corrected, gate count fixed (24 Nov 2026)
+
+- **G2CP hyperparameters now traceable to the runs.** The Methods sentence quotes seed 0, 24 epochs,
+  lr 3×10⁻⁴, wd 10⁻⁴, batch 256 and a cosine schedule, but the archive only carried
+  `ft3_cellbal_20260911.py`, which is a *different* experiment (cell-balanced loss variant) and never
+  produced either evaluation state. The two run scripts were located outside the release workspace and are
+  now archived verbatim in `github/analysis/training/`:
+  `verify_ft_20260911.py` (beta-trained, `SEED, EPOCHS, LR, WD, BATCH = 0, 24, 3e-4, 1e-4, 256` at L28,
+  `CosineAnnealingLR` at L118), `p3_dcic_adapt_20260914.py` (dcic-trained, the same four values at L40,
+  `--epochs` default 24 at L55, `CosineAnnealingLR` at L153), plus the beta_v2 control
+  `verify_ft2_20260911.py` (32 epochs, lr 2e-4 — different settings, not one of the two states). Every
+  clause in the Methods sentence is therefore a literal in shipped code; no parameter had to be removed and
+  no defensive sentence was added. `github/analysis/training/README.md` maps clause → line.
+- **S17b Methods sentence replaced** with the reviewer's wording: "For the 1,303 drugs with at least three
+  evaluation records, we generated 200 bootstrap rankings per matrix and calculated top-k overlaps across
+  all 19,900 unordered pairs; these percentile ranges are descriptive." The earlier clause claimed rank
+  correlations for all 19,900 pairs; the script computes overlap for all pairs but Spearman only over the
+  first 20 rankings (190 pairs), and S17b reports overlap only.
+- **Gate count corrected** in `provenance/README.md`: "gates 6/6" → "five checks passed; the upstream-base
+  training split remains undocumented", matching `81_weight_provenance.json` (G81a–G81e true, G81f false).
+- `ft3_cellbal_20260911.py` is now labelled as a separate experiment in the provenance file index, and
+  MANIFEST gained 4 entries (3 scripts + the training README), 370 → 374.

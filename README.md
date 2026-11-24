@@ -158,7 +158,7 @@ The complete reproducibility bundle for the evaluation-matrix study ships inside
 repository, alongside the G2CP source tree:
 
 - `REPRODUCTION_MAP.md` — each paper conclusion mapped to the script, input, and expected output
-- `MANIFEST.csv` — 370 entries listing every packaged file, its origin, and its role
+- `MANIFEST.csv` — 374 entries listing every packaged file, its origin, and its role
 - `github/analysis/` — analysis and figure-build scripts, including `stability_checks/_audit_numbers.py`
 - `zenodo/source_data/` — frozen prediction matrices (11,275 × 978), reference matrices, and index files
 - `zenodo/supplementary/` — the 29 numbered supplementary tables S1–S29 plus detail files used by the submitted package (this snapshot retains the original analysis-era file names; `REPRODUCTION_MAP.md` maps package identifiers to snapshot files)

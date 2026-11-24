@@ -4,6 +4,7 @@
 |---|---|---|---|
 | LINCS main Δ 0.2956 (95% CI 0.2918–0.2993) | `github/analysis/stability_checks/_audit_numbers.py` or as-supplied | `zenodo/source_data/frozen_prediction_matrices/frozen_perrow_three_metrics.csv` | same value as Table S1 |
 | The three metrics agree in direction across matrices | same as above | same as above | Table S1 (Pearson/Spearman/cosine × drug/cell line) |
+| Adaptation hyperparameters: seed 0, 24 epochs, lr 3e-4, wd 1e-4, batch 256, cosine schedule | `github/analysis/training/verify_ft_20260911.py` (L28, L118) and `github/analysis/training/p3_dcic_adapt_20260914.py` (L40, L55, L153) | the two run scripts themselves; the training caches are not redistributed | not a table: literal constants, mapped clause by clause in `github/analysis/training/README.md` |
 | Training-state reversal D_beta = +0.1975, D_dcic = −0.0810, I = 0.2785 | `github/analysis/stability_checks/_patch_A_B.py` | `supplementary/frozen_multimetric_perrow_scores.csv` | Table 3, S25 |
 | Crossed 2×2 CI for I, 0.2646–0.2889 (raw) and 0.1849–0.2073 (gene-mean removed) | `github/analysis/stability_checks/S21_lincs_crossed_bootstrap.py` (canonical, seed 20260930) | frozen per-row scores + `source_data/lincs_reference_matrices/*.npy` + `source_data/frozen_prediction_matrices/*.npy` | S21, Table 6, Figure 4B |
 | Crossed 2×2 reversal holds 2000/2000 | `github/analysis/stability_checks/_patch_A_B.py` | same | S25 (direction_probability = 1.0) |

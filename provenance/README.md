@@ -9,7 +9,8 @@ fine-tuning configuration, and the completed leakage audit.
 
 Were the 3,204 adaptation-holdout drugs excluded from adaptation training? Yes. Established by explicit
 recomputation on 19 Sep 2026
-(`78_leakage_audit_20260919.md`, gates 8/8; `81_weight_provenance_20260919.md`, gates 6/6). The governing
+(`78_leakage_audit_20260919.md`, gates 8/8; `81_weight_provenance_20260919.md`, five checks passed; the
+upstream-base training split remains undocumented). The governing
 result is `81_weight_provenance.json` → `holdout_vs_weights`: for each adapted weight, the number of
 those 3,204 drugs found in that weight's adaptation-training drug set is **0 / 3,204**, and all 3,204 fall
 in that weight's held-out set. The beta-trained and dcic-trained adaptation holdouts are byte-identical
@@ -50,7 +51,7 @@ that label: predictions are fixed and only the evaluation matrix changes.
 | "using random seed 0, 10% of perturbations were held out by drug identity" | `verify_ft_20260911.py` L48–58 and `p3_dcic_adapt_20260914.py` L80–92; `drug_holdout_beta2020.json` / `drug_holdout_dcic2021.json` (`split_unit = "drug"`, `seed = 0`, `RandomState(0).permutation` then last 10%). |
 | "all records of those held-out drugs were excluded from training across doses and cell lines" | `78_leakage_audit_20260919.md` §1 and gate G78a: held-out drugs appearing in training = 0 (beta2020 3204/3204, dcic2021 3204/3204); `81_weight_provenance.json` `holdout_vs_weights`: 0/3,204 in train for all three adapted weights. |
 | "the held-out drug list was identical" | both `drug_holdout_*.json` carry `ids_md5 = f5333fac8ba1d833aa27c8b03b29c308`; the two states' adaptation holdouts carry md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`; `81_weight_provenance.json` §`holdout_vs_weights` gives 0/3,204 in train and 3,204/3,204 in test for all three weights. |
-| shared base checkpoint and hyperparameters | `20_split_provenance_20260918.md` §5 and the 2026-09-27 work log: both states adapt the same base `g2cp_full_cpi_v7.pt` with an identical protocol, only the cache differs. `ft3_cellbal_20260911.py` L53–56 (`epochs=24`, `lr=3e-4`, `wd=1e-4`, `batch=256`), cosine schedule L213, MSE + (1 − PCC) loss and best-validation-PCC checkpoint. |
+| shared base checkpoint and hyperparameters | `20_split_provenance_20260918.md` §5 and the 2026-09-27 work log: both states adapt the same base `g2cp_full_cpi_v7.pt` with an identical protocol, only the cache differs. The values quoted in Methods are literals in the two run scripts, now archived verbatim under `github/analysis/training/`: `verify_ft_20260911.py` L28 `SEED, EPOCHS, LR, WD, BATCH = 0, 24, 3e-4, 1e-4, 256` and L118 cosine schedule; `p3_dcic_adapt_20260914.py` L40 the same four values, L55 `--epochs` default 24, L153 cosine schedule. Both use MSE + (1 − PCC) and best-validation-PCC checkpointing. `github/analysis/training/README.md` maps each clause to its line. |
 
 ## Scope note
 
@@ -72,5 +73,10 @@ pretraining corpus of the upstream base.
   audit records above, not re-derived here.
 - `drug_holdout_beta2020.json`, `drug_holdout_dcic2021.json` — the holdout recipe and ids_md5.
 - `controlled_swap_source_sensitivity.py` — the split code for the 20,370 / 2,037 evaluation subset.
-- `ft3_cellbal_20260911.py` — the fine-tuning hyperparameters.
+- `github/analysis/training/` — the two adaptation run scripts archived verbatim (`verify_ft_20260911.py`
+  for the beta-trained state, `p3_dcic_adapt_20260914.py` for the dcic-trained state) plus the beta_v2
+  control (`verify_ft2_20260911.py`); its `README.md` maps every value in the Methods hyperparameter
+  sentence to the line that sets it.
+- `ft3_cellbal_20260911.py` — a separate cell-balanced-loss experiment, kept for context; it is **not**
+  the run that produced either evaluation state and no longer serves as the hyperparameter source.
 - `holdout_readings_registry.json` — reading-level registry of the controlled source swap.
