@@ -654,3 +654,30 @@ conclusion altered):
   training split remains undocumented", matching `81_weight_provenance.json` (G81a–G81e true, G81f false).
 - `ft3_cellbal_20260911.py` is now labelled as a separate experiment in the provenance file index, and
   MANIFEST gained 4 entries (3 scripts + the training README), 370 → 374.
+
+## Round 13 — sentence-level copy-edit against the giaa155 register (24 Nov 2026)
+
+Nine passages rewritten to the reviewer's wording; no number, statistic, bound or conclusion changed.
+
+- Background (P18): three-question list recast as (i)/(ii)/(iii) with parallel verbs; "Building on existing
+  benchmarking guidance" → "Following existing benchmarking recommendations".
+- XPert–TranSiGen (P40): "had a slightly higher observed score, although both correlations were close to
+  zero" → "showed a higher observed score, with both correlations near zero"; the trailing "with no clear
+  difference detected" removed after the dcic2021 CI.
+- LINCS gene-mean removal (P52): two sentences compressed into one, the within-set caveat moved into a
+  parenthetical.
+- Discussion (P63): parallel "low correlations / limiting the practical significance" replaced by the
+  overall-correlation-level framing.
+- Discussion (P65): the two-clause "distinct endpoints" antithesis and the "may therefore change which
+  drugs are selected" tail merged into one sentence.
+- Potential implications (P74): two sentences → one, at the target shortlist size.
+- Limitations (P71): five sentences rewritten, all original limitations kept (release coverage, mixed
+  numerical/coverage effects, within-set diagnostic, near-zero XPert–TranSiGen correlations, GTEx donor
+  variation, need for independent references).
+- Methods (P91, P93): the Table 5 seed aggregation and the GTEx donor-bootstrap sentences tightened;
+  every parameter, sample size, seed and rule retained.
+
+Manuscript 8,404 → 8,355 words. Two follow-on observations left for the author, not acted on: P65 still
+opens with "Rank correlation, shortlist overlap, and record coverage should therefore be reported at the
+intended screening depth", which now sits close to the new P74 sentence, and the new P65 pair is the only
+place in the manuscript using em dashes.
