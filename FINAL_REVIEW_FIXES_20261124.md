@@ -178,12 +178,14 @@ Done in the main text:
 - Five-seed aggregation clarified: statistics per seed then averaged; interaction per cell
   within seed, median across cells, then mean across seeds (matches Table 5).
 - Crossed-bootstrap rule added, explicitly separated from the 2,000 Figure 6F cell resamples.
-- Controlled-network configuration: wrote only what the archive supports (TPM+CNA+mutation
-  inputs, 908 cells / 17,393 genes, 636/136/136 split seed 42, two arms differ only in y,
-  five seeds). Layer dimensions / optimizer / lr / early stopping are NOT in the archive and
-  were NOT invented; stated explicitly that they are not re-derived here. Item 4 asked for
-  actual values in brackets — those values could not be recovered, so no placeholders or
-  guessed numbers were inserted.
+- Controlled-network configuration: the real hyperparameters WERE recovered on a deeper
+  search (author insisted they exist). Source: Desktop/CPTB_输入文件_20261025/12_桌面其余_目录/
+  depmap_second_corpus/GH_second_predictor/configs/config.yaml, which generated the very
+  predictions archived as depmap_analysis_ready/predictions_test/seed{0-4}_pred_*.npy (same
+  filenames). Filled into Methods: VAE encoder hidden [512,256], latent 256, decoder
+  [256,512], dropout 0.2, KL weight 0.001; Adam lr 0.001, weight decay 1e-5, batch 128,
+  grad clip 1.0, max 400 epochs, early-stop patience 30; model-init seeds 0-4, split seed 42.
+  Earlier note that these were unavailable is superseded.
 - XPert conclusion strength reduced in four places (abstract, results P40, discussion P63/P64);
   all original numbers and CIs retained.
 - Figure captions: 5C context shortlist union; 5A percentile ranges + S3/S17; 7F four colour
@@ -196,9 +198,11 @@ Done in the main text:
   and renumbering all following references.
 
 Open / not done:
-- Figure 2D error bars: the source JSON (220_dpb_crossversion.json) named in
-  B_extract_sevenmodel_beta_dcic_boot.py is not in the working tree, so the error-bar basis
-  cannot be verified. Caption no longer claims a variance-propagation CI; the error bars
-  remain drawn in the PDF. Removing the vector lines was not attempted (risk of damaging
-  the figure); author to decide whether to strip them.
+- Figure 2D error bars: basis recovered. The plotted deltas 0.0967/0.0512/0.0439/0.0389/
+  0.0296/0.0215/0.0110 are beta2020-dcic2021 drug-weighted Pearson differences on 1,422
+  shared drugs, from gigascience_v5/results/B_sevenmodel_beta_dcic_ci.csv (and
+  220_dpb_crossversion.json). Error bars are approximate 95% CIs by independent-variance
+  propagation, se(delta)=sqrt(se_beta^2+se_dcic^2), from the two arms' 2,000-replicate
+  bootstrap SEs; explicitly conservative (independence assumed). Exact paired CI needs
+  dpb_crossversion_boot.npz, not archived. This formula and caveat are now stated in Methods.
 - GitHub push still blocked (dead proxy); commit references remain 583cbac.
