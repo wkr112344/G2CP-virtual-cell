@@ -309,3 +309,40 @@ Applied all body items from the review:
   three named anchors (review said "suggested, but no need to delete technical content");
   user's pass condition was limited to the two repetitions + the punctuation fix, so no
   extra structural change was made to avoid new inconsistency.
+
+## giaa155 minimal pass — part 2 (24 Nov 2026)
+
+Applied:
+- Potential-implications duplicate deletion and Fig6 caption merge and P41 parenthesis were
+  already in place from the previous pass; verified, no re-edit.
+- Fig2 caption (D): added "Error bars show approximate 95% intervals calculated from the two
+  bootstrap variances without accounting for their covariance."
+- Fig3 caption (A): added "Upper and lower values denote means and medians, respectively."
+- Fig6 caption: rewrote to the user's exact "Violins show interaction distributions from 2,000
+  bootstrap resamples of the 136 test cell lines using the frozen predictors in S13–S15...".
+- Hallmark citation: [36] -> [36, 37]; inserted the official Liberzon 2015 hallmark reference as
+  new [37]; old [37] (OpenAI) renumbered to [38] in both the list and the AI-statement citation;
+  38 references continuous 1..38.
+- Item 7 (G2CP training): filled with verified settings — random seed 0, 10% perturbations held
+  out by drug identity, held-out drugs excluded across doses/cell lines, shared base checkpoint
+  and hyperparameters (seed 0 / 24 epochs / lr 3e-4 / wd 1e-4 / batch 256 / cosine / MSE+(1-PCC),
+  val-PCC best), identical held-out list. Source: memory 2026-09-27 and 2026-09-30.
+- Item 8 (signature aggregation): filled — one response vector per cell–drug pair by averaging
+  the available signatures (doses/times/replicates not harmonised upstream), dcic pairs already
+  pair-level. Source: controlled_swap_source_sensitivity.py and memory 2026-10-03.
+- Author_Information Related-preprint citation [21] -> [20].
+- Figure 3 PDF: right MediaBox +16pt so colorbar ticks 20-140 are fully inside; S1 PDF: bottom
+  MediaBox +22pt so rotated drug IDs are fully inside. Verified by rendering.
+
+NOT applied — need author evidence:
+- Item 9 (ranking bootstrap): user-supplied "2,000 bootstrap rankings / 11,175 ranking pairs"
+  conflicts with the archived analysis: _within_ref_stability.py uses B=200 with C(200,2)=19,900
+  pairs; P_frozen_multimetric_cohorts.py N_BOOT=2000 is drug-cluster bootstrap for metric CIs,
+  not ranking pairs. 11,175 appears only as a pair_index value in
+  within_reference_topk_stability_replicates.csv, not a pair count. Refused to insert an
+  unsupported number; P83 and the S19 caption left unchanged pending the real settings.
+- S2 PDF: the four requested row labels (Colon-Transverse-Mucosa, Pancreas-Acini,
+  Pancreas-Mixed Cell, Stomach-Mixed Cell) are absent from both the figure and its text layer,
+  and no generator script for the 68-tissue PNG is available. Adding them requires regenerating
+  the figure from S12 source data with the correct label list; not attempted to avoid a partial
+  visual fix on a baked-in PNG.
