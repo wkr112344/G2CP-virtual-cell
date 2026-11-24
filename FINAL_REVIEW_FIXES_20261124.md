@@ -585,3 +585,36 @@ Reviewed ruling: "应改" (Methods + table note), no recomputation. Verified fro
   a pinned-snapshot section and tag added; `REPRODUCTION_BOUNDARY.md` now states that all paths are relative
   to `zenodo/`, records the canonical S21 entry, and moves the three disease contexts out of the
   "summary-only" table because `TableS_disease_perdrug_scored.csv` (4,197 rows) is archived.
+
+## Round 10 — the 2,037 are evaluation drugs, not held-out drugs (24 Nov 2026, v7 review)
+
+The reviewer's arithmetic was right, and it is checkable entirely from files already in `provenance/`:
+
+- Adaptation split (`g2cp_cache_beta_all`): 32,039-drug vocabulary, `RandomState(0)`, last 10% → 3,204
+  held out, 28,835 trained on; 0/3,204 of the holdout appears in adaptation training for any of the three
+  adapted weights (`81_weight_provenance.json` → `holdout_vs_weights`; gates 8/8 and 6/6).
+- Evaluation split (`g2cp_cache_rebuilt`): 20,370 shared-release drugs, `RandomState(0)`, last 10% →
+  H = 2,037, train 18,333 (`controlled_swap_source_sensitivity.py` L82–88; `81_weight_provenance.json`
+  → `old_split`, ids md5 `84a999451255e44c2943afc1d0fed993`).
+- The two holdouts overlap in **192** drugs (`old_split.new_held_in_old_held`). Since 20,370 sits inside
+  the 32,039 vocabulary (the same 3,204 set has 2,101 members in the 20,370 space, so the namespaces are
+  shared), 2,037 − 192 = **1,845 evaluation drugs fall in the 28,835-drug adaptation-training portion**.
+  Only 9.4% of the evaluated drugs are strictly held out from adaptation training.
+
+Decision: the descriptor "held-out drugs" was not supportable for this set, so the text now says
+"evaluation drugs" and the Methods distinguish the three sets. Changes (no number, no analysis, no
+conclusion altered):
+
+- P77 rewritten: adaptation-stage split (3,204/32,039, 0 in training, identical lists) stated as such; the
+  cross-matrix evaluation set described as a separate 10% draw (2,037/20,370) with 192 inside the
+  adaptation holdout; the remaining 1,845 noted as inside the adaptation-training vocabulary, with an
+  explicit statement that no unseen-drug generalization is claimed; the upstream base
+  `g2cp_full_cpi_v7.pt` split noted as not publicly documented and not claimed. +57 words.
+- P44, P52, P83, P199 and the P105 data-availability list: "held-out drug(s)/scores" → "evaluation
+  drug(s)/scores" (6 occurrences). Table 1's "2,037 held-out drugs" cell and Table S18's caption
+  ("over 2,037 held-out drugs") changed to match. The only surviving "held-out" is GTEx's 189 held-out
+  donors, which is a genuine donor-level holdout.
+- `provenance/README.md` now states the 1,845/192 split explicitly instead of leaving it as an aside, so
+  the repository and the manuscript say the same thing.
+- No change to any reported value: the matrix-replacement comparison holds predictions fixed and changes
+  only the evaluation matrix, so it does not depend on the drugs being unseen.

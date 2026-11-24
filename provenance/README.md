@@ -32,6 +32,15 @@ explicit verdict "非 A、非 B，是 C": the 1,909 figure belongs to the separa
 (`g2cp_cache_rebuilt`), on which the main weights were never adapted, so it does not contaminate the
 main-model arm.
 
+**What the 192 therefore implies for the paper's wording.** The same arithmetic runs the other way for
+the evaluation set: 2,037 − 192 = **1,845 of the 2,037 evaluation drugs are not in the adaptation
+holdout**, and since the 20,370-drug shared-release space sits inside the 32,039-drug vocabulary, those
+1,845 fall in the 28,835-drug adaptation-training portion. Only 192 (9.4%) of the evaluated drugs are
+strictly held out from adaptation training. The manuscript therefore calls these 2,037 drugs
+**evaluation drugs**, not held-out drugs, and Methods states the three sets separately (upstream base,
+adaptation holdout, cross-matrix evaluation set). Nothing in the matrix-replacement comparison depends on
+that label: predictions are fixed and only the evaluation matrix changes.
+
 ## Claim-by-claim mapping
 
 | Methods claim | Evidence |
