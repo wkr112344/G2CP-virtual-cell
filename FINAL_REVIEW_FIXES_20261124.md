@@ -438,3 +438,42 @@ everything else unchanged. LINCS algorithm mechanism, DepMap mean mechanism, Pot
 and Limitations untouched.
 Verification: 59 files / 44 CSVs parse cleanly; main text 31 pages, 9,008 words, 0 comments,
 0 revisions; 38 references, continuous numbering.
+
+## Round 5 — GitHub correspondence and Methods accuracy (24 Nov 2026)
+
+Methods, from the code rather than from inference:
+1. `_patch_A_B.py` section A generates 2,000 *independent* pairs (two independent row-level resamples per
+   round) and S17c carries rounds = 2000 with 0.8580 / 0.8246. Methods now says so: "we generated 2,000
+   independent pairs of bootstrap rankings ... recalculating per-drug scores twice for each pair."
+2. Disease-reversal rankings are different on purpose: `S25_..._method.py` sets B = 2000, R = 150 and
+   reports n_pairs_used = 11175, pairs_independent = False. Methods now states that separately and
+   describes the pairs as descriptive.
+3. Removed the earlier "assessed using the same bootstrap procedure" sentence: same resampling unit, not
+   the same pairing rule.
+Discussion: "Stable gene means account for much of the matching effect in the controlled DepMap networks,
+whereas most of the LINCS interaction persists after gene-mean removal." (was "but not in LINCS").
+Supplementary Figure S1: the rotated BRD labels were clipped by the page box (source mediabox 763.2 pt,
+label bboxes to 767.5 pt, so the leading "BRD-" was cut). Extended the page box downward by 40 pt
+(content unmoved, 23 pt margin below the lowest text); all six labels now read BRD-Axxxxxxx in full.
+PNG re-exported at 600 dpi from the corrected vector file.
+
+Repository (commit before this record):
+- `github/analysis/audit_and_redraw.py` resolved ROOT one level too high (`parents[1]` = github/) which is
+  why it looked in `github/source_data`; now `parents[2]`, inputs from `zenodo/source_data`, outputs to
+  `reproduction_outputs/`.
+- `github/analysis/common.py` resolved the GTEx root to `github/`; now `zenodo/source_data/gtex_reference_sensitivity`
+  with a `G2CP_GTEX_ROOT` override, plus a shipped `config.yaml`.
+- `positive_control_expression_ridge.py`: author absolute paths replaced by `G2CP_ALIGNED_DIR` /
+  `G2CP_DEPMAP_READY` with repository defaults; reference arrays and split.json resolve to the archive.
+- Archived the inputs that were only on the author machine: `B_sevenmodel.csv`, `C_perdrug_stability.csv`,
+  `L_heterogeneity_272cell.csv`, `G_depmap_2x2_5seed.csv`, `H_depmap_interaction_bootstrap5000.csv`,
+  `J_disease_panels.csv`, `M_negative_controls.csv`, `N_depmap_reference_structure_controls_272cell.csv`,
+  `task3/task4_genewise_*`, `results/per_sample_scores.csv`.
+- `run_all.sh` runs end to end here: 74 checks, 0 mismatched. Steps needing non-archived raw inputs skip
+  with an explicit message (raw DepMap pkg, X_TPM, GTEx per-sample matrices).
+- `rebuild_X_TPM.py` added: deterministic rule + sha256 printout + acceptance criterion.
+- `REPRODUCTION_MAP.md`: mapping table rebuilt from content hashes (adds S1-S17, S17b, S17c; corrects the
+  rank-concordance row from S19 to S18; corrects "old S23 = S17c", which is package S21; S6/S9 row now
+  names `audit_and_redraw.py`; GTEx row path corrected).
+- `PACKAGE_AUDIT_20261120.md`: status header plus section 7 marking the five 11-20 items resolved and
+  listing the four real remaining gaps.
