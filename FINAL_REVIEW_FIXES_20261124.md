@@ -420,3 +420,21 @@ standalone LINCS-vs-DepMap paragraph; Potential implications explanatory closing
 "targeted survey" (no "non-systematic"); Supplementary Note colour-bar detail.
 Left unchanged: Abstract, Limitations, Cover Letter, GitHub, figure font sizes, AI statement,
 corresponding author.
+
+## Round 4 — targeted Discussion synthesis (24 Nov 2026)
+
+Additive only; no cuts, no rewording elsewhere. About 40 words total.
+1. Discussion, LINCS-vs-DepMap paragraph (appended after the existing two sentences):
+   "Stable gene means can therefore explain much of the matching effect in DepMap, but not in LINCS."
+   Supported by the existing figures: LINCS interaction 0.2785 -> 0.1969 (70.7% of the point
+   estimate retained after centering) versus DepMap 0.0563 -> -0.0005.
+2. Discussion, ranking-stability paragraph (appended at the end):
+   "In compound screening, matrix-dependent rankings may therefore change which drugs are selected
+   for experimental follow-up."
+   Supported by the reported top-10 overlap and rank-agreement results.
+Not added: optional GTEx sentence ("does not necessarily reflect better prediction of expression
+differences among donors"); the review marked it optional and the final instruction was to keep
+everything else unchanged. LINCS algorithm mechanism, DepMap mean mechanism, Potential implications
+and Limitations untouched.
+Verification: 59 files / 44 CSVs parse cleanly; main text 31 pages, 9,008 words, 0 comments,
+0 revisions; 38 references, continuous numbering.
