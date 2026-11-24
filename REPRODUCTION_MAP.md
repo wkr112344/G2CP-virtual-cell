@@ -18,7 +18,7 @@
 | GTEx interaction 0.07096 / 0.06187 (median of medians) | `gtex_reference_sensitivity/scripts/07_bootstrap.py` | `gtex_reference_sensitivity` (per-sample scores) | S8, S10–S12 |
 | Figures 1–7 and single panels | `github/analysis/figure_build/*.py` | `zenodo/source_data/figure_source_data` | same-named files in `zenodo/figures/` |
 
-> Permutation control: `S28_permutation_scheme_comparison.csv` holds all three schemes — A (positional), B (within-cell-line), and C (within-cell-line restricted to strata that admit a complete drug-identity derangement; 6,800 of 6,892 records, 92 single-record strata excluded) — with observed values, null means, 95% intervals, empirical P values and record counts. `build_S28_v2.py` regenerates this table and audits every permutation: across 2,000 permutations per scheme no record kept its original drug and no fallback construction was needed, recorded in `S28_permutation_constraint_check.csv`. `S31` remains the unrestricted substitution analysis; it was computed with an earlier release of the substitution pipeline, so its observed values differ from scheme A in the fourth decimal place (0.61990 versus 0.61972 for SDST/XPert) and it is labelled as a historical comparison.
+> Permutation control: `S28_permutation_scheme_comparison.csv` holds all three schemes — A (positional), B (within-cell-line), and C (within-cell-line restricted to strata that admit a complete drug-identity derangement; 6,800 of 6,892 records, 92 single-record strata excluded) — with observed values, null means, 95% intervals, empirical P values and record counts. `build_S28_v2.py` regenerates this table and audits every permutation: across 2,000 permutations per scheme no record kept its original drug and no fallback construction was needed, recorded in `S28_permutation_constraint_check.csv`. `S31` remains the unrestricted substitution analysis; it was computed with an earlier release of the substitution pipeline, so its observed values differ from scheme A in the fourth decimal place (0.61990 versus 0.61972 for SDST/XPert) and it is labelled as a historical comparison. The XPert difference has two sources: the earlier substitution pipeline and the prediction replay, in which the archived XPert predictions were regenerated with a scaled-dot-product attention fallback in place of the original flash-attention kernel (about 2×10⁻⁴ on the two XPert cells). Table 4 uses 1,343 drugs; scheme C of the permutation comparison excludes singleton strata and evaluates 1,342 drugs over 6,800 model records, so the two are different analysis sets.
 
 > Checking convention: all key numbers use tolerance 5×10⁻⁴; interval endpoints 1×10⁻³. The one-by-one comparison
 > script is `github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`.
@@ -29,8 +29,8 @@
 
 | Package S | Snapshot file in `zenodo/supplementary/` |
 |---|---|
-| S18 | `S17b_coverage_ge3_rank_stability.csv` |
-| S19 | `S21_rank_concordance_summary.csv` |
+| S18 | `S21_rank_concordance_summary.csv` (rank concordance summary) |
+| S19 | `S25_disease_within_reference_stability.csv` (disease within-reference stability) |
 | S20 | `S24_lincs_perdrug_raw_vs_residualized.csv` |
 | S21 | `S23_lincs_crossed_bootstrap.csv` |
 | S22 | `S27_disease_signature_gene_counts.csv` |

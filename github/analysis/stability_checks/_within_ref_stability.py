@@ -11,8 +11,9 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-SRC = Path('gigascience_figwork2/GigaScience_GTEx_checked/source_data/frozen_prediction_matrices/frozen_perrow_three_metrics.csv')
-OUT = Path('gigascience_upload_work/within_reference_topk_stability.csv')
+ROOT = Path(__file__).resolve().parents[3]
+SRC = ROOT/'zenodo'/'source_data'/'frozen_prediction_matrices'/'frozen_perrow_three_metrics.csv'
+OUT = ROOT/'zenodo'/'supplementary'/'within_reference_topk_stability.csv'
 KS = [10, 20, 50, 100, 204, 500, 1000]
 B = 200
 rng = np.random.default_rng(20260930)

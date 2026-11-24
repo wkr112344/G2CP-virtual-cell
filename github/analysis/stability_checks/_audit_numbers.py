@@ -3,29 +3,35 @@
 Part A: item-by-item check of the headline conclusions (tolerance 5e-4, interval endpoints 1e-3)
 Part B: coverage check -- can every number with >=3 significant digits in the main text be traced to an archived file?
 """
-import json, re, os
+import json, re, os, argparse
 from pathlib import Path
 import pandas as pd
 import numpy as np
 
-# Paths are resolved relative to this file so the audit runs on any checkout:
-#   <repo>/analysis/stability_checks/_audit_numbers.py
-#   <repo>/supplementary/*.csv                (archived tables)
-#   <repo>/manuscript/MainText_EN.docx        (the submitted English manuscript)
+# All inputs are configurable so the audit runs on any checkout.
+#   --expected   EXPECTED_OUTPUTS.json       (single source of truth for expectations)
+#   --data       directory of archived CSVs  (default: <repo>/zenodo/supplementary)
+#   --manuscript the submitted DOCX          (optional; only needed for Part B coverage)
+_AP = argparse.ArgumentParser()
+_AP.add_argument("--expected", default=None)
+_AP.add_argument("--data", default=None)
+_AP.add_argument("--manuscript", default=None)
+ARGS, _ = _AP.parse_known_args()
+
 HERE = Path(__file__).resolve()
-REPO = HERE.parents[2]
-SUP = REPO / "supplementary"
-MANUSCRIPT = REPO / "manuscript" / "MainText_EN.docx"
-if not MANUSCRIPT.exists():
-    cand = sorted((REPO / "manuscript").glob("*.docx")) if (REPO / "manuscript").exists() else []
-    if not cand:
-        cand = sorted(REPO.glob("**/*MainText*.docx"))
-    if not cand:
-        raise SystemExit("manuscript .docx not found under %s" % (REPO / "manuscript"))
-    MANUSCRIPT = cand[0]
-import docx
-D = docx.Document(str(MANUSCRIPT))
-TXT = "\n".join(p.text for p in D.paragraphs)
+REPO = HERE.parents[3]                                  # .../GigaScience_reproducibility_release
+SUP = Path(ARGS.data).resolve() if ARGS.data else (REPO / "zenodo" / "supplementary")
+EXPECTED_PATH = Path(ARGS.expected).resolve() if ARGS.expected else (REPO / "EXPECTED_OUTPUTS.json")
+E = json.load(open(str(EXPECTED_PATH), encoding="utf-8"))
+TOL = float(E.get("tolerance", 5e-4))
+CI_TOL = float(E.get("ci_tolerance", 1e-3))
+
+MANUSCRIPT = Path(ARGS.manuscript).resolve() if ARGS.manuscript else None
+TXT = ""
+if MANUSCRIPT is not None and MANUSCRIPT.exists():
+    import docx
+    D = docx.Document(str(MANUSCRIPT))
+    TXT = "\n".join(p.text for p in D.paragraphs)
 
 S = {f: pd.read_csv(str(SUP / f)) for f in os.listdir(SUP) if f.endswith(".csv")}
 J = json.load(open(str(SUP / "analysis_summary.json"), encoding="utf-8"))
@@ -33,8 +39,47 @@ J = json.load(open(str(SUP / "analysis_summary.json"), encoding="utf-8"))
 def v(x, d=6):
     return round(float(x), d)
 
+def jget(path, default):
+    """Fetch an expected value from EXPECTED_OUTPUTS.json by dotted path (dict keys or list indices)."""
+    cur = E
+    for part in path.split("."):
+        if isinstance(cur, dict) and part in cur:
+            cur = cur[part]
+        elif isinstance(cur, (list, tuple)) and part.lstrip("-").isdigit():
+            i = int(part)
+            if -len(cur) <= i < len(cur):
+                cur = cur[i]
+            else:
+                return default
+        else:
+            return default
+    return cur
+
+# Central map: claim values below are overridden by the single expected-value config.
+# Keys are the check names used in C(); values are dotted paths into EXPECTED_OUTPUTS.json.
+EXPECT_MAP = {
+    "main Δ (drug equal weight)": "lincs.delta_pearson_drug",
+    "main Δ CI lower": "lincs.delta_pearson_drug_ci.0",
+    "main Δ CI upper": "lincs.delta_pearson_drug_ci.1",
+    "rank Spearman": "lincs.rank_spearman",
+    "top-10 overlap count": "lincs.top10_cross_reference",
+    "raw interaction": "depmap.raw_interaction",
+    "residualized interaction": "depmap.residualized_interaction",
+    "residualized interaction CI lower": "depmap.residualized_interaction_ci.0",
+    "residualized interaction CI upper": "depmap.residualized_interaction_ci.1",
+    "GTEx interaction Pearson": "gtex.interaction_pearson",
+    "GTEx interaction CI lower": "gtex.interaction_pearson_ci.0",
+    "GTEx interaction CI upper": "gtex.interaction_pearson_ci.1",
+    "GTEx interaction Spearman": "gtex.interaction_spearman",
+    "Ridge CERES residualized": "depmap.positive_control.ridge_CERES",
+    "Ridge Chronos residualized": "depmap.positive_control.ridge_Chronos",
+    "Ridge CERES gene-level": "depmap.positive_control.gene_CERES",
+    "Ridge Chronos gene-level": "depmap.positive_control.gene_Chronos",
+}
+
 checks = []          # (description, main-text value, archived value, tolerance, source)
 def C(name, claim, src, tol=5e-4, where=""):
+    claim = jget(EXPECT_MAP[name], claim) if name in EXPECT_MAP else claim
     checks.append((name, claim, v(src, 6), tol, where))
 
 # ---------------- LINCS ----------------

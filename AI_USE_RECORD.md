@@ -8,7 +8,7 @@ reviewers can judge which parts of the work involved AI assistance.
 
 | Tool | Model | Provider | Access |
 |---|---|---|---|
-| ChatGPT | Codex based on GPT-6 | OpenAI | https://chatgpt.com/ |
+| ChatGPT | [model/version: to be confirmed by author] | OpenAI | https://chatgpt.com/ |
 
 No other generative AI service was used for the work reported here.
 
@@ -23,8 +23,9 @@ acceptance of edits were made by this author.
 
 ## Scope of use
 
-AI assistance was limited to three editorial and mechanical tasks, matching the
-`Use of AI tools` statement in the manuscript:
+AI assistance was limited to language editing, document preparation, and consistency
+review — editorial and mechanical tasks matching the `Use of AI tools` statement in the
+manuscript:
 
 1. **Language editing** — grammar, article usage, and phrasing in the English
    manuscript. No new scientific claims were introduced.
@@ -38,11 +39,11 @@ AI assistance was limited to three editorial and mechanical tasks, matching the
 ## What was not done by AI
 
 - Study design, data selection, and analysis choices.
-- Model training, scoring, bootstrap procedures, and all numerical results. Every
-  reported value was produced by the analysis scripts in `github/analysis/` and
-  was recomputed during a final check.
+- Model training, scoring, bootstrap procedures, and numerical results; these were
+  produced by the author and the analysis scripts in `github/analysis/`.
 - Interpretation of results, limitations, and conclusions.
-- Any decision about what to report or how strongly to state it.
+- Interpretive decisions and the wording of conclusions; AI suggestions were reviewed
+  and accepted or rejected by the author.
 
 ## Outputs affected
 
@@ -57,11 +58,12 @@ AI assistance was limited to three editorial and mechanical tasks, matching the
 
 ## Verification
 
-Every numerical statement in the manuscript was checked against
-`EXPECTED_OUTPUTS.json` with `github/analysis/stability_checks/_audit_numbers.py`
-(tolerance 5×10⁻⁴ for point estimates, 1×10⁻³ for interval endpoints). Reference
-numbering and figure/table cross-references were checked programmatically after the
-final edit. The author reviewed and approved all text that AI touched.
+A numerical audit of the key reported values was run with
+`github/analysis/stability_checks/_audit_numbers.py` against `EXPECTED_OUTPUTS.json`
+(tolerance 5×10⁻⁴ for point estimates, 1×10⁻³ for interval endpoints); a verification
+run reported 74 checks with no mismatches. This checks the key conclusions, not every
+number in the manuscript. Reference numbering and figure/table cross-references were
+checked after the final edit. The author reviewed and approved all text that AI touched.
 
 ## Statement
 

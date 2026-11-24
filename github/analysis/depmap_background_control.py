@@ -1,8 +1,20 @@
-import os, json, re
+import os, json, re, argparse
 import numpy as np
 import pandas as pd
 from scipy.stats import rankdata
-BASE='/mnt/data/depmap_work'; OUT='/mnt/data/depmap_background_control_results_fast'; os.makedirs(OUT,exist_ok=True)
+
+# Data root is configurable: raw DepMap pkg1-4 matrices are large and are rebuilt from
+# public sources (see DATA_SOURCES.md); they are not shipped in the archive. Pass --data
+# to point at a local rebuild. Outputs go to --out (default: alongside this script's results).
+_ap = argparse.ArgumentParser()
+_ap.add_argument('--data', default=None, help='directory containing pkg1/ pkg2/ pkg3/ pkg4/')
+_ap.add_argument('--out', default=None, help='output directory for task*.csv and reports')
+_a, _ = _ap.parse_known_args()
+BASE = _a.data or os.environ.get('DEPMap_DATA', '/mnt/data/depmap_work')
+OUT = _a.out or os.environ.get('DEPMap_OUT',
+                              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                           'source_data', 'depmap_background_control'))
+os.makedirs(OUT, exist_ok=True)
 Yc=np.load(f'{BASE}/pkg3/reference/Y_CERES.npy').astype(np.float64)
 Yh=np.load(f'{BASE}/pkg4/reference/Y_Chronos.npy').astype(np.float64)
 mask=np.load(f'{BASE}/pkg4/reference/common_observed_mask.npy').astype(bool)

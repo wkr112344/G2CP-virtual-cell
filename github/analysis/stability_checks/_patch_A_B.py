@@ -16,8 +16,9 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-SRC = Path('gigascience_upload_work/GigaScience_Submission_Upload/supplementary/frozen_multimetric_perrow_scores.csv')
-SUP = Path('gigascience_upload_work/GigaScience_Submission_Upload/supplementary')
+ROOT = Path(__file__).resolve().parents[3]
+SRC = ROOT/'zenodo'/'supplementary'/'frozen_multimetric_perrow_scores.csv'
+SUP = ROOT/'zenodo'/'supplementary'
 ROUNDS = 2000
 KS = [10, 20, 50, 100, 204, 500, 1000]
 COLS = {'beta': 'beta_trained__beta2020', 'dcic': 'beta_trained__dcic2021',
@@ -103,7 +104,7 @@ for k in KS:
                  'cross_below_within_beta_lo': bool(cross[k] < np.percentile(b, 2.5)),
                  'cross_below_within_dcic_lo': bool(cross[k] < np.percentile(c, 2.5)),
                  'random_expected': k * k / N, 'rounds': ROUNDS})
-pd.DataFrame(rows).to_csv('gigascience_upload_work/within_reference_pair_stability.csv', index=False)
+pd.DataFrame(rows).to_csv(ROOT/'zenodo'/'source_data'/'within_reference_pair_stability.csv', index=False)
 pd.DataFrame(rows).to_csv(SUP / 'S17_within_reference_topk_stability.csv', index=False)
 print('  -> S17 regenerated under the independent-pair caliber (%d rounds)' % ROUNDS)
 print('  within-beta Spearman distribution: %.4f [%.4f, %.4f]; within-dcic: %.4f [%.4f, %.4f]' % (
@@ -144,6 +145,6 @@ print('  * reversal holds (D_beta>0 and D_dcic<0): %d / %d = %.4f' % (both, B2, 
 for c, k in [('b_b', 'beta-trained→beta'), ('b_d', 'beta-trained→dcic'),
              ('d_b', 'dcic-trained→beta'), ('d_d', 'dcic-trained→dcic')]:
     print('  %-22s mean %.4f  CI [%.4f, %.4f]' % (k, draws[c].mean(), *np.percentile(draws[c], [2.5, 97.5])))
-pd.DataFrame(tab).to_csv('gigascience_upload_work/crossed_bootstrap_2x2.csv', index=False)
+pd.DataFrame(tab).to_csv(ROOT/'zenodo'/'source_data'/'crossed_bootstrap_2x2.csv', index=False)
 pd.DataFrame(tab).to_csv(SUP / 'S20_lincs_crossed_2x2_model_comparison.csv', index=False)
 print('  -> S20 written')

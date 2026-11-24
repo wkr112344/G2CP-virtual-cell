@@ -13,7 +13,8 @@ from pathlib import Path
 
 RNG = np.random.default_rng(20260929)
 B = 5000
-SRC = Path('gigascience_figwork2/GigaScience_GTEx_checked/source_data/frozen_prediction_matrices/frozen_perrow_three_metrics.csv')
+ROOT = Path(__file__).resolve().parents[3]
+SRC = ROOT/'zenodo'/'source_data'/'frozen_prediction_matrices'/'frozen_perrow_three_metrics.csv'
 
 d = pd.read_csv(SRC)[['drug', 'cell', 'pearson_A_beta2020', 'pearson_B_dcic2021']].dropna()
 drugs = np.sort(d.drug.unique()); cells = np.sort(d.cell.unique())
@@ -64,10 +65,10 @@ for name, v in [('drug_clustered_primary', drug_only), ('cell_clustered', cell_o
                  'ci_low': lo, 'ci_high': hi, 'sd': float(v.std(ddof=1)),
                  'fraction_positive': float((v > 0).mean())})
     print('%-22s mean %.6f  CI [%.6f, %.6f]  SD %.6f  P(Δ>0)=%.4f' % (name, v.mean(), lo, hi, v.std(ddof=1), (v > 0).mean()))
-pd.DataFrame(rows).to_csv('gigascience_upload_work/crossed_bootstrap_delta.csv', index=False)
+pd.DataFrame(rows).to_csv(ROOT/'zenodo'/'source_data'/'crossed_bootstrap_delta.csv', index=False)
 
 # ---------------- Item 10: near-boundary fragility of the disease shortlist ----------------
-dis = pd.read_csv('gigascience_v5/figure_source_data/TableS_disease_perdrug_scored.csv')
+dis = pd.read_csv(ROOT/'zenodo'/'source_data'/'figure_source_data'/'TableS_disease_perdrug_scored.csv')
 out = []
 NAME = {'ACEVEDO_LIVER_TUMOR_VS_NORMAL_ADJACENT_TISSUE': 'Liver (Acevedo)',
         'RODRIGUES_THYROID_CARCINOMA_ANAPLASTIC': 'Thyroid ATC (Rodrigues)',
@@ -86,7 +87,7 @@ for sig, g in dis.groupby('signature'):
                     'top10_score_span': span, 'boundary_gap_over_span': gap / span if span else np.nan,
                     'tie_band_size': tie})
 b = pd.DataFrame(out)
-b.to_csv('gigascience_upload_work/disease_list_boundary_fragility.csv', index=False)
+b.to_csv(ROOT/'zenodo'/'source_data'/'disease_list_boundary_fragility.csv', index=False)
 print()
 print('near-boundary fragility of the disease shortlist:')
 print(b.round(4).to_string(index=False))

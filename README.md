@@ -110,7 +110,7 @@ Training data sources (public):
 - ChEMBL 37 (CPI annotations)
 - GEO: GSE61302, GSE11917, GSE17579, GSE20986, GSE21413, GSE25941, GSE33622, GSE50378, GSE50397, GSE53751, GSE62914, GSE22886, GSE60235 (13 series)
 
-**Model weights**, cache-reconstruction scripts, and all result files are archived on Zenodo: [https://doi.org/10.5281/zenodo.22720615](https://doi.org/10.5281/zenodo.22720615) (CC-BY-4.0). The preprocessed LINCS L1000 level-5 matrices (~7.5 GB) are **not distributed** with the archive; they are regenerated from public sources (GSE92742, the LINCS level-5 beta release, and the DCIC 2021 distribution) by the cache-reconstruction scripts included in the archive.
+**Model weights**, cache-reconstruction scripts, and all result files are archived on Zenodo: [https://doi.org/10.5281/zenodo.22720615](https://doi.org/10.5281/zenodo.22720615) (CC-BY-4.0). A distinction that matters for reuse: the full upstream LINCS L1000 level-5 matrices (~7.5 GB) are **not distributed** and must be regenerated from public sources (GSE92742, the LINCS level-5 beta release, and the DCIC 2021 distribution) with the included cache-reconstruction scripts. The matrices actually used in this study are distributed: `zenodo/source_data/lincs_reference_matrices/` and `frozen_prediction_matrices/` contain the 11,275 × 978 aligned reference and frozen prediction matrices (`.npy`), so every result in the paper can be rescored without rebuilding the upstream matrices. See `REPRODUCTION_BOUNDARY.md` for an item-by-item statement of what is exactly recomputable versus summary-only.
 
 The original study's open resources: [GitHub](https://github.com/lynn-1998/UniPert-G2CP_reproduce) | [Zenodo](https://zenodo.org/records/20355906)
 
@@ -142,11 +142,13 @@ The complete reproducibility bundle for the evaluation-matrix study ships inside
 repository, alongside the G2CP source tree:
 
 - `REPRODUCTION_MAP.md` — each paper conclusion mapped to the script, input, and expected output
-- `MANIFEST.csv` — 365 entries listing every packaged file, its origin, and its role
+- `MANIFEST.csv` — 369 entries listing every packaged file, its origin, and its role
 - `github/analysis/` — analysis and figure-build scripts, including `stability_checks/_audit_numbers.py`
 - `zenodo/source_data/` — frozen prediction matrices (11,275 × 978), reference matrices, and index files
-- `zenodo/supplementary/` — supplementary tables S1 to S35 (S20, S26 and S32 are unused numbers)
-- `run_all.sh` — end-to-end driver; `requirements_freeze.txt` pins the archived Python 3.11 environment
+- `zenodo/supplementary/` — the 29 numbered supplementary tables S1–S29 plus detail files used by the submitted package (this snapshot retains the original analysis-era file names; `REPRODUCTION_MAP.md` maps package identifiers to snapshot files)
+- `run_all.sh` — reproduction driver; `requirements_freeze.txt` pins the archived Python 3.11 environment
+
+To reproduce: run `./run_all.sh` from a fresh checkout. It rebuilds S5/S6/S9 from the archived per-cell scores, checks all key numbers against `EXPECTED_OUTPUTS.json`, and optionally rebuilds the raw DepMap tables with `--data <pkg-root>` (raw pkg1–4 matrices are large and rebuilt from public sources; see `DATA_SOURCES.md`). The checker resolves all paths relative to the script and accepts `--expected`, `--data`, and `--manuscript`.
 
 Checking convention: key numbers tolerate 5×10⁻⁴, interval endpoints 1×10⁻³. Compare one by one with
-`github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`.
+`github/analysis/stability_checks/_audit_numbers.py`, driven by `EXPECTED_OUTPUTS.json`. A verification run reported 74 checks, 0 mismatched.

@@ -18,8 +18,8 @@
     "within_beta_spearman": 0.858,
     "within_dcic_spearman": 0.8246,
     "crossed_delta_ci": [
-      0.2855,
-      0.3128
+      0.2857,
+      0.3130
     ],
     "D_beta": 0.1975,
     "D_dcic": -0.081,
