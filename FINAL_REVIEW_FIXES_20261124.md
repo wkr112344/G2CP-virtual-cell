@@ -238,3 +238,32 @@ Open / not done:
   train_GH_arm.py; Figure 2D CI basis from B_sevenmodel_beta_dcic_ci.csv; Figure 6F bootstrap
   from build_main_figures_final.py (n=2000, seed=11). XPert: author elected to keep the first
   (original-prediction) value set and only soften wording; no recomputation, as previously decided.
+
+## Pre-submission final review — non-main-text items (24 Nov 2026)
+
+Main-text DOCX was NOT touched this pass (sha256 of the DOCX inside the outgoing ZIP
+matched its on-disk copy byte-for-byte). Applied from GigaScience_presubmission_review.md,
+non-body items only:
+- S13 CSV: the four cells cell_shift_median/cell_zres_median on the two same-matrix baseline
+  arms (mean_baseline_CERES/CERES and mean_baseline_Chronos/Chronos) changed 0.0 -> NA;
+  cross-matrix residual correlations left intact. Caption note shortened to
+  "NA denotes undefined Pearson correlation for zero-variance predictions."
+- S15 caption: removed the script-history sentence about bootstrap_interaction.py's 5,000
+  replicates; caption now states only the adopted method (2,000 cell-line resamples, seed 11)
+  and the by-construction zero interaction.
+- S19 caption: compressed the pairwise-bootstrap caveat to "Percentile ranges are descriptive
+  because ranking pairs share bootstrap resamples"; "95% ranges" -> "empirical 95% ranges".
+- S26 caption and Permutation scheme comparison: dropped revision-history wording
+  ("Historical", "earlier pipeline version", "not expected to match digit for digit",
+  "should not be read as 7,170 distinct biological records"); scheme comparison now states
+  prediction source, record counts (7,170 -> 6,892 -> 6,800) and scheme definitions once,
+  with all three detail filenames retained. Scheme C remains the cited scheme.
+- S27 caption: removed the "absence of evidence ... not proof it was never performed"
+  sentence; kept the targeted/non-systematic scope and the 23 Nov 2026 cutoff.
+- Cover letter: "We tested that assumption directly..." -> "We tested how matrix choice
+  affects scores by holding predictions, evaluation records and genes fixed."; the
+  GigaScience-alignment opener -> "The study provides a reusable design for evaluating fixed
+  predictions across alternative omics matrices." (kept the fixed-commit release sentence).
+Main-text items in that review (Discussion common-mean sentence, Figure 6 caption, Figure 2D
+Methods, Background analogies, Methods restructure, page-7 parenthesis, Figure 4 caption)
+were deliberately NOT applied per the instruction to leave the body untouched.
