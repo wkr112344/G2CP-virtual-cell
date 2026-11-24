@@ -90,4 +90,23 @@ main-text DOCX (the manuscript was left byte-for-byte unchanged; baseline SHA-25
 - Abstract XPert "reversed order" wording (review §2.5): main text, left intact.
 - G2CP attribution sentence in Background (review §2.8): main text, left intact.
 - Persistent data archive (GigaDB/Zenodo DOI for this version): editorial decision.
-- Seven main figures and Supplementary Figures 1–2 are unchanged (binary-identical).
+- Figures 3D, 4 (footer), 6F and Supplementary Figure S1D text were edited per the
+  23-item list on 24 Nov 2026; Figures 1, 2, 5, 7 and Supplementary Figure S2 are unchanged.
+
+## XPert value convention (author decision, 24 Nov 2026)
+
+An earlier instruction to replace the main-text XPert numbers with replayed values was
+withdrawn by the author. The convention now is:
+
+- Main result (main text, Table 4, S26 matched summary): original public predictions —
+  SDST/XPert 0.61990, beta2020/XPert 0.03249, with their original bootstrap CIs, including
+  the beta2020 XPert−TranSiGen difference −0.00324 (95% CI −0.00630 to −0.00008). Kept as a
+  matched point-estimate/CI set.
+- Permutation replay (SDPA attention fallback) is used only in the permutation results:
+  schemes A/B 0.61972 / 0.03257; scheme C (1,342 drugs, 6,800 records) 0.61997 / 0.03250.
+  Replayed point estimates are never paired with the original-prediction CIs.
+- The permutation-caption note in Supplementary Material - Captions.docx now states that
+  Table 4 uses original public predictions and the permutation analyses use SDPA-fallback
+  XPert predictions, reported per scheme. REPRODUCTION_MAP.md carries the same note.
+- The fixed-prediction recheck remains a numerical-verification item; it is NOT claimed as
+  a completed recomputation anywhere in the package.
