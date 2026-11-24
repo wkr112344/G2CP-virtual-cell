@@ -168,3 +168,37 @@ Main-text captions:
 
 Not changed: Figure 2D error-bar source remains approximate (documented, not fabricated);
 Figure 6F generator still not shipped in the package (see S15 caption).
+
+## 21-item revision pass (24 Nov 2026)
+
+Done in the main text:
+- Methods bootstrap units corrected: Tables 3/6 = 2,000 drug x cell; Table 4 = 2,000 paired
+  drug-bootstrap; DepMap S6/S9 = 10,000 seed x cell-line crossed bootstrap. Verified against
+  audit_and_redraw.py (rng.integers(0,5,5) and (0,136,136), four arms paired).
+- Five-seed aggregation clarified: statistics per seed then averaged; interaction per cell
+  within seed, median across cells, then mean across seeds (matches Table 5).
+- Crossed-bootstrap rule added, explicitly separated from the 2,000 Figure 6F cell resamples.
+- Controlled-network configuration: wrote only what the archive supports (TPM+CNA+mutation
+  inputs, 908 cells / 17,393 genes, 636/136/136 split seed 42, two arms differ only in y,
+  five seeds). Layer dimensions / optimizer / lr / early stopping are NOT in the archive and
+  were NOT invented; stated explicitly that they are not re-derived here. Item 4 asked for
+  actual values in brackets — those values could not be recovered, so no placeholders or
+  guessed numbers were inserted.
+- XPert conclusion strength reduced in four places (abstract, results P40, discussion P63/P64);
+  all original numbers and CIs retained.
+- Figure captions: 5C context shortlist union; 5A percentile ranges + S3/S17; 7F four colour
+  scales; 2D removed the unverified "9,562 pairs / 1,422 drugs" and error-bar statistical
+  claim; 6C explicit evaluation-matrix training means.
+- Data availability distinguishes upstream rebuild vs shipped aligned matrices; Additional
+  Files detail path corrected; reference order [20] before [21] in Background.
+- Optional 18/19/20/21 done (Discussion P61/P65/P69 and Limitations P72 compacted). Item 17
+  (delete the reference-genome analogy) NOT done because it would require removing ref [19]
+  and renumbering all following references.
+
+Open / not done:
+- Figure 2D error bars: the source JSON (220_dpb_crossversion.json) named in
+  B_extract_sevenmodel_beta_dcic_boot.py is not in the working tree, so the error-bar basis
+  cannot be verified. Caption no longer claims a variance-propagation CI; the error bars
+  remain drawn in the PDF. Removing the vector lines was not attempted (risk of damaging
+  the figure); author to decide whether to strip them.
+- GitHub push still blocked (dead proxy); commit references remain 583cbac.
