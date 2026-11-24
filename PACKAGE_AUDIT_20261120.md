@@ -98,9 +98,11 @@
    `github/analysis/rebuild_X_TPM.py`：按 `cell_order.txt` 取行、列序即基因轴、float32，输出 sha256。
    重建是否正确的判据是重跑正对照后 S13–S15 是否复现（脚本会打印形状与哈希）。`run_all.sh` 在该文件缺失时
    跳过此步并给出提示，其余步骤照常完成。
-2. **S28 置换表的生成脚本不在仓库内**。`build_S28_v2.py` 是当时的驱动脚本，未随包提供，因此
-   `S28_*` 只能从 CSV 核对（观测值、零分布均值、区间、经验 P 值、记录数），不能在仓库内端到端重跑。
-   已在 `REPRODUCTION_MAP.md` 就地标注。
+2. ~~S28 置换表的生成脚本不在仓库内~~ **已更正（11-24 复核）：脚本本就在仓库内**，路径
+   `github/analysis/supplementary_rebuild_S23_S28/build_S28_v2.py`，同目录还有 `config_paths.py` 和
+   `README.md`（目录布局、外部输入来源、S27–S29 命令）。此前记成缺失是检索失误，`REPRODUCTION_MAP.md`
+   的对应说明已改写。设置 `GIGASCIENCE_ROOT`（其下需 `source_data/`、`external/`、`work/`）即可重跑，
+   `config_paths.py` 会打印解析后的每个路径。
 3. **GTEx 原始 per-sample 矩阵未随包发布**（两个 5.9 GB 下载）。`06_score_2x2.py` 因此无法从零重跑；
    它产出的 `results/per_sample_scores.csv` 已归档，`run_all.sh` 用该中间文件跑 `07_bootstrap.py`，
    并由第 1 步重生成 S8、S10–S12。
