@@ -506,3 +506,33 @@ Repository (commit before this record):
    cosine schedule, MSE + (1 − PCC), best checkpoint on validation PCC). `provenance/README.md` maps each
    Methods clause to the file that supports it. No text change was needed: the Methods sentence was
    already correct.
+
+## Round 7 — held-out question resolved from the completed audit (24 Nov 2026)
+
+The reviewer's point was not the split recipe but whether the 2,037 drugs ever entered base or adaptation
+training. Answer, from records dated 18–21 Sep (read newest first): **the strict holdout is documented and
+verified**.
+
+- `78_泄漏审计_20260919.md`: 8/8 gates pass. Held-out drugs found in training = 0 (beta2020 3204/3204,
+  dcic2021 3204/3204, GSE70138 100/100); fit rows ∩ test rows = 0; inner 10% parameter-selection drugs ∩
+  test = 0. This is the strict-holdout result the memory referred to.
+- `81_权重训练集出处_20260919.md` + `81_weight_provenance.json`: the A/B/C verdict. For each adapted
+  weight (beta-trained `g2cp_v7_beta_ft.pt`, control `g2cp_v7_beta_ft2_both.pt`, dcic-trained
+  `g2cp_v7_dcic_ft.pt`), adaptation holdout ∩ adaptation training = **0 / 3,204**; all 3,204 in test.
+  The three adaptation holdouts are byte-identical (md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`). Verdict C:
+  the 1,909 "in old train" figure belongs to the separate cross-source subset (`g2cp_cache_rebuilt`),
+  on which the main weights were never adapted, so it is not leakage.
+- `85_未见药物ID_判定表_20260919.md` and `83_域内拟合标注_20260919.md` (newer same-day records) do not
+  change this. 85 concerns wording ("unseen drug" → "unseen drug ID") and leaves the live manuscript
+  untouched; 83 concerns GSE70138 in-domain fitting, reference only.
+- Two things I had previously written are WRONG and are corrected here: (a) the earlier claim that the
+  rule "could not be confirmed" — it was confirmed on 19 Sep; (b) a recomputation I ran on 24 Nov that
+  compared the 2,037 evaluation subset against the 3,204 training-state holdout and read the small
+  overlap (192) as contamination. Those are two different subsets of the 32,039-drug vocabulary
+  (20,370 ∩ vs full), and `81_weight_provenance.json` explicitly rules that comparison out. No result
+  changes; no manuscript change.
+- One item stays genuinely open, and the records say so: the upstream base `g2cp_full_cpi_v7.pt` is a
+  built-in public checkpoint whose own training split is not shipped (G6 / G81f). The paper claims
+  strict holdout for the two trained evaluation states, not for the base's internal pretraining corpus.
+- `provenance/README.md` rewritten to state this correctly; `78_*` and `81_*` evidence added to
+  `provenance/`. No text change to the manuscript — the held-out sentence was already accurate.

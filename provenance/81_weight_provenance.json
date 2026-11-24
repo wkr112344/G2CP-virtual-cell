@@ -1,0 +1,280 @@
+{
+ "meta": {
+  "step": "#16",
+  "title": "主模型权重训练集出处（#13 发现 2 的 A/B/C 判定）",
+  "created": "2026-09-19 12:06:45",
+  "script": "81_weight_provenance.py",
+  "gates_ok": false,
+  "elapsed_s": 0.5,
+  "md5": {
+   "81_weight_provenance.py": "0733f2d40068f1a76e0eb48113ca8bd5",
+   "78_leakage_audit.json": "db9ca718b634fa4aed7258e21806ee86"
+  }
+ },
+ "new_holdout": {
+  "name": "self_constructed_drug_holdout_v1",
+  "n": 3204,
+  "md5": "29fcd23a0cf1d3dfa0712b8f035dfde6"
+ },
+ "weights_static": [
+  {
+   "ckpt": "g2cp_full_cpi_v7.pt",
+   "arm": "base_pretrained",
+   "cache": null,
+   "script": "—（官方免安装包内置）",
+   "split_stmt": "上游自己的训练划分，本机不在案",
+   "script_exists": false,
+   "script_md5": null
+  },
+  {
+   "ckpt": "g2cp_v7_beta_ft.pt",
+   "arm": "main_domainadapted",
+   "cache": "g2cp_cache_beta_all",
+   "script": "verify_ft_20260911.py",
+   "split_stmt": "pert_uid = np.where(kind == 0, key, NGENE + key); rng = np.random.RandomState(0); perts = sorted(set(int(p) for p in pert_uid)); perm = rng.permutation(len(perts)); te_set = 后 10%",
+   "script_exists": true,
+   "script_md5": "32297cd97622a139e593eacd63addd47"
+  },
+  {
+   "ckpt": "g2cp_v7_beta_ft2_both.pt",
+   "arm": "control_v2cache_domainadapted",
+   "cache": "g2cp_cache_beta_v2",
+   "script": "verify_ft2_20260911.py",
+   "split_stmt": "同 main（RandomState(0) 后 10% 扰动留出）",
+   "script_exists": true,
+   "script_md5": "c325c9ff8a563378634e7a4a9e330269"
+  },
+  {
+   "ckpt": "g2cp_v7_dcic_ft.pt",
+   "arm": "dcic2021_domainadapted",
+   "cache": "g2cp_cache_2021",
+   "script": "p3_dcic_adapt_20260914.py",
+   "split_stmt": "同 main（RandomState(0) 后 10% 扰动留出）",
+   "script_exists": true,
+   "script_md5": "666df0d4336b5374fefec941ee7ea7df"
+  }
+ ],
+ "per_cache": {
+  "g2cp_cache_beta_all": {
+   "n_rows": 157522,
+   "n_kind0": 0,
+   "n_kind1": 157522,
+   "drug_kind": 1,
+   "n_perts": 32039,
+   "n_te_perts": 3204,
+   "vocab_sorted": true,
+   "drug_key_max_lt_vocab": true,
+   "n_train_drugs": 28835,
+   "n_universe_drugs": 32039
+  },
+  "g2cp_cache_beta_v2": {
+   "n_rows": 158094,
+   "n_kind0": 0,
+   "n_kind1": 158094,
+   "drug_kind": 1,
+   "n_perts": 32039,
+   "n_te_perts": 3204,
+   "vocab_sorted": true,
+   "drug_key_max_lt_vocab": true,
+   "n_train_drugs": 28835,
+   "n_universe_drugs": 32039
+  },
+  "g2cp_cache_2021": {
+   "n_rows": 156931,
+   "n_kind0": 0,
+   "n_kind1": 156931,
+   "drug_kind": 1,
+   "n_perts": 32039,
+   "n_te_perts": 3204,
+   "vocab_sorted": true,
+   "drug_key_max_lt_vocab": true,
+   "n_train_drugs": 28835,
+   "n_universe_drugs": 32039
+  },
+  "g2cp_cache_rebuilt": {
+   "n_rows": 202200,
+   "n_kind0": 202200,
+   "n_kind1": 0,
+   "drug_kind": 0,
+   "n_perts": 20370,
+   "n_te_perts": 2037,
+   "vocab_sorted": true,
+   "drug_key_max_lt_vocab": true,
+   "n_train_drugs": 18333,
+   "n_universe_drugs": 20370
+  }
+ },
+ "holdout_vs_weights": {
+  "g2cp_cache_beta_all": {
+   "ckpt": "g2cp_v7_beta_ft.pt",
+   "arm": "main_domainadapted",
+   "script": "verify_ft_20260911.py",
+   "n_new_held": 3204,
+   "n_in_train_drugs": 0,
+   "frac_in_train_drugs": 0.0,
+   "n_in_te_drugs": 3204,
+   "n_in_universe": 3204,
+   "n_not_in_cache": 0,
+   "train_drugs_md5": "8fa43c4dfb92a29beb93ded4d84f1d62",
+   "te_drugs_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+   "examples": []
+  },
+  "g2cp_cache_beta_v2": {
+   "ckpt": "g2cp_v7_beta_ft2_both.pt",
+   "arm": "control_v2cache_domainadapted",
+   "script": "verify_ft2_20260911.py",
+   "n_new_held": 3204,
+   "n_in_train_drugs": 0,
+   "frac_in_train_drugs": 0.0,
+   "n_in_te_drugs": 3204,
+   "n_in_universe": 3204,
+   "n_not_in_cache": 0,
+   "train_drugs_md5": "8fa43c4dfb92a29beb93ded4d84f1d62",
+   "te_drugs_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+   "examples": []
+  },
+  "g2cp_cache_2021": {
+   "ckpt": "g2cp_v7_dcic_ft.pt",
+   "arm": "dcic2021_domainadapted",
+   "script": "p3_dcic_adapt_20260914.py",
+   "n_new_held": 3204,
+   "n_in_train_drugs": 0,
+   "frac_in_train_drugs": 0.0,
+   "n_in_te_drugs": 3204,
+   "n_in_universe": 3204,
+   "n_not_in_cache": 0,
+   "train_drugs_md5": "8fa43c4dfb92a29beb93ded4d84f1d62",
+   "te_drugs_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+   "examples": []
+  }
+ },
+ "old_split": {
+  "cache": "g2cp_cache_rebuilt",
+  "script": "step36_official_split.py（复刻 G2CP_repo/eval_full.py L68-74）",
+  "universe_size": 20370,
+  "held_size": 2037,
+  "train_size": 18333,
+  "new_held_in_old_train": 1909,
+  "new_held_in_old_train_frac": 0.5958177278401997,
+  "new_held_in_old_held": 192,
+  "new_held_in_old_universe": 2101,
+  "old_held_md5": "84a999451255e44c2943afc1d0fed993",
+  "old_train_md5": "f3f4a4fd377f8f4b503dc64f70b91c1b"
+ },
+ "reconcile_78": {
+  "l10_old_held_size": 2037,
+  "l10_old_train_size": 18333,
+  "l10_new_held_in_old_train": 1909,
+  "l10_new_held_in_old_held": 192,
+  "l10_old_universe_size": 20370,
+  "l10_old_held_md5": "84a999451255e44c2943afc1d0fed993",
+  "this_old_held_md5": "84a999451255e44c2943afc1d0fed993",
+  "md5_match": true
+ },
+ "identity_check": {
+  "new_holdout_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+  "main_ft_te_drugs_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+  "identical": true,
+  "new_held_n": 3204,
+  "main_ft_te_n": 3204,
+  "note": "新留出 = beta_v2 的 32,039 药物词表上 RandomState(0) 取后 10%；主权重域内适配的留出 = beta_all 的同一词表上同一构造。两者的 drug_vocab 逐字相同、构造逐字相同 ⇒ 若 md5 一致，则「新留出」不是一次独立的新划分，而是**官方划分本身**。"
+ },
+ "verdict_ABC": {
+  "verdict": "非 A、非 B，是 C",
+  "basis": "主权重 `g2cp_v7_beta_ft.pt` 的域内适配脚本是 `verify_ft_20260911.py`，数据集 `g2cp_cache_beta_all`，划分语句 = `RandomState(0)` + `sorted(set(pert_uid))` + 取后 10%。该脚本逐字可复算 ⇒ 复算得：新留出 3,204 药里**0 个落在适配训练段**、3204 个落在适配留出段、0 个不在该 cache 覆盖内。而且**两个留出集 md5 逐位相同**（`29fcd23a0cf1d3dfa0712b8f035dfde6`）。",
+  "why_not_A": "A 不成立：主模型域内适配把这 3,204 药**全部留出**，它在这批药的行上没有做过任何梯度更新。",
+  "why_not_B": "B 不成立：记录其实是清楚的。`20_split_provenance.md` §1 已把 20,370 / H=2,037 逐行定位到代码（`step36_official_split.py` L26/L37、`step55_v2_beta2020.py` L29/L70-L85、`controlled_swap_source_sensitivity.py` L26/L64-L88），并给出复跑实测（rebuilt 202,200 行 / 观测药 20,370 / H=2,037 / P*=11,275）。",
+  "why_C": "C 成立：`H=2,037` 是**跨源共同可评子集**实验（三源对照：C*=64 系 / D*=20,370 药）的划分，作用在 `g2cp_cache_rebuilt` 上；它不是主模型的训练集，也与主口径划分无关。新留出 ∩ 旧训练 = 1909（59.6%）这个数之所以大，只是因为**两次抽样落在同一个 32,039 药物空间的不同子集上**，并非泄漏。",
+  "implication": "处置：L2/L4 主模型臂读数**不需要**加 `pending_leakage_audit`，改为写「主权重域内适配的留出集与本轮药物级留出逐位相同（md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`），重叠 0/3,204」。唯一剩下的未闭项是**上游基座** `g2cp_full_cpi_v7.pt` 的训练划分（G81f）。"
+ },
+ "findings": [
+  {
+   "id": "G1",
+   "level": "定论",
+   "verdict": "非 A",
+   "text": "主模型臂「是不是冷启动」**可精确算出来，答案是否**：主权重 `g2cp_v7_beta_ft.pt` 在 `g2cp_cache_beta_all` 上做域内适配，脚本 `verify_ft_20260911.py` 的划分可逐字复算 ⇒ 新留出 3,204 药里 0 个在其训练段、3204 个在其留出段、0 个不在该 cache 覆盖内。"
+  },
+  {
+   "id": "G2",
+   "level": "关键发现",
+   "verdict": "两者逐位相同",
+   "text": "**新留出 `self_constructed_drug_holdout_v1` 与主权重域内适配的留出集逐位相同**（md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`）。两者都是「同一份 32,039 药物词表 + `RandomState(0)` + 取后 10%」⇒ 它不是一次独立的新划分，而是**官方划分本身**。后果一（好）：主模型臂的留出读数没有被我们的适配污染；后果二（须改口径）：不能把它当「独立第二个划分」用于换划分稳健性论证，`self_constructed` 这个叫法也要改。"
+  },
+  {
+   "id": "G3",
+   "level": "修正",
+   "verdict": "非 A、非 B，是 C",
+   "text": "`H=2,037` 的旧划分是 **跨源共同可评子集实验**的划分（`step36_official_split.py` / `step55_v2_beta2020.py` / `controlled_swap_source_sensitivity.py`，作用在 `g2cp_cache_rebuilt`，药物宇宙 20370），不是主模型的训练集。主模型**从未在 rebuilt 上做过适配** ⇒ #13 里那 1,909 个「落在旧训练集」的药对主模型臂**不构成泄漏**。"
+  },
+  {
+   "id": "G4",
+   "level": "硬核",
+   "verdict": "一致",
+   "text": "#13 的 L10 读数经本脚本独立复算复核（旧留出集 md5 一致）：旧 universe 20370 / 留出 2037 / 训练 18333；新留出 ∩ 旧训练 = 1909（59.6%）、∩ 旧留出 = 192。"
+  },
+  {
+   "id": "G5",
+   "level": "对照",
+   "verdict": "已量化",
+   "text": "另两份对照权重同算（新留出 ∩ 各自适配训练药物）：beta_v2（control）= 0；cache_2021（dcic）= 0。三份权重的适配留出集都与新留出逐位一致（同一构造）。"
+  },
+  {
+   "id": "G6",
+   "level": "未闭",
+   "verdict": "placeholder",
+   "text": "上游基座 `g2cp_full_cpi_v7.pt` 的训练划分不在案 ⇒ 「基座见过没见过这批药」仍未知；这条**不能用本项目数据闭合**。（基座在 32_build_main_npz 里是 `base_pretrained` 臂，若稿中要声称对基座也成立，须补这一条或改口径。）"
+  }
+ ],
+ "gates": [
+  {
+   "gate": "G81a",
+   "ok": true,
+   "n": 4,
+   "missing": [
+    "g2cp_full_cpi_v7.pt"
+   ]
+  },
+  {
+   "gate": "G81b",
+   "ok": true,
+   "vocab_sorted": {
+    "g2cp_cache_beta_all": true,
+    "g2cp_cache_beta_v2": true,
+    "g2cp_cache_2021": true,
+    "g2cp_cache_rebuilt": true
+   },
+   "note": "drug_vocab 有序 ⇒ sorted(set(key))（整数）与 sorted(set(drug_id))（字符串）给出同一顺序 ⇒ 两种复算口径等价"
+  },
+  {
+   "gate": "G81c",
+   "ok": true,
+   "l10_md5": "84a999451255e44c2943afc1d0fed993",
+   "here_md5": "84a999451255e44c2943afc1d0fed993",
+   "note": "两处独立复算的旧留出集 md5 一致 ⇒ #13 的 L10 读数可引用"
+  },
+  {
+   "gate": "G81d",
+   "ok": true,
+   "new_holdout_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+   "main_ft_te_md5": "29fcd23a0cf1d3dfa0712b8f035dfde6",
+   "verdict": "新留出 == 主权重 FT 留出集"
+  },
+  {
+   "gate": "G81e",
+   "ok": true,
+   "new_held_in_main_ft_train": 0,
+   "new_held_in_main_ft_test": 3204,
+   "new_held_not_in_cache": 0,
+   "verdict": "非 A、非 B，是 C"
+  },
+  {
+   "gate": "G81f",
+   "ok": false,
+   "reason": "上游基座训练划分不在案（如实标注的未闭项，不计入 problems）"
+  }
+ ],
+ "problems": [],
+ "placeholder": [
+  "上游基座 `g2cp_full_cpi_v7.pt` 的训练划分：官方包未附训练脚本/划分记录，本机不在案 ⇒ 「基座是否见过这批留出药物」仍未闭；若稿中要把主模型臂当冷启动评估，必须补这一条或改口径。"
+ ]
+}
