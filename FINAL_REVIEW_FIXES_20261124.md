@@ -346,3 +346,45 @@ NOT applied — need author evidence:
   Regenerated S2 with the newer f7f (left=0.375) against figwork2 source_data; all four labels
   now present and layout verified against the original. My earlier "no generator script" was
   wrong — it was a path/layout issue, not a missing script.
+
+## Termin review against giaa155 (24 Nov 2026)
+
+Substantive:
+1. Background: "isolates effects caused by the evaluation matrix alone" -> "isolates the effect of
+   replacing the evaluation matrix".
+2. Table 6 caption: added "The interaction was 0.2785 (95% CI 0.2646-0.2889) before gene-mean
+   removal and 0.1969 (95% CI 0.1849-0.2073) after removal."
+3. Methods: added "Within-matrix stability of disease-reversal rankings was assessed using the same
+   bootstrap procedure."
+4. Table 1 Ridge row: "multioutput Ridge from expression after gene-mean removal" -> "multioutput
+   Ridge using expression features; evaluate raw and gene-mean-centered scores".
+5. Citations: 272-cell paragraph now "(Supplementary Tables S16 and S28)"; training-set baseline
+   paragraph now "(Supplementary Tables S4 and S29)".
+Language/redundancy:
+6. Background closing sentence -> "We therefore include the evaluation matrix and its generation
+   pipeline in the benchmark design [1, 2] (Fig. 1)."
+7. Data Description: parenthetical defence replaced by two plain sentences (averaged across doses/
+   times/replicates without prior harmonization; dcic2021 supplied at pair level).
+8. Analyses: LINCS gene-mean sentence shortened to "This analysis assesses gene-mean effects within
+   the evaluation set." (full prospective-performance caveat kept in Limitations).
+9. Analyses GTEx: duplicate citation + "pipeline matching thus occurred" sentence replaced with
+   "Tissue-level matching effects and donor coverage are shown in Fig. 7 and Supplementary Fig. S2
+   (Supplementary Tables S10-S12)."
+10. Discussion: standalone two-sentence paragraph merged into the preceding DepMap paragraph as
+    "In contrast to DepMap, most of the LINCS interaction persisted after gene-mean removal."
+11. Potential implications: closing explanatory sentence removed; single should-be-reported sentence
+    kept.
+Structure:
+12. DepMap Methods paragraph (3,217 chars) split into four paragraphs (baseline+training;
+    evaluation axes+centering; PCA->Ridge+permuted; five-seed bootstrap+aggregation). Content
+    verified unchanged after removing whitespace.
+Formatting:
+13. Removed duplicated "Additional files." opener (heading already present).
+14. S17b/S17c -> "Supplementary Data S17b, S17c" in Additional files.
+15. Spelling unified to -ize (standardising -> standardizing; harmonizing/standardized already -ize).
+16. S27 sentence -> "targeted, non-systematic survey" to match the supplementary table.
+17. Supplementary Note on Fig 7F colour bars compressed (main caption already defines them);
+    "Skin - Suprapubic" alias note kept.
+Not changed: Abstract closing sentence (review marked it optional/not necessary); Limitations section;
+Cover Letter (review said do not rewrite); GitHub / figure font sizes / AI statement / corresponding
+author (out of scope as instructed).
