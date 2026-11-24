@@ -267,3 +267,27 @@ non-body items only:
 Main-text items in that review (Discussion common-mean sentence, Figure 6 caption, Figure 2D
 Methods, Background analogies, Methods restructure, page-7 parenthesis, Figure 4 caption)
 were deliberately NOT applied per the instruction to leave the body untouched.
+
+## Main-text items of the pre-submission review (24 Nov 2026)
+
+User authorised editing the main manuscript for this pass (previous passes were non-body only).
+Applied all body items from the review:
+- Discussion P68: common-mean paragraph replaced with the review's text; the mis-cited
+  "near-zero correlation (S15)" now reads "near-zero residual correlations (S13–S15)".
+- Methods P86 / Results P42: permutation-control text now states the SDPA-regenerated XPert
+  predictions, 1,342 drugs / 6,800 model records, and the 2,000 permutations directly.
+- Figure 6 caption: method-difference paragraph compressed to the review's 4-sentence version,
+  z-residual definition kept; Figure 4 caption: DepMap CC/CH/HC/HH parenthetical removed,
+  LINCS BB/BD/DB/DD kept.
+- P85: removed the "replicate-level bootstrap outputs were unavailable" sentence (the
+  variance-propagation formula and no-covariance caveat remain).
+- Background P16: S27 sentence rewritten as the targeted 28-study survey.
+- Deletions/merges: reference-genome analogy (P17) and You et al. paragraph (P62) removed;
+  Discussion closing recommendation (P73) removed; Potential implications compressed to two
+  paragraphs; Methods three-group overview (P84), "Raw and centered therefore..." (P69) and
+  "We connect these baseline comparisons..." (P15) removed.
+- Reference renumbering: deleting P17/P62 removed the only in-text citations to [19] and
+  [34], so those two entries were deleted and all labels/citations renumbered 39 -> 37
+  consecutive; verified Li et al. -> [19] and Wei et al. -> [20] at P19.
+- NOT changed (author scope): corresponding-author placeholder, GitHub commit references.
+- Did not adopt the optional LINCS-centering rewrite in section 4 (limitation retained as-is).
