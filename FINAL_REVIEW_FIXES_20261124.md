@@ -681,3 +681,21 @@ Manuscript 8,404 → 8,355 words. Two follow-on observations left for the author
 opens with "Rank correlation, shortlist overlap, and record coverage should therefore be reported at the
 intended screening depth", which now sits close to the new P74 sentence, and the new P65 pair is the only
 place in the manuscript using em dashes.
+
+## Round 14 — three wording corrections after the Round 13 read-through (24 Nov 2026)
+
+- Background item (i) (P18): disease-reversal rankings were grammatically attached to "fixed predictions",
+  which is wrong — that analysis uses the response records in the evaluation matrix, not model predictions.
+  Now: "(i) whether replacing the evaluation matrix alters scores, model orderings, or drug
+  prediction-accuracy rankings for fixed predictions, and whether disease-reversal rankings differ across
+  matrices".
+- Discussion, Guo et al. paragraph (P63): Round 13's "should be interpreted alongside the overall
+  correlation level" reverted to the more concrete "Both models had near-zero correlations under beta2020
+  and dcic2021, limiting the practical significance of their relative ordering."
+- Limitations (P71): "Disease-reversal comparisons reflect the records available in each matrix, mixing
+  numerical representation and record coverage" → "Disease-reversal differences may reflect both numerical
+  representation and record coverage" (restores the "may" hedge); and the closing sentence returns to
+  "…needed to assess biological accuracy and the generality of these findings" (drops "across datasets and
+  biological ground truths").
+
+Manuscript 8,355 → 8,347 words. No data, statistic, table, figure or repository claim touched.
