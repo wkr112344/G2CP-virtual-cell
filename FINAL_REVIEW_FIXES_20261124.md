@@ -388,3 +388,35 @@ Formatting:
 Not changed: Abstract closing sentence (review marked it optional/not necessary); Limitations section;
 Cover Letter (review said do not rewrite); GitHub / figure font sizes / AI statement / corresponding
 author (out of scope as instructed).
+
+## Round 3 — giaa155 final minimal set (24 Nov 2026)
+
+Applied (4 substantive + 1 table + 3 redundancy + formatting):
+1. Background: "isolates the effect of replacing the evaluation matrix" (kept).
+2. Methods: "Within-matrix stability of disease-reversal rankings was assessed using the same bootstrap
+   procedure." Verified in S25_disease_within_reference_stability_method.py: boot() resamples, with
+   replacement, the evaluation rows behind each drug's score (M[j, rng.integers(0,k,k)].mean()), the
+   same unit as the prediction-accuracy ranking bootstrap — not a guess.
+3. Table 1 Ridge: "multioutput Ridge using expression features, evaluated before and after gene-mean
+   removal".
+4. Citations: (Supplementary Tables S16 and S28); (Supplementary Tables S4 and S29).
+5. Table 6 caption: interaction 0.2785 (0.2646-0.2889) -> 0.1969 (0.1849-0.2073).
+6. Analyses: removed the duplicated "Gene-mean removal therefore produced contrasting outcomes ..."
+   sentence; the preceding sentence now ends "(Fig. 4)."
+7. GTEx: kept "Pipeline matching thus occurred with tissue averages alone." and tidied citation to
+   "Fig. 7, Supplementary Fig. S2, and Supplementary Tables S10–S12."
+8. DepMap Methods: merged duplicated KL-weight mention (now once in the objective), merged the two
+   early-stopping statements (single statement with patience 30 on validation loss), merged the
+   crossed-bootstrap description (10,000 seed x cell-line replicates stated once with the sampling
+   rule), removed the repeated 908-line/17,393-gene and second split-seed mention. Four-paragraph
+   split retained. All parameters retained and verified.
+Formatting: -ize spelling throughout (harmonized/harmonizing/standardizing/standardized); removed
+duplicated "Additional files." opener; S17b/S17c as "Supplementary Data"; P42 reference unified to
+"Supplementary Data S26_permutation_scheme_comparison.csv".
+
+REVERTED per section 5 (must keep original): Background "Building on existing benchmarking guidance";
+Data Description parenthetical; LINCS diagnostic-vs-prospective sentence (full form); Discussion
+standalone LINCS-vs-DepMap paragraph; Potential implications explanatory closing sentence; S27
+"targeted survey" (no "non-systematic"); Supplementary Note colour-bar detail.
+Left unchanged: Abstract, Limitations, Cover Letter, GitHub, figure font sizes, AI statement,
+corresponding author.
