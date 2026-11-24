@@ -145,3 +145,26 @@ Still open (not done — see report):
   Fig 5A/5C, Fig 7F, Fig 2D error bars, Methods detail beyond the above): left as is.
 - Persistent archive (GigaDB/Zenodo DOI), CRediT Validation tick, corresponding author:
   author/editorial decisions.
+
+## Figure annotation pass (24 Nov 2026)
+
+Package PDF edits (redaction + re-insert, DejaVu fonts; verified by rendering):
+- Figure 4A: the LINCS four-arm formula label "(CC − CH) − (HC − HH)" →
+  "(BB − BD) − (DB − DD)". DepMap CC/CH/HC/HH convention is unchanged; the caption now
+  states both conventions explicitly so they are not mixed.
+- Figure 5A: removed the two in-figure explanatory lines ("End-point labels: ...") and
+  the "Per-k values: Supplementary Table S17." line; their content moved to the caption.
+
+Main-text captions:
+- Figure 2D: added per-model sample sizes (9,562 pairs / 1,422 drugs) and stated the 95%
+  intervals come from approximate variance propagation (the exact paired bootstrap file
+  is not in the archive) — not mislabelled as bootstrap CIs.
+- Figure 4A: defined BB/BD/DB/DD and reserved CC/CH/HC/HH for DepMap.
+- Figure 5A: point labels / error bars / per-k table stated; 5C: candidate source and
+  union rule stated.
+- Figure 6: added "C = CERES, H = Chronos throughout"; trimmed the repeated method text;
+  split the caption run so only "Figure 6." is bold, matching the other six captions.
+- Figure 7F: R/E columns and the three colour-bar meanings clarified.
+
+Not changed: Figure 2D error-bar source remains approximate (documented, not fabricated);
+Figure 6F generator still not shipped in the package (see S15 caption).
