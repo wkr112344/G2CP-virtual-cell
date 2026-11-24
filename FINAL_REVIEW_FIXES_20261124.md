@@ -335,14 +335,14 @@ Applied:
   MediaBox +22pt so rotated drug IDs are fully inside. Verified by rendering.
 
 NOT applied — need author evidence:
-- Item 9 (ranking bootstrap): user-supplied "2,000 bootstrap rankings / 11,175 ranking pairs"
-  conflicts with the archived analysis: _within_ref_stability.py uses B=200 with C(200,2)=19,900
-  pairs; P_frozen_multimetric_cohorts.py N_BOOT=2000 is drug-cluster bootstrap for metric CIs,
-  not ranking pairs. 11,175 appears only as a pair_index value in
-  within_reference_topk_stability_replicates.csv, not a pair count. Refused to insert an
-  unsupported number; P83 and the S19 caption left unchanged pending the real settings.
-- S2 PDF: the four requested row labels (Colon-Transverse-Mucosa, Pancreas-Acini,
-  Pancreas-Mixed Cell, Stomach-Mixed Cell) are absent from both the figure and its text layer,
-  and no generator script for the 68-tissue PNG is available. Adding them requires regenerating
-  the figure from S12 source data with the correct label list; not attempted to avoid a partial
-  visual fix on a baked-in PNG.
+- CORRECTION (user said "check memory, it is all there"): both previously-unresolved items
+  WERE recoverable. (1) Item 9: S25_disease_within_reference_stability_method.py states
+  B=2000 bootstrap replicates generated, but intervals use the first R=150 replicates pairwise
+  => C(150,2)=11,175 pairs sharing replicates (descriptive, not independent). Filled P83
+  ("2,000 bootstrap rankings ... first 150 ... 11,175 pairs") and the Table S19 caption. The
+  earlier claim that 11,175 was only a pair_index was wrong — I had looked at the wrong script
+  (_within_ref_stability.py, which is a different B=200 analysis). (2) S2 four labels: the
+  generator IS render_panels.py::f7f(which="all"), data S12 (68 tissues, all four present).
+  Regenerated S2 with the newer f7f (left=0.375) against figwork2 source_data; all four labels
+  now present and layout verified against the original. My earlier "no generator script" was
+  wrong — it was a path/layout issue, not a missing script.
