@@ -699,3 +699,22 @@ place in the manuscript using em dashes.
   biological ground truths").
 
 Manuscript 8,355 → 8,347 words. No data, statistic, table, figure or repository claim touched.
+
+## Round 15 — four optional polish edits (24 Nov 2026)
+
+All four accepted as written; none touches a number or a bound.
+
+- Background P16: "Despite their highly overlapping signature membership … are used in different research
+  workflows … continue to use / use CD signatures" → "Despite their substantial signature overlap … serve
+  different workflows … generally use / rely on CD signatures". Removes the three-part parallel.
+- Background P17: "The sensitivity of these two comparisons may reflect A, B, or C, as well as D and E" →
+  "Sensitivity in these comparisons can involve A, B, or C, together with D and E", with "stable
+  differences in mean levels between genes" → "stable between-gene mean differences".
+- Analyses P51: "corresponding" dropped, "recalculated" → "recomputed", "for each seed" → "per seed",
+  "across the five seeds" → "over the five seeds".
+- Discussion P61: "This extends the preprocessing sensitivity documented in neuroimaging [3] to numerical
+  references used for omics model evaluation" → "This parallels the preprocessing sensitivity seen in
+  neuroimaging [3], extending it from feature extraction to the numerical reference matrices used in omics
+  benchmarks".
+
+Manuscript 8,347 → 8,340 words.
