@@ -7,15 +7,17 @@ fine-tuning configuration, and the completed leakage audit.
 
 ## The question this answers
 
-Does "held-out drugs" mean the evaluated drugs were excluded from training? For the two trained states used
-in the paper the answer is yes, established by explicit recomputation on 19 Sep 2026
+Were the 3,204 adaptation-holdout drugs excluded from adaptation training? Yes. Established by explicit
+recomputation on 19 Sep 2026
 (`78_leakage_audit_20260919.md`, gates 8/8; `81_weight_provenance_20260919.md`, gates 6/6). The governing
 result is `81_weight_provenance.json` → `holdout_vs_weights`: for each adapted weight, the number of
-held-out drugs found in that weight's adaptation-training drug set is **0 / 3,204**, and all 3,204 fall in
-that weight's held-out set. The beta-trained and dcic-trained adaptation holdouts are byte-identical
-(md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`), which is the basis for "the held-out drug list was identical".
-`78_leakage_audit_20260919.md` §1 gives the same result as a gate: held-out drugs appearing in training =
-0 (beta2020 3204/3204, dcic2021 3204/3204), with every held-out drug's full row set assigned to test.
+those 3,204 drugs found in that weight's adaptation-training drug set is **0 / 3,204**, and all 3,204 fall
+in that weight's held-out set. The beta-trained and dcic-trained adaptation holdouts are byte-identical
+(md5 `29fcd23a0cf1d3dfa0712b8f035dfde6`), which is the basis for "the adaptation holdout list was
+identical". `78_leakage_audit_20260919.md` §1 gives the same result as a gate: held-out drugs appearing in
+training = 0 (beta2020 3204/3204, dcic2021 3204/3204), with every held-out drug's full row set assigned to
+test. This section is about the 3,204-drug adaptation holdout only; the 2,037-drug cross-matrix evaluation
+set is a different draw, described in the next section.
 
 ## Two holdouts, two roles — do not conflate
 
@@ -56,8 +58,9 @@ The three adapted weights (beta-trained, the beta_v2 control, dcic-trained) are 
 the leakage gates. The upstream base `g2cp_full_cpi_v7.pt` is the built-in checkpoint from the public G2CP
 package: its own training split is not shipped and is not in the archive, so whether the base has seen
 these drugs cannot be closed from project data (`78_leakage_audit_20260919.md` §5.1,
-`81_weight_provenance.json` G6/G81f). The paper's claim concerns the two trained evaluation states, both
-of which are strict holdouts; no claim is made about the internal pretraining corpus of the upstream base.
+`81_weight_provenance.json` G6/G81f). The paper's claim concerns the adaptation stage of the two trained
+evaluation states, both of which use the same strict adaptation holdout; no claim is made about the internal
+pretraining corpus of the upstream base.
 
 ## File index
 

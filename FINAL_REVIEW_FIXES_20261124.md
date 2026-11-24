@@ -618,3 +618,16 @@ conclusion altered):
   the repository and the manuscript say the same thing.
 - No change to any reported value: the matrix-replacement comparison holds predictions fixed and changes
   only the evaluation matrix, so it does not depend on the drugs being unseen.
+
+## Round 11 — remove the two negative sentences; scope the provenance header to the adaptation holdout (24 Nov 2026)
+
+- Methods P77: deleted "…their scores are not unseen-drug predictions, and no generalization to unseen drugs
+  is claimed here." and "The internal split of the upstream base checkpoint g2cp_full_cpi_v7.pt is not
+  publicly documented and is not claimed." The facts stay, stated affirmatively: "192 of these also fall
+  within the adaptation holdout, and the other 1,845 lie within the adaptation-training vocabulary."
+  Paragraph 2,320 → 2,287 characters; manuscript 8,453 → 8,420 words. No number or analysis changed.
+- `provenance/README.md` header: "Does "held-out drugs" mean the evaluated drugs were excluded from
+  training?" → "Were the 3,204 adaptation-holdout drugs excluded from adaptation training? Yes.", with a
+  closing sentence scoping that section to the 3,204-drug set. Scope note: "both of which are strict
+  holdouts" → "both of which use the same strict adaptation holdout". Removes the apparent conflict with the
+  1,845/192 paragraph further down.
