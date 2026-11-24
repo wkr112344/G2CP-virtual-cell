@@ -206,3 +206,21 @@ Open / not done:
   bootstrap SEs; explicitly conservative (independence assumed). Exact paired CI needs
   dpb_crossversion_boot.npz, not archived. This formula and caveat are now stated in Methods.
 - GitHub push still blocked (dead proxy); commit references remain 583cbac.
+
+## Review of (7).zip — final Methods corrections (24 Nov 2026)
+
+- Figure 2D point estimate: "beta2020 and dcic2021 on ... (1,422 shared drugs)" →
+  "each model's original evaluation matrix and dcic2021, calculated on matched cell
+  line–drug records" (matched the figure's `own - dcic2021` axis; 1,422 dropped because
+  it is not verified for all seven models).
+- Figure 2D error-bar wording: the "conservative because independent" claim replaced with
+  "does not account for covariance between the paired estimates ... paired bootstrap
+  intervals could not be reconstructed because the replicate-level bootstrap outputs were
+  unavailable". SE formula changed to SE(delta) ≈ sqrt(SE_own^2 + SE_dcic^2).
+- Loss function added to controlled-network methods, verified against train_GH_arm.py
+  `_loss`: masked MSE + KL weight 0.001; this validation loss drives early stopping.
+- Methods restructured: the 2,000 two-factor LINCS bootstrap and the Figure 2D variance-
+  propagation explanation moved to P085; the duplicated XPert 2,000 paired drug bootstrap
+  removed from P092 (already in P086); DepMap crossed bootstrap kept in P092 and relabelled
+  as the five-seed analysis.
+- Only the main-text DOCX changed in this pass; the other 58 package files are identical.
