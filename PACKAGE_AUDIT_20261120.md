@@ -102,7 +102,9 @@
    `github/analysis/supplementary_rebuild_S23_S28/build_S28_v2.py`，同目录还有 `config_paths.py` 和
    `README.md`（目录布局、外部输入来源、S27–S29 命令）。此前记成缺失是检索失误，`REPRODUCTION_MAP.md`
    的对应说明已改写。设置 `GIGASCIENCE_ROOT`（其下需 `source_data/`、`external/`、`work/`）即可重跑，
-   `config_paths.py` 会打印解析后的每个路径。
+   `config_paths.py` 会打印解析后的每个路径。11-24 实跑：18 行全部复现（观察值、零均值、区间两端、经验 P、药物数、B 的最大差为 0），
+   方案 C 仍为 6,800 条记录 / 1,342 药物，剔除 92 个单记录分组；正文表 4 两格 XPert 的 2×10⁻⁴ 漂移
+   由 SDPA 注意力回退造成，脚本按设计只打印不中止。
 3. **GTEx 原始 per-sample 矩阵未随包发布**（两个 5.9 GB 下载）。`06_score_2x2.py` 因此无法从零重跑；
    它产出的 `results/per_sample_scores.csv` 已归档，`run_all.sh` 用该中间文件跑 `07_bootstrap.py`，
    并由第 1 步重生成 S8、S10–S12。

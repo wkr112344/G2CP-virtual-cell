@@ -477,3 +477,25 @@ Repository (commit before this record):
   names `audit_and_redraw.py`; GTEx row path corrected).
 - `PACKAGE_AUDIT_20261120.md`: status header plus section 7 marking the five 11-20 items resolved and
   listing the four real remaining gaps.
+
+## Round 6 — final pass (24 Nov 2026)
+
+1. Discussion, three sentences to two:
+   "Most of the LINCS interaction persisted after gene-mean removal, whereas the controlled DepMap
+   interaction approached zero. Stable gene means thus account for much of the matching effect in the
+   controlled DepMap networks, but only part of the effect in LINCS."
+2. Supplementary Figure S1: the page box was also clipping the panel D title (true text extent 508.4 pt on a
+   481.9 pt page) and the bottom caption started 1 pt outside the left edge. Mediabox/cropbox now
+   [-10 -40 528.4 763.2]; measured margins left 9, right 20, top 22.6, bottom 23 pt, panel D title reads
+   "...exemplar distributions" in full, six BRD labels intact. PNG re-exported.
+3. S28 driver: it IS in the repository (`github/analysis/supplementary_rebuild_S23_S28/build_S28_v2.py`,
+   with `config_paths.py` and a README). The previous "not part of this repository" note was a search
+   error and has been corrected in REPRODUCTION_MAP.md and PACKAGE_AUDIT_20261120.md.
+   Replayed with GIGASCIENCE_ROOT set: all 18 rows reproduce exactly (observed Pearson, null mean, both
+   interval ends, empirical P, n_drugs, B; max difference 0). Scheme C keeps 6,800 records over 1,342
+   drugs after excluding 92 single-record groups. The two XPert cells replay 0.61972 / 0.03257 against
+   Table 4's 0.61990 / 0.03249, the documented SDPA-fallback drift.
+4. Still open for the author: the G2CP training-record rule. No script in the archive trains G2CP against
+   beta2020 vs dcic2021; the in-repo `train_g2cp.py` splits records 90/10 at random (seed 0), not by drug
+   identity. The Methods sentence ("10% of perturbations held out by drug identity") therefore cannot be
+   confirmed from archived material and needs the author's own record.
